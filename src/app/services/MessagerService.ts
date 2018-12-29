@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Inject, Injectable } from '@angular/core';
 import {User, ReportUser} from '../services/UserService';
 
@@ -22,7 +22,8 @@ export class MessagerService{
         return this.http.post<Topic[]>(this.baseUrl + 'MessagerController.php?Key="send-message"', mess);
     }
     changeSeen(TopicId:number){
-        return this.http.post(this.baseUrl + 'MessagerController.php?Key="change-topic-seen"&Id='+TopicId);
+        let params = new HttpParams().set('Id',TopicId.toString());
+        return this.http.post(this.baseUrl + 'MessagerController.php?Key="change-topic-seen"', params);
     }
     getTopics(UserId:number){
         return this.http.get<Topic[]>(this.baseUrl + 'MessagerController.php?Key="get-user-topics"&Id='+UserId);

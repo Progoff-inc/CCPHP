@@ -41,7 +41,7 @@ export class FeedBackService{
     return this.http.post<FeedBack>(this.baseUrl + 'FBController.php?Key="change-like"', { "IsLike": IsLike, "LikeId": LikeId});
   }
   deleteLike(LikeId:number){
-    return this.http.post(this.baseUrl + 'FBController.php?Key="delete-like"&Id='+LikeId);
+    return this.http.delete(this.baseUrl + 'FBController.php?Key="delete-like"&Id='+LikeId);
   }
   addLikeOrDislike(like:Like){
     return this.http.post<Like>(this.baseUrl + 'FBController.php?Key="add-likes"', { "IsLike": like.IsLike, "CommentId": like.CommentId, "FeedBackId":like.FeedBackId, "UserId":like.UserId});
