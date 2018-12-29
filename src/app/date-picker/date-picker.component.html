@@ -1,0 +1,36 @@
+<div class="container11">
+    <div class="current-date input" tabindex="3" (click)="hide()">
+        <span>{{Out[Prop] | date:'dd.MM.yyyy'}}</span>
+        <i class="fa fa-calendar"></i>
+    </div>
+    <div [ngClass]="{'show-picker':showPicker}" class="container">
+      
+      <div class="header">
+        <i style="display: flex; justify-content: flex-end" class="fa fa-angle-left" aria-hidden="true" (click)="prev()"></i>
+        <div class="period">{{currentMonth.toUpperCase() | translate}}  {{currentYear}}</div>
+        <i class="fa fa-angle-right" aria-hidden="true" (click)="next()"></i>
+      </div>
+      <div class="date-picker">
+        <div class="column-headers">
+          <div class="week-day-name"  *ngFor="let day of week; let i = index">{{day.toUpperCase() | translate}}</div>
+        </div>
+        <div class="date-items">
+          <div class="rows" *ngFor="let week of calendar">
+            <div class="cols" *ngFor="let day of week; let i = index">
+              
+              <div (mouseover)="shooseProgress(day, true)" (mouseleave)="shooseProgress(day, false)" class="item" 
+              [ngClass]="{'not-current':!getClass(day),'opposite-choose':checkOppositeChoose(day) , 'choosed-date':(DateStart?DateStart.getTime()==day.getTime():false) || (DateFinish?DateFinish.getTime()==day.getTime():false) || (Out[Prop]?Out[Prop].getTime()==day.getTime():false), 'invalid-date':(day.getTime()<MinDate.getTime() || (MaxDate?day.getTime()>MaxDate.getTime():false) || !checkDate(day)), 'choosed-start':getChoosed(day,true), 'choosed-finish':getChoosed(day,false)}" (click)="pick(day)">
+                {{day | date: 'dd'}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+</div>
+
+
+<div *ngIf="showPicker" style="background: transparent; z-index: 600" class="background-blur" (click)="hide()"></div>
+
+

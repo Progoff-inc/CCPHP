@@ -1,0 +1,253 @@
+.line {
+    font-size: 12pt;
+    
+    position: relative;
+}
+.line span {
+    background-color: #ffffff;
+    position: relative;
+    margin-left: 30px;
+    z-index: 1;
+    padding: 0px 8px;
+    cursor: pointer;
+    color: rgb(185, 192, 194);
+}
+.car-model{
+    margin-left: 5px;
+}
+.car-model:hover{
+    color: blue;
+    cursor: pointer;
+}
+.line:after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: rgb(185, 192, 194);
+    position: absolute;
+    top: 50%;
+    margin-top: -1px;
+    z-index: 0;
+}
+.item{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    
+}
+.review .item{
+    width: 100%;
+}
+.form-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+.form-container .item{
+    width: 200px;
+    margin-right: 20px;
+    
+}
+.blur-form{
+    z-index: 300;
+    background-color: rgba(0, 0, 0, 0.411);
+    position: absolute;
+    top:10;
+    left: 100;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 -10px 0 -10px;
+    border-radius: 4px;
+}
+
+
+.col-sm-3{
+    height: 100%;
+}
+.col-sm-9>p{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+.col-sm-9>p>i{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+select, textarea,input{
+    color:black;
+    border-radius: 5px; 
+}
+select,input{
+    height: 30px;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+.com-rat{
+    display: inline;
+    padding: 0 5px 0 5px;
+
+    font-size: 14pt;
+    font-weight: normal;
+
+}
+.com-rat>span{
+    font-size: 12pt;
+    font-weight: normal;
+    margin-left: 3px;
+}
+button{
+    width: 150px;
+}
+.comments{
+    
+    /* box-shadow: inset 0 0 10px black;
+    border: 1px solid blue; */
+    border-radius: 10px;
+    margin: 10px 0 10px 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+
+    flex-shrink: 1;
+
+    
+}
+textarea{
+    width: 100%;
+}
+.comment{
+    margin: 20px 0 20px 0;
+    position: relative;
+    
+    border: 1px dashed rgb(255, 255, 255);
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+    transition: 1s;
+}
+.comment-good{
+    box-shadow: 0 0 10px green;
+    border: 1px solid green !important;
+}
+.comment-bad{
+    border: 1px solid red !important;
+    box-shadow: 0 0 10px rgb(187, 8, 8);
+}
+.comment>span{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    border-radius: 0 0 10px 10px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.747);
+}
+.review{
+    z-index: 100;
+    
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: 50%;
+    max-width: 500px;
+    
+
+}
+.review-top{
+    width: 100%;
+    position: relative;
+}
+.review-top, .review{
+    
+    background-color: white;
+    box-shadow: 0 0 10px black;
+    padding: 10px;
+    border-radius: 5px; 
+
+}
+.review .btn{
+    display: inline;
+    margin-right: 8px;
+}
+
+.comment>.btn{
+    background-color: white;
+    width: auto;
+    color:blue;
+
+}
+.checked-up{
+    color:green;
+}
+.checked-down{
+    color: red;
+}
+.picker{
+    width: auto !important;
+}
+.comment>.btn:hover{
+    text-decoration: underline;
+}
+.col-sm-3{
+    font-weight: bold;
+}
+.report-comments .comment{
+    border: 1px dashed black;
+    margin-left: 10px;
+    width: auto;
+}
+@media (max-width: 767px){
+    .review{
+        width: 100%;
+        left: 0;
+        bottom: -250px;
+    }
+    .item, .form-container .item{
+        width: 100%;
+        margin-right: 0;
+    }
+    .report-comments .comment{
+        border: 1px dashed black;
+        margin-left: 10px;
+        width: auto;
+    }
+    
+}
+@media (min-width: 768px){
+    .col-sm-9{
+    
+        border-right: 1px solid gray;
+    }
+    .com-rat>i.fa-thumbs-up:hover{
+        color:green;
+    }
+    .com-rat>i.fa-thumbs-down:hover{
+        color:red;
+    }
+}
+.container{
+    width: 100% !important;
+    padding: 0;
+    margin: 0;
+}
+.container-fluid{
+    display: flex;
+    justify-content: center;
+}
+
+
+
+

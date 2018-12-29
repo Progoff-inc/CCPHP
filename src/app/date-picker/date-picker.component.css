@@ -1,0 +1,143 @@
+.header{
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: center;
+}
+.header i {
+    width: 40px;
+    margin: 0 10px;
+    color: rgb(192, 192, 192);
+    font-size: 20px;
+}
+.header i:hover{
+    color:rgb(53, 53, 253);
+}
+.choosed-date{
+    background-color: rgb(255, 106, 106) !important;
+}
+.header .period{
+    display: flex;
+    font-size: 20px;
+    left:10px;
+}
+.header .period-choose{
+    position: absolute;
+    right:10px;
+}
+.date-items{
+    display: flex;
+    flex-direction: column;
+}
+.rows{
+    display: flex;
+    border-bottom: 2px solid rgba(216, 216, 216, 0.26);
+}
+.item{
+    margin: 5px;
+    border-radius: 50%;
+    background-color: lightblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+}
+.item:hover{
+    background-color: rgb(255, 106, 106);
+}
+.clear-margin{
+    margin-left: 0;
+}
+.container{
+    z-index: 250 ;
+    width: 300px;
+    transition: 0.3s ease-in-out;
+    padding: 10px;
+    margin: 0;
+    position: absolute;
+    top:25px;
+    opacity: 0;
+    left:5px;
+    max-height: 0;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: 0 0 5px black;
+}
+.opposite-choose{
+    background-color: rgb(255, 106, 106) !important;
+    border-radius: 0;
+    margin-left:0;
+    margin-right: 0;
+    width: 40px;
+}
+.choosed-start{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-right: 0;
+    width: 35px;
+}
+.choosed-finish{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-left: 0;
+    width: 35px;
+}
+.show-picker{
+    opacity: 1;
+    top:55px;
+    max-height: 1000px;
+    z-index: 700 !important;
+}
+.current-date{
+    position: relative;
+    z-index: 300;
+    height: 30px;
+    padding: 0 5px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    border: 1px solid gray;
+    cursor: pointer;
+}
+.fa-calendar{
+    position: absolute;
+    right: 5px;
+}
+.invalid-date{
+    background-color:rgba(230, 230, 230, 0.582) !important; 
+    text-decoration: line-through;
+}
+
+.container11{
+    position: relative;
+    color:black;
+}
+.today{
+    background-color: rgb(235, 243, 129);
+}
+.blur-date{
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0 !important;
+    background-color: black;
+}
+.week-day-name{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    min-width: 40px !important;
+}
+.column-headers{
+    display: flex;
+    border-bottom: 2px solid rgba(216, 216, 216, 0.26);
+}
+.not-current{
+    background-color: rgb(203, 242, 255);
+}

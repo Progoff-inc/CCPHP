@@ -1,0 +1,19 @@
+<div class="container ">
+  <div class="active-item">
+    <img *ngIf="activeItem" src="{{activeItem?activeItem.Photo:''}}" alt="">
+    <span>{{activeItem?activeItem[PropName]:('NO_DATA' | translate)}}</span>
+    <i (click)="openCars()" class="fa fa-pencil"></i>
+  </div>
+  
+  
+  <div *ngIf="items.length>0 && open" class="items-select">
+    <div  *ngFor="let item of items" class="item" [ngClass]="{'choosed':item.Id==(activeItem?activeItem.Id:-1)}" (click)="choose(item)">
+      
+      <div class="d-flex" style="margin: 0;">
+        <img src="{{item.Photo?item.Photo:''}}" alt="">
+        <span>{{item[PropName]?item[PropName]:''}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="open" style="background-color: transparent" class="background-blur" (click)="openCars()"></div>

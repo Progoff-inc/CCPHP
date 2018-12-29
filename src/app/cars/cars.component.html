@@ -1,0 +1,86 @@
+<h1 style="margin-left: 15px;">{{"OUR_CARS" | translate}}</h1>
+<div class="container-fluid">
+  <div class="filters row">
+    
+    <div class="col-sm-3" [ngClass]="{checked:f.indexOf('Manual')>-1}" (click)="addFilter('Transmission','Manual')"><span>{{"MANUAL" | translate}}</span> <i class="fa fa-check"></i></div>
+    <div class="col-sm-3" [ngClass]="{checked:f.indexOf('Automatic')>-1}" (click)="addFilter('Transmission','Automatic')"><span>{{"AUTOMATIC" | translate}}</span><i class="fa fa-check"></i></div>
+    <div class="col-sm-3" [ngClass]="{checked:f.indexOf('Cabriolet')>-1}" (click)="addFilter('BodyType','Cabriolet')"><span>{{"CABRIOLET" | translate}}</span><i class="fa fa-check"></i></div>
+    <div class="col-sm-3" [ngClass]="{checked:f.indexOf('Minivan')>-1}" (click)="addFilter('BodyType','Minivan')"><span>{{"MINIVAN" | translate}}</span><i class="fa fa-check"></i></div>
+    
+  </div>
+  <div class="cars-container">
+    <div *ngFor='let car of filteredCars' class="car-item">
+      <div  class="car-img">
+        <img src="{{car.Photo}}" alt="">
+        <div (click)="showCarInfo(car)" class="blur"></div>
+        <div [ngClass]="{'price':car.Sales.length==0, 'sale-price':car.Sales.length>0}">
+        
+          <span>{{car.Sales.length>0?getCarPrice(car):car.Price}}€</span>
+        </div>
+        <div *ngIf="car.Sales.length>0" class="discount">
+          <span>{{getCarPrice(car,true)}}</span>
+        </div>
+        <div class="rating">
+          <rating [mark]="car.Mark"></rating>
+        </div>
+        <i (click)="showCarPhotos(car.Id)" class="fa fa-picture-o" aria-hidden="true"></i>
+      </div>
+      <div class="car-info">
+        <h5>{{car.Model}}</h5>
+        <div class="details">
+          <div class="detail-item">
+            <div class="detail-messege">
+              <span>{{"PASSENGERS_S" | translate}}</span>
+            </div>
+            <i class="fa fa-male"></i>
+            <span>x {{car.Passengers}}</span>
+          </div>
+          <div class="detail-item">
+            <div class="detail-messege">
+                <span>{{"DOORS" | translate}}</span>
+            </div>
+            <i class="fa fa-car"></i>
+            <span>x {{car.Doors}}</span>
+          </div>
+          <div class="detail-item">
+            <div class="detail-messege">
+              <span>{{"TRANSMISSION" | translate}}</span>
+            </div>  
+            <i class="fa fa-cogs"></i>
+            <span>{{car.Transmission}}</span>
+          </div>
+          <div *ngIf="car.AC" class="detail-item">
+            <div class="detail-messege">
+              <span>A/C</span>
+            </div>
+            <i class="fa fa-snowflake-o"></i>
+            <span>A/C</span>
+          </div>
+          <div class="detail-item">
+            <div class="detail-messege">
+              <span>{{'BODY'| translate}}</span>
+            </div>
+            <i class="fa fa-truck"></i>
+            <span>{{car.BodyType}}</span>
+          </div>
+          <div class="detail-item">
+            <div class="detail-messege">
+              <span>{{"FUEL" | translate}}</span>
+            </div>
+            <i class="fa fa-tint"></i>
+            <span>{{car.Fuel}}</span>
+          </div>
+        </div>
+        <div class="buttons">
+          <button class="btn btn-info" (click)="showCarInfo(car)">{{"CAR_INFO" | translate}}</button>
+          <button class="btn btn-success" routerLink="/booking/{{car.Id}}">{{"BOOK" | translate}}</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<car-card *ngIf="service.showCarInfo" [service]="service"></car-card>
+
+<loader *ngIf="load"></loader>
+<photo-viewer *ngIf="showPhotos.show" [items]="photos" [show]="showPhotos"></photo-viewer>

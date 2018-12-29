@@ -1,0 +1,46 @@
+
+
+<div class="container">
+   <h1>{{'RENTAL_POLICY_HEADER' | translate}}</h1>
+   <h3>{{'RENTAL_POLICY_DESCRIBTION' | translate}}</h3>
+   <br><br><br>
+   <h4>{{'RENTAL_POLICY_PRICE_INCLUDE_HEADER' | translate}}:</h4>
+   <p>{{'RENTAL_POLICY_PRICE_INCLUDE' | translate}}</p>
+   <div class="include" *ngFor="let rule of items">
+      <hr>
+      <i class="fa fa-shield fa-4x pull-left"></i>
+      <h4>
+        <i class="fa fa-check"></i>
+        {{Translate.currentLang=='ru'?rule.Name:rule.NameEng}}
+      </h4>
+      <p>{{Translate.currentLang=='ru'?rule.Description:rule.DescriptionEng}}</p>
+    </div>
+    <div class="bg-blurrr" >
+      <img src="../../assets/images/nissan-micra-wide.jpg" alt="">
+      <div class="mask"></div>
+      <h1>{{'CONDITIONS'| translate}}</h1>
+    </div>
+    <div class="container">
+      <div class="condition" *ngFor="let cond of conditions">
+
+        <h4>
+          <i class="fa fa-info-circle"></i>
+          {{Translate.currentLang=='ru'?cond.Name:cond.Name}}
+        </h4>
+        <p>{{Translate.currentLang=='ru'?cond.Description:cond.Description}}</p>
+        <hr>
+      </div>
+    </div>
+ </div>
+
+
+
+<!-- <div *ngFor="let i of items" class="item">
+  <div class="row">
+    <div class="col-sm-10">
+      <h4><i class="fa fa-shield fa-4x pull-left"></i>{{i.Name | translate}}</h4>
+        <p>{{i.Description}}</p>
+    </div>
+  </div>
+  <hr>
+</div> -->

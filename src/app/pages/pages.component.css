@@ -1,0 +1,23 @@
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+}
+.page{
+    width: 30px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    background-color: rgb(58, 56, 56);
+    color: aliceblue;
+    margin-right: 10px;
+    transition: 0.2s;
+    cursor: pointer;
+}
+.current{
+    background-color: rgb(95, 29, 29);
+}
+.page:hover{
+    box-shadow: 0 0 5px 2px;
+}

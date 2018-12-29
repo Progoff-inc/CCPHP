@@ -1,0 +1,14 @@
+<div class="container-fluid" *ngIf="!!stat">
+  <div class="figure">
+    <div class="books-stat">
+      <div class="month" *ngFor="let m of curMonths">
+        <div class="month-a" [ngStyle] = "{'height':getTrans('Automatic', m)*zoom+'px'}"></div>
+        <div class="month-m" [ngStyle] = "{'height':getTrans('Manual', m)*zoom+'px'}"></div>
+        <span>{{months[m.MNum].Name}}</span>
+      </div>
+      <div class="stat-back">
+        <hr [ngStyle]="{'margin-top':zoom+'px'}" *ngFor="let i of getHeight()">
+      </div>
+    </div>
+  </div>
+</div>

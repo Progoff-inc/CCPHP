@@ -1,0 +1,20 @@
+<div *ngFor="let i of items"  class="item">
+    <img src="{{i.Img}}" alt="">
+    <div class="row">
+        <div class="col-sm-10">
+            <h1>{{i.Name | translate}}</h1>
+            <div>
+
+              <p><i class="fa fa-book fa-3x pull-left"></i>{{Translate.currentLang=='ru'?i.Description:i.DescriptionEng}}</p>
+            </div>
+            
+            <p *ngIf="i.Description2">{{Translate.currentLang=='ru'?i.Description2:i.Description2Eng}}</p>
+            <p><i class="fa fa-car fa-3x pull-left"></i>{{Translate.currentLang=='ru'?i.Road:i.RoadEng}}</p>
+        </div>
+        <div class="col-sm-2">
+            <rating [mark]="i.Rating"></rating>
+        </div>
+    </div>
+    <div class="background-blur" (click)="service.ShowForm()"></div>
+    <hr>
+</div>

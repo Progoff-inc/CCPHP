@@ -1,0 +1,107 @@
+<div class="topmenu">
+    <div class="row">
+        <div class="col-sm-4" style="display: inline-block; ">
+            <a [routerLink]='["/"]' (click)='collapse()'>
+                <img  src="../../assets/images/logo.png">
+            </a>
+            
+        </div>
+        
+        <div class="row menu-prop">
+            
+            <div *ngIf="!userService.currentUser" (click)="userService.ShowForm(1)"><span  class='glyphicon glyphicon-plus'></span><span>{{"REGISTRATION" | translate}}</span></div>
+         
+            <div [routerLinkActive]='["link-active"]' *ngIf="!!userService.currentUser"  [routerLink]='["/user"]'><span  class='glyphicon glyphicon-user'></span><span>{{userService.currentUser.Name}}</span></div>
+           
+            
+            <div (click)="userService.currentUser?Exit():userService.ShowForm(0)"><span *ngIf="!userService.currentUser"   class='glyphicon glyphicon-user'></span><span>{{(userService.currentUser?"LOG_OUT":"LOG_IN") | translate}}</span></div>
+            <div class = "lang">
+                
+                <span >{{service.lang=='ru'?'RU':'ENG'}}</span>
+                <span  class='glyph-small glyphicon glyphicon-chevron-down'></span>
+                <div class="langs">
+                    <span class="lng" (click)="service.changeLang('ru')">RU</span>
+                    <span class="lng" (click)="service.changeLang('en')">ENG</span>
+                </div>
+            </div>
+        </div>
+             
+        
+    </div>
+</div>
+
+<div >
+    <div >
+            <div class='main-nav' >
+                    <div class='navbar navbar-inverse'>
+                        <div class='navbar-header'>
+                            <div class="row menu-prop">
+                                    <div *ngIf="!userService.currentUser" (click)="userService.ShowForm(1)"><span  class='glyphicon glyphicon-plus'></span><span>{{"REGISTRATION" | translate}}</span></div>
+                                    <div *ngIf="!!userService.currentUser" [routerLinkActive]='["link-active"]' [routerLink]='["/user"]' ><span  class='glyphicon glyphicon-user'></span><span>{{userService.currentUser.Name}}</span></div>
+                                    <div (click)="userService.currentUser?Exit():userService.ShowForm(0)"><span *ngIf="!userService.currentUser"   class='glyphicon glyphicon-user'></span><span>{{(userService.currentUser?"LOG_OUT":"LOG_IN") | translate}}</span></div>
+                                    <div class = "lang">
+                                        
+                                        <span >{{service.lang=='ru'?'RU':'ENG'}}</span>
+                                        <span  class='glyph-small glyphicon glyphicon-chevron-down'></span>
+                                        <div class="langs">
+                                            <span class="lng" (click)="service.changeLang('ru')">RU</span>
+                                            <span class="lng" (click)="service.changeLang('en')">ENG</span>
+                                        </div>
+                                    </div>
+                            </div>
+                            <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse' [attr.aria-expanded]='isExpanded' (click)='toggle()'>
+                                <span class='sr-only'>Toggle navigation</span>
+                                <span class='icon-bar'></span>
+                                <span class='icon-bar'></span>
+                                <span class='icon-bar'></span>
+                            </button>
+                            <div class="row menu-prop">
+            
+            
+        </div>
+                            
+                        </div>
+                        
+                        <div class='navbar-collapse collapse' [ngClass]='{ "in": isExpanded }'>
+                            
+                            <ul class='nav' >
+                                <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+                                    <a [routerLink]='["/"]' (click)='collapse()'>
+                                        <i class="fa fa-home" style="font-size: 14pt"></i>
+                                    </a>
+                                </li>
+                                
+                                <li [routerLinkActive]='["link-active"]'> 
+                                    <a [routerLink]='["/allcars"]' (click)='collapse()'>
+                                        <i class="fa fa-car"></i> {{"CARS" | translate}}
+                                    </a>
+                                </li>
+                                <li [routerLinkActive]='["link-active"]'>
+                                    <a [routerLink]='["/contacts"]' (click)='collapse()'>
+                                        <i class="fa fa-address-card"></i>{{"CONTACTS" | translate}}
+                                    </a>
+                                </li>
+                                <li [routerLinkActive]='["link-active"]' (click)="changePage(2)">
+                                    <a [routerLink]='["/policy"]' (click)='collapse()'>
+                                        <span class='glyphicon glyphicon-info-sign'></span> {{"RENTAL_POLICY" | translate}}
+                                    </a>
+                                </li>
+                                <li [routerLinkActive]='["link-active"]' (click)="changePage(3)">
+                                    <a [routerLink]='["/about"]' (click)='collapse()'>
+                                        <i class="fa fa-book"></i> {{"ABOUT_CRETE" | translate}}
+                                    </a>
+                                </li>
+                                <li [routerLinkActive]='["link-active"]' >
+                                    <a [routerLink]='["/feedback"]' (click)='collapse()'>
+                                        <i class="fa fa-comments"></i> {{"COMMENTS" | translate}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+    </div>
+</div>
+<alert  [alert] ="alertService"></alert>
+<user-form *ngIf="userService.openForm" [service]="userService" [alert]="alertService"></user-form>
+<div style="clear:both"></div>

@@ -1,0 +1,13 @@
+img{
+    width: 70%;
+    background-color: white;
+    border-radius: 4px;
+    padding: 5px;
+}
+.row{
+    overflow: hidden;
+    width: 100%;
+    padding: 30px 40px;
+    margin: 0;
+    background-color: rgba(100, 123, 253, 0.425);
+}

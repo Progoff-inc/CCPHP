@@ -1,0 +1,71 @@
+<div class="container">
+  <div class="container-form">
+    <div class="form-header">
+      <p>{{(service.type==1?"REGISTRATION" :"LOG_IN") | translate}}</p>
+      <i class="fa fa-times-circle" (click)="service.ShowForm()"></i>
+    </div>
+    <form [formGroup]="userForm" >
+      <div *ngIf="this.service.type==1" class="item">
+        <span [ngClass]="{ 'is-invalid': submitted && f.Name.errors }">{{"NAME" | translate}}</span>
+        <input class="input" formControlName="Name" [ngClass]="{ 'is-invalid': submitted && f.Name.errors }" name="name" type="text" required>
+        <div *ngIf="submitted && f.Name.errors" class="invalid-feedback">
+          <span class="d-block is-invalid" *ngIf="f.Name.errors.required">{{"NAME_VALIDATION" | translate}}</span>
+  
+        </div>
+      </div>
+      <div class="item">
+        <span [ngClass]="{ 'is-invalid': submitted && f.Email.errors }">{{"EMAIL" | translate}}</span>
+        <input class="input" formControlName="Email" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" name="name" type="email" required>
+        <div *ngIf="submitted && f.Email.errors" class="invalid-feedback">
+          <span class="d-block is-invalid" *ngIf="f.Email.errors.required">{{"EMAIL_VALIDATION" | translate}}</span>
+          
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-10">
+          <div class="item" *ngIf="this.service.type==1">
+            <span [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }">Телефон</span>
+            <input class="input" formControlName="Tel" [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }" value="{{user?(user.Tel?user.Tel:''):''}}" name="name" type="tel" pattern="[0-9]{11}" required>
+            <div *ngIf="submitted && f.Tel.errors" class="invalid-feedback">
+              
+              <span class="d-block is-invalid" *ngIf="f.Tel.errors.pattern">Формат: 89161782323</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="item" *ngIf="this.service.type==1">
+            <span >{{'LANG' | translate}}</span>
+            <select class="input" formControlName="Lang">
+              <option value="RU">RU</option>
+              <option value="ENG">ENG</option>
+            </select>
+            
+          </div>
+        </div>
+      </div>
+      
+     
+  
+      <div class="item">
+        <span [ngClass]="{ 'is-invalid': submitted && f.Password.errors }">{{"PASSWORD" | translate}}</span>
+        <input class="input" formControlName="Password" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }" name="name" type="password" required>
+        
+        <div *ngIf="submitted && f.Password.errors">
+          <span class="d-block is-invalid" *ngIf="f.Password.errors.required">{{"PASSWORD_VALIDATION" | translate}}</span>
+  
+        </div>
+  
+      </div>
+      <div class="buttons">
+          <button class="btn btn-success" (click)="onSubmit()">{{(service.type==1?"LOG_UP":"ENTER") | translate}}</button>
+          <button class="btn btn-primary" (click)="service.type==1?service.ShowForm():changeType(1)">{{(service.type==1?"CANCEL":"LOG_UP") | translate}}</button>
+          <button *ngIf="service.type==1" class="btn btn-default" (click)="changeType(0)">{{"ACCOUNT_EXCIST" | translate}}</button>
+      </div>
+      
+      
+    </form>
+    
+  </div>
+  <div class="background-blur" (click)="service.ShowForm()"></div>
+  
+</div>

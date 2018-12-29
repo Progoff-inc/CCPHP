@@ -1,0 +1,341 @@
+.container{
+    z-index: 800;
+    max-height: 500px;
+    margin: 0;
+    position: fixed;
+    bottom: -283px;
+    right:20px;
+    width: 220px;
+    background: white;
+    border: 1px solid black;
+    border-radius: 4px;
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.747);
+    padding: 10px;
+    transition: 0.5s;
+}
+.cont-height{
+    height: 500px;
+}
+.not-seen{
+    background-color: rgb(67, 150, 67) !important; 
+}
+.InPage{
+    
+    position: relative;
+    display: block;
+    bottom: auto;
+    right:auto;
+    width: 100% !important;
+    border: none !important;
+    border-radius: 4px;
+    box-shadow: none;
+}
+.blurProf{
+    z-index: 305;
+}
+.Profile .messages{
+    height: 80%;
+
+}
+.messages{
+    position: relative;
+    width: 100%;
+    height: 70%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 10px;
+    display: inline-block;
+    
+
+}
+
+.Profile{
+    z-index: 310;
+    position: absolute;
+    display: block;
+    
+    bottom: auto;
+    right: -520px;
+    top: 0;
+    height: 800px !important;
+    left:auto;
+    width: 500px !important;
+    border: none !important;
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.555);
+    background-color: rgb(255, 255, 255);
+}
+
+.panel{
+    border: none;
+    display: flex;
+    position: relative;
+    height: 30px;
+    box-shadow: none !important;
+
+}
+.panel i{
+    position: absolute;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+}
+.panel i.fa-paper-plane{
+    right: 0;
+    color:white;
+    border-radius: 0 0 4px 0;
+    background-color: rgb(79, 119, 250);
+}
+.panel i.fa-car{
+    border-left: 1px solid gray; 
+    right: 30px;
+}
+.panel i.fa-paper-plane:hover{
+    background-color: blue;
+}
+.panel i.fa-car:hover{
+    color: blue;
+}
+.panel textarea{
+    width: 100%;
+    padding-right: 33px;
+    border-radius: 0 4px 4px 4px; 
+}
+.InPage .header{
+    background-color: transparent;
+    color:black;
+    text-align: start;
+    display: block;
+    padding-top: 20px;
+}
+.InPage .header h3, .InPage .header i{
+    
+    display: inline;
+    font-size: 24px;
+}
+.Profile .header{
+    width: auto;
+    font-size: 30px;
+    border-radius: 5px;
+    position: absolute;
+    left: -70px;
+}
+.header i.fa-bell, .header-small i.fa-bell{
+    position: absolute;
+    right: -5px;
+    font-size: 20px;
+    top: -5px;
+    color:red;
+}
+.item{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+
+}
+.item:first-child{
+    margin-top: 10px;
+}
+h3{
+    margin: 0;
+    font-size: 17px;
+    margin-left: 2px;
+}
+.header{
+    opacity: 1;
+    padding: 10px;
+    text-align: center;
+    margin: -10px -10px 0 -10px;
+    background-color: rgb(69, 189, 69); 
+    border-radius: 4px 4px 0 0;
+    color: white;
+    cursor: pointer;
+    transition: 0.5s;
+    display: flex;
+    justify-content: center;
+    
+}
+.show{
+    bottom: 20px;
+    width: 300px;
+}
+.showP{
+    right: 10px !important;
+}
+
+.no-message{
+    min-height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size:30px;
+
+}
+.message{
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    
+    align-items: flex-start;
+}
+.date{
+    border-radius: 4px;
+    padding: 5px;
+    color: rgb(182, 182, 182);
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 10px 0;
+
+}
+.my-message .message-body{
+    background-color: rgb(147, 255, 196);
+}
+.my-message{
+    
+    align-items: flex-end !important;
+}
+.message-body{
+    max-width: 60%;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: rgb(164, 201, 250);
+}
+.message-body span{
+    display: block;
+    width: 100%;
+    color: rgb(124, 124, 124);
+    font-size: 10px; 
+    text-align: end;
+    
+}
+.topic{
+    width: 100%;
+    margin: 5px 0 5px 0;
+    border-radius: 10px;
+    background-color: rgb(189, 253, 189);
+    min-height: 50px;
+    cursor: pointer;
+    padding-left:5px 
+    
+}
+.top-topic{
+    border-radius: 10px 10px 0 0;
+    margin: 0;
+}
+.topic row{
+    height: 50px;
+}
+.topic .col-sm-7, .topic .col-sm-5{
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+.topic span{
+    margin-left: 10px;
+}
+
+.hidden-header{
+    opacity: 0 !important;
+}
+.header-small{
+    display: none;
+    
+}
+.background-blur{
+    z-index: 290;
+}
+@media (max-width:768px){
+    .topic .col-sm-7, .topic .col-sm-5{
+        height: auto;
+        
+    }
+    .topic .row{
+        padding-top: 5px; 
+    }
+    
+    .message-body{
+        max-width: 80%;
+        
+    }
+    .header-small{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 5px;
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        opacity: 1;
+        padding: 10px;
+        z-index: 300;
+        background-color: rgb(69, 189, 69); 
+        font-size: 30px;
+        color: white;
+        cursor: pointer;
+        
+    }
+    .header i.fa-bell{
+        top:0;
+        right: 0;
+    }
+    .Profile, .container:not(.InPage):not(.ProfileShow){
+        display: none;
+    }
+    .container{
+        width: 100%;
+        height: 100% !important;
+        max-height: 10000px;
+        bottom: 0px;
+        margin: auto;
+        left:auto;
+        right:auto;
+    }
+    
+    .ProfileShow{
+        position: fixed;
+        display: block;
+        height: 100% !important;
+        width: 100% !important;
+        right: 0 !important;
+
+        border-radius: 0px;
+        
+    }
+    .panel{
+        margin-bottom: 2px;
+    }
+    .messages{
+        height: 95%;
+        
+    }
+    
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+
+    border-radius: 4px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgba(99, 128, 255, 0.445); 
+    border-radius: 4px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #2011ee; 
+}

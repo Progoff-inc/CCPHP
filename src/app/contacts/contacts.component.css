@@ -1,0 +1,33 @@
+.item{
+    display: flex;
+    flex-direction: column;
+}
+.item h5{
+    font-size: 20px;
+    margin-bottom: 2px;
+}
+.item{
+    font-size: 15px;
+    margin: 20px 0;
+}
+iframe{
+    margin: 40px 0;
+}
+.col-md-7{
+    height: 640px;
+    border-right: 1px solid lightgrey;
+}
+a{
+    text-decoration-line: none;
+    color:black;
+}
+a:hover{
+    color: rgb(51, 51, 177);
+}
+@media (max-width: 991px){
+    .col-md-7{
+        height: auto;
+        border-right:none;
+        border-bottom: 1px solid lightgrey;
+    }
+}

@@ -1,0 +1,359 @@
+<div *ngIf="userService.currentUser" class="container-fluid">
+  <div class="main-info">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="d-flex flex-column justify-content-center">
+          <div class="user-photo">
+            <img class="img-rounded img-responsive" src="{{userService.currentUser?userService.currentUser.Photo:'../../assets/images/default_user_photo.jpg'}}" alt="">
+            
+            <div class="upload">
+              <div>
+                  <label for="uploadbtn" class="uploadButton">{{'UPLOAD_PHOTO' | translate}}</label>
+                  <input style="opacity: 0; "  name="upload" id="uploadbtn" #file type="file"  (change)="upload(file.files)" />
+              </div>
+              
+            </div>
+            
+          </div>
+          
+          <p style="text-align: center; font-size:18pt">{{userService.currentUser?userService.currentUser.Name:''}}</p>
+        </div>
+      </div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-7">
+        <h1>{{'MAIN_INFO'|translate}}</h1>
+        <div >
+          <div class="item">
+            <div class="row">
+              <div class="col-sm-4">
+                <span>{{'EMAIL' | translate}}: </span>
+              </div>
+              <div class="col-sm-6">
+                <p>{{userService.currentUser?userService.currentUser.Email:''}}</p>
+                <i (click)="showChangeInfo(0,true)"  class="fa fa-pencil"></i>
+              </div>
+            </div>
+            <div *ngIf="changes[0]" class="change-panel">
+                <div class="form">
+                  <span>{{'EMAIL' | translate}}: </span>
+                  <input [ngClass]="{ 'is-invalid': submittes[0] && (Email.value=='' || carsService.checkEmail(Email.value) )}" class="input" [(ngModel)]="changeValues[0]" type="email" required #Email>
+                  <div *ngIf="submittes[0] && (Email.value=='' || carsService.checkEmail(Email.value) )" class="invalid-feedback">
+                    <span class="d-block is-invalid" *ngIf="Email.value==''">{{'EMAIL_VALIDATION'|translate}}</span>
+                    <span class="d-block is-invalid" *ngIf="Email.value==''?false:carsService.checkEmail(Email.value)">{{'WRONG_EMAIL_VALIDATION'|translate}}</span>
+                  </div>
+                  <button class="btn btn-success" (click)="changeInfo(0,'Email', Email.value)">Изменить</button>
+                </div>
+            </div>
+            <div *ngIf="changes[0]"  class="background-blur" (click)="showChangeInfo(0,false)"></div>
+          </div>
+          <div class="item">
+            <div class="row">
+              <div class="col-sm-4">
+                <span>{{'PHONE' | translate}}: </span>
+            </div>
+            <div class="col-sm-6">
+                <p>{{userService.currentUser?(userService.currentUser.Phone?userService.currentUser.Phone:('NO_DATA' | translate)):''}}</p>
+                <i (click)="showChangeInfo(1,true)"  class="fa fa-pencil"></i>
+            </div>
+            <div *ngIf="changes[1]" class="change-panel">
+              <div class="form">
+                <input [ngClass]="{ 'is-invalid': submittes[1] && !carsService.checkStr(Tel.value,'phone-check') }" [(ngModel)]="changeValues[1]" type="tel" class="input"  required #Tel>
+                <button class="btn btn-success" (click)="changeInfo(1,'Phone', Tel.value, Tel)">Изменить</button>
+              </div>
+            </div>
+            <div *ngIf="changes[1]"  class="background-blur" (click)="showChangeInfo(1,false)"></div>
+          </div>
+            
+          </div>
+          <div class="item">
+            <div class="row">
+              <div class="col-sm-4">
+                <span>{{'REG_DATE' | translate}}: </span>
+              </div>
+              <div class="col-sm-6">
+                <p>{{userService.currentUser?(userService.currentUser.CreatedDate | date: 'dd.MM.yyyy'):''}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="row">
+              <div class="col-sm-4">
+                <span>{{'LANG' | translate}}: </span>
+              </div>
+              <div class="col-sm-6">
+                <p>{{userService.currentUser?(userService.currentUser.Lang?userService.currentUser.Lang:('NO_DATA' | translate)):''}}</p>
+                <i (click)="showChangeInfo(2,true)"  class="fa fa-pencil"></i>
+              </div>
+            </div>
+            <div *ngIf="changes[2]" class="change-panel">
+                <div class="form">
+                  <span>{{'LANG' | translate}}: </span>
+                  <select [ngClass]="{ 'is-invalid': submitted && f.Lang.errors }" class="input"  required #Lang>
+                    <option>{{'RU'| translate}}</option>
+                    <option>{{'ENG'| translate}}</option>
+                  </select>
+                  <button class="btn btn-success" (click)="changeInfo(2,'Lang', Lang.value)">Изменить</button>
+                </div>
+            </div>
+            <div *ngIf="changes[2]"  class="background-blur" (click)="showChangeInfo(2,false)"></div>
+          </div>
+        </div>
+      </div>
+     
+    </div>
+    <messager *ngIf="this.userService.currentUser.Topics" [userProfile]='true'  [topics]="this.userService.currentUser.Topics"></messager>
+  </div>
+  <div *ngIf="userService.currentUser?userService.currentUser.Books.length>0:false" class="statistics">
+    <!-- <statistics *ngIf="userService.currentUser.Name=='Admin'"></statistics> -->
+    
+    <p class="line" ><span (click)="show('showBooks')">{{userService.currentUser.IsAdmin?'BOOKS':'MY_BOOKS' | translate}} <i class="fa" [ngClass] = "{'fa-angle-down':!showBooks, ' fa-angle-up':showBooks}"></i></span></p>
+    <div *ngIf="showBooks">
+      <div class="book-item" [ngClass]="{'active-item':getStatus(book)=='Активно' }" *ngFor="let book of userService.currentUser.Books">
+        <span class="status" [ngClass]="{'active':getStatus(book)=='Активно'}">{{getStatus(book)}}</span>
+        <h4 style="margin-left: 5px">{{'ORDER' | translate}} №{{book.Id}}</h4>
+        <div class="row">
+          
+          <div class="col-sm-4">
+            <div class="car">
+              <img src="{{book.Car.Photo}}" alt="">
+              <div>
+                <p routerLink="/booking/{{book.Car.Id}}"><i class="fa fa-car"></i>{{book.Car.Model}}</p>
+                <span><i class="fa fa-dollar"></i>{{book.Sum}}€</span>
+              </div>
+            </div>
+            
+          </div>
+          <div class="col-sm-2 dates">
+            <i style ="font-size: 30px" class="fa fa-map-marker" aria-hidden="true"></i>
+            <span>{{'PLACE' | translate}}: {{book.Place}}</span>
+          </div>
+          <div class="col-sm-3 dates">
+            <i style ="font-size: 30px" class="fa fa-calendar-times-o" aria-hidden="true"></i>
+            <span>{{'RENT' | translate}}: {{book.DateStart | date: 'dd.MM.yyyy'}} - {{book.DateFinish | date: 'dd.MM.yyyy'}}</span>
+            
+          </div>
+          <div class="col-sm-3 dates">
+            <i style ="font-size: 30px" class="fa fa-clock-o" aria-hidden="true"></i>
+            <span>{{'CREATE_DATE' | translate}}: {{book.CreateDate | date: 'dd.MM.yyyy'}}</span>
+          </div>
+             
+          
+        </div>
+      </div>
+    </div>
+    <p *ngIf="userService.currentUser.IsAdmin" class="line" ><span (click)="show('showAddCar')">{{'ADD_CAR' | translate}} <i class="fa" [ngClass] = "{'fa-angle-down':!showAddCar, ' fa-angle-up':showAddCar}"></i></span></p>
+    <div *ngIf="userService.currentUser.IsAdmin && showAddCar">
+      <div class="form">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="item">
+              <span [ngClass]="{ 'is-invalid': carSubmitted && newCar.Model==null }" class="header">{{'MODEL' | translate}}</span>
+              <input [ngClass]="{ 'is-invalid': carSubmitted && newCar.Model==null }" class="input" type="text" [(ngModel)]="newCar.Model">
+              
+            </div>
+            <div class="item">
+              <span [ngClass]="{ 'is-invalid': carSubmitted && newCar.Photo==null }" class="header">{{'PHOTO' | translate}}</span>
+              <input  [ngClass]="{ 'is-invalid': carSubmitted && newCar.Photo==null }"  class="input" type="text" [(ngModel)]="newCar.Photo">
+              
+            </div>
+            <div class="item inner">
+              <div class="item inner-item">
+                <span [ngClass]="{ 'is-invalid': carSubmitted && newCar.Passengers==null }" class="header">{{'PASSENGERS' | translate}}</span>
+                <input [ngClass]="{ 'is-invalid': carSubmitted && newCar.Passengers==null }" class="input" type="number" [(ngModel)]="newCar.Passengers">
+                
+              </div>
+              <div class="item inner-item">
+                <span [ngClass]="{ 'is-invalid': carSubmitted && newCar.Doors==null }" class="header">{{'DOORS' | translate}}</span>
+                <input [ngClass]="{ 'is-invalid': carSubmitted && newCar.Doors==null }" class="input" type="number" [(ngModel)]="newCar.Doors">
+                
+              </div>
+              <div class="item inner-item">
+                <span [ngClass]="{ 'is-invalid': carSubmitted && newCar.Consumption==null }" class="header">{{'CONSUMPTION' | translate}}</span>
+                <input [ngClass]="{ 'is-invalid': carSubmitted && newCar.Consumption==null }" class="input" type="number" [(ngModel)]="newCar.Consumption">
+                
+              </div>
+            </div>
+            <div class="item inner">
+              <div class="item inner-item">
+                <span class="header">{{'AC' | translate}}</span>
+                <input  type="checkbox" [checked]="newCar.AC" (change)="newCar.AC = !newCar.AC" />
+              </div>
+              <div class="item inner-item">
+                <span class="header">{{'ABS' | translate}}</span>
+                <input  type="checkbox" [checked]="newCar.ABS" (change)="newCar.ABS = !newCar.ABS" />
+              </div>
+              <div class="item inner-item">
+                <span class="header">{{'AIRBAGS' | translate}}</span>
+                <input  type="checkbox" [checked]="newCar.Airbags" (change)="newCar.Airbags = !newCar.Airbags" />
+              </div>
+              <div class="item inner-item">
+                <span class="header">{{'RADIO' | translate}}</span>
+                <input  type="checkbox" [checked]="newCar.Radio" (change)="newCar.Radio = !newCar.Radio" />
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="item inner">
+              <div class="item inner-item">
+                <span [ngClass]="{ 'is-invalid': carSubmitted && newCar.Transmission==null }" class="header">{{'TRANSMISSION' | translate}}</span>
+                <select [ngClass]="{ 'is-invalid': carSubmitted && newCar.Transmission==null }" class="input"  [(ngModel)]="newCar.Transmission">
+                  <option value="Automatic">{{'AUTOMATIC' | translate}}</option>
+                  <option value="Manual">{{'MANUAL' | translate}}</option>
+                </select>
+                
+              </div>
+              <div class="item inner-item">
+                <span [ngClass]="{ 'is-invalid': carSubmitted && newCar.Fuel==null }" class="header">{{'FUEL' | translate}}</span>
+                <select [ngClass]="{ 'is-invalid': carSubmitted && newCar.Fuel==null }" class="input"  [(ngModel)]="newCar.Fuel">
+                  <option value="Petrol">{{'PETROL' | translate}}</option>
+                  <option value="Deisel">{{'DEISEL' | translate}}</option>
+                </select>
+                
+              </div>
+              <div class="item inner-item">
+                <span [ngClass]="{ 'is-invalid': carSubmitted && newCar.BodyType==null }" class="header">{{'BODYTYPE' | translate}}</span>
+                <select [ngClass]="{ 'is-invalid': carSubmitted && newCar.BodyType==null }" class="input"  [(ngModel)]="newCar.BodyType">
+                  <option value="Sedan">{{'SEDAN' | translate}}</option>
+                  <option value="Suv">{{'SUV' | translate}}</option>
+                  <option value="Wagon">{{'WAGON' | translate}}</option>
+                  <option value="Coupe">{{'COUPE' | translate}}</option>
+                  <option value="Hatchback">{{'HATCHBACK' | translate}}</option>
+                  <option value="Pickup">{{'PICKUP' | translate}}</option>
+                  <option value="Compact">{{'COMPACT' | translate}}</option>
+                  <option value="Cabriolet">{{'CABRIOLET' | translate}}</option>
+                  <option value="Crossover">{{'CROSSOVER' | translate}}</option>
+                  <option value="Minivan">{{'MINIVAN' | translate}}</option>
+                </select>
+                
+              </div>
+            </div>
+            <div class="item inner">
+              <div class="item inner-item">
+                <span [ngClass]="{ 'is-invalid': carSubmitted && newCar.Price==null }" class="header">{{'PRICE' | translate}}</span>
+                <input [ngClass]="{ 'is-invalid': carSubmitted && newCar.Price==null }" class="input" type="number"  [(ngModel)]="newCar.Price">
+                
+              </div>
+              <div class="item inner-item">
+                <span [ngClass]="{ 'is-invalid': carSubmitted && newCar.Groupe==null }" class="header">{{'GROUPE' | translate}}</span>
+                <select [ngClass]="{ 'is-invalid': carSubmitted && newCar.Groupe==null }" class="input"  [(ngModel)]="newCar.Groupe">
+                  <option value="Economy">{{'ECONOMY' | translate}}</option>
+                  <option value="Full-sized">{{'FULL_SIZED' | translate}}</option>
+                  <option value="Compact">{{'COMPACT' | translate}}</option>
+                  <option value="Medium">{{'MEDIUM' | translate}}</option>
+                </select>
+                
+              </div>
+              <div class="item inner-item">
+                <span [ngClass]="{ 'is-invalid': carSubmitted && newCar.MinAge==null }" class="header">{{'MINAGE' | translate}}</span>
+                <input [ngClass]="{ 'is-invalid': carSubmitted && newCar.MinAge==null }" class="input" type="number"  [(ngModel)]="newCar.MinAge">
+                
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        <div class="item">
+          <span class="header">{{'INCLUDES' | translate}}</span>
+          <div class="includes input">
+            <span class="include-item" *ngFor="let inc of newCar.Includes">{{inc}}<i (click)="removeInclude(inc)" class="fa fa-times" aria-hidden="true"></i></span>
+            <div class="include-items">
+              <div (click)="include(inc)" [ngClass]="{'choosed':newCar.Includes.indexOf(inc)>-1}" class="include-item" *ngFor="let inc of translate.currentLang=='ru'?Includes.Includes:Includes.IncludesEng">
+                {{inc}}
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="item">
+          <span [ngClass]="{ 'is-invalid': carSubmitted && newCar.Description==null }" class="header">{{'DESCRIPTION' | translate}}</span>
+          <textarea [ngClass]="{ 'is-invalid': carSubmitted && newCar.Description==null }" class="input" [(ngModel)]="newCar.Description"></textarea>
+          <div *ngIf="carSubmitted && newCar.Description==null" class="invalid-feedback">
+            <span class="d-block is-invalid" >{{"PASSENGERS_VALIDATION" | translate}}</span>
+          </div>
+        </div>
+        <div class="item">
+          <span [ngClass]="{ 'is-invalid': carSubmitted && newCar.Description_ENG==null }" class="header">{{'DESCRIPTION_ENG' | translate}}</span>
+          <textarea [ngClass]="{ 'is-invalid': carSubmitted && newCar.Description_ENG==null }" class="input" [(ngModel)]="newCar.Description_ENG"></textarea>
+          <div *ngIf="carSubmitted && newCar.Description_ENG==null" class="invalid-feedback">
+            <span class="d-block is-invalid" >{{"PASSENGERS_VALIDATION" | translate}}</span>
+          </div>
+        </div>
+        <button class="btn btn-primary" (click)="addCar()">{{'ADD' | translate}}</button>
+      </div>
+    </div>
+    <p *ngIf="userService.currentUser.IsAdmin" class="line" ><span (click)="show('showAddSale')">{{'ADD_SALE' | translate}} <i class="fa" [ngClass] = "{'fa-angle-down':!showAddSale, ' fa-angle-up':showAddSale}"></i></span></p>
+    <div *ngIf="userService.currentUser.IsAdmin && showAddSale">
+      <div class="form">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="item">
+              <span [ngClass]="{ 'is-invalid': saleSubmitted && newSale.CarId==null }" class="header">{{'CAR' | translate}}</span>
+              <picker *ngIf="cars.length!=0" [items]="cars" [out]="newSale" [prop]="'CarId'"></picker>
+            </div>
+            <div class="item">
+              <span [ngClass]="{ 'is-invalid': saleSubmitted && newSale.DateStart==null }" class="header">{{'DATE_START' | translate}}</span>
+              <date-picker  [Out]="newSale" [Prop]="'DateStart'" [Errors]="saleErrors"  [DateStart]="newSale.DateStart"
+                        [DateFinish]="newSale.DateFinish"></date-picker>
+              
+            </div>
+            <div class="item">
+              <span [ngClass]="{ 'is-invalid': saleSubmitted && newSale.DateFinish==null }" class="header">{{'DATE_START' | translate}}</span>
+              <date-picker  [Out]="newSale" [Prop]="'DateFinish'" [Errors]="saleErrors"  [DateStart]="newSale.DateStart"
+                        [DateFinish]="newSale.DateFinish"></date-picker>
+            </div>
+            
+          </div>
+          <div class="col-sm-6">
+            <div class="item inner">
+              <div class="item inner-item">
+                <span [ngClass]="{ 'is-invalid': saleSubmitted && newSale.Discount==null }" class="header">{{'DISCOUNT' | translate}}</span>
+                <input [ngClass]="{ 'is-invalid': saleSubmitted && newSale.Discount==null }" type="number" class="input"  [(ngModel)]="newSale.Discount">
+              </div>
+              <div class="item inner-item">
+                <span  class="header">{{'DAYS_NUMBER' | translate}}</span>
+                <input type="number" class="input"  [(ngModel)]="newSale.DaysNumber">
+              </div>
+              
+            </div>
+            <div *ngIf="getSalePrice()!=0" class="item">
+              <span class="header">{{'PRICE' | translate}}</span>
+              <span>{{getSalePrice()}}€</span>
+            </div>
+            
+            
+          </div>
+        </div>
+        <!-- <div class="item">
+          <span class="header">{{'DESCRIPTION' | translate}}</span>
+          <textarea class="input" [(ngModel)]="newCar.Description"></textarea>
+
+        </div>
+        <div class="item">
+          <span class="header">{{'DESCRIPTION_ENG' | translate}}</span>
+          <textarea class="input" [(ngModel)]="newCar.Description_Eng"></textarea>
+        </div> -->
+        <button (click)="addSale()" class="btn btn-primary">{{'ADD' | translate}}</button>
+      </div>
+    </div>
+    <p *ngIf="userService.currentUser.IsAdmin" class="line" ><span (click)="show('showAddNewAdmin')">{{'ADD_ADMIN' | translate}} <i class="fa" [ngClass] = "{'fa-angle-down':!showAddNewAdmin, ' fa-angle-up':showAddNewAdmin}"></i></span></p>
+    <div *ngIf="userService.currentUser.IsAdmin && showAddNewAdmin">
+      <div class="form">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="item">
+                <span [ngClass]="{ 'is-invalid': adminSubmitted && newAdmin.UserId == 0 }" class="header">{{'NEW_ADMIN' | translate}}</span>
+              <picker [items]="users" [out]="newAdmin" [prop]="'UserId'" [PropName]="'Name'"></picker>
+              <div *ngIf="adminSubmitted && newAdmin.UserId == 0" class="invalid-feedback">
+                <span class="d-block is-invalid" >{{"ADMIN_VALIDATION" | translate}}</span>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        <button (click)="addAdmin()" class="btn btn-primary">{{'ADD' | translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

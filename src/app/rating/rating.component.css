@@ -1,0 +1,12 @@
+i, span{
+    font-size: 14pt;
+    color: rgb(230, 196, 8);
+}
+span{
+    font-size: 12pt;
+    font-weight: normal;
+    margin-left: 5px;
+}
+p{
+    margin-bottom: 0;
+}

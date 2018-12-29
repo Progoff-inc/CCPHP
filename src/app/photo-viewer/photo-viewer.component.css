@@ -1,0 +1,77 @@
+.container{
+    z-index: 1000;
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.photo-viewer{
+    z-index: 1000;
+    width: 70%;
+    max-width: 755px;
+    overflow: hidden;
+    max-height: 70%;
+    background-color:rgb(68, 68, 68); 
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.current-photo, .all-photos{
+    width: 100%;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+.currentPhoto{
+    max-height: 70%;
+}
+.all-photos{
+    
+    max-height: 30%;
+    padding: 10px;
+    
+}
+.min-photo{
+    padding: 0 5px;
+    width: 150px;
+}
+.prev, .next{
+    cursor: pointer;
+    color:white;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.411);
+    border-radius: 50%;
+}
+.prev:hover, .next:hover{
+    background-color: rgba(0, 0, 0, 0.719);
+}
+.prev{
+    left: 10px;
+}
+.next{
+    right: 10px;
+}
+.current-min-photo{
+    border:2px solid rgb(58, 122, 240);
+}
+.min-photo:hover>img{
+    border:2px solid rgb(58, 122, 240);
+}
+
+@media(max-width:767px){
+    .container{
+        display: none;
+    }
+}
+
+

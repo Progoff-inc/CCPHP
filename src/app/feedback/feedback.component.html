@@ -1,0 +1,153 @@
+<div class="container-fluid">
+    <div class="container booking-container" >
+        <h1 *ngIf="reports.length!=0">Отзывы</h1>
+        <form *ngIf="type=='all'" [formGroup]="registerForm"  class="review-top">
+            <div class="form-container row">
+                <div class="col-sm-6">
+                    <div class="item picker">
+                        <span [ngClass]="{ 'is-invalid': submitted && feedBack.CarId==0 }">{{'CAR'|translate}}*</span>
+                        <picker *ngIf="cars.length!=0" [items]="cars" [out]="feedBack" [prop]="'CarId'"></picker>
+                        <div *ngIf="submitted && feedBack.CarId==0" class="invalid-feedback">
+                            <span class="d-block is-invalid" >{{'ENTER_CAR'|translate}}</span>
+                            
+                        </div>
+                        
+                    </div>
+                    <div class="item">
+                        <span [ngClass]="{ 'is-invalid': submitted && Errors.DateStart }">{{'DATE_START'|translate}}*</span>
+                        <date-picker  [Out]="feedBack" [Prop]="'DateStart'" [Errors]="Errors"></date-picker>
+                        <div *ngIf="submitted && Errors.DateStart" class="invalid-feedback">
+                            <span class="d-block is-invalid" >{{'ENTER_DATE'|translate}}</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="item">
+                        <span [ngClass]="{ 'is-invalid': submitted  && feedBack.Look==0}">{{'CAR_LOOK'|translate}}</span>
+                        <rating [markOut]="feedBack" [prop]="'Look'"></rating>
+                        <div *ngIf="submitted && feedBack.Look==0" class="invalid-feedback">
+                            <span class="d-block is-invalid">{{'ENTER_MARK'|translate}}</span>                          
+                        </div>
+                    </div>
+                    <div class="item">
+                        <span [ngClass]="{ 'is-invalid': submitted && feedBack.Comfort==0 }">{{'CAR_COMFORT'|translate}}</span>
+                        <rating [markOut]="feedBack" [prop]="'Comfort'"></rating>
+                        <div *ngIf="submitted && feedBack.Comfort==0" class="invalid-feedback">
+                            <span class="d-block is-invalid">{{'ENTER_MARK'|translate}}</span>                    
+                        </div>
+                        
+                    </div>
+                    <div class="item">
+                        <span [ngClass]="{ 'is-invalid': submitted && feedBack.Drive==0 }">{{'CAR_DRIVE'|translate}}</span>
+                        <rating [markOut]="feedBack" [prop]="'Drive'"></rating>
+                        <div *ngIf="submitted && feedBack.Drive==0" class="invalid-feedback">
+                            <span class="d-block is-invalid">{{'ENTER_MARK'|translate}}</span>                   
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <span [ngClass]="{ 'is-invalid': submitted && f.Report.errors }">{{'REPORT'|translate}}*</span>
+                <textarea class ="input" formControlName="Report" [ngClass]="{ 'is-invalid': submitted && f.Report.errors }" maxlength="1000"  rows="5" cols="20"></textarea>
+                <div *ngIf="submitted && f.Report.errors" class="invalid-feedback">
+                    <span class="d-block is-invalid" *ngIf="f.Report.errors.required">{{'ENTER_REPORT'|translate}}</span>
+                    <span class="d-block is-invalid" *ngIf="f.Report.errors.minlength">{{'REPORT_MIN_SIZE'|translate}}</span>
+                </div>
+            </div>
+            <button class="btn btn-primary" (click)="onSubmit()">{{'SEND'|translate}}</button>
+            <div *ngIf="!autorized" class="blur-form">
+                <button class="btn btn-primary" (click)="userService.ShowForm(0)" >{{"LOG_IN" | translate}}</button>
+                <button class="btn btn-success" (click)="userService.ShowForm(1)">{{"REGISTRATION" | translate}}</button>
+            </div>
+        </form>
+        
+      
+    
+        <div class="comments" *ngIf="feedBackService.curReports">
+            <div *ngFor="let com of feedBackService.curReports"  class="comment" [ngClass]='{"comment-good":com.Mark>3, "comment-bad":com.Mark<=3}' >
+                <div class="row">
+                    <div class="col-sm-9" style="height: 42px;">
+                        <p>
+                            <img class ="user-img-small"  src="{{com.User.Photo}}"> {{com.User.Name}}   |   
+                            
+                            <span routerLink="/booking/{{com.Car.Id}}" class="car-model"><i class="fa fa-car"></i> {{com.Car.Model}}</span>
+                        </p>
+                    </div>
+                    <div class="col-sm-3">
+                        <span class="glyphicon glyphicon-time"></span> {{com.CreatedDate | date: 'dd.MM.yyyy'}}
+                        <br>
+                        <rating [mark]="com.Mark"></rating>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-9">
+                        <p>{{com.Text}}</p>
+                        <p class="line" *ngIf="com.Comments.length>0"><span (click)="showComments(com)">{{com.ButtonText | translate}} <i class="fa" [ngClass] = "{'fa-angle-down':!com.ShowComments, ' fa-angle-up':com.ShowComments}"></i></span></p>
+                        <div *ngIf="com.ShowComments" class="report-comments">
+                            <div *ngFor="let comment of com.Comments" class="comment">
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <p>
+                                            <img class ="user-img-small"  src="{{comment.User.Photo}}"> {{comment.User.Name}} 
+                                        </p>
+                                        <p>{{comment.Text}}</p>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <span class="glyphicon glyphicon-time"></span> {{comment.CreatedDate | date: 'dd.MM.yyyy'}}
+                                        <br>
+                                        <div class="com-rat" (click)="addLikes(com, true, comment)">
+                                                <i class="fa fa-thumbs-up" [ngClass]="{'checked-up':getUserLike(comment)?getUserLike(comment).IsLike==true:false}" aria-hidden="true"></i>
+                                                <span>{{getLikes(comment,true)}}</span>
+                                        </div>
+                                        <div class="com-rat" (click)="addLikes(com, false, comment)">
+                                            <i class="fa fa-thumbs-down" [ngClass]="{'checked-down':getUserLike(comment)?getUserLike(comment).IsLike==false:false}" aria-hidden="true"></i>
+                                            <span>{{getLikes(comment,false)}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="com-rat" (click)="addLikes(com, true)">
+                            <i class="fa fa-thumbs-up" [ngClass]="{'checked-up':getUserLike(com)?getUserLike(com).IsLike==true:false}" aria-hidden="true"></i>
+                            <span>{{getLikes(com,true)}}</span>
+                        </div>
+                        <div class="com-rat" (click)="addLikes(com, false)">
+                            <i class="fa fa-thumbs-down" [ngClass]="{'checked-down':getUserLike(com)?getUserLike(com).IsLike==false:false}"  aria-hidden="true"></i>
+                            <span>{{getLikes(com,false)}}</span>
+                        </div>
+                        <div class="com-rat">
+                                <i class="fa fa-commenting" aria-hidden="true"></i>
+                                <span>{{com.Comments.length}}</span>
+                        </div>
+                        
+    
+                    </div>
+                </div>
+                <button class="btn" (click)="showForm(com)"  >{{'ANSWER' | translate}}</button>
+                <form [formGroup]="commentForm"  *ngIf="com.ShowForm"  class="review">
+                    <div class="item ">
+                        <span [ngClass]="{ 'is-invalid': submitted && f1.report.errors }">{{'COMMENT'|translate}}</span>
+                        <textarea class="input" maxlength="1000" formControlName="report" [ngClass]="{ 'is-invalid': submitted && f1.report.errors }" cols="10" rows="5" #report></textarea>
+                        <div *ngIf="submitted && f1.report.errors" class="invalid-feedback">
+                            <span class="d-block is-invalid" *ngIf="f1.report.errors.required">{{'ENTER_COMMENT'|translate}}</span>
+                            <span class="d-block is-invalid" *ngIf="f1.report.errors.minlength">{{'REPORT_MIN_SIZE'|translate}}</span>
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <button class="btn btn-primary" (click)="addComment(report.value, com)">{{'SEND' | translate}}</button>
+                        <button class="btn btn-default" (click)="showForm(com)">{{'CANCEL' | translate}}</button>
+                    </div>
+                    
+                </form>
+                <div *ngIf="com.ShowForm" class="background-blur" (click)="showForm(com)"></div>
+            </div>
+            <pages *ngIf="feedBackService.reports.length>21" [service]="feedBackService"></pages>
+        </div>
+    </div>
+</div>
+
+<alert  [alert] ="alertService"></alert>
+<user-form *ngIf="userService.openForm" [service]="userService" [alert]="alertService"></user-form>

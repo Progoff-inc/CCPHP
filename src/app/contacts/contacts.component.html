@@ -1,0 +1,41 @@
+<div class="container">
+  <h2>{{'CONTACTS_HEADER' | translate}}</h2>
+</div>
+<iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A2d1fb22a069a10541fc2ef37d00fa8fefdd4621507c89800890f75125425da3a&amp;source=constructor" width="100%" height="400" frameborder="0"></iframe>
+<div class="container">
+  <div class="row">
+    <div class="col-md-7" style=" display: flex; ">
+      <div style="width: 100%">
+          <messager [showAll]='true'></messager>
+      </div>
+      
+    </div>
+    <div class="col-md-5" style="height: 640px;">
+      <h3>{{'CONTACT_INFO' | translate}}</h3>
+      <div class="item">
+        <h5><i class="fa fa-envelope-o"></i> {{'EMAIL'|translate}}</h5>
+        <a href="mailto:info@carcrete24.com">info@carcrete24.com</a>
+      </div>
+      <div class="item">
+        <h5><i class="fa fa-phone"></i> {{'PHONE'| translate}}</h5>
+        <a href="tel:00306949367278">+30 69493 67278 </a><br>
+        <a href="tel:002815209400">+28 15 209 400 </a>
+      </div>
+      <div class="item">
+        <h5><i class="fa fa-map-marker"></i> {{'ADRESS'|translate}}</h5>
+        <address>
+        Аммудара, Андреа Папандреу, 247
+        </address>
+      </div>
+      <div class="item">
+        <h5><i class="fa fa-clock-o"></i> {{'OFFICE_HOURS' | translate}}</h5>
+              Monday- Sunday: 08:00 - 21:00 
+      </div>
+      <div class="item">
+          <h5><i class="fa fa-newspaper-o"></i> {{'LICENSED'|translate}}</h5>
+          <img src="../../assets/images/eot.png" alt="EOT sign" style="width: 50px; float: left; margin-right: 20px;"> 
+          {{'LICENSED_TEXT'|translate}}
+      </div>
+    </div>
+  </div>
+</div>

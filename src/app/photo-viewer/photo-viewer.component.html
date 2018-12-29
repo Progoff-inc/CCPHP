@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="photo-viewer">
+    <div class="current-photo">
+      <img src="{{items[currentItem]}}">
+      <div *ngIf="currentItem!=0" class="prev" (click)="prev()"><i class="fa fa-chevron-left" aria-hidden="true"></i></div>
+      <div *ngIf="currentItem!=items.length-1" class="next" (click)="next()"><i class="fa fa-chevron-right" aria-hidden="true"></i></div>
+    </div>
+    <div class="all-photos">
+      <div class="min-photo"   *ngFor="let photo of slides[currentSlide]">
+        <img (click)="choosePhoto(photo)" [ngClass]="{'current-min-photo':items.indexOf(photo)==currentItem}" src="{{photo}}">
+      </div>
+      <div *ngIf="currentSlide!=0"  class="prev" (click)="prevSlide()"><i class="fa fa-chevron-left" aria-hidden="true"></i></div>
+      <div *ngIf="currentSlide!=slides.length-1"  class="next" (click)="nextSlide()"><i class="fa fa-chevron-right" aria-hidden="true"></i></div>
+    </div>
+  </div>
+  <div class="background-blur" style="z-index: 810;" (click)="close()"></div>
+</div>
+

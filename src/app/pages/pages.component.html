@@ -1,0 +1,5 @@
+<div class="container">
+  <div class="page"><span class="glyphicon glyphicon-chevron-left" (click)="change(curPage-1)"></span></div>
+  <div class="page" *ngFor="let p of pages" [ngClass]="{current:p.num==curPage}" (click)="change(p.num,p.floor,p.top)">{{p.num}}</div>
+  <div class="page"><span class="glyphicon glyphicon-chevron-right" (click)="change(curPage+1)"></span></div>
+</div>

@@ -1,0 +1,23 @@
+<p class="line" ><span>{{'SAME_CARS' | translate}} </span></p>
+<div class="container-fluid">
+  <div class="cars-container">
+    <div *ngFor='let car of filteredCars' class="car-item">
+      <h5>{{car.Model}}</h5>
+      <div routerLink="/booking/{{car.Id}}"  class="car-img">
+        <img src="{{car.Photo}}" alt="">
+        <div class="blur"></div>
+        <div [ngClass]="{'price':car.Sales.length==0, 'sale-price':car.Sales.length>0}">
+        
+          <span>{{car.Sales.length>0?getCarPrice(car):car.Price}}€</span>
+        </div>
+        <div *ngIf="car.Sales.length>0" class="discount">
+          <span>{{getCarPrice(car,true)}}</span>
+        </div>
+        <div class="rating">
+          <rating [mark]="car.Mark"></rating>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>

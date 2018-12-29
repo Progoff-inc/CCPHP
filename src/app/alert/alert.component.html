@@ -1,0 +1,10 @@
+
+<div class="alert {{alert.alert?alert.alert.type:''}}"   [ngClass]="{visible:alert.alert?alert.alert.show:false}">
+    <div class="alert_icon">
+        <span class = "glyphicon" [ngClass]="{'glyphicon-ok':alert.alert?alert.alert.type=='success':false, 'glyphicon-remove':alert.alert?alert.alert.type=='wrong':false}"></span>
+    </div>
+    
+    <p>
+        {{alert.alert?alert.alert.message:''}}
+    </p>
+  </div>

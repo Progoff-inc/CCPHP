@@ -1,0 +1,130 @@
+.item{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    
+}
+select, textarea,input{
+    color:black;
+    border-radius: 5px; 
+}
+select,input{
+    height: 30px;
+}
+img{
+    width: 100%;
+    border-radius: 4px;
+}
+.row{
+    
+}
+.sep{
+    width: 100%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 2px;
+    box-shadow: inset 0 0 1px black;
+}
+.cars-card{
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 15px;
+    border-radius: 0 0 10px 10px;
+    
+    background-color: white;
+    border-top: none;
+
+}
+.form-header{
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    color: white;
+    
+    border-bottom:none; 
+    background-color: rgb(109, 129, 243);
+    border-radius: 10px 10px 0 0;
+    font-size: 16pt;
+}
+.form-header p{
+    margin: 0;
+    
+    margin-left: 10px;
+    width: 90%;
+}
+.form-header i{
+    transition: 0.2s;
+    border-radius: 50%;
+  
+}
+.form-header i:hover{
+    font-size: 17pt;
+    
+    box-shadow: 0 0 10px rgb(255, 255, 255);
+}
+.container-form{
+    z-index: 999;
+    
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,1);
+    width: 600px;
+    border-radius: 10px;
+}
+.details i{
+    width: 30px;
+    text-align: center;
+}
+
+@media (max-width: 767px){
+    .item{
+        width: 100%;
+    }
+    .btn-default{
+        margin-top: 5px; 
+    }
+    .form-header p{
+        width:80%;
+    
+    }
+    .container-form::-webkit-scrollbar{
+        width: 0;
+        
+        
+    }
+    .container-form{
+        width: 90%;
+        max-width: 312px;
+        max-height: 550px;
+        overflow-x: hidden;
+        overflow: scroll;
+        
+    }
+
+}
+.container{
+    min-width: 330px;
+    margin: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 900;
+    width: 100%;height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    
+}
+.buttons .btn{
+    margin-right:10px; 
+    width: auto;
+}
