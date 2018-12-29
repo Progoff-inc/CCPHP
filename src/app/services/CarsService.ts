@@ -8,7 +8,7 @@ export class CarsService implements OnInit{
     bookings:BookTimes[];
     public car:Car=null;
     //baseUrl:string='http://nomokoiw.beget.tech/back/';
-    baseUrl:string='http://localhost:80/CarsCreteNew/back/';
+    baseUrl:string='http://localhost:80/CCPHP/';
     constructor(private http: HttpClient ){
         
 

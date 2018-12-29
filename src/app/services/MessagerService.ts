@@ -4,7 +4,7 @@ import {User, ReportUser} from '../services/UserService';
 
 export class MessagerService{
     //baseUrl:string='http://nomokoiw.beget.tech/back/';
-    baseUrl:string='http://localhost:80/CarsCreteNew/back/';
+    baseUrl:string='http://localhost:80/CCPHP/';
     constructor(private http: HttpClient) {
     
     
