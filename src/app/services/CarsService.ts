@@ -2,6 +2,7 @@ import { Inject, Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import {FeedBack, Sale} from './UserService';
 
+@Injectable()
 export class CarsService implements OnInit{
     showCarInfo:boolean=false;
     showBookingForm:boolean = false;
@@ -14,34 +15,34 @@ export class CarsService implements OnInit{
 
     }
     GetCars(){
-        return this.http.get<Car[]>(this.baseUrl + 'CarsController.php?Key="get-cars"');
+        return this.http.get<Car[]>(this.baseUrl + 'CarsController.php?Key=get-cars');
     }
     GetSameCars(id){
-        return this.http.get<Car[]>(this.baseUrl + 'CarsController.php?Key="get-same-cars"&Id='+id);
+        return this.http.get<Car[]>(this.baseUrl + 'CarsController.php?Key=get-same-cars&Id='+id);
     }
     GetCar(id:string){
-        return this.http.get<Car>(this.baseUrl+'CarsController.php?Key="get-car"&Id='+id);
+        return this.http.get<Car>(this.baseUrl+'CarsController.php?Key=get-car&Id='+id);
     }
     GetCarPhotos(id:number){
-        return this.http.get<string[]>(this.baseUrl+'CarsController.php?Key="get-photos"&Id='+id);
+        return this.http.get<string[]>(this.baseUrl+'CarsController.php?Key=get-photos&Id='+id);
     }
     GetReportCars(){
-        return this.http.get<ReportCar[]>(this.baseUrl+'CarsController.php?Key="get-report-cars"&Id=');
+        return this.http.get<ReportCar[]>(this.baseUrl+'CarsController.php?Key=get-report-cars&Id=');
     }
     AddCar(car:NewCar){
         
-        return this.http.post<NewCar>(this.baseUrl + 'CarsController.php?Key="add-car"',car);
+        return this.http.post<NewCar>(this.baseUrl + 'CarsController.php?Key=add-car',car);
     }
     
-    BookCar(book:Book){
-        return this.http.post<Book>(this.baseUrl + 'CarsController.php?Key="add-booking"',{"Id":123,"DateStart":book.DateStart, "ExtraDateStart":book.ExtraDateStart, "DateFinish":book.DateFinish, "UserId":book.UserId, "CarId":book.CarId, "Price":book.Price, "Place":book.Place, "Comment":book.Comment, "SalesId":book.SalesId});
-        
+    BookCar(book:any){
+        //return this.http.post<Book>(this.baseUrl + 'CarsController.php?Key=add-booking',{"Id":123,"DateStart":book.DateStart, "ExtraDateStart":book.ExtraDateStart, "DateFinish":book.DateFinish, "UserId":book.UserId, "CarId":book.CarId, "Price":book.Price, "Place":book.Place, "Comment":book.Comment, "SalesId":book.SalesId});
+        return this.http.post(this.baseUrl + 'CarsController.php?Key=add-booking',book);
     }
     BookCarNew(book:Book){
-        return this.http.post<Book>(this.baseUrl + 'CarsController.php?Key="add-booking-new"', {"Id":123,"DateStart":book.DateStart,"ExtraDateStart":book.ExtraDateStart, "DateFinish":book.DateFinish,  "CarId":book.CarId, "Price":book.Price, "Place":book.Place,"Email":book.Email, "Password":book.Password, "Name":book.Name, "SalesId":book.SalesId, "Phone":book.Tel, "Comment":book.Comment});
+        return this.http.post<Book>(this.baseUrl + 'CarsController.php?Key=add-booking-new', {"Id":123,"DateStart":book.DateStart,"ExtraDateStart":book.ExtraDateStart, "DateFinish":book.DateFinish,  "CarId":book.CarId, "Price":book.Price, "Place":book.Place,"Email":book.Email, "Password":book.Password, "Name":book.Name, "SalesId":book.SalesId, "Phone":book.Tel, "Comment":book.Comment});
     }
     GetSales(){
-        return this.http.get<Sale[]>(this.baseUrl+'CarsController.php?Key="get-sales"');
+        return this.http.get<Sale[]>(this.baseUrl+'CarsController.php?Key=get-sales');
     }
 
     ngOnInit(){

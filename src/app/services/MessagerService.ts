@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Inject, Injectable } from '@angular/core';
 import {User, ReportUser} from '../services/UserService';
 
+@Injectable()
 export class MessagerService{
     //baseUrl:string='http://nomokoiw.beget.tech/back/';
     baseUrl:string='http://localhost:80/CCPHP/';
@@ -11,22 +12,22 @@ export class MessagerService{
     }
     saveMessage(mess:Message){
     
-        return this.http.post<Message>(this.baseUrl + 'MessagerController.php?Key="save-message"', mess);
+        return this.http.post<Message>(this.baseUrl + 'MessagerController.php?Key=save-message', mess);
     }
     createTopic(top:any){
     
-        return this.http.post<Topic>(this.baseUrl + 'MessagerController.php?Key="create-topic"', top);
+        return this.http.post<Topic>(this.baseUrl + 'MessagerController.php?Key=create-topic', top);
     }
     sendMessage(mess:any){
     
-        return this.http.post<Topic[]>(this.baseUrl + 'MessagerController.php?Key="send-message"', mess);
+        return this.http.post<Topic[]>(this.baseUrl + 'MessagerController.php?Key=send-message', mess);
     }
     changeSeen(TopicId:number){
         let params = new HttpParams().set('Id',TopicId.toString());
-        return this.http.post(this.baseUrl + 'MessagerController.php?Key="change-topic-seen"', params);
+        return this.http.post(this.baseUrl + 'MessagerController.php?Key=change-topic-seen', params);
     }
     getTopics(UserId:number){
-        return this.http.get<Topic[]>(this.baseUrl + 'MessagerController.php?Key="get-user-topics"&Id='+UserId);
+        return this.http.get<Topic[]>(this.baseUrl + 'MessagerController.php?Key=get-user-topics&Id='+UserId);
     }
 }
 

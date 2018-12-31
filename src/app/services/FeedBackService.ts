@@ -21,7 +21,7 @@ export class FeedBackService{
   getReports(){
     this.reports=[];
     this.number=0;
-    this.http.get<FeedBack[]>(this.baseUrl + 'FBController.php?Key="get-reports"').subscribe(data => {
+    this.http.get<FeedBack[]>(this.baseUrl + 'FBController.php?Key=get-reports').subscribe(data => {
       this.reports=data;
    
       this.reports.forEach(r => {
@@ -35,19 +35,19 @@ export class FeedBackService{
   }
   saveReport(report:ShortFeedBack){
     
-    return this.http.post<FeedBack>(this.baseUrl + 'FBController.php?Key="add-report"', { "UserId": report.UserId, "CarId": report.CarId, "Look":report.Look, "Comfort": report.Comfort, "Drive": report.Drive, "DateStart": new Date(report.DateStart), "Mark":((report.Look+report.Comfort+report.Drive)/3), "Text":report.Report });
+    return this.http.post<FeedBack>(this.baseUrl + 'FBController.php?Key=add-report', { "UserId": report.UserId, "CarId": report.CarId, "Look":report.Look, "Comfort": report.Comfort, "Drive": report.Drive, "DateStart": new Date(report.DateStart), "Mark":((report.Look+report.Comfort+report.Drive)/3), "Text":report.Report });
   }
   changeLike(LikeId:number, IsLike){
-    return this.http.post<FeedBack>(this.baseUrl + 'FBController.php?Key="change-like"', { "IsLike": IsLike, "LikeId": LikeId});
+    return this.http.post<FeedBack>(this.baseUrl + 'FBController.php?Key=change-like', { "IsLike": IsLike, "LikeId": LikeId});
   }
   deleteLike(LikeId:number){
-    return this.http.delete(this.baseUrl + 'FBController.php?Key="delete-like"&Id='+LikeId);
+    return this.http.delete(this.baseUrl + 'FBController.php?Key=delete-like&Id='+LikeId);
   }
   addLikeOrDislike(like:Like){
-    return this.http.post<Like>(this.baseUrl + 'FBController.php?Key="add-likes"', { "IsLike": like.IsLike, "CommentId": like.CommentId, "FeedBackId":like.FeedBackId, "UserId":like.UserId});
+    return this.http.post<Like>(this.baseUrl + 'FBController.php?Key=add-likes', { "IsLike": like.IsLike, "CommentId": like.CommentId, "FeedBackId":like.FeedBackId, "UserId":like.UserId});
   }
   addComment(text:string, UserId:number, FeedBackId:number ){
-    return this.http.post<ReportComment>(this.baseUrl + 'FBController.php?Key="add-comment"',{"Text":text, "UserId":UserId, "FeedBackId":FeedBackId});
+    return this.http.post<ReportComment>(this.baseUrl + 'FBController.php?Key=add-comment',{"Text":text, "UserId":UserId, "FeedBackId":FeedBackId});
   }
   changePage(floor:number, top:number){
     this.curReports = [];

@@ -2,7 +2,7 @@ import { Component, OnInit, HostListener  } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import { Router, NavigationEnd } from '@angular/router';
 import {MyTranslateService} from './services/MyTranslateService';
-
+import {CarsService, Book} from './services/CarsService'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,7 +16,8 @@ export class AppComponent implements OnInit {
   service:MyTranslateService ;
   showButtonUp:boolean = false;
   showSameCars:boolean = false;
-  constructor(private router:Router, private translate: TranslateService){
+  
+  constructor(private router:Router, private translate: TranslateService, private s:CarsService){
     this.service = new MyTranslateService(translate);
     
   }
@@ -54,5 +55,10 @@ export class AppComponent implements OnInit {
   }
   scroll(){
     window.scrollTo(0, 0);
+  }
+  test(){
+    this.s.BookCar({Id:23, Date: new Date(), Place:'Iraklion'}).subscribe(d => {
+      console.log(d);
+    });
   }
 }

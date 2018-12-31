@@ -100,7 +100,7 @@ export function HttpLoaderFactory1(http: HttpClient) {
       { path: 'about', component: AboutCreteComponent},
     ],{ useHash: true})
   ],
-  providers: [TranslateService, UserService, CarsService, AlertService, FeedBackService, MessagerService],
+  providers: [TranslateService, UserService, CarsService, AlertService, FeedBackService, MessagerService, HttpClient],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Car } from '../services/CarsService';
 import { Topic } from './MessagerService';
 
+@Injectable()
 export class UserService {
     openForm:boolean=false;
     type:number;
@@ -19,37 +20,37 @@ export class UserService {
     }
 
     AddUser(user:NewUser){
-        return this.http.post<User>(this.baseUrl + 'UserController.php?Key="add-user"', { "Name": user.Name, "Email": user.Email, "Password": user.Password, "Phone": user.Tel, "Lang":user.Lang});
+        return this.http.post<User>(this.baseUrl + 'UserController.php?Key=add-user', { "Name": user.Name, "Email": user.Email, "Password": user.Password, "Phone": user.Tel, "Lang":user.Lang});
     }
     GetUser(user:EUser){
         let params = new HttpParams().set('Email', user.Email).set('Password', user.Password);
-        return this.http.get<User>(this.baseUrl + 'UserController.php?Key="get-user"', {params})
+        return this.http.get<User>(this.baseUrl + 'UserController.php?Key=get-user', {params})
     }
     GetUserById(id:number){
         
-        return this.http.get<User>(this.baseUrl + 'UserController.php?Key="get-user-by-id"&Id='+id)
+        return this.http.get<User>(this.baseUrl + 'UserController.php?Key=get-user-by-id&Id='+id)
     }
     GetUsers(){
         
-        return this.http.get<ReportUser[]>(this.baseUrl + 'UserController.php?Key="get-users"')
+        return this.http.get<ReportUser[]>(this.baseUrl + 'UserController.php?Key=get-users')
     }
     UploadPhoto(data:any){
-        return this.http.post<any>(this.baseUrl + 'UserController.php?Key="upload-user-photo"', data)
+        return this.http.post<any>(this.baseUrl + 'UserController.php?Key=upload-user-photo', data)
     }
     SetAdmin(data:any){
-        return this.http.post<ReportUser>(this.baseUrl + 'UserController.php?Key="set-admin"', data)
+        return this.http.post<ReportUser>(this.baseUrl + 'UserController.php?Key=set-admin', data)
     }
     GetStatistics(){
-        return this.http.get<Statistics>(this.baseUrl + 'UserController.php?Key="get-statistics"')
+        return this.http.get<Statistics>(this.baseUrl + 'UserController.php?Key=get-statistics')
     }
     ChangeInfo(type:string, value:string, userId:number){
-        return this.http.post<boolean>(this.baseUrl + 'UserController.php?Key="change-info"', { "Type": type, "Value": value, "UserId":userId});
+        return this.http.post<boolean>(this.baseUrl + 'UserController.php?Key=change-info', { "Type": type, "Value": value, "UserId":userId});
     }
     ChangePhoto(res:any){
-        return this.http.post<boolean>(this.baseUrl + 'UserController.php?Key="change-photo"', res);
+        return this.http.post<boolean>(this.baseUrl + 'UserController.php?Key=change-photo', res);
     }
     AddSale(sale:Sale){
-        return this.http.post<Sale>(this.baseUrl + 'UserController.php?Key="add-sale"',sale);
+        return this.http.post<Sale>(this.baseUrl + 'UserController.php?Key=add-sale',sale);
     }
 
 }
