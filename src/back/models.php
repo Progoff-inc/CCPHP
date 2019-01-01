@@ -258,4 +258,25 @@ class Photo{
         $this->Path = $Path;
     }
 }
+
+class Includes
+    {
+        public static $Items  = ["Полностью комбинированное страхование",
+            "Неограниченный километраж",
+            "Второй водитель бесплатно",
+            "Доставка/возврат в любое время",
+            "Дорожная карта в подарок",
+            "Доставка в аэропорт Ираклиона",
+            "Аренда машины на Крите без франшизы"];
+
+        public static $ItemsEng = ["Fully comprehensive insurance",
+            "Unlimited mileage",
+            "Second driver free of charge",
+            "Delivery/return at any time",
+            "Road map as a gift",
+            "Delivery to Heraklion airport",
+            "Rent a car in Crete with no excess"];
+
+
+    }
 ?>
