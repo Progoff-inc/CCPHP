@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Дек 29 2018 г., 21:51
+-- Время создания: Янв 01 2019 г., 14:00
 -- Версия сервера: 10.1.32-MariaDB
 -- Версия PHP: 7.2.5
 
@@ -70,6 +70,26 @@ CREATE TABLE `cars` (
   `MinAge` int(11) NOT NULL,
   `Radio` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `cars`
+--
+
+INSERT INTO `cars` (`Id`, `Model`, `Photo`, `Passengers`, `Doors`, `Transmission`, `Fuel`, `Consumption`, `Description`, `Description_Eng`, `Price`, `Mark`, `BodyType`, `AC`, `ABS`, `AirBags`, `Contain`, `Groupe`, `MinAge`, `Radio`) VALUES
+(4, 'VW Up', '../../assets/images/car.jpg', 5, 5, 'Automatic', 'Petrol', 5, 'Автомобиль с АКПП, 1,2 литра. Кондционер, радио-CD, расход топлива 5литров/100 км. В машину свободно входят четверо взрослых пассажира, 1 большая и 1 маленькая дорожные сумки', 'Eng description of the car.', 28, 0, 'Hatchback', b'1', b'1', b'1', '0/1/2/3/4', 'Economy', 23, b'1'),
+(7, 'Toyota Yaris', '../../assets/images/toyota_yaris.jpg', 5, 5, 'Automatic', 'Petrol', 7, 'Автомобиль с АКПП, 1,2 литра, 80 лошадиных сил. Кондционер, радио-CD, расход топлива 7 литров/100 км. В машину свободно входят четыре взрослых пассажира, 2 большие дорожные сумки.', 'Eng description of the car.', 32, 0, 'Hatchback', b'0', b'1', b'1', '0/1/2/3/4', 'Economy', 23, b'1'),
+(8, 'WV Golf Generation', '../../assets/images/VW_golf_generation.jpg', 5, 5, 'Automatic', 'Petrol', 8, 'Автомобиль с АКПП, 1.4 литра, 160 лошадинных сил. Климат контроль, радио-CD, расход топлива 8 литров/100 км. В машину свободно входят пять взрослых пассажиров, 2 большие и 2 маленькие дорожные сумки.', 'Eng description of the car.', 49, 0, 'Hatchback', b'1', b'1', b'1', '0/1/2/3/4', 'Full-Sized', 23, b'1'),
+(9, 'VW Golf 7', '../../assets/images/VW_golf_7.jpg', 5, 5, 'Automatic', 'Deisel', 7, 'Автомобиль с АКПП, 1,4 литра, 120 лошадиных сил. Климат-контроль, радио-CD, расход топлива 6 литров/100 км. В машину свободно входят пять взрослых пассажиров, 2 большие и 2 маленькие дорожные сумки.', 'Eng description of the car.', 65, 0, 'Hatchback', b'0', b'1', b'1', '0/1/2/3/4', 'Full-Sized', 23, b'1'),
+(10, 'Nissan Qashqai', '../../assets/images/nissan_quashqai.jpg', 5, 5, 'Automatic', 'Deisel', 9, 'Автомобиль с АКПП, 1,5 литра, 110 лошадиных сил. Кондционер, радио-CD, расход топлива 9 литров/100 км. В машину свободно входят пять взрослых пассажиров, 2 большие и 2 маленькие дорожные сумки.', 'Eng description of the car.', 79, 0, 'Crossover', b'1', b'1', b'1', '0/1/2/3/4', 'Full-Sized', 23, b'1'),
+(14, 'WV Golf', '../../assets/images/VW_golf_7.jpg', 5, 5, 'Manual', 'Petrol', 7, 'Автомобиль с АКПП, 1,2 литра, 80 лошадиных сил. Кондционер, радио-CD, расход топлива 7 литров/100 км. В машину свободно входят четыре взрослых пассажира, 2 большие дорожные сумки.', 'Eng description of the car.', 35, 0, 'Hatchback', b'1', b'0', b'1', '0/1/2/3/4', 'Medium', 23, b'1'),
+(15, 'Peugeot 207', '../../assets/images/peugeot-207.jpg', 5, 3, 'Automatic', 'Petrol', 8, 'Нет описания на сайте', 'Eng description of the car.', 85, 0, 'Cabriolet', b'0', b'1', b'1', '0/1/2/5/4', 'Compact', 23, b'1'),
+(16, 'FIAT Doblo MTJDynamic', '../../assets/images/fiat_doblo.jpg', 9, 5, 'Manual', 'Deisel', 8, 'Крутой автобус для компании или для большой семьи', 'Eng description of the car.', 69, 0, 'Minivan', b'0', b'0', b'1', '0/1/2/3/6', 'Full-Sized', 23, b'1'),
+(17, 'VW Beetle', '../../assets/images/vw_beetle.jpg', 5, 3, 'Automatic', 'Petrol', 6, 'Нет описания автомобиля.', 'Eng description of the car.', 120, 0, 'Cabriolet', b'1', b'1', b'1', '0/1/2/3/4', 'Compact', 23, b'1'),
+(18, 'VW EOS Cabrio', '../../assets/images/vw_eos_cabrio.jpg', 5, 3, 'Automatic', 'Petrol', 7, 'Нет описания', 'Eng description of the car', 95, 0, 'Cabriolet', b'0', b'1', b'1', '0/1/3/3/4', 'Medium', 23, b'1'),
+(19, 'Suzuky Jimny Cabrio', '../../assets/images/Suzuki_Jimny.jpg', 4, 3, 'Manual', 'Petrol', 8, 'Компактный трехдверный вседорожник Suzuki Jimny, 1,3-литра. 4 пассажира, 4 небольшие дорожные сумки. Верх открытый (легко закрывающийся при желании).', 'Eng description of the car.', 75, 0, 'Cabriolet', b'0', b'1', b'1', '0/1/2/3/4', 'Medium', 23, b'1'),
+(20, 'FIAT Doblo 7 seats', '../../assets/images/h-fiat-doblo.png', 7, 5, 'Manual', 'Deisel', 7, 'Семиместный минивен, 1,4 литра, дизель. Специальные условия на длительную аренду.', 'Eng description of the car.', 69, 0, 'Minivan', b'1', b'0', b'1', '0/1/6/3/4', 'Full-Sized', 23, b'1'),
+(21, 'VW Turan', '../../assets/images/VW_Turan.jpg', 7, 5, 'Automatic', 'Petrol', 9, '7-местный, пятидверный, с автоматической коробкой передач, дизельный - этот миниавтобус мы доставим в аэропорт или отель.', 'Eng description of the car.', 120, 0, 'Minivan', b'1', b'1', b'1', '0/1/2/3/5', 'Full-Sized', 23, b'1'),
+(22, 'Hyundai i10', '../../assets/images/Hyundai_i10.jpg', 5, 5, 'Manual', 'Petrol', 5, 'Автомобиль с МКПП, кондционером, радио-CD, расход топлива 5 литров/100 км. В машину свободно входят четыре взрослых пассажира, 2 большие дорожные сумки.', 'Eng description of the car.', 22, 0, 'Hatchback', b'0', b'1', b'1', '0/1/2/3/4', 'Economy', 23, b'1');
 
 -- --------------------------------------------------------
 
