@@ -1,1 +1,67 @@
-<cars></cars>
+<div class="description">
+    <h2>{{'FIND_CAR' | translate}}</h2>
+    <div class="search-form">
+        <form [formGroup]="searchForm" >
+            
+            
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="item">
+                        <span [ngClass]="{ 'is-invalid': submitted && f.Pick.errors }">{{"PICK_UP_LOCATION" | translate}}</span>
+                        <input class="input" formControlName="Pick" [ngClass]="{ 'is-invalid': submitted && f.Pick.errors }"  type="text" required>
+                        <div *ngIf="submitted && f.Pick.errors" class="invalid-feedback">
+                            <span class="d-block is-invalid" *ngIf="f.Pick.errors.required">{{"PICK_UP_VALIDATION" | translate}}</span>
+                
+                        </div>
+                    </div>
+                    <div class="item">
+                        <span [ngClass]="{ 'is-invalid': submitted && errors.DateStart }">{{"DATE_START" | translate}}</span>
+                        <date-picker  
+                          [Out]="search" 
+                          [Prop]="'DateStart'" 
+                          [Errors]="errors"
+                        ></date-picker>
+                        <div *ngIf="submitted && errors.DateStart" class="invalid-feedback">
+                        
+                            <span class="d-block is-invalid" *ngIf="errors.DateStart">{{"DATE_VALIDATION" | translate}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="item">
+                        <span [ngClass]="{ 'is-invalid': submitted && f.Drop.errors }">{{"DROP_OFF_LOCATION" | translate}}</span>
+                        <input class="input" formControlName="Drop" [ngClass]="{ 'is-invalid': submitted && f.Drop.errors }" type="text" required>
+                        <div *ngIf="submitted && f.Drop.errors" class="invalid-feedback">
+                            <span class="d-block is-invalid" *ngIf="f.Drop.errors.required">{{"DROP_OFF_VALIDATION" | translate}}</span>
+                        
+                        </div>
+                    </div>
+                    <div class="item">
+                        <span [ngClass]="{ 'is-invalid': submitted && errors.DateFinish }">{{"DATE_FINISH" | translate}}</span>
+                        <date-picker  
+                          [Out]="search" 
+                          [Prop]="'DateFinish'" 
+                          [Errors]="errors"
+                          [DateStart]="search.DateStart"
+                          [DateFinish]="search.DateFinish"
+                        ></date-picker>
+                        <div *ngIf="submitted && errors.DateFinish" class="invalid-feedback">
+                            <span class="d-block is-invalid" *ngIf="errors.DateFinish">{{"DATE_VALIDATION" | translate}}</span>
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+        
+            
+            <div class="buttons">
+                <button class="btn btn-success" >{{'SEARCH' | translate}}</button>
+            
+            </div>
+        
+        
+        </form>
+    </div>
+</div>

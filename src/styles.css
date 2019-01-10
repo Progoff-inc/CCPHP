@@ -1,1 +1,212 @@
 /* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+.glyph-small{
+    font-size: 6pt;
+    color:rgb(173, 173, 173);
+    margin-left: 3px;
+    margin-bottom: 2px;
+}
+body{
+    min-width: 330px;
+    background-color: rgba(138, 189, 228, 0.644);
+}
+
+.background-blur{
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(197, 197, 197, 0.473);
+    z-index: 50;
+}
+.is-invalid:not(span){
+    border-color: rgb(255, 0, 0)
+}
+.booking-container{
+    width: 100%;
+    max-width: 1030px;
+}
+select{
+    padding-left: 10px;
+    cursor: pointer;
+}
+.input{
+    height: 26px;
+    border: 1px solid gray;
+    border-radius: 4px;
+    padding-left: 10px;
+    outline: none !important;
+}
+textarea.input{
+    height: 80px;
+}
+.input:not(.is-invalid):hover, .input:not(.is-invalid):focus{
+    border-color: rgb(34, 174, 255) !important;
+}
+.input:not(.is-invalid):hover .fa, .input:not(.is-invalid):focus .fa{
+    color:rgb(34, 174, 255);
+}
+.user-img-small{
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+    border-radius: 50%;
+}
+.user-photo-small>img{
+    width: 100%;
+}
+html{
+    overflow-x: hidden;
+    font-size: 10px;
+}
+
+span.is-invalid, p.is-invalid{
+    color: red;
+}
+@media (max-width: 767px){
+    html{
+        overflow-x: hidden;
+    }
+}
+@media (min-width: 768px){
+    .fa-pencil:hover{
+        color: blue;
+        cursor: pointer;
+    }
+    .car-img{
+        padding: 0;
+        border-radius: 4px;
+        overflow: hidden;
+        
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+    .blur{
+        position: absolute;
+        top:0;
+        width: 100%;
+        z-index: 100;
+        height: 100%;
+        background-color: rgba(77, 77, 77, 0.253);
+        transition: 0.5s;
+        opacity: 0;
+    }
+    .car-img:hover{
+        transition: 0.2s;
+        
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        
+        
+    }
+    .car-img>img{
+        width: 100%;
+        z-index: 50;
+        
+    }
+    .car-img:hover>.blur{
+        opacity: 1;
+    }
+    .car-img:hover>i.fa-picture-o{
+        opacity: 1;
+        right: 20px !important;
+    }
+    .car-img>i.fa-picture-o{
+        z-index: 200;
+        position: absolute;
+        bottom: 10px;
+        right: -50px;
+        transition: 0.2s;
+        background-color: white;
+        padding: 5px;
+        font-size: 30px;
+        border-radius: 4px;
+    }
+    .car-img>i.fa-picture-o:hover{
+        background-color: rgb(90, 172, 248);
+       
+    }
+
+    .detail-item>i{
+        z-index: 20;
+        background-color: white;
+    }
+    .detail-item:hover>i{
+        transition: 0.2s;
+        border-color: red !important;
+        box-shadow: 0 0 5px rgba(255, 0, 0, 0.438); 
+    }
+    .detail-item:hover>span{
+        transition: 0.2s;
+        color: red;
+    }
+    .detail-item:hover .detail-messege{
+        transition: 0.2s ease-out;
+        
+        max-width: 1100px;
+        opacity: 1;
+        max-height: 1000px;
+        top: -30px;
+    }
+}
+
+.detail-messege{
+    white-space: nowrap;
+    background-color: black;
+    color:white;
+    padding: 5px;
+    border-radius: 4px;
+    position: absolute;
+    top: 0px;
+    z-index: 10;
+    opacity: 0;
+    max-width: 0;
+    max-height: 0;
+}
+
+.detail-item{
+    position: relative;
+    cursor: pointer;
+    
+}
+* {
+    box-sizing:  border-box;
+}
+
+img{
+    width: 100%;
+    border-radius: 4px;
+}
+input{
+    padding-left:10px;
+}
+.line {
+    margin-top: 30px;
+    font-size: 12pt;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+.line span {
+    background-color: #ffffff;
+    position: relative;
+    z-index: 1;
+    padding: 0px 8px;
+    cursor: pointer;
+    color: rgb(138, 138, 138);
+}
+.line:after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: rgb(185, 192, 194);
+    position: absolute;
+    top: 50%;
+    margin-top: -1px;
+    z-index: 0;
+}
+

@@ -132,7 +132,7 @@
     justify-content: center;
     align-items: center;
     height: 30px;
-    min-width: 40px !important;
+    min-width: 35px !important;
 }
 .column-headers{
     display: flex;
@@ -140,4 +140,15 @@
 }
 .not-current{
     background-color: rgb(203, 242, 255);
+}
+@media(max-width:360px){
+    .container{
+        width: 100%;
+        left: 0;
+    }
+    .item{
+        width: 25px;
+        height: 25px;
+    }
+    
 }

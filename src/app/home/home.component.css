@@ -1,0 +1,36 @@
+.description{
+    border-radius: 0 0 70% 70%;
+    min-height: 450px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    background-color: #0B61A4;
+}
+.description .item{
+    color: black;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    
+}
+.description .buttons{
+    display: flex;
+    justify-content: flex-end;
+}
+.search-form{
+    padding: 20px;
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 0 0 3px black inset;
+}
+
+@media(max-width:768px){
+    .description{
+        border-radius: 0;
+    }
+    .search-form{
+        width: 90%;
+    }
+}

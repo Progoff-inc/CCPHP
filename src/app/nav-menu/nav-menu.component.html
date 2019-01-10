@@ -1,5 +1,6 @@
 <div class="topmenu">
-    <div class="row">
+    <div class="container">
+        <div class="row" style="margin: 0;">
         <div class="col-sm-4" style="display: inline-block; ">
             <a [routerLink]='["/"]' (click)='collapse()'>
                 <img  src="../../assets/images/logo.png">
@@ -28,6 +29,8 @@
              
         
     </div>
+    </div>
+    
 </div>
 
 <div >
@@ -65,35 +68,50 @@
                         <div class='navbar-collapse collapse' [ngClass]='{ "in": isExpanded }'>
                             
                             <ul class='nav' >
-                                <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
-                                    <a [routerLink]='["/"]' (click)='collapse()'>
-                                        <i class="fa fa-home" style="font-size: 14pt"></i>
-                                    </a>
-                                </li>
                                 
                                 <li [routerLinkActive]='["link-active"]'> 
                                     <a [routerLink]='["/allcars"]' (click)='collapse()'>
-                                        <i class="fa fa-car"></i> {{"CARS" | translate}}
+                                        <i class="fa fa-car"></i> <span class="note">{{"CARS" | translate}}</span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
                                     </a>
                                 </li>
                                 <li [routerLinkActive]='["link-active"]'>
                                     <a [routerLink]='["/contacts"]' (click)='collapse()'>
-                                        <i class="fa fa-address-card"></i>{{"CONTACTS" | translate}}
+                                        <i class="fa fa-address-card"></i><span class="note">{{"CONTACTS" | translate}}</span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
                                     </a>
                                 </li>
                                 <li [routerLinkActive]='["link-active"]' (click)="changePage(2)">
                                     <a [routerLink]='["/policy"]' (click)='collapse()'>
-                                        <span class='glyphicon glyphicon-info-sign'></span> {{"RENTAL_POLICY" | translate}}
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i> <span class="note">{{"RENTAL_POLICY" | translate}}</span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
                                     </a>
                                 </li>
                                 <li [routerLinkActive]='["link-active"]' (click)="changePage(3)">
                                     <a [routerLink]='["/about"]' (click)='collapse()'>
-                                        <i class="fa fa-book"></i> {{"ABOUT_CRETE" | translate}}
+                                        <i class="fa fa-book"></i> <span class="note">{{"ABOUT_CRETE" | translate}}</span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
                                     </a>
                                 </li>
                                 <li [routerLinkActive]='["link-active"]' >
                                     <a [routerLink]='["/feedback"]' (click)='collapse()'>
-                                        <i class="fa fa-comments"></i> {{"COMMENTS" | translate}}
+                                        <i class="fa fa-comments"></i> <span class="note">{{"COMMENTS" | translate}}</span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
                                     </a>
                                 </li>
                             </ul>
