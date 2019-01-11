@@ -1,7 +1,7 @@
 <div class="topmenu">
     <div class="container">
         <div class="row" style="margin: 0;">
-        <div class="col-sm-4" style="display: inline-block; ">
+        <div class="col-sm-4" >
             <a [routerLink]='["/"]' (click)='collapse()'>
                 <img  src="../../assets/images/logo.png">
             </a>
@@ -36,7 +36,7 @@
 <div >
     <div >
             <div class='main-nav' >
-                    <div class='navbar navbar-inverse'>
+                    <div class='navbar navbar-inverse' [ngClass]="{'no-shadow':!showShadow, 'fixed-menu':fixedMenu}">
                         <div class='navbar-header'>
                             <div class="row menu-prop">
                                     <div *ngIf="!userService.currentUser" (click)="userService.ShowForm(1)"><span  class='glyphicon glyphicon-plus'></span><span>{{"REGISTRATION" | translate}}</span></div>

@@ -17,6 +17,9 @@ export class CarsService implements OnInit{
     GetCars(){
         return this.http.get<Car[]>(this.baseUrl + 'CarsController.php?Key=get-cars');
     }
+    GetBestCars(){
+        return this.http.get<Car[]>(this.baseUrl + 'CarsController.php?Key=get-best-cars');
+    }
     GetSameCars(id){
         return this.http.get<Car[]>(this.baseUrl + 'CarsController.php?Key=get-same-cars&Id='+id);
     }

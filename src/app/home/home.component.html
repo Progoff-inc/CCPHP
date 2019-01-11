@@ -65,110 +65,111 @@
         </form>
     </div>
 </div>
-<div class="container best-cars">
+
+<div class="container best-cars"  [ngClass]='{"show-advs":showAdvs}'>
+    <div class="advs" >
+        <div class="row">
+            <div class="col-xs-4">
+                <div>
+                    <i class="fa fa-plane box-icon-border box-icon-center round box-icon-white box-icon-big"></i>
+                    <h3>Pick up & Drop off directly at the Airport</h3>
+                    <p>We are based in Heraklion Airport and Chania Airport. You can collect and return your hired vehicle straight at any Crete's Airport</p>
+                </div>
+                
+            </div>
+            <div class="col-xs-4">
+                <div>
+                    <i class="fa fa-shield box-icon-border box-icon-center round box-icon-white box-icon-big"></i>
+                    <h3>All Risk Insurance with NO EXCESS!</h3>
+                    <p>Our prices and specials offers include no additional fees & extra -hidden- insurances. The price you reserve is the price you pay.</p>
+                </div>
+                
+            </div>
+            <div class="col-xs-4">
+                <div>
+                    <i class="fa fa-car box-icon-border box-icon-center round box-icon-white box-icon-big"></i>
+                    <h3>Book Early, Avoid disappointment</h3>
+                    <p>Book your next rental car in Crete with Justrentals and avoid disappointment. No credit card is required.</p>
+                </div>
+            </div>
+        </div>
+        <div class="arrow" [ngStyle]='{"opacity":showAdvs?"0":"1"}'>
+            <img src="../../assets/images/arrow.gif" alt="">
+        </div>
+    </div>
     <h2>{{'BEST_CARS' | translate}}</h2>
-    <div class="car">
-        <h3>Car Model</h3>
-        <div class="photo">
-            <img src="../../assets/images/golf_7_1.jpg">
+    <div *ngFor='let car of bestCars; let i = index' [ngClass]="{'between':betweenCars}"  class="car-item">
+        <h3>{{car.Model}}</h3>
+      <div  class="car-img">
+        <img src="{{car.Photo}}" alt="">
+        <div (click)="showCarInfo(car)" class="blur"></div>
+        <div [ngClass]="{'price':car.Sales.length==0, 'sale-price':car.Sales.length>0}">
+        
+          <span>{{car.Sales.length>0?getCarPrice(car):car.Price}}€</span>
         </div>
-        <div class="bars">
-            <div class="pros">
-                <span>{{'CAR_LOOK' | translate}}</span>
-                <div class="progress-container">
-                
-                    <div style="background-color: rgb(34, 174, 255)" class="progress" [ngStyle]="{'width':'200px'}" ></div>
-                    <span class="bars-label"> {{5}}</span>
-                </div>
-            
-            </div>
-            <div class="pros">
-                <span>{{'CAR_COMFORT' | translate}}</span>
-                <div class="progress-container">
-                    
-                    <div style="background-color: rgb(34, 174, 255)" class="progress" [ngStyle]="{'width':'100px'}" ></div>
-                    <span class="bars-label"> {{3}}</span>
-                </div>
-                
-            </div>
-            <div class="pros">
-                <span>{{'CAR_DRIVE' | translate}}</span>
-                <div class="progress-container">
-                    <div style="background-color: rgb(34, 174, 255)" class="progress" [ngStyle]="{'width':'150px'}" ></div>
-                    <span class="bars-label"> {{4}}</span>
-                </div>
-                
-            </div>
-            
-            
-            
+        <div *ngIf="car.Sales.length>0" class="discount">
+          <span>{{getCarPrice(car,true)}}</span>
         </div>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facere omnis aliquid veniam ad praesentium perferendis ut, vel suscipit id modi nam fugit ipsam consectetur minus eaque hic accusamus autem qui!</p>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facere omnis aliquid veniam ad praesentium perferendis ut, vel suscipit id modi nam fugit ipsam consectetur minus eaque hic accusamus autem qui!</p>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facere omnis aliquid veniam ad praesentium perferendis ut, vel suscipit id modi nam fugit ipsam consectetur minus eaque hic accusamus autem qui!</p>
-        <div class="detales">
-            <div class="row car-info-area" style="margin-top: 20px; padding-top: 10px; border-top:1px solid lightgray; ">
-              <div class="col-sm-4">
-                <h4>{{'CAR_FEATURES'|translate}}</h4>
-                  <div class="details">
-                    <div class="detail-item">
-                      <i class="fa fa-male"></i>
-                      <!-- <span>{{service.car?service.car.Passengers:''}} {{"PASSENGERS" | translate}}</span> -->
-                    </div>
-                    <div class="detail-item">
-                      <i class="fa fa-car"></i>
-                      <!-- <span>{{service.car?service.car.Doors:''}} {{"DOORS_S" | translate}}</span> -->
-                    </div>
-                    <div class="detail-item">
-                      <i class="fa fa-cogs"></i>
-                      <!-- <span>{{"TRANSMISSION" | translate}}: {{service.car?(service.car.Transmission.toUpperCase() | translate):'' }}</span> -->
-                    </div>
-                    <div class="detail-item">
-                      <i class="fa fa-tachometer"></i>
-                      <!-- <span>{{"CONSUMPTION" | translate}}: {{service.car?service.car.Consumption:''}}{{"L"|translate}}/100{{"KM"|translate}}</span> -->
-                    </div>
-                    <!-- <div *ngIf="service.car?service.car.AC:false" class="detail-item">
-                      <i class="fa fa-snowflake-o"></i>
-                      <span>A/C</span>
-                    </div> -->
-                    <div class="detail-item">
-                      <i class="fa fa-user"></i>
-                      <!-- <span>{{'MINAGE'| translate}}: {{service.car?service.car.MinAge:''}} {{'YEARS'|translate}}</span> -->
-                    </div>
-                    <div class="detail-item">
-                      <i class="fa fa-truck"></i>
-                      <!-- <span>{{'BODY'| translate}}: {{service.car?service.car.BodyType:''}}</span> -->
-                    </div>
-                    <div class="detail-item">
-                      <i class="fa fa-tint"></i>
-                      <!-- <span>{{"FUEL" | translate}}: {{service.car?(service.car.Fuel.toUpperCase() | translate):'' }}</span> -->
-                    </div>
-                  </div>
-              </div>
-              <div class="col-sm-3">
-                <h4>{{'DEFAULT_EQUIPMENT'|translate}}</h4>
-                  <div class="details">
-                    <div  class="detail-item">
-                        <i class="fa fa-road" aria-hidden="true"></i>
-                      <span>ABS</span>
-                    </div>
-                    <div  class="detail-item">
-                      <i class="fa fa-snowflake-o"></i>
-                      <span>A/C</span>
-                    </div>
-                    <div  class="detail-item">
-                      <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                      <span>{{'AIRBAGS'|translate}}</span>
-                    </div>
-                    <div  class="detail-item">
-                      <i class="fa fa-volume-up" aria-hidden="true"></i>
-                      <span>{{'RADIO' | translate}}</span>
-                    </div>
-                  </div>
-              </div>
-              
-            </div>
+        <div class="rating">
+          <rating [mark]="car.Mark"></rating>
         </div>
+        <i (click)="showCarPhotos(car.Id)" class="fa fa-picture-o" aria-hidden="true"></i>
+      </div>
+      <div class="car-info">
+        
+        <div class="details">
+          <div class="detail-item">
+            <div class="detail-messege">
+              <span>{{"PASSENGERS_S" | translate}}</span>
+            </div>
+            <i class="fa fa-male"></i>
+            <span>x {{car.Passengers}}</span>
+          </div>
+          <div class="detail-item">
+            <div class="detail-messege">
+                <span>{{"DOORS" | translate}}</span>
+            </div>
+            <i class="fa fa-car"></i>
+            <span>x {{car.Doors}}</span>
+          </div>
+          <div class="detail-item">
+            <div class="detail-messege">
+              <span>{{"TRANSMISSION" | translate}}</span>
+            </div>  
+            <i class="fa fa-cogs"></i>
+            <span>{{car.Transmission}}</span>
+          </div>
+          <div *ngIf="car.AC" class="detail-item">
+            <div class="detail-messege">
+              <span>A/C</span>
+            </div>
+            <i class="fa fa-snowflake-o"></i>
+            <span>A/C</span>
+          </div>
+          <div class="detail-item">
+            <div class="detail-messege">
+              <span>{{'BODY'| translate}}</span>
+            </div>
+            <i class="fa fa-truck"></i>
+            <span>{{car.BodyType}}</span>
+          </div>
+          <div class="detail-item">
+            <div class="detail-messege">
+              <span>{{"FUEL" | translate}}</span>
+            </div>
+            <i class="fa fa-tint"></i>
+            <span>{{car.Fuel}}</span>
+          </div>
+        </div>
+        <div class="buttons">
+          <button class="btn btn-info" (click)="showCarInfo(car)">{{"CAR_INFO" | translate}}</button>
+          <button class="btn btn-success" routerLink="/booking/{{car.Id}}">{{"BOOK" | translate}}</button>
+        </div>
+        
+      </div>
+      <div class="car-description">
+            <p>{{translate.currentLang=='ru'?(car?car.Description:''):car.Description_ENG}}</p>
+      </div>
     </div>
     <div class="car"></div>
     <div class="car"></div>

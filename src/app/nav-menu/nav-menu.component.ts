@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, HostListener } from '@angular/core';
 import {MyTranslateService} from '../services/MyTranslateService';
 import {UserService} from '../services/UserService';
 import { AlertService } from '../services/AlertService';
+import { Router, NavigationEnd } from '@angular/router';
 
 
 @Component({
@@ -14,7 +15,25 @@ export class NavMenuComponent implements OnInit {
  
   alertService:AlertService = new AlertService();
   isExpanded = false;
-  constructor(public userService:UserService){
+  showShadow = false;
+  fixedMenu = false;
+  @HostListener('document:scroll', [])
+            onScroll(): void {
+                if(window.pageYOffset>103){
+                  
+                  this.fixedMenu = true;
+                  
+                    
+                }
+                else{
+                  
+                  this.fixedMenu = false;
+                  
+                  
+                }
+                
+            }
+  constructor(public userService:UserService, private router:Router){
     
   }
 
@@ -43,5 +62,18 @@ export class NavMenuComponent implements OnInit {
 
       }
     }
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+          return;
+      }
+      if(evt.url!='/'){
+        this.showShadow=true;
+      }
+      else{
+        this.showShadow=false;
+      }
+      
+      window.scrollTo(0, 0)
+     });
   }
 }

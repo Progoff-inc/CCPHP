@@ -25,7 +25,7 @@ export class CarsComponent {
     service.ngOnInit();
     
     this.service.GetCars().subscribe(data => {
-   
+      console.log(data);
       if(data.length!=0){
         
         this.cars=data;

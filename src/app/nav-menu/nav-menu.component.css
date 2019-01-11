@@ -1,6 +1,7 @@
 .topmenu{
     position: relative;
     background-color: #0B61A4;
+    max-height: 103px;
     
 }
 
@@ -9,7 +10,10 @@
     padding: 10px 0;
 }
 .navbar-inverse{
+    position: relative;
     background-color: #0B61A4;
+    z-index: 300;
+    transition: 0.5s;
 }
 .menu-prop{
     position: absolute;
@@ -89,7 +93,7 @@ li .glyphicon, li i {
 li.link-active a,
 li.link-active a:hover,
 li.link-active a:focus {
-    border-radius:4px; 
+    border-radius: 20px;
     background-color: #4189C7;
     color: white;
 }
@@ -116,7 +120,8 @@ li.link-active a:focus {
     
     border: none;
     margin-bottom: 0;
-    padding: 0 5px;
+    padding: 0;
+    padding-top: 5px;
     min-height: 0;
 }
 
@@ -126,6 +131,28 @@ li.link-active a:focus {
 .nav>li>a:hover{
     background-color: unset;
   color: rgb(0, 0, 0);
+}
+.no-shadow::after{
+    box-shadow: 0 0 0 black !important;
+}
+.fixed-menu::after{
+    box-shadow: 0 3px 3px black !important;
+}
+.navbar-inverse::after{
+    content: '';
+    position: absolute;
+    background-color: #0B61A4;
+    border-radius: 0 0 50% 50%;
+    height: 15px;
+    width: 100%;
+    box-shadow: 0 3px 3px black;
+}
+.fixed-menu{
+    min-width: 330px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
 }
 @media (min-width: 941px) {
     .topmenu .container::before{
@@ -142,6 +169,7 @@ li.link-active a:focus {
         
         
     }
+    
   /* On small screens, convert the nav menu to a vertical sidebar */
     .navbar-header .menu-prop{
         display: none;
@@ -237,12 +265,14 @@ li.link-active a:focus {
         max-width: 150px;
     }
     .topmenu img{
-        margin: 0 10%; 
-        max-width: auto;
-        width: 80%;
+        margin: 0 auto; 
+        max-width: 300px;
+        max-height: 95px;
     }
     .col-sm-4{
         width: 100%;
+        display: flex;
+        justify-content: center;
     }
     .nav {
         margin-top:20px;
