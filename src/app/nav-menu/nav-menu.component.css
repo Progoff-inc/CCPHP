@@ -135,6 +135,7 @@ li.link-active a:focus {
         bottom: 3vw;
         right: -10vw;
         background-color: rgb(98, 175, 235);
+        box-shadow: 0 0 3px 1px black inset;
         border-radius: 0 0 50% 50%;
         transform: rotate(15deg);
         width: 65vw;

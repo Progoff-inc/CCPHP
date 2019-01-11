@@ -1,5 +1,6 @@
 .description{
     border-radius: 0 0 70% 70%;
+    box-shadow: 0 -1px 10px 3px black;
     min-height: 450px;
     display: flex;
     justify-content: center;
@@ -23,7 +24,27 @@
     padding: 20px;
     border-radius: 20px;
     background-color: white;
-    box-shadow: 0 0 3px black inset;
+    box-shadow: 0 0 3px  black inset;
+}
+
+.best-cars{
+    background-color: white;
+    box-shadow: 1px 1px 4px  black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 4px;
+    margin: 20px auto;
+    min-height: 400px;
+}
+
+.car{
+    margin: 8px;
+}
+.car .photo{
+    float: right;
+    width: 50%;
+    margin-bottom: 10px;
 }
 
 @media(max-width:768px){
@@ -33,4 +54,62 @@
     .search-form{
         width: 90%;
     }
+}
+.detail-item{
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+    font-size: 12pt;
+    margin-bottom: 10px;
+
+}
+.detail-item>i{
+    margin-right: 7px;
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid gray;
+    border-radius: 4px;
+    font-size: 14pt;
+}
+.detales{
+    clear: both;
+    margin-bottom: 10px;
+    margin-top: 10px;
+
+    
+}
+.progress-container{
+   
+    border-radius: 4px;
+    width: 200px;
+    height: 10px;
+    position: relative;
+    background-color: rgb(230, 230, 230);
+}
+.bars{
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px 10px 0;
+    margin-bottom: 10px;
+    font-size: 10pt;
+
+}
+.bars-label{
+    position: absolute;
+    right: -35px;
+    top:-4px;
+
+}
+.progress{
+    
+    position: absolute;
+    height: 10px;
+    left: 0;
+    width: 0;
+    transition: 1s;
+    
 }

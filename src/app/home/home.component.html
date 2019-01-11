@@ -65,3 +65,111 @@
         </form>
     </div>
 </div>
+<div class="container best-cars">
+    <h2>{{'BEST_CARS' | translate}}</h2>
+    <div class="car">
+        <h3>Car Model</h3>
+        <div class="photo">
+            <img src="../../assets/images/golf_7_1.jpg">
+        </div>
+        <div class="bars">
+            <div class="pros">
+                <span>{{'CAR_LOOK' | translate}}</span>
+                <div class="progress-container">
+                
+                    <div style="background-color: rgb(34, 174, 255)" class="progress" [ngStyle]="{'width':'200px'}" ></div>
+                    <span class="bars-label"> {{5}}</span>
+                </div>
+            
+            </div>
+            <div class="pros">
+                <span>{{'CAR_COMFORT' | translate}}</span>
+                <div class="progress-container">
+                    
+                    <div style="background-color: rgb(34, 174, 255)" class="progress" [ngStyle]="{'width':'100px'}" ></div>
+                    <span class="bars-label"> {{3}}</span>
+                </div>
+                
+            </div>
+            <div class="pros">
+                <span>{{'CAR_DRIVE' | translate}}</span>
+                <div class="progress-container">
+                    <div style="background-color: rgb(34, 174, 255)" class="progress" [ngStyle]="{'width':'150px'}" ></div>
+                    <span class="bars-label"> {{4}}</span>
+                </div>
+                
+            </div>
+            
+            
+            
+        </div>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facere omnis aliquid veniam ad praesentium perferendis ut, vel suscipit id modi nam fugit ipsam consectetur minus eaque hic accusamus autem qui!</p>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facere omnis aliquid veniam ad praesentium perferendis ut, vel suscipit id modi nam fugit ipsam consectetur minus eaque hic accusamus autem qui!</p>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facere omnis aliquid veniam ad praesentium perferendis ut, vel suscipit id modi nam fugit ipsam consectetur minus eaque hic accusamus autem qui!</p>
+        <div class="detales">
+            <div class="row car-info-area" style="margin-top: 20px; padding-top: 10px; border-top:1px solid lightgray; ">
+              <div class="col-sm-4">
+                <h4>{{'CAR_FEATURES'|translate}}</h4>
+                  <div class="details">
+                    <div class="detail-item">
+                      <i class="fa fa-male"></i>
+                      <!-- <span>{{service.car?service.car.Passengers:''}} {{"PASSENGERS" | translate}}</span> -->
+                    </div>
+                    <div class="detail-item">
+                      <i class="fa fa-car"></i>
+                      <!-- <span>{{service.car?service.car.Doors:''}} {{"DOORS_S" | translate}}</span> -->
+                    </div>
+                    <div class="detail-item">
+                      <i class="fa fa-cogs"></i>
+                      <!-- <span>{{"TRANSMISSION" | translate}}: {{service.car?(service.car.Transmission.toUpperCase() | translate):'' }}</span> -->
+                    </div>
+                    <div class="detail-item">
+                      <i class="fa fa-tachometer"></i>
+                      <!-- <span>{{"CONSUMPTION" | translate}}: {{service.car?service.car.Consumption:''}}{{"L"|translate}}/100{{"KM"|translate}}</span> -->
+                    </div>
+                    <!-- <div *ngIf="service.car?service.car.AC:false" class="detail-item">
+                      <i class="fa fa-snowflake-o"></i>
+                      <span>A/C</span>
+                    </div> -->
+                    <div class="detail-item">
+                      <i class="fa fa-user"></i>
+                      <!-- <span>{{'MINAGE'| translate}}: {{service.car?service.car.MinAge:''}} {{'YEARS'|translate}}</span> -->
+                    </div>
+                    <div class="detail-item">
+                      <i class="fa fa-truck"></i>
+                      <!-- <span>{{'BODY'| translate}}: {{service.car?service.car.BodyType:''}}</span> -->
+                    </div>
+                    <div class="detail-item">
+                      <i class="fa fa-tint"></i>
+                      <!-- <span>{{"FUEL" | translate}}: {{service.car?(service.car.Fuel.toUpperCase() | translate):'' }}</span> -->
+                    </div>
+                  </div>
+              </div>
+              <div class="col-sm-3">
+                <h4>{{'DEFAULT_EQUIPMENT'|translate}}</h4>
+                  <div class="details">
+                    <div  class="detail-item">
+                        <i class="fa fa-road" aria-hidden="true"></i>
+                      <span>ABS</span>
+                    </div>
+                    <div  class="detail-item">
+                      <i class="fa fa-snowflake-o"></i>
+                      <span>A/C</span>
+                    </div>
+                    <div  class="detail-item">
+                      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                      <span>{{'AIRBAGS'|translate}}</span>
+                    </div>
+                    <div  class="detail-item">
+                      <i class="fa fa-volume-up" aria-hidden="true"></i>
+                      <span>{{'RADIO' | translate}}</span>
+                    </div>
+                  </div>
+              </div>
+              
+            </div>
+        </div>
+    </div>
+    <div class="car"></div>
+    <div class="car"></div>
+</div>
