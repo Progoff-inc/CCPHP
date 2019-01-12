@@ -9,5 +9,10 @@ img{
     width: 100%;
     padding: 30px 40px;
     margin: 0;
-    background-color: rgba(100, 123, 253, 0.425);
+    background-color: #0B61A4;
+    border-radius: 20% 20% 0 0;
+    box-shadow: 0 -1px 10px 1px black;
+}
+.row *{
+    color:white;
 }

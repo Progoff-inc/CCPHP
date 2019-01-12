@@ -8,7 +8,8 @@
 }
 body{
     min-width: 330px;
-    background-color: rgb(98, 175, 235);
+    /* background-color: rgb(98, 175, 235); */
+    background-image: url('./assets/images/bg.jpg')
 }
 
 .background-blur{

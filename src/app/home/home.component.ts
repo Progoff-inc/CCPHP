@@ -10,54 +10,109 @@ import { TranslateService } from '../../../node_modules/@ngx-translate/core';
 })
 export class HomeComponent implements OnInit {
   searchForm: FormGroup;
+  // tslint:disable-next-line:whitespace
   search:Search = new Search();
-  bestCars:Car[];
+  slides = [{
+    Photo:'../../assets/images/manual.jpg',
+    Header:'MAIN_MANUAL',
+    MinPrice:22,
+    Text:'MAIN_MANUAL_TEXT'
+  },
+  {
+    Photo:'../../assets/images/automatic.jpg',
+    Header:'MAIN_AUTOMATIC',
+    MinPrice:28,
+    Text:'MAIN_AUTOMATIC_TEXT'
+  },
+  {
+    Photo:'../../assets/images/cabrio.jpg',
+    Header:'MAIN_CABRIO',
+    MinPrice:75,
+    Text:'MAIN_CABRIO_TEXT'
+  },
+  {
+    Photo:'../../assets/images/minivan.jpg',
+    Header:'MAIN_MINIVAN',
+    MinPrice:69,
+    Text:'MAIN_MINIVAN_TEXT'
+  }]
+  steps = [
+    {
+      Icon:"../../assets/images/icons/diagnostic.svg",
+      Header:"CHOOSE_CAR",
+      Text:"CHOOSE_CAR_TEXT"
+    },
+    {
+      Icon:"../../assets/images/icons/writing.svg",
+      Header:"BOOK_CAR",
+      Text:"BOOK_CAR_TEXT"
+    },
+    {
+      Icon:"../../assets/images/icons/document.svg",
+      Header:"CONTRACT",
+      Text:"CONTRACT_TEXT"
+    },
+    {
+      Icon:"../../assets/images/icons/car.svg",
+      Header:"CLEAN_CAR",
+      Text:"CLEAN_CAR_TEXT"
+    },
+    {
+      Icon:"../../assets/images/icons/security.svg",
+      Header:"SAVE_CAR",
+      Text:"SAVE_CAR_TEXT"
+    },
+    {
+      Icon:"../../assets/images/icons/24-hours.svg",
+      Header:"RETURN_CAR",
+      Text:"RETURN_CAR_TEXT"
+    }
+  ]
+  bestCars: Car[];
   betweenCars = false;
   showAdvs = false;
   @HostListener('document:scroll', [])
             onScroll(): void {
-              if(window.pageYOffset>53){
-                  
-                this.showAdvs = true; 
-              }
-              else{
+              if (window.pageYOffset > 53) {
+
+                this.showAdvs = true;
+              } else {
                 this.showAdvs = false;
               }
-              if(window.pageYOffset>303){
-                
+              if (window.pageYOffset > 303) {
+
                 this.betweenCars = true;
-                
-                  
+
+
               }
-                
+
             }
-  constructor(public translate: TranslateService, private formBuilder: FormBuilder, public service:CarsService){
+  constructor(public translate: TranslateService, private formBuilder: FormBuilder, public service: CarsService) {
 
   }
   get f() { return this.searchForm.controls; }
-  ngOnInit(){
+  ngOnInit() {
     this.searchForm = this.formBuilder.group({
       Pick: ['', Validators.required],
-      Drop: ['', Validators.required]     
+      Drop: ['', Validators.required]
     });
     this.service.GetBestCars().subscribe(data => {
       console.log(data);
-      if(data.length!=0){
-        
-        this.bestCars=data;
+      if (data.length !== 0) {
+
+        this.bestCars = data;
+      } else {
+
       }
-      else{
-        
-      }
-      
-      
-    })
+
+
+    });
   }
 }
 
-export class Search{
-  Pick:string;
-  Drop:string;
-  DateStart:Date;
-  DateFinish:Date;
+export class Search {
+  Pick: string;
+  Drop: string;
+  DateStart: Date;
+  DateFinish: Date;
 }
