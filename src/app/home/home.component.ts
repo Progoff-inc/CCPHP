@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit {
   searchForm: FormGroup;
   // tslint:disable-next-line:whitespace
   search:Search = new Search();
+  workCoords:number;
   slides = [{
     Photo:'../../assets/images/manual.jpg',
     Header:'MAIN_MANUAL',
@@ -71,6 +72,7 @@ export class HomeComponent implements OnInit {
   bestCars: Car[];
   betweenCars = false;
   showAdvs = false;
+  showWork = false;
   @HostListener('document:scroll', [])
             onScroll(): void {
               if (window.pageYOffset > 53) {
@@ -85,6 +87,13 @@ export class HomeComponent implements OnInit {
 
 
               }
+              if (window.pageYOffset > this.workCoords+100) {
+
+                this.showWork = true;
+              }
+              else{
+                this.showWork =false;
+              }
 
             }
   constructor(public translate: TranslateService, private formBuilder: FormBuilder, public service: CarsService) {
@@ -92,6 +101,7 @@ export class HomeComponent implements OnInit {
   }
   get f() { return this.searchForm.controls; }
   ngOnInit() {
+    this.workCoords = document.getElementsByClassName("work")[0].getBoundingClientRect().top;
     this.searchForm = this.formBuilder.group({
       Pick: ['', Validators.required],
       Drop: ['', Validators.required]

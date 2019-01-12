@@ -450,6 +450,8 @@
 .work{
     background-color: white;
     box-shadow: 0 0 10px black inset;
+    transition: 0.5s;
+    overflow: hidden;
 }
 .sales .container{
     padding: 30px 0;
