@@ -55,6 +55,18 @@ if(isset($_GET['Key']))
             }
             echo json_encode($res);
             break;
+        case 'get-reports':
+            $q = $db->query("SELECT * FROM feedbacks");
+
+            $res = [];
+            while ($s = $q->fetch()) {
+                //$user = $db->query("SELECT * FROM users WHERE id=8")->fetch(PDO::FETCH_CLASS, User);
+                $res[] = new FeedBack($s['Id'], $s['Look'], $s['Comfort'], $s['Drive'],
+                $s['CreateDate'], $s['Mark'], $s['Text'], $s['UserId'], $s['CarId'], [], []);
+                        
+            }
+            echo json_encode($res);
+            break;
         case 'get-best-cars':
             $q = $db->query("SELECT * FROM cars");
 
@@ -70,6 +82,7 @@ if(isset($_GET['Key']))
             }
             echo json_encode($res);
             break;
+        
         case 'add-booking':
             $b = json_decode(file_get_contents('php://input'), true);
             $book = new Entree($b['Id'], $b['Date'], $b['Place']);  
