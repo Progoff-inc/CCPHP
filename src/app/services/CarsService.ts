@@ -157,7 +157,7 @@ export interface ReportCar {
 }
 export interface Filter {
     Name: string;
-    Value: string;
+    Values: string[];
 }
 
 export class Contains {

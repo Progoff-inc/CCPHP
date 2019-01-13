@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Янв 01 2019 г., 14:00
+-- Время создания: Янв 13 2019 г., 22:24
 -- Версия сервера: 10.1.32-MariaDB
 -- Версия PHP: 7.2.5
 
@@ -123,6 +123,15 @@ CREATE TABLE `feedbacks` (
   `Look` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Дамп данных таблицы `feedbacks`
+--
+
+INSERT INTO `feedbacks` (`Id`, `UserId`, `CarId`, `Mark`, `Text`, `CreateDate`, `Comfort`, `Drive`, `Look`) VALUES
+(1, 8, 14, 4.33, 'Tation delenit percipitur at vix. Eam id posse dictas voluptua, veniam laoreet oportere no mea, quis regione suscipiantur mea an. Tation delenit percipitur at vix.\r\nEu cum iuvaret debitis voluptatibus, esse perfecto reformidans id has. Sea esse deserunt ei, no diam ubique euripidis has.\r\nOratio accumsan et mea. Per cu iracundia splendide. Nisl omittam complectitur pro an, quem omnes munere id vix. Eu cum iuvaret debitis voluptatibus, esse perfecto reformidans id has.', '2018-11-23 20:09:34', 5, 5, 3),
+(60019, 8, 8, 4.33, 'Чумовое авто!', '2018-11-23 00:00:00', 3, 5, 5),
+(60029, 8, 8, 4.33, 'Чумовое авто!', '2018-11-23 23:00:00', 3, 5, 5);
+
 -- --------------------------------------------------------
 
 --
@@ -212,6 +221,13 @@ CREATE TABLE `users` (
   `Lang` varchar(25) DEFAULT NULL,
   `IsAdmin` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `users`
+--
+
+INSERT INTO `users` (`Id`, `Name`, `Email`, `CreateDate`, `ModifiedDate`, `Password`, `Phone`, `Photo`, `Lang`, `IsAdmin`) VALUES
+(8, 'Ваня Номоконов (gmail)', 'nomokonov.vana@gmail.com', '2019-01-09 00:00:00', '2019-01-11 00:00:00', '123', '89151999845', '../../assets/images/myava.jpg', 'RU', b'0');
 
 --
 -- Индексы сохранённых таблиц

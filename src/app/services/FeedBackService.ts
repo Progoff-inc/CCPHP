@@ -21,7 +21,7 @@ export class FeedBackService{
   getReports(){
     this.reports=[];
     this.number=0;
-    this.http.get<FeedBack[]>(this.baseUrl + 'FBController.php?Key=get-reports').subscribe(data => {
+    this.http.get<FeedBack[]>(this.baseUrl + 'CarsController.php?Key=get-reports').subscribe(data => {
       this.reports=data;
    
       this.reports.forEach(r => {
@@ -30,7 +30,7 @@ export class FeedBackService{
       })
       this.number=this.reports.length;
       this.changePage(0,21);
-
+      console.log(this.curReports);
     })
   }
   saveReport(report:ShortFeedBack){

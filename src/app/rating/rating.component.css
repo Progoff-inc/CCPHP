@@ -1,6 +1,7 @@
 i, span{
     font-size: 14pt;
     color: rgb(230, 196, 8);
+    text-shadow: 0 0 1px black;
 }
 span{
     font-size: 12pt;

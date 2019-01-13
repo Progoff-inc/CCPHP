@@ -13,9 +13,11 @@ import {CarsService, Car, Filter, Book} from '../services/CarsService';
 export class CarsComponent {
   load:boolean=true;
   public user:User;
-
+  filters:Filter[] = [{Name:"PASSENGERS", Values:['5 чел.','7 чел.']},{Name:"BODY_TYPE", Values:['HATCHBACK','CROSSOVER', 'CABRIOLET', 'MINIVAN']},
+  {Name:"TRANSMISSION", Values:['MANUAL','AUTOMATIC']}, {Name:"FUEL", Values:['PETROL','DEISEL']}, {Name:"GROUPE", Values:['ECONOMY','FULL-SIZED', 'MEDIUM', 'COMPACT']}
+  ];
   public alert:AlertService = new AlertService();
-  public filters:Filter[]=[];
+  public filter:Filter[]=[];
   public cars:Car[] = [];
   photos:string[];
   showPhotos:any = {show:false};
@@ -70,36 +72,36 @@ export class CarsComponent {
     }
   }
 
-  get f() {return this.filters.map(x=>x.Value)}
-  addFilter(name:string,value:string){
-    if(this.filters.map(x=>x.Value).indexOf(value)==-1){
+  // get f() {return this.filters.map(x=>x.Value)}
+  // addFilter(name:string,value:string){
+  //   if(this.filters.map(x=>x.Value).indexOf(value)==-1){
      
-      this.filters.push({Name:name,Value:value});
-      this.Filter();
-    }
-    else{
-      this.filters.splice(this.filters.map(x=>x.Value).indexOf(value),1);
-      if(this.filters.length>0){
-        this.Filter();
-      }
-      else{
-        this.filteredCars = this.cars;
-      }
-    }
+  //     this.filters.push({Name:name,Value:value});
+  //     this.Filter();
+  //   }
+  //   else{
+  //     this.filters.splice(this.filters.map(x=>x.Value).indexOf(value),1);
+  //     if(this.filters.length>0){
+  //       this.Filter();
+  //     }
+  //     else{
+  //       this.filteredCars = this.cars;
+  //     }
+  //   }
     
-  }
+  // }
   
-  Filter(){
-    this.filteredCars=this.cars.filter(x => {
-      for(let i =0; i<this.filters.length;i++){
-        if(x[this.filters[i].Name]==this.filters[i].Value){
-          return x;
-        }
-      }
-    });
+  // Filter(){
+  //   this.filteredCars=this.cars.filter(x => {
+  //     for(let i =0; i<this.filters.length;i++){
+  //       if(x[this.filters[i].Name]==this.filters[i].Value){
+  //         return x;
+  //       }
+  //     }
+  //   });
     
 
-  }
+  // }
 }
 
 

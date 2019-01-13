@@ -2,7 +2,7 @@
 /* You can add global styles to this file, and also import other style files */
 .glyph-small{
     font-size: 6pt;
-    color:rgb(173, 173, 173);
+    color:black;
     margin-left: 3px;
     margin-bottom: 2px;
 }
@@ -168,7 +168,9 @@ span.is-invalid, p.is-invalid{
     max-width: 0;
     max-height: 0;
 }
-
+.detail-item i{
+    background-color: white;
+}
 .detail-item{
     position: relative;
     cursor: pointer;

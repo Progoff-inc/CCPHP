@@ -10,7 +10,7 @@
     padding: 10px 0;
 }
 .navbar-inverse{
-    height: 40px;
+    height: 45px;
     position: relative;
     background-color: #0B61A4;
     background-image: none !important;
@@ -26,7 +26,9 @@
     
 }
 .menu-prop>div:not(.lang){
-    border: 1px solid gray;
+    box-shadow: 0 0 5px black inset;
+    background-color: white;
+    color: black;
     padding: 5px;
     border-radius: 3px;
     transition: 0.2s;
@@ -190,7 +192,7 @@ li.link-active a:focus {
     .menu-prop>div:not(.lang):hover{
         border-radius: 7px;
         color:#0B61A4;
-        border-color: #0B61A4;
+        box-shadow: 0 0 5px #0B61A4 inset;
     }
 
     /* .navbar ul {

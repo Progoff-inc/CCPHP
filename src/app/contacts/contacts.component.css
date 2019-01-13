@@ -6,16 +6,15 @@
     font-size: 20px;
     margin-bottom: 2px;
 }
+h2{
+    margin-top: 35px;
+}
 .item{
     font-size: 15px;
     margin: 20px 0;
 }
-iframe{
-    margin: 40px 0;
-}
 .col-md-7{
     height: 640px;
-    border-right: 1px solid lightgrey;
 }
 a{
     text-decoration-line: none;
@@ -30,4 +29,30 @@ a:hover{
         border-right:none;
         border-bottom: 1px solid lightgrey;
     }
+}
+
+.map{
+    
+    height: 400px;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    position: relative;
+    margin: 20px auto;
+}
+.cover{
+    position: absolute;
+    z-index: 20;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+    box-shadow: 0 0 10px black inset;
+}
+.map iframe{
+    position: relative;
+    z-index: 10;
+    margin: 0;
+    
+    
+    
 }

@@ -20,7 +20,7 @@
     background-color: rgb(67, 150, 67) !important; 
 }
 .InPage{
-    
+    box-shadow: 0 0 10px black inset;
     position: relative;
     display: block;
     bottom: auto;
@@ -28,7 +28,6 @@
     width: 100% !important;
     border: none !important;
     border-radius: 4px;
-    box-shadow: none;
 }
 .blurProf{
     z-index: 305;

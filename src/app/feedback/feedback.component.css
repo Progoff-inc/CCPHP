@@ -129,7 +129,7 @@ textarea{
 .comment{
     margin: 20px 0 20px 0;
     position: relative;
-    
+    background-color: rgba(255, 255, 255, 0.267);
     border: 1px dashed rgb(255, 255, 255);
     border-radius: 10px;
     padding: 10px;
@@ -169,6 +169,7 @@ textarea{
 .review-top{
     width: 100%;
     position: relative;
+    margin: 30px 0;
 }
 .review-top, .review{
     
@@ -184,10 +185,16 @@ textarea{
 }
 
 .comment>.btn{
-    background-color: white;
+    background-color: transparent;
     width: auto;
-    color:blue;
+    border: none !important;
+    color:#0B61A4;
 
+}
+.comment>.btn:focus{
+    box-shadow: none;
+    border: none;
+    outline: none;
 }
 .checked-up{
     color:green;
