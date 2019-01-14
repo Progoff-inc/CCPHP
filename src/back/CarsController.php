@@ -19,7 +19,7 @@ class Lecturer {
 header("Access-Control-Allow-Origin: *"); 
 header("Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token , Authorization");
-//$db = new PDO('mysql:host=localhost;dbname=nomokoiw_nlc;charset=UTF8','nomokoiw_nlc','9GeRox%c');
+//$db = new PDO('mysql:host=localhost;dbname=nomokoiw_cc;charset=UTF8','nomokoiw_cc','f%EO%6ta');
 $db = new PDO('mysql:host=localhost;dbname=carscrete;charset=UTF8','nlc','12345');
 //$user = json_decode(file_get_contents('php://input'), true);
 // if(isset($user['Name']))
