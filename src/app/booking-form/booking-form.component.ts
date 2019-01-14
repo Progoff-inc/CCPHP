@@ -243,7 +243,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
       }
       this.res=0;
       car.Reports.forEach(element => {
-        this.res+=element[type];
+        this.res+=Number(element[type]);
       });
       this.res = this.res/car.Reports.length/5*100*2;
       this.rating[type]=this.res;

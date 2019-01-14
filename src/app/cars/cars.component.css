@@ -104,7 +104,7 @@
     padding: 0 8px;
     cursor: pointer;
 }
-.sortings span:hover{
+.sortings span:hover, .sortings span.active-sort{
     text-shadow: 1px 1px 2px #0B61A4;
 }
 .cars-container{
@@ -299,12 +299,12 @@
     overflow: hidden;
     cursor: pointer;
 }
-.filter-item:hover{
+.filter-item:hover, .choosed{
     color: #0B61A4	
 }
-.filter-item:hover i{
-    right: 15px;
-    opacity: 1;;
+.filter-item:hover i, .choosed i{
+    right: 15px !important;
+    opacity: 1 !important;
 }
 .filter-item i{
     opacity: 0;
@@ -313,6 +313,7 @@
     right: -20px;
 }
 .filter h3{
+    margin-right: 10px;
     font-size: 20px;
     font-weight: 300;
 }

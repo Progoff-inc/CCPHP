@@ -184,7 +184,18 @@ class Like{
         $this->Report = $Report;
     }
 }
-
+class ReportCar {
+    public $Id;
+    public $Photo;
+    public $Model;
+    public $Price;
+    public function __construct($id, $Photo, $Model, $Price) {
+        $this->Id = $id;
+        $this->Photo = $Photo;
+        $this->Model = $Model;
+        $this->Price = $Price;
+    }
+}
 class Topic{
     public $Id;
     public $Seen;

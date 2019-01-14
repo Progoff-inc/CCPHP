@@ -48,6 +48,34 @@ if(isset($_GET['Key']))
 
             $res = [];
             while ($s = $q->fetch()) {
+                $Id = $s['Id'];
+                $c = $db->query("SELECT * FROM feedbacks where CarId=$Id");
+                $coms = [];
+                while ($u = $c->fetch()) {
+                    //$user = $db->query("SELECT * FROM users WHERE id=8")->fetch(PDO::FETCH_CLASS, User);
+                    $coms[] = new FeedBack($u['Id'], $u['Look'], $u['Comfort'], $u['Drive'],
+                    $u['CreateDate'], $u['Mark'], $u['Text'], $u['UserId'], $u['CarId'], [], []);
+                            
+                }
+                $res[] = new Car($s['Id'], $s['Photo'], $s['Model'], $s['Passengers'],
+                $s['Doors'], $s['BodyType'], $s['Contain'], [], [], $s['AC'], $s['MinAge'], $s['AirBags'], $s['Groupe'], $s['Radio'], $s['ABS'], 
+                $s['Transmission'], $s['Fuel'], $s['Consumption'], $s['Description'], $s['Description_Eng'], $s['Price'], $s['Mark'], $coms, [], []);
+                        
+            }
+            echo json_encode($res);
+            break;
+        case 'get-same-cars':
+            $Id = $_GET['Id'];
+            $q = $db->query("SELECT * FROM cars where Id=$Id");
+            $s = $q->fetch();
+            $car= new Car($s['Id'], $s['Photo'], $s['Model'], $s['Passengers'],
+            $s['Doors'], $s['BodyType'], $s['Contain'], [], [], $s['AC'], $s['MinAge'], $s['AirBags'], $s['Groupe'], $s['Radio'], $s['ABS'], 
+            $s['Transmission'], $s['Fuel'], $s['Consumption'], $s['Description'], $s['Description_Eng'], $s['Price'], $s['Mark'], [], [], []);
+            $p = $car->Groupe;
+            $q = $db->prepare("SELECT * FROM cars WHERE Groupe=? or (Price>=? and Price<=?)");
+            $q->execute(array($p,$car->Price-20, $car->Price+20));
+            $res = [];
+            while ($s = $q->fetch()) {
                 $res[] = new Car($s['Id'], $s['Photo'], $s['Model'], $s['Passengers'],
                 $s['Doors'], $s['BodyType'], $s['Contain'], [], [], $s['AC'], $s['MinAge'], $s['AirBags'], $s['Groupe'], $s['Radio'], $s['ABS'], 
                 $s['Transmission'], $s['Fuel'], $s['Consumption'], $s['Description'], $s['Description_Eng'], $s['Price'], $s['Mark'], [], [], []);
@@ -60,9 +88,23 @@ if(isset($_GET['Key']))
 
             $res = [];
             while ($s = $q->fetch()) {
-                //$user = $db->query("SELECT * FROM users WHERE id=8")->fetch(PDO::FETCH_CLASS, User);
+                $u = $db->query("SELECT * FROM users WHERE id=8")->fetch();
+                $user = $user = new ReportUser($u['Id'], $u['Name'], $u['Email'], $u['Photo'], $u['IsAdmin']);
+                $CarId=$s['CarId'];
+                $u = $db->query("SELECT * FROM cars WHERE id=$CarId")->fetch();
+                $car = new ReportCar($u['Id'], $u['Photo'], $u['Model'], $u['Price']);
                 $res[] = new FeedBack($s['Id'], $s['Look'], $s['Comfort'], $s['Drive'],
-                $s['CreateDate'], $s['Mark'], $s['Text'], $s['UserId'], $s['CarId'], [], []);
+                $s['CreateDate'], $s['Mark'], $s['Text'], $user, $car, [], []);
+                        
+            }
+            echo json_encode($res);
+            break;
+        case 'get-report-cars':
+            $q = $db->query("SELECT Id, Photo, Model, Price FROM cars");
+
+            $res = [];
+            while ($s = $q->fetch()) {
+                $res[] = new ReportCar($s['Id'], $s['Photo'], $s['Model'], $s['Price']);
                         
             }
             echo json_encode($res);
@@ -76,6 +118,26 @@ if(isset($_GET['Key']))
             $s['Phone'], $s['Lang'], $s['CreateDate'], $s['ModifiedDate'], $s['IsAdmin'], [], []);
             
             echo json_encode($user);
+            break;
+        case 'get-car':
+            $Id = $_GET['Id'];
+            $q = $db->query("SELECT * FROM feedbacks where CarId=$Id");
+            $coms = [];
+            while ($s = $q->fetch()) {
+                //$user = $db->query("SELECT * FROM users WHERE id=8")->fetch(PDO::FETCH_CLASS, User);
+                $coms[] = new FeedBack($s['Id'], $s['Look'], $s['Comfort'], $s['Drive'],
+                $s['CreateDate'], $s['Mark'], $s['Text'], $s['UserId'], $s['CarId'], [], []);
+                        
+            }
+            $q = $db->query("SELECT * FROM cars where Id=$Id");
+
+           
+            $s = $q->fetch();
+            $res = new Car($s['Id'], $s['Photo'], $s['Model'], $s['Passengers'],
+                $s['Doors'], $s['BodyType'], $s['Contain'], [], [], $s['AC'], $s['MinAge'], $s['AirBags'], $s['Groupe'], $s['Radio'], $s['ABS'], 
+                $s['Transmission'], $s['Fuel'], $s['Consumption'], $s['Description'], $s['Description_Eng'], $s['Price'], $s['Mark'], $coms, [], []);
+            
+            echo json_encode($res);
             break;
         case 'get-best-cars':
             $q = $db->query("SELECT * FROM cars");

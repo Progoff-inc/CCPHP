@@ -50,6 +50,7 @@ export class FeedbackComponent implements OnInit, OnChanges {
     }
     this.carsService.GetReportCars().subscribe( data => {
       this.cars=data;
+      console.log(data);
   
     })
     if(this.type=='all'){

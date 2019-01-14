@@ -13,9 +13,12 @@ import {CarsService, Car, Filter, Book} from '../services/CarsService';
 export class CarsComponent {
   load:boolean=true;
   ShowFilters = window.innerWidth<992?false:true;
+  SortUp = true;
+  CurSorting:string;
   public user:User;
-  filters:Filter[] = [{Name:"PASSENGERS", Values:['5 чел.','7 чел.']},{Name:"BODY_TYPE", Values:['HATCHBACK','CROSSOVER', 'CABRIOLET', 'MINIVAN']},
-  {Name:"TRANSMISSION", Values:['MANUAL','AUTOMATIC']}, {Name:"FUEL", Values:['PETROL','DEISEL']}, {Name:"GROUPE", Values:['ECONOMY','FULL-SIZED', 'MEDIUM', 'COMPACT']}
+  CurFilters=[];
+  filters:Filter[] = [{Name:"Passengers", Values:['4 чел.', '5 чел.','7 чел.', '9 чел.']},{Name:"BodyType", Values:['HATCHBACK','CROSSOVER', 'CABRIOLET', 'MINIVAN']},
+  {Name:"Transmission", Values:['MANUAL','AUTOMATIC']}, {Name:"Fuel", Values:['PETROL','DEISEL']}, {Name:"Groupe", Values:['ECONOMY','FULL-SIZED', 'MEDIUM', 'COMPACT']}
   ];
   public alert:AlertService = new AlertService();
   public filter:Filter[]=[];
@@ -76,36 +79,85 @@ export class CarsComponent {
     }
   }
 
-  // get f() {return this.filters.map(x=>x.Value)}
-  // addFilter(name:string,value:string){
-  //   if(this.filters.map(x=>x.Value).indexOf(value)==-1){
+  get f() {return this.CurFilters.map(x=>x.Value)}
+  addFilter(name:string,value:string){
+    if(this.CurFilters.map(x=>x.Value.toUpperCase()).indexOf(name=='Passengers'?value[0]:value.toUpperCase())==-1){
      
-  //     this.filters.push({Name:name,Value:value});
-  //     this.Filter();
-  //   }
-  //   else{
-  //     this.filters.splice(this.filters.map(x=>x.Value).indexOf(value),1);
-  //     if(this.filters.length>0){
-  //       this.Filter();
-  //     }
-  //     else{
-  //       this.filteredCars = this.cars;
-  //     }
-  //   }
+      this.CurFilters.push({Name:name,Value:name=='Passengers'?value[0]:value});
+      
+      this.Filter();
+    }
+    else{
+      this.CurFilters.splice(this.CurFilters.map(x=>x.Value.toUpperCase()).indexOf(name=='Passengers'?value[0]:value.toUpperCase()),1);
+      if(this.CurFilters.length>0){
+        this.Filter();
+      }
+      else{
+        this.filteredCars = this.cars;
+      }
+    }
+    console.log(this.CurFilters);
     
-  // }
-  
-  // Filter(){
-  //   this.filteredCars=this.cars.filter(x => {
-  //     for(let i =0; i<this.filters.length;i++){
-  //       if(x[this.filters[i].Name]==this.filters[i].Value){
-  //         return x;
-  //       }
-  //     }
-  //   });
+  }
+  Sort(order:string, s = false){
+    let sort = this.SortUp;
+    if(this.CurSorting == order && !s){
+      this.CurSorting=null;
+      return;
+    }
+    switch(order){
+      case "popularity":{
+        this.filteredCars.sort(function(a, b){
+          console.log(a.Reports);
+          return !sort?(a.Reports.length>b.Reports.length?1:-1):(a.Reports.length<b.Reports.length?1:-1);
+        })
+        break;
+      }
+      case "price":{
+        this.filteredCars.sort(function(a, b){
+          a.Price = Number(a.Price);
+          b.Price = Number(b.Price);
+          return sort?(a.Price>b.Price?1:-1):(a.Price<b.Price?1:-1);
+        })
+        break;
+      }
+      case "raiting":{
+        this.filteredCars.sort(function(a, b){
+          a.Mark = Number(a.Mark);
+          b.Mark = Number(b.Mark);
+          return sort?(a.Mark>b.Mark?1:-1):(a.Mark<b.Mark?1:-1);
+        })
+        break;
+      }
+    }
+    console.log(this.filteredCars);
+    this.CurSorting=order;
+  }
+  ChangeSort(){
+    this.SortUp = !this.SortUp;
+    this.Sort(this.CurSorting, true);
+  }
+  Filter(){
+   
+    this.filteredCars=this.cars.filter(x => {
+      let res =true;
+      for(let i =0; i<this.CurFilters.length;i++){
+        if(x[this.CurFilters[i].Name].toUpperCase()!=this.CurFilters[i].Value.toUpperCase()){
+          if(this.CurFilters.map(x=>x.Value.toUpperCase()).indexOf(x[this.CurFilters[i].Name].toUpperCase())==-1){
+            res = false;
+          }
+          
+          
+        }
+        
+      }
+      if(res){
+        return x;
+      }
+    });
     
 
-  // }
+  }
 }
 
 

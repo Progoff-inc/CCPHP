@@ -30,7 +30,7 @@ export class CarsService implements OnInit {
         return this.http.get<string[]>(this.baseUrl + 'CarsController.php?Key=get-photos&Id=' + id);
     }
     GetReportCars() {
-        return this.http.get<ReportCar[]>(this.baseUrl + 'CarsController.php?Key=get-report-cars&Id=');
+        return this.http.get<ReportCar[]>(this.baseUrl + 'CarsController.php?Key=get-report-cars');
     }
     AddCar(car: NewCar) {
 
@@ -98,6 +98,8 @@ export interface Car {
     Description: string;
     Description_ENG: string;
     Price: number;
+
+    Mark: number;
     Reports: FeedBack[];
     Books: Book[];
     Sales: Sale[];

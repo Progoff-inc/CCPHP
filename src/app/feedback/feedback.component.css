@@ -16,7 +16,7 @@
     margin-left: 5px;
 }
 .car-model:hover{
-    color: blue;
+    color: #0B61A4;
     cursor: pointer;
 }
 .line:after {
