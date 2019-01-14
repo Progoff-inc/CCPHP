@@ -24,7 +24,7 @@ export class UserService {
     }
     GetUser(user:EUser){
         let params = new HttpParams().set('Email', user.Email).set('Password', user.Password);
-        return this.http.get<User>(this.baseUrl + 'UserController.php?Key=get-user', {params})
+        return this.http.get<User>(this.baseUrl + 'CarsController.php?Key=get-user', {params})
     }
     GetUserById(id:number){
         

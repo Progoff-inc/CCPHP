@@ -43,7 +43,6 @@
                                     <div *ngIf="!!userService.currentUser" [routerLinkActive]='["link-active"]' [routerLink]='["/user"]' ><span  class='glyphicon glyphicon-user'></span><span>{{userService.currentUser.Name}}</span></div>
                                     <div (click)="userService.currentUser?Exit():userService.ShowForm(0)"><span *ngIf="!userService.currentUser"   class='glyphicon glyphicon-user'></span><span>{{(userService.currentUser?"LOG_OUT":"LOG_IN") | translate}}</span></div>
                                     <div class = "lang">
-                                        
                                         <span >{{service.lang=='ru'?'RU':'ENG'}}</span>
                                         <span  class='glyph-small glyphicon glyphicon-chevron-down'></span>
                                         <div class="langs">
@@ -52,16 +51,14 @@
                                         </div>
                                     </div>
                             </div>
-                            <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse' [attr.aria-expanded]='isExpanded' (click)='toggle()'>
+                            <button type='button' class='navbar-toggle' [ngClass]="{'open':isExpanded}" (click)='toggle()'>
                                 <span class='sr-only'>Toggle navigation</span>
-                                <span class='icon-bar'></span>
-                                <span class='icon-bar'></span>
                                 <span class='icon-bar'></span>
                             </button>
                             <div class="row menu-prop">
             
             
-        </div>
+                        </div>
                             
                         </div>
                         

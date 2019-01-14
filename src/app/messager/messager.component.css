@@ -22,6 +22,7 @@
 .InPage{
     box-shadow: 0 0 10px black inset;
     position: relative;
+    z-index: 300 !important;
     display: block;
     bottom: auto;
     right:auto;

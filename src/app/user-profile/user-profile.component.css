@@ -6,8 +6,26 @@
     position: relative;
 }
 .main-info{
-    margin-bottom: 30px;
+    margin: 20px 0 30px 0;
     position: relative;
+}
+.container-fluid{
+    min-height: 380px;
+}
+.main-info .col-md-7{
+    display: flex;
+    justify-content: flex-start;
+}
+.main-info h1{
+    color: black;
+    text-shadow: none;
+    margin-top: 0;
+}
+.main-info .info{
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px black inset;
+    background-color: white;
 }
 .main-info .item i{
     margin-left: 5px;
@@ -233,6 +251,9 @@ button{
         opacity: 1;
     }
     .inner-item{
+        width: 100%;
+    }
+    .main-info .info{
         width: 100%;
     }
     .inner-item input{

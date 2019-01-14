@@ -67,6 +67,16 @@ if(isset($_GET['Key']))
             }
             echo json_encode($res);
             break;
+        case 'get-user':
+            $q = $db->query("SELECT * FROM users where Id=8");
+
+            $res = [];
+            $s = $q->fetch();
+            $user = new User($s['Id'], $s['Photo'], $s['Name'], $s['Email'],
+            $s['Phone'], $s['Lang'], $s['CreateDate'], $s['ModifiedDate'], $s['IsAdmin'], [], []);
+            
+            echo json_encode($user);
+            break;
         case 'get-best-cars':
             $q = $db->query("SELECT * FROM cars");
 

@@ -1,7 +1,7 @@
 <div *ngIf="userService.currentUser" class="container-fluid">
   <div class="main-info">
     <div class="row">
-      <div class="col-sm-4">
+      <div class="col-md-4">
         <div class="d-flex flex-column justify-content-center">
           <div class="user-photo">
             <img class="img-rounded img-responsive" src="{{userService.currentUser?userService.currentUser.Photo:'../../assets/images/default_user_photo.jpg'}}" alt="">
@@ -19,85 +19,89 @@
           <p style="text-align: center; font-size:18pt">{{userService.currentUser?userService.currentUser.Name:''}}</p>
         </div>
       </div>
-      <div class="col-sm-1"></div>
-      <div class="col-sm-7">
-        <h1>{{'MAIN_INFO'|translate}}</h1>
-        <div >
-          <div class="item">
-            <div class="row">
-              <div class="col-sm-4">
-                <span>{{'EMAIL' | translate}}: </span>
-              </div>
-              <div class="col-sm-6">
-                <p>{{userService.currentUser?userService.currentUser.Email:''}}</p>
-                <i (click)="showChangeInfo(0,true)"  class="fa fa-pencil"></i>
-              </div>
-            </div>
-            <div *ngIf="changes[0]" class="change-panel">
-                <div class="form">
-                  <span>{{'EMAIL' | translate}}: </span>
-                  <input [ngClass]="{ 'is-invalid': submittes[0] && (Email.value=='' || carsService.checkEmail(Email.value) )}" class="input" [(ngModel)]="changeValues[0]" type="email" required #Email>
-                  <div *ngIf="submittes[0] && (Email.value=='' || carsService.checkEmail(Email.value) )" class="invalid-feedback">
-                    <span class="d-block is-invalid" *ngIf="Email.value==''">{{'EMAIL_VALIDATION'|translate}}</span>
-                    <span class="d-block is-invalid" *ngIf="Email.value==''?false:carsService.checkEmail(Email.value)">{{'WRONG_EMAIL_VALIDATION'|translate}}</span>
+      <div class="col-md-1"></div>
+      <div class="col-md-7">
+        <div class="info">
+            <h1>{{'MAIN_INFO'|translate}}</h1>
+            <div >
+              <div class="item">
+                <div class="row">
+                  <div class="col-md-4">
+                    <span>{{'EMAIL' | translate}}: </span>
                   </div>
-                  <button class="btn btn-success" (click)="changeInfo(0,'Email', Email.value)">Изменить</button>
+                  <div class="col-md-6" style="white-space: nowrap;">
+                    
+                    <p>{{userService.currentUser?userService.currentUser.Email:''}}</p>
+                    <i (click)="showChangeInfo(0,true)"  class="fa fa-pencil"></i>
+                  </div>
                 </div>
-            </div>
-            <div *ngIf="changes[0]"  class="background-blur" (click)="showChangeInfo(0,false)"></div>
-          </div>
-          <div class="item">
-            <div class="row">
-              <div class="col-sm-4">
-                <span>{{'PHONE' | translate}}: </span>
-            </div>
-            <div class="col-sm-6">
-                <p>{{userService.currentUser?(userService.currentUser.Phone?userService.currentUser.Phone:('NO_DATA' | translate)):''}}</p>
-                <i (click)="showChangeInfo(1,true)"  class="fa fa-pencil"></i>
-            </div>
-            <div *ngIf="changes[1]" class="change-panel">
-              <div class="form">
-                <input [ngClass]="{ 'is-invalid': submittes[1] && !carsService.checkStr(Tel.value,'phone-check') }" [(ngModel)]="changeValues[1]" type="tel" class="input"  required #Tel>
-                <button class="btn btn-success" (click)="changeInfo(1,'Phone', Tel.value, Tel)">Изменить</button>
-              </div>
-            </div>
-            <div *ngIf="changes[1]"  class="background-blur" (click)="showChangeInfo(1,false)"></div>
-          </div>
-            
-          </div>
-          <div class="item">
-            <div class="row">
-              <div class="col-sm-4">
-                <span>{{'REG_DATE' | translate}}: </span>
-              </div>
-              <div class="col-sm-6">
-                <p>{{userService.currentUser?(userService.currentUser.CreatedDate | date: 'dd.MM.yyyy'):''}}</p>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="row">
-              <div class="col-sm-4">
-                <span>{{'LANG' | translate}}: </span>
-              </div>
-              <div class="col-sm-6">
-                <p>{{userService.currentUser?(userService.currentUser.Lang?userService.currentUser.Lang:('NO_DATA' | translate)):''}}</p>
-                <i (click)="showChangeInfo(2,true)"  class="fa fa-pencil"></i>
-              </div>
-            </div>
-            <div *ngIf="changes[2]" class="change-panel">
-                <div class="form">
-                  <span>{{'LANG' | translate}}: </span>
-                  <select [ngClass]="{ 'is-invalid': submitted && f.Lang.errors }" class="input"  required #Lang>
-                    <option>{{'RU'| translate}}</option>
-                    <option>{{'ENG'| translate}}</option>
-                  </select>
-                  <button class="btn btn-success" (click)="changeInfo(2,'Lang', Lang.value)">Изменить</button>
+                <div *ngIf="changes[0]" class="change-panel">
+                    <div class="form">
+                      <span>{{'EMAIL' | translate}}: </span>
+                      <input [ngClass]="{ 'is-invalid': submittes[0] && (Email.value=='' || carsService.checkEmail(Email.value) )}" class="input" [(ngModel)]="changeValues[0]" type="email" required #Email>
+                      <div *ngIf="submittes[0] && (Email.value=='' || carsService.checkEmail(Email.value) )" class="invalid-feedback">
+                        <span class="d-block is-invalid" *ngIf="Email.value==''">{{'EMAIL_VALIDATION'|translate}}</span>
+                        <span class="d-block is-invalid" *ngIf="Email.value==''?false:carsService.checkEmail(Email.value)">{{'WRONG_EMAIL_VALIDATION'|translate}}</span>
+                      </div>
+                      <button class="btn btn-success" (click)="changeInfo(0,'Email', Email.value)">Изменить</button>
+                    </div>
                 </div>
+                <div *ngIf="changes[0]"  class="background-blur" (click)="showChangeInfo(0,false)"></div>
+              </div>
+              <div class="item">
+                <div class="row">
+                  <div class="col-md-4">
+                    <span>{{'PHONE' | translate}}: </span>
+                </div>
+                <div class="col-md-6">
+                    <p>{{userService.currentUser?(userService.currentUser.Phone?userService.currentUser.Phone:('NO_DATA' | translate)):''}}</p>
+                    <i (click)="showChangeInfo(1,true)"  class="fa fa-pencil"></i>
+                </div>
+                <div *ngIf="changes[1]" class="change-panel">
+                  <div class="form">
+                    <input [ngClass]="{ 'is-invalid': submittes[1] && !carsService.checkStr(Tel.value,'phone-check') }" [(ngModel)]="changeValues[1]" type="tel" class="input"  required #Tel>
+                    <button class="btn btn-success" (click)="changeInfo(1,'Phone', Tel.value, Tel)">Изменить</button>
+                  </div>
+                </div>
+                <div *ngIf="changes[1]"  class="background-blur" (click)="showChangeInfo(1,false)"></div>
+              </div>
+                
+              </div>
+              <div class="item">
+                <div class="row">
+                  <div class="col-md-4">
+                    <span>{{'REG_DATE' | translate}}: </span>
+                  </div>
+                  <div class="col-md-6">
+                    <p>{{userService.currentUser?(userService.currentUser.CreatedDate | date: 'dd.MM.yyyy'):''}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="row">
+                  <div class="col-xs-4">
+                    <span>{{'LANG' | translate}}: </span>
+                  </div>
+                  <div class="col-xs-2" style="white-space: nowrap;">
+                    <p>{{userService.currentUser?(userService.currentUser.Lang?userService.currentUser.Lang:('NO_DATA' | translate)):''}}</p>
+                    <i (click)="showChangeInfo(2,true)"  class="fa fa-pencil"></i>
+                  </div>
+                </div>
+                <div *ngIf="changes[2]" class="change-panel">
+                    <div class="form">
+                      <span>{{'LANG' | translate}}: </span>
+                      <select [ngClass]="{ 'is-invalid': submitted && f.Lang.errors }" class="input"  required #Lang>
+                        <option>{{'RU'| translate}}</option>
+                        <option>{{'ENG'| translate}}</option>
+                      </select>
+                      <button class="btn btn-success" (click)="changeInfo(2,'Lang', Lang.value)">Изменить</button>
+                    </div>
+                </div>
+                <div *ngIf="changes[2]"  class="background-blur" (click)="showChangeInfo(2,false)"></div>
+              </div>
             </div>
-            <div *ngIf="changes[2]"  class="background-blur" (click)="showChangeInfo(2,false)"></div>
-          </div>
         </div>
+        
       </div>
      
     </div>
