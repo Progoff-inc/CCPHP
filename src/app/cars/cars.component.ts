@@ -12,6 +12,7 @@ import {CarsService, Car, Filter, Book} from '../services/CarsService';
 })
 export class CarsComponent {
   load:boolean=true;
+  ShowFilters = window.innerWidth<992?false:true;
   public user:User;
   filters:Filter[] = [{Name:"PASSENGERS", Values:['5 чел.','7 чел.']},{Name:"BODY_TYPE", Values:['HATCHBACK','CROSSOVER', 'CABRIOLET', 'MINIVAN']},
   {Name:"TRANSMISSION", Values:['MANUAL','AUTOMATIC']}, {Name:"FUEL", Values:['PETROL','DEISEL']}, {Name:"GROUPE", Values:['ECONOMY','FULL-SIZED', 'MEDIUM', 'COMPACT']}
@@ -45,6 +46,9 @@ export class CarsComponent {
     this.service.car=car;
 
     this.service.showBookingForm=true;
+  }
+  showFilters(){
+    this.ShowFilters=!this.ShowFilters;
   }
   showCarPhotos(id:number){
     this.service.GetCarPhotos(id).subscribe(data => {

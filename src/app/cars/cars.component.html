@@ -1,15 +1,20 @@
 
 <div class="container-fluid">
     <h1>{{"OUR_CARS" | translate}}</h1>
-    <div class="sortings">
-        <h4><b>{{'SORT_BY' | translate}}:</b></h4>
-        <span>{{'POPULAR_SORTING' | translate}}</span>
-        <span>{{'PRICE_SORTING' | translate}}</span>
-        <span>{{'RAITING_SORTING' | translate}}</span>
-        
+    <div class="filter-sort">
+      <h4 class="show-filters" (click)="showFilters()"><b>{{ShowFilters?'CLOSE_FILTERS':'SHOW_FILTERS' | translate}} <i class="fa fa-filter" aria-hidden="true"></i></b></h4>
+      <div class="sortings">
+          <h4><b>{{'SORT_BY' | translate}}:</b></h4>
+          <span>{{'POPULAR_SORTING' | translate}}</span>
+          <span>{{'PRICE_SORTING' | translate}}</span>
+          <span>{{'RAITING_SORTING' | translate}}</span>
+          
+      </div>
     </div>
+    
+    
     <div class="row">
-        <div class="filters-container col-lg-2">
+        <div class="filters-container col-lg-2" [ngStyle]="{'max-height':ShowFilters?'2000px':'0'}">
           <div class="filter" *ngFor="let filter of filters">
             <h3>{{filter.Name | translate}}</h3>
             <span class="filter-item" *ngFor="let value of filter.Values">{{value}}<i class="fa fa-check" aria-hidden="true"></i></span>

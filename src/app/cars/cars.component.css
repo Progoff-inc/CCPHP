@@ -83,9 +83,21 @@
     
 }
 .sortings h4{
-    text-shadow: 1px 1px 2px black;
+    
     margin: 0;
     margin-right: 10px;
+    text-shadow: 1px 1px 2px black;
+}
+.show-filters{
+
+    margin-top: 20px;
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    transition: 0.2s;
+    cursor: pointer;
+}
+.show-filters:hover{
+    text-shadow: 1px 1px 5px black;
 }
 .sortings span{
     text-shadow: 1px 1px 2px black;
@@ -252,8 +264,15 @@
     font-size: 20px;
     font-weight: bold;
 }
-
+.filter-sort{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap-reverse;
+}
 .filters-container{
+    min-height: 0;
+    overflow: hidden;
+    transition: 0.5s;
     min-width: 165px;
     background-color: white;
     box-shadow: 0 0 10px black inset;

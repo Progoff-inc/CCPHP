@@ -76,7 +76,7 @@ span.is-invalid, p.is-invalid{
 }
 @media (min-width: 768px){
     .fa-pencil:hover{
-        color: blue;
+        color: #0B61A4;
         cursor: pointer;
     }
     .car-img{
@@ -158,7 +158,9 @@ span.is-invalid, p.is-invalid{
         top: -30px;
     }
 }
-
+*{
+    outline: none;
+}
 .detail-messege{
     white-space: nowrap;
     background-color: black;
