@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="container booking-container" >
-        <h1 *ngIf="reports.length!=0">Отзывы</h1>
+        <h1>{{'LEAVE_COMMENT' | translate}}</h1>
         <form *ngIf="type=='all'" [formGroup]="registerForm"  class="review-top">
             <div class="form-container row">
                 <div class="col-sm-6">

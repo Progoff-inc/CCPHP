@@ -3,9 +3,10 @@
 }
 .item:last-child{
     margin-bottom: 50px;
-    border-radius: 0 0 30px 30px;
     overflow: hidden;
+    position: relative;
 }
+
 .item{
     color: white;
     position: relative;
@@ -53,7 +54,22 @@ hr{
     width: 95%;
     display: none;
 }
+.item:last-child::after{
+    content: '';
+    background-image: url('../../assets/images/bg.jpg');
+    position: absolute;
+    bottom: -115px;
+    box-shadow: 0 3px 10px black inset;
+    left: 0;
+    height: 145px;
+    border-radius:20% 20%  0 0 ;
+    z-index: 20;
+    width: 100%;
+}
 @media (max-width: 767px){
+    .item:last-child::after{
+        display: none;
+    }
     hr{
         display: block;
     }
