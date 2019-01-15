@@ -8,7 +8,9 @@
                 <div class="col-sm-6">
                     <div class="item">
                         <span [ngClass]="{ 'is-invalid': submitted && f.Pick.errors }">{{"PICK_UP_LOCATION" | translate}}</span>
-                        <input class="input" formControlName="Pick" [ngClass]="{ 'is-invalid': submitted && f.Pick.errors }"  type="text" required>
+                        <select class="input" formControlName="Pick" [ngClass]="{ 'is-invalid': submitted && f.Pick.errors }" >
+                            <option *ngFor="let t of locations">{{t}}</option>
+                        </select>
                         <div *ngIf="submitted && f.Pick.errors" class="invalid-feedback">
                             <span class="d-block is-invalid" *ngIf="f.Pick.errors.required">{{"PICK_UP_VALIDATION" | translate}}</span>
                 
@@ -26,11 +28,24 @@
                             <span class="d-block is-invalid" *ngIf="errors.DateStart">{{"DATE_VALIDATION" | translate}}</span>
                         </div>
                     </div>
+                    <div class="item">
+                        <span [ngClass]="{ 'is-invalid': submitted && f.PickTime.errors }">{{"PICK_UP_TIME" | translate}}</span>
+                        <select class="input" formControlName="PickTime" [ngClass]="{ 'is-invalid': submitted && f.PickTime.errors }" >
+                            <option *ngFor="let t of times">{{t}}</option>
+                        </select>
+                        <div *ngIf="submitted && f.PickTime.errors" class="invalid-feedback">
+                            <span class="d-block is-invalid" *ngIf="f.PickTime.errors.required">{{"PICK_UP_TIME_VALIDATION" | translate}}</span>
+                
+                        </div>
+                    </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="item">
                         <span [ngClass]="{ 'is-invalid': submitted && f.Drop.errors }">{{"DROP_OFF_LOCATION" | translate}}</span>
-                        <input class="input" formControlName="Drop" [ngClass]="{ 'is-invalid': submitted && f.Drop.errors }" type="text" required>
+                        <select class="input" formControlName="Drop" [ngClass]="{ 'is-invalid': submitted && f.Drop.errors }" >
+                            <option *ngFor="let t of locations">{{t}}</option>
+                        </select>
+
                         <div *ngIf="submitted && f.Drop.errors" class="invalid-feedback">
                             <span class="d-block is-invalid" *ngIf="f.Drop.errors.required">{{"DROP_OFF_VALIDATION" | translate}}</span>
                         
@@ -48,6 +63,16 @@
                         <div *ngIf="submitted && errors.DateFinish" class="invalid-feedback">
                             <span class="d-block is-invalid" *ngIf="errors.DateFinish">{{"DATE_VALIDATION" | translate}}</span>
                         
+                        </div>
+                    </div>
+                    <div class="item">
+                        <span [ngClass]="{ 'is-invalid': submitted && f.DropTime.errors }">{{"DROP_OF_TIME" | translate}}</span>
+                        <select class="input" formControlName="DropTime" [ngClass]="{ 'is-invalid': submitted && f.DropTime.errors }"  >
+                            <option *ngFor="let t of times">{{t}}</option>
+                        </select>
+                        <div *ngIf="submitted && f.DropTime.errors" class="invalid-feedback">
+                            <span class="d-block is-invalid" *ngIf="f.DropTime.errors.required">{{"DROP_OFF_TIME_VALIDATION" | translate}}</span>
+                
                         </div>
                     </div>
                 </div>

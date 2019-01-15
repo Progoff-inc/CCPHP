@@ -39,9 +39,9 @@
                     <div class='navbar navbar-inverse' [ngClass]="{'no-shadow':!showShadow, 'fixed-menu':fixedMenu}">
                         <div class='navbar-header'>
                             <div class="row menu-prop">
-                                    <div *ngIf="!userService.currentUser" (click)="userService.ShowForm(1)"><span  class='glyphicon glyphicon-plus'></span><span>{{"REGISTRATION" | translate}}</span></div>
+                                    <!-- <div *ngIf="!userService.currentUser" (click)="userService.ShowForm(1)"><span  class='glyphicon glyphicon-plus'></span><span>{{"REGISTRATION" | translate}}</span></div>
                                     <div *ngIf="!!userService.currentUser" [routerLinkActive]='["link-active"]' [routerLink]='["/user"]' ><span  class='glyphicon glyphicon-user'></span><span>{{userService.currentUser.Name}}</span></div>
-                                    <div (click)="userService.currentUser?Exit():userService.ShowForm(0)"><span *ngIf="!userService.currentUser"   class='glyphicon glyphicon-user'></span><span>{{(userService.currentUser?"LOG_OUT":"LOG_IN") | translate}}</span></div>
+                                    <div (click)="userService.currentUser?Exit():userService.ShowForm(0)"><span *ngIf="!userService.currentUser"   class='glyphicon glyphicon-user'></span><span>{{(userService.currentUser?"LOG_OUT":"LOG_IN") | translate}}</span></div> -->
                                     <div class = "lang">
                                         <span >{{service.lang=='ru'?'RU':'ENG'}}</span>
                                         <span  class='glyph-small glyphicon glyphicon-chevron-down'></span>
@@ -63,7 +63,9 @@
                         </div>
                         
                         <div class='navbar-collapse collapse' [ngClass]='{ "in": isExpanded }'>
-                            
+                            <div class="account-item" *ngIf="!userService.currentUser" (click)="userService.ShowForm(1)"><span><span  class='glyphicon glyphicon-plus'></span><span>{{"REGISTRATION" | translate}}</span></span></div>
+                            <div class="account-item" *ngIf="!!userService.currentUser" [routerLinkActive]='["link-active"]' [routerLink]='["/user"]' ><span><span  class='glyphicon glyphicon-user'></span><span>{{userService.currentUser.Name}}</span></span></div>
+                            <div class="account-item" (click)="userService.currentUser?Exit():userService.ShowForm(0)"><span><span *ngIf="!userService.currentUser"   class='glyphicon glyphicon-user'></span><span>{{(userService.currentUser?"LOG_OUT":"LOG_IN") | translate}}</span></span></div>
                             <ul class='nav' >
                                 
                                 <li [routerLinkActive]='["link-active"]'> 
@@ -105,6 +107,15 @@
                                 <li [routerLinkActive]='["link-active"]' >
                                     <a [routerLink]='["/feedback"]' (click)='collapse()'>
                                         <i class="fa fa-comments"></i> <span class="note">{{"COMMENTS" | translate}}</span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </a>
+                                </li>
+                                <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+                                    <a [routerLink]='["/"]'  (click)='collapse()'>
+                                        <i class="fa fa-search"></i><span class="note">{{"SEARCH" | translate}}</span>
                                         <span></span>
                                         <span></span>
                                         <span></span>

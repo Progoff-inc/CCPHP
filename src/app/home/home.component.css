@@ -56,6 +56,9 @@
 }
 
 @media(max-width:768px){
+    .car-photo img{
+        border-radius: 0 !important;
+    }
     .step{
         max-width: 250px;
     }

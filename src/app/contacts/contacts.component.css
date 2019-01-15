@@ -27,12 +27,16 @@ a:hover{
     .col-md-7{
         height: auto;
         border-right:none;
+        padding-bottom: 20px;
         border-bottom: 1px solid lightgrey;
     }
 }
 
 .map{
-    
+    background-image: url('../../assets/images/map.png');
+    background-position: center;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
     height: 400px;
     padding: 0;
     overflow: hidden;

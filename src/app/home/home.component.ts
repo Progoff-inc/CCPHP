@@ -10,6 +10,9 @@ import { TranslateService } from '../../../node_modules/@ngx-translate/core';
 })
 export class HomeComponent implements OnInit {
   searchForm: FormGroup;
+  times:string[] = ["01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00",
+  "15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","23:50"];
+  locations:string[] = ['Аэропорт Ираклиона','Андреа Папандреу','Херсонисос'];
   // tslint:disable-next-line:whitespace
   search:Search = new Search();
   workCoords:number;
@@ -101,10 +104,14 @@ export class HomeComponent implements OnInit {
   }
   get f() { return this.searchForm.controls; }
   ngOnInit() {
+    
+    
     this.workCoords = document.getElementsByClassName("work")[0].getBoundingClientRect().top;
     this.searchForm = this.formBuilder.group({
       Pick: ['', Validators.required],
-      Drop: ['', Validators.required]
+      Drop: ['', Validators.required],
+      PickTime: ['12:00', Validators.required],
+      DropTime: ['12:00', Validators.required]
     });
     this.service.GetBestCars().subscribe(data => {
       console.log(data);

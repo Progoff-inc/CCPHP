@@ -16,6 +16,16 @@
     } */
 }
 @media (min-width:992px){
+    .filter-item:hover i{
+        right: 15px !important;
+        opacity: 1 !important;
+    }
+    .filter-item:hover{
+        color: #0B61A4	
+    }
+    .sortings span:hover{
+        text-shadow: 1px 1px 2px #0B61A4;
+    }
     .filters-container{
         margin-left: -15px;
         border-radius: 0 10px 10px 0 !important;
@@ -104,7 +114,7 @@
     padding: 0 8px;
     cursor: pointer;
 }
-.sortings span:hover, .sortings span.active-sort{
+.sortings span.active-sort{
     text-shadow: 1px 1px 2px #0B61A4;
 }
 .cars-container{
@@ -299,10 +309,10 @@
     overflow: hidden;
     cursor: pointer;
 }
-.filter-item:hover, .choosed{
+.choosed{
     color: #0B61A4	
 }
-.filter-item:hover i, .choosed i{
+.choosed i{
     right: 15px !important;
     opacity: 1 !important;
 }

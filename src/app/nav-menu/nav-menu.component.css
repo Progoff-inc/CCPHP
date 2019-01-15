@@ -164,9 +164,12 @@ li.link-active a:focus {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 1000;
+    z-index: 700;
 }
 @media (min-width: 941px) {
+    .account-item{
+        display: none;
+    }
     .topmenu .container::before{
         content: '';
         position: absolute;
@@ -195,7 +198,7 @@ li.link-active a:focus {
         margin-left:10%; 
         max-width: 260px;
     }
-    .menu-prop>div:not(.lang):hover{
+    .menu-prop>div:not(.lang):hover, .account-item:hover{
         border-radius: 7px;
         color:#0B61A4;
         box-shadow: 0 0 5px #0B61A4 inset;
@@ -270,16 +273,12 @@ li.link-active a:focus {
 
 @media (max-width: 940px) {
     
-    .menu-prop>div:not(.lang){
-        background-color: transparent;
-        box-shadow: none;
+    .lang{
+        margin-left: 11px;
     }
     .menu-prop{
         display: flex;
         align-items: center;
-    }
-    .menu-prop>div:not(.lang){
-        max-width: 150px;
     }
     .topmenu img{
         margin: 0 auto; 
@@ -302,7 +301,7 @@ li.link-active a:focus {
       .navbar-collapse{
         position: absolute;
         width: 100%;
-        z-index: 801;
+        z-index: 400;
         top: 100%;
         padding:0;
         box-shadow: none;
@@ -337,8 +336,21 @@ li.link-active a:focus {
     .menu-prop span{
         color:rgb(187, 222, 248) ;
     }
+    .account-item span, .account-item i{
+        color:rgb(187, 222, 248) ;
+    }
+    .account-item>span{
+        cursor: pointer;
+    }
+    .account-item>span:hover span, .account-item>span:hover i{
+        color: white;
+    }
+    .account-item{
+        
+        margin-left: 16px;
+    }
     .langs{
-        z-index: 400;
+        z-index: 401;
         background-color: rgb(34,34,34);
         
     }
