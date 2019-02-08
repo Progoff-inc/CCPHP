@@ -96,11 +96,11 @@
                                     <div class="col-sm-3">
                                         <span class="glyphicon glyphicon-time"></span> {{comment.CreatedDate | date: 'dd.MM.yyyy'}}
                                         <br>
-                                        <div class="com-rat" (click)="addLikes(com, true, comment)">
+                                        <div class="com-rat" (click)="addLikes(comment, true, 2)">
                                                 <i class="fa fa-thumbs-up" [ngClass]="{'checked-up':getUserLike(comment)?getUserLike(comment).IsLike==true:false}" aria-hidden="true"></i>
                                                 <span>{{getLikes(comment,true)}}</span>
                                         </div>
-                                        <div class="com-rat" (click)="addLikes(com, false, comment)">
+                                        <div class="com-rat" (click)="addLikes(comment, false, 2)">
                                             <i class="fa fa-thumbs-down" [ngClass]="{'checked-down':getUserLike(comment)?getUserLike(comment).IsLike==false:false}" aria-hidden="true"></i>
                                             <span>{{getLikes(comment,false)}}</span>
                                         </div>
@@ -110,11 +110,11 @@
                         </div>
                     </div>
                     <div class="col-sm-3">
-                        <div class="com-rat" (click)="addLikes(com, true)">
+                        <div class="com-rat" (click)="addLikes(com, true, 1)">
                             <i class="fa fa-thumbs-up" [ngClass]="{'checked-up':getUserLike(com)?getUserLike(com).IsLike==true:false}" aria-hidden="true"></i>
                             <span>{{getLikes(com,true)}}</span>
                         </div>
-                        <div class="com-rat" (click)="addLikes(com, false)">
+                        <div class="com-rat" (click)="addLikes(com, false, 1)">
                             <i class="fa fa-thumbs-down" [ngClass]="{'checked-down':getUserLike(com)?getUserLike(com).IsLike==false:false}"  aria-hidden="true"></i>
                             <span>{{getLikes(com,false)}}</span>
                         </div>

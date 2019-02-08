@@ -135,8 +135,8 @@ export interface Book{
 export interface Like{
     Id:number;
     UserId:number;
-    FeedBackId:number;
-    CommentId:number;
+    OwnerId:number;
+    Type:number;
     IsLike:boolean;
 }
 

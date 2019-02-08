@@ -298,11 +298,11 @@ export class BookingFormComponent implements OnInit, OnChanges {
         //   r.DateStart=new Date(r.DateStart);
         //   r.DateFinish=new Date(r.DateFinish);
         // })
-        // this.service.car.Books.forEach(b => {
-        //   b.DateStart = new Date(b.DateStart);
-        //   b.DateFinish = new Date(b.DateFinish);
-        //   this.invalidIntarvals.push({DateStart:b.DateStart, DateFinish:b.DateFinish});
-        // })
+        this.service.car.Books.forEach(b => {
+          b.DateStart = new Date(b.DateStart);
+          b.DateFinish = new Date(b.DateFinish);
+          this.invalidIntarvals.push({DateStart:b.DateStart, DateFinish:b.DateFinish});
+        })
         // this.sales = this.service.car.Sales.map(x =>{
         //   return {Discount:x.Discount, Id:x.Id, NewPrice:x.NewPrice, Checked:false, DaysNumber:x.DaysNumber}
         // })
