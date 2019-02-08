@@ -49,6 +49,7 @@ export class UserFormComponent implements OnInit {
     if(this.service.type==0){
       this.service.GetUser(this.userForm.value).subscribe(data=>{
         this.service.currentUser=data;
+        console.log(data);
         if(data.Books){
           this.service.currentUser.Books.forEach(x =>{
             x.DateFinish=new Date(x.DateFinish);
@@ -65,7 +66,7 @@ export class UserFormComponent implements OnInit {
         }
         
         localStorage.setItem('currentUser',JSON.stringify(data));
-        location.reload();
+        //location.reload();
         this.alert.showA({type:'success',message:'Вы успешно вошли',show:true});
         this.service.ShowForm();
       },error => {
