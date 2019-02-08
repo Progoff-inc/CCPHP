@@ -108,8 +108,11 @@ export class FeedbackComponent implements OnInit, OnChanges {
       }
       else{
         let like = {Id:0,UserId: this.userService.currentUser.Id, OwnerId:report.Id, Type:type,IsLike:IsLike};
+        console.log(like);
         this.feedBackService.addLikeOrDislike(like).subscribe((data) =>{
-          report.Likes.push(data);
+          like.Id = data;
+          report.Likes.push(like);
+          console.log(report);
         })
       }
     }
