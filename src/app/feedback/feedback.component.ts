@@ -100,21 +100,19 @@ export class FeedbackComponent implements OnInit, OnChanges {
       })
     }
   }
-  addLikes(report:any, IsLike:boolean, comment?:any){
+  addLikes(report:any, IsLike:boolean, type:any){
     if(this.autorized){
-      var like = this.getUserLike(comment?comment:report);
+      var like = this.getUserLike(report);
       if(like){
-        this.changeLike(like,IsLike, comment?comment:report)
+        this.changeLike(like,IsLike, report)
       }
       else{
-        let like = {Id:0,UserId: this.userService.currentUser.Id, FeedBackId:report.Id, CommentId:comment?comment.Id:0,IsLike:IsLike};
+        let like = {Id:0,UserId: this.userService.currentUser.Id, OwnerId:report.Id, Type:type,IsLike:IsLike};
+        console.log(like);
         this.feedBackService.addLikeOrDislike(like).subscribe((data) =>{
-          if(comment){
-            comment.Likes.push(data);
-          }
-          else{
-            report.Likes.push(data);
-          }
+          like.Id = data;
+          report.Likes.push(like);
+          console.log(report);
         })
       }
     }

@@ -11,8 +11,8 @@ export class FeedBackService{
   curReports:FeedBack[];
   buttons:any = [];
   number:number=0;
-  //baseUrl:string='http://nomokoiw.beget.tech/back/';
-  baseUrl:string='http://localhost:80/CCPHP/';
+  baseUrl:string='http://client.nomokoiw.beget.tech/back/';
+  //baseUrl:string='http://localhost:80/CCPHP/';
 
   constructor(private http: HttpClient) {
     
@@ -43,8 +43,8 @@ export class FeedBackService{
   deleteLike(LikeId:number){
     return this.http.delete(this.baseUrl + 'FBController.php?Key=delete-like&Id='+LikeId);
   }
-  addLikeOrDislike(like:Like){
-    return this.http.post<Like>(this.baseUrl + 'FBController.php?Key=add-likes', { "IsLike": like.IsLike, "CommentId": like.CommentId, "FeedBackId":like.FeedBackId, "UserId":like.UserId});
+  addLikeOrDislike(like){
+    return this.http.post<number>(this.baseUrl + 'FBController.php?Key=add-likes', { "IsLike": like.IsLike, "OwnerId": like.OwnerId, "Type":like.Type, "UserId":like.UserId});
   }
   addComment(text:string, UserId:number, FeedBackId:number ){
     return this.http.post<ReportComment>(this.baseUrl + 'FBController.php?Key=add-comment',{"Text":text, "UserId":UserId, "FeedBackId":FeedBackId});
