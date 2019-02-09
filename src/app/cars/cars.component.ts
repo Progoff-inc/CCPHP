@@ -18,7 +18,7 @@ export class CarsComponent {
   public user:User;
   CurFilters=[];
   filters:Filter[] = [{Name:"Passengers", Values:['4', '5','7', '9']},{Name:"Body", Values:['HATCHBACK','CROSSOVER', 'CABRIOLET', 'MINIVAN']},
-  {Name:"Transmission", Values:['MANUAL','AUTOMATIC']}, {Name:"Fuel", Values:['PETROL','DEISEL']}, {Name:"Groupe", Values:['ECONOMY','FULL-SIZED', 'MEDIUM', 'COMPACT']}
+  {Name:"Transmission", Values:['MANUAL','AUTOMATIC']}, {Name:"Fuel", Values:['PETROL','DEISEL']}, {Name:"Groupe", Values:['ECONOMY','FULL_SIZED', 'MEDIUM', 'COMPACT']}
   ];
   public alert:AlertService = new AlertService();
   public filter:Filter[]=[];
