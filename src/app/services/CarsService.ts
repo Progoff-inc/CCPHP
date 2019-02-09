@@ -44,7 +44,7 @@ export class CarsService implements OnInit {
     }
     BookCarNew(book: Book) {
         // tslint:disable-next-line:max-line-length
-        return this.http.post<Book>(this.baseUrl + 'CarsController.php?Key=add-booking-new', {'Id': 123, 'DateStart': book.DateStart, 'ExtraDateStart': book.ExtraDateStart, 'DateFinish': book.DateFinish,  'CarId': book.CarId, 'Price': book.Price, 'Place': book.Place, 'Email': book.Email, 'Password': book.Password, 'Name': book.Name, 'SalesId': book.SalesId, 'Phone': book.Tel, 'Comment': book.Comment});
+        return this.http.post<Book>(this.baseUrl + 'CarsController.php?Key=add-booking-new', {'Id': 123, 'DateStart': book.DateStart, 'ExtraDateStart': book.ExtraDateStart, 'ExtraDateFinish': book.ExtraDateFinish, 'DateFinish': book.DateFinish,  'CarId': book.CarId, 'Price': book.Price, 'Place': book.Place, 'PlaceOff': book.PlaceOff, 'Email': book.Email,  'Name': book.Name, 'SalesId': book.SalesId, 'Phone': book.Tel, 'Comment': book.Comment});
     }
     GetSales() {
         return this.http.get<Sale[]>(this.baseUrl + 'CarsController.php?Key=get-sales');
@@ -137,6 +137,7 @@ export class Book {
     DateStart: Date;
     ExtraDateStart: Date = new Date(0);
     DateFinish: Date;
+    ExtraDateFinish: Date = new Date(0);
     Sum: number;
     UserId: number;
     CarId: number;
@@ -144,10 +145,10 @@ export class Book {
     OldPrice?: number;
     Price: number;
     Place: string;
+    PlaceOff: string;
     Email?: string;
     Tel?: string;
     Comment?: string;
-    Password?: string;
     Name?: string;
 }
 
