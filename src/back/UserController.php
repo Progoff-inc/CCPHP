@@ -4,7 +4,7 @@ require 'repositories.php';
 header("Access-Control-Allow-Origin: *"); 
 header("Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token , Authorization");
-$db = new PDO('mysql:host=localhost;dbname=nomokoiw_cc;charset=UTF8','nomokoiw_cc','f%EO%6ta');
+
 $ctxt = new DataBase();
 if(isset($_GET['Key']))
 {
@@ -13,7 +13,6 @@ if(isset($_GET['Key']))
         case 'get-cars':
             echo json_encode($ctxt->getCars());
             break;
-        
         case 'get-ip':
             $ip =  $_SERVER['REMOTE_ADDR'];
             echo json_encode($ip);
@@ -28,23 +27,15 @@ if(isset($_GET['Key']))
             echo json_encode($ctxt->getReportCar(-1));
             break;
         case 'get-user':
-            $q = $db->query("SELECT * FROM users where Id=8");
-
-            $res = [];
-            $s = $q->fetch();
-            $user = new User($s['Id'], $s['Photo'], $s['Name'], $s['Email'],
-            $s['Phone'], $s['Lang'], $s['CreateDate'], $s['ModifiedDate'], $s['IsAdmin'], [], []);
-            
-            echo json_encode($user);
+            echo json_encode($ctxt->getUser($_GET['Email'], $_GET['Password']));
             break;
-        case 'get-car':
-            echo json_encode($ctxt->getCar($_GET['Id'],true));
+        case 'get-user-by-id':
+            echo json_encode($ctxt->getUserById($_GET['Id']));
             break;
         
-        case 'add-booking':
+        case 'add-user':
             $b = json_decode(file_get_contents('php://input'), true);
-            $book = new Entree($b['Id'], $b['Date'], $b['Place']);  
-            echo json_encode($book);
+            echo json_encode($ctxt->addUser($b['Name'], $b['Email'], $b['Password'], $b['Phone'], $b['Lang']));
             break;
         default:
             echo "Введенный ключ несуществует";
@@ -56,19 +47,4 @@ else
 {  
     echo "Введенные данные некорректны";
 }
-// if(isset($_GET['Key']))
-// {
-    
-//     $q = $db->query('SELECT * FROM exam_marks');
-//     $res = [];
-//     while ($row = $q->fetch()) {
-//         $res[] = new Entree($row['MARK']*1, $row['EXAM_DATE']);
-        
-//     }
-//     echo json_encode($res,true);
-// }
-// else
-// {  
-//     echo "Введенные данные некорректны";
-// }
 ?>
