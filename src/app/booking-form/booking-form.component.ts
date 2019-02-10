@@ -33,6 +33,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
   public user:User;
   photos:string[];
   showPhotos:any = {show:false};
+  locations:string[] = ['Аэропорт Ираклиона','Андреа Папандреу','Херсонисос'];
   
   
   constructor(public translate: TranslateService,private formBuilder: FormBuilder,private router:Router, private route: ActivatedRoute, public service:CarsService, public alert:AlertService) { 
@@ -88,10 +89,12 @@ export class BookingFormComponent implements OnInit, OnChanges {
           SalesId:this.sale.Id,
           Sum:this.book.Sum,
           DateStart:this.book.DateStart,
-          ExtraDateStart:this.getExtraTime(),
+          ExtraDateStart:this.getExtraTime(this.book.DateStart, this.bookingForm.value.Time),
+          ExtraDateFinish:this.getExtraTime(this.book.DateFinish, this.bookingForm.value.TimeOff),
           DateFinish:this.book.DateFinish,
           Price:this.sale.Id==0?this.service.car.Price:this.sale.NewPrice,
-          Place:"Iraklion airport",
+          Place:this.bookingForm.value.Place,
+          PlaceOff:this.bookingForm.value.PlaceOff,
           Tel:this.service.checkStr(this.bookingForm.value.Tel,'phone'),
           Comment:this.service.checkStr(this.bookingForm.value.Comment)
         }
@@ -99,10 +102,11 @@ export class BookingFormComponent implements OnInit, OnChanges {
           this.bookingForm = this.formBuilder.group({
             Name: [this.user?this.user.Name:'', Validators.required],
             Email: [this.user?this.user.Email:'', Validators.required],
-            Password: [this.user?'пароль':'', Validators.required],
             Tel: [this.user?(this.user.Phone?this.user.Phone:''):''],
             Place:['', Validators.required],
+            PlaceOff:['', Validators.required],
             Time:['12:00'],
+            TimeOff:['12:00'],
             Comment:['']
           });
           this.invalidIntarvals.push({DateStart:this.book.DateStart, DateFinish:this.book.DateFinish});
@@ -141,12 +145,13 @@ export class BookingFormComponent implements OnInit, OnChanges {
           SalesId:this.sale.Id,
           Sum:this.book.Sum,
           DateStart:this.book.DateStart,
-          ExtraDateStart:this.getExtraTime(),
+          ExtraDateStart:this.getExtraTime(this.book.DateStart, this.bookingForm.value.Time),
+          ExtraDateFinish:this.getExtraTime(this.book.DateFinish, this.bookingForm.value.TimeOff),
           DateFinish:this.book.DateFinish,
           Price:this.sale.Id==0?this.service.car.Price:this.sale.NewPrice,
-          Place:"Iraklion airport",
+          Place:this.bookingForm.value.Place,
+          PlaceOff:this.bookingForm.value.PlaceOff,
           Email:this.bookingForm.value.Email,
-          Password:this.bookingForm.value.Password,
           Name:this.bookingForm.value.Name,
           Tel:this.bookingForm.value.Tel,
           Comment:this.bookingForm.value.Comment
@@ -158,10 +163,10 @@ export class BookingFormComponent implements OnInit, OnChanges {
           this.bookingForm = this.formBuilder.group({
             Name: [this.user?this.user.Name:'', Validators.required],
             Email: [this.user?this.user.Email:'', Validators.required],
-            Password: [this.user?'пароль':'', Validators.required],
             Tel: [this.user?(this.user.Phone?this.user.Phone:''):''],
             Place:['', Validators.required],
             Time:['12:00'],
+            TimeOff:['12:00'],
             Comment:['']
           });
           this.submitted = false;
@@ -198,17 +203,11 @@ export class BookingFormComponent implements OnInit, OnChanges {
       }
       return this.times;
     }
-    getExtraTime(){
-      if(this.bookingForm.value.Time!='12:00'){
-        let t = this.book.DateStart;
-        let e = new Date(this.bookingForm.value.Time);
+    getExtraTime(t, time){
+      
+        let e = new Date(time);
         return new Date(t.getFullYear(), t.getMonth(), t.getDate(), e.getHours())
-      }
-      else{
-        let t = this.book.DateStart;
-        
-        return new Date(t.getFullYear(), t.getMonth(), t.getDate(), 12)
-      }
+     
     }
     hide(){
       this.service.showBookingForm=false;
@@ -259,10 +258,10 @@ export class BookingFormComponent implements OnInit, OnChanges {
       this.bookingForm = this.formBuilder.group({
         Name: [this.user?this.user.Name:'', Validators.required],
         Email: [this.user?this.user.Email:'', Validators.required],
-        Password: [this.user?'пароль':'', Validators.required],
         Tel: [this.user?(this.user.Phone?this.user.Phone:''):''],
         Place:['', Validators.required],
         Time:['12:00'],
+        TimeOff:['12:00'],
         Comment:['']
       });
       
@@ -284,7 +283,6 @@ export class BookingFormComponent implements OnInit, OnChanges {
       
   }
   getCar(){
-    console.log(111);
     this.service.GetCar(this.route.snapshot.paramMap.get("id")).subscribe(data => {
        console.log(data);
       if(data){

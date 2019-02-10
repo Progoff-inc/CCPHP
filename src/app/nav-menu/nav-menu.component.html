@@ -63,9 +63,9 @@
                         </div>
                         
                         <div class='navbar-collapse collapse' [ngClass]='{ "in": isExpanded }'>
-                            <div class="account-item" *ngIf="!userService.currentUser" (click)="userService.ShowForm(1)"><span><span  class='glyphicon glyphicon-plus'></span><span>{{"REGISTRATION" | translate}}</span></span></div>
-                            <div class="account-item" *ngIf="!!userService.currentUser" [routerLinkActive]='["link-active"]' [routerLink]='["/user"]' ><span><span  class='glyphicon glyphicon-user'></span><span>{{userService.currentUser.Name}}</span></span></div>
-                            <div class="account-item" (click)="userService.currentUser?Exit():userService.ShowForm(0)"><span><span *ngIf="!userService.currentUser"   class='glyphicon glyphicon-user'></span><span>{{(userService.currentUser?"LOG_OUT":"LOG_IN") | translate}}</span></span></div>
+                            <div class="account-item mt-1" *ngIf="!userService.currentUser" (click)="userService.ShowForm(1)"><span><span  class='glyphicon glyphicon-plus'></span><span>{{"REGISTRATION" | translate}}</span></span></div>
+                            <div class="account-item mt-1" *ngIf="!!userService.currentUser" [routerLinkActive]='["link-active"]' [routerLink]='["/user"]' ><span><span  class='glyphicon glyphicon-user'></span><span>{{userService.currentUser.Name}}</span></span></div>
+                            <div class="account-item mt-1" (click)="userService.currentUser?Exit():userService.ShowForm(0)"><span><span *ngIf="!userService.currentUser"   class='glyphicon glyphicon-user'></span><span>{{(userService.currentUser?"LOG_OUT":"LOG_IN") | translate}}</span></span></div>
                             <ul class='nav' >
                                 
                                 <li [routerLinkActive]='["link-active"]'> 

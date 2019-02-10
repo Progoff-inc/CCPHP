@@ -25,7 +25,7 @@
                         ></date-picker>
                         <div *ngIf="submitted && errors.DateStart" class="invalid-feedback">
                         
-                            <span class="d-block is-invalid" *ngIf="errors.DateStart">{{"DATE_VALIDATION" | translate}}</span>
+                            <span class="d-block is-invalid" *ngIf="errors.DateStart">{{"ENTER_DATE" | translate}}</span>
                         </div>
                     </div>
                     <div class="item">
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                     <div class="item">
-                        <span [ngClass]="{ 'is-invalid': submitted && errors.DateFinish }">{{"DATE_FINISH" | translate}}</span>
+                        <span [ngClass]="{ 'is-invalid': submitted && errors.DateFinish }">{{"DATE_END" | translate}}</span>
                         <date-picker  
                           [Out]="search" 
                           [Prop]="'DateFinish'" 
@@ -61,12 +61,12 @@
                           [DateFinish]="search.DateFinish"
                         ></date-picker>
                         <div *ngIf="submitted && errors.DateFinish" class="invalid-feedback">
-                            <span class="d-block is-invalid" *ngIf="errors.DateFinish">{{"DATE_VALIDATION" | translate}}</span>
+                            <span class="d-block is-invalid" *ngIf="errors.DateFinish">{{"ENTER_DATE" | translate}}</span>
                         
                         </div>
                     </div>
                     <div class="item">
-                        <span [ngClass]="{ 'is-invalid': submitted && f.DropTime.errors }">{{"DROP_OF_TIME" | translate}}</span>
+                        <span [ngClass]="{ 'is-invalid': submitted && f.DropTime.errors }">{{"DROP_OFF_TIME" | translate}}</span>
                         <select class="input" formControlName="DropTime" [ngClass]="{ 'is-invalid': submitted && f.DropTime.errors }"  >
                             <option *ngFor="let t of times">{{t}}</option>
                         </select>

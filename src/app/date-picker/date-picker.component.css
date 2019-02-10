@@ -132,7 +132,7 @@
     justify-content: center;
     align-items: center;
     height: 30px;
-    min-width: 35px !important;
+    width: 40px;
 }
 .column-headers{
     display: flex;
@@ -142,13 +142,24 @@
     background-color: rgb(203, 242, 255);
 }
 @media(max-width:360px){
+    .date-picker{
+        min-width: 241px !important;
+    }
     .container{
         width: 100%;
+        padding-left: 0;
+        padding-right: 0;
         left: 0;
     }
     .item{
         width: 25px;
         height: 25px;
+    }
+    .week-day-name{
+        width: 35px !important;
+    }
+    .header i{
+        width: 10% !important;
     }
     
 }
