@@ -134,5 +134,22 @@
     "CLOSE_FILTERS":"Скрыть фильтры",
     "SHOW_FILTERS":"Показать фильтры",
     "LEAVE_COMMENT":"Оставить комментарий",
-    "SEARCH":"Поиск"
+    "SEARCH":"Поиск",
+    "BOOKING_FORM":"Форма бронирования",
+    "CAR_FEATURES":"Особенности автомобиля",
+    "DEFAULT_EQUIPMENT":"Базовая комплектация",
+    "INCLUDE":"Включает",
+    "PICK_UP_LOCATION":"Начальная точка аренды",
+    "DROP_OFF_LOCATION":"Конечная точка аренды",
+    "PICK_UP_TIME":"Время начала аренды",
+    "DROP_OFF_TIME":"Время конца аренды",
+    "SUM":"Сумма",
+    "SAME_CARS":"Похожие авто",
+    "MINAGE":"Минимальный возраст",
+    "FIND_CAR":"Найти автомобиль",
+    "FIND_MORE":"Узнать больше",
+    "MAIN_MANUAL":"Механика",
+    "MAIN_AUTOMATIC":"Автомат",
+    "MAIN_CABRIO":"Кабриолет",
+    "MAIN_MINIVAN":"Минивен"
 }

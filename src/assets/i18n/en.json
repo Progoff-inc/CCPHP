@@ -122,5 +122,22 @@
     "CLOSE_FILTERS":"Close filters",
     "SHOW_FILTERS":"Show filters",
     "LEAVE_COMMENT":"Leave comment",
-    "SEARCH":"Search"
+    "SEARCH":"Search",
+    "BOOKING_FORM":"Booking form",
+    "CAR_FEATURES":"Car features",
+    "DEFAULT_EQUIPMENT":"Default equipment",
+    "INCLUDE":"Includes",
+    "PICK_UP_LOCATION":"Pick up location",
+    "DROP_OFF_LOCATION":"Drop off location",
+    "PICK_UP_TIME":"Pick up time",
+    "DROP_OFF_TIME":"Drop off time",
+    "SUM":"Sum",
+    "SAME_CARS":"Same cars",
+    "MINAGE":"Min age",
+    "FIND_CAR":"Find car",
+    "FIND_MORE":"Find more",
+    "MAIN_MANUAL":"Manual",
+    "MAIN_AUTOMATIC":"Automatic",
+    "MAIN_CABRIO":"Cabriolet",
+    "MAIN_MINIVAN":"Minivan"
 }
