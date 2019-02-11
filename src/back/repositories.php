@@ -162,7 +162,7 @@ class DataBase {
     
     public function addUser($n, $e, $p, $ph, $l){
         $s = $this->db->prepare("INSERT INTO users (Name, Email, Password, Phone, Lang, Photo, CreatedDate, ModifiedDate) Values (?,?,?,?,?,?,now(),now())");
-        $s->execute(array($n, $e, $p, $ph, $l,'../../assets/images/myava.jpg'));
+        $s->execute(array($n, $e, $p, $ph, $l,'../../assets/images/default_user_photo.jpg'));
         
         return $this->getUserById($this->db->lastInsertId());
     }
