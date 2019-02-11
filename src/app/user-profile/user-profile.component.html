@@ -107,10 +107,10 @@
     </div>
     <messager *ngIf="this.userService.currentUser.Topics" [userProfile]='true'  [topics]="this.userService.currentUser.Topics"></messager>
   </div>
-  <div *ngIf="userService.currentUser?userService.currentUser.Books.length>0:false" class="statistics">
+  <div  class="statistics">
     <!-- <statistics *ngIf="userService.currentUser.Name=='Admin'"></statistics> -->
     
-    <p class="line" ><span (click)="show('showBooks')">{{userService.currentUser.IsAdmin?'BOOKS':'MY_BOOKS' | translate}} <i class="fa" [ngClass] = "{'fa-angle-down':!showBooks, ' fa-angle-up':showBooks}"></i></span></p>
+    <p *ngIf="userService.currentUser?userService.currentUser.Books.length>0:false" class="line" ><span (click)="show('showBooks')">{{userService.currentUser.IsAdmin?'BOOKS':'MY_BOOKS' | translate}} <i class="fa" [ngClass] = "{'fa-angle-down':!showBooks, ' fa-angle-up':showBooks}"></i></span></p>
     <div *ngIf="showBooks">
       <div class="book-item" [ngClass]="{'active-item':getStatus(book)=='Активно' }" *ngFor="let book of userService.currentUser.Books">
         <span class="status" [ngClass]="{'active':getStatus(book)=='Активно'}">{{getStatus(book)}}</span>

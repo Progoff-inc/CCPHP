@@ -2,7 +2,7 @@
 <div class="container-fluid">
     <h1>{{"OUR_CARS" | translate}}</h1>
     <div class="filter-sort">
-      <h4 class="show-filters" (click)="showFilters()"><b>{{ShowFilters?'CLOSE_FILTERS':'SHOW_FILTERS' | translate}} <i class="fa fa-filter" aria-hidden="true"></i></b></h4>
+      <h4 class="show-filters" (click)="showFilters()"><b>{{(ShowFilters?'CLOSE_FILTERS':'SHOW_FILTERS') | translate}} <i class="fa fa-filter" aria-hidden="true"></i></b></h4>
       <div class="sortings">
           <h4><b>{{'SORT_BY' | translate}}:</b></h4>
           <span (click)="Sort('popularity')" [ngClass]="{'active-sort':CurSorting=='popularity'}">{{'POPULAR_SORTING' | translate}}</span>
@@ -61,7 +61,7 @@
                       <span>{{"TRANSMISSION" | translate}}</span>
                     </div>  
                     <i class="fa fa-cogs"></i>
-                    <span>{{car.Transmission}}</span>
+                    <span>{{car.Transmission.toUpperCase() | translate}}</span>
                   </div>
                   <div *ngIf="car.AC" class="detail-item">
                     <div class="detail-messege">
@@ -75,14 +75,14 @@
                       <span>{{'BODY'| translate}}</span>
                     </div>
                     <i class="fa fa-truck"></i>
-                    <span>{{car.BodyType}}</span>
+                    <span>{{car.BodyType.toUpperCase() | translate}}</span>
                   </div>
                   <div class="detail-item">
                     <div class="detail-messege">
                       <span>{{"FUEL" | translate}}</span>
                     </div>
                     <i class="fa fa-tint"></i>
-                    <span>{{car.Fuel}}</span>
+                    <span>{{car.Fuel.toUpperCase() | translate}}</span>
                   </div>
                 </div>
                 <div class="buttons">
