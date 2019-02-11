@@ -18,6 +18,12 @@ img{
     top: 0;
     left: 0;
 }
+.condition{
+    border-bottom: 1px solid white;
+}
+.condition:last-child{
+    border-bottom: none;
+}
 .bg-blurrr{
     height: 200px;
     display: flex;

@@ -13,7 +13,7 @@
         <i class="fa fa-check"></i>
         {{Translate.currentLang=='ru'?rule.Name:rule.NameEng}}
       </h4>
-      <p>{{Translate.currentLang=='ru'?rule.Description:rule.DescriptionEng}}</p>
+      <p [innerHTML]="Translate.currentLang=='ru'?rule.Description:rule.DescriptionEng"></p>
     </div>
     <div class="bg-blurrr" >
       <img src="../../assets/images/nissan-micra-wide.jpg" alt="">
@@ -21,14 +21,14 @@
       <h1>{{'CONDITIONS'| translate}}</h1>
     </div>
     <div class="container">
-      <div class="condition" *ngFor="let cond of conditions">
+      <div class="condition mb-5" *ngFor="let cond of conditions">
 
         <h4>
           <i class="fa fa-info-circle"></i>
           {{Translate.currentLang=='ru'?cond.Name:cond.Name}}
         </h4>
         <p>{{Translate.currentLang=='ru'?cond.Description:cond.Description}}</p>
-        <hr>
+       
       </div>
     </div>
  </div>

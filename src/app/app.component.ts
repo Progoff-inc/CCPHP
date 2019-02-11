@@ -10,7 +10,7 @@ import {CarsService, Book} from './services/CarsService'
 })
 
 export class AppComponent implements OnInit {
-  title = 'app';
+  title = 'CAR4CRETE';
   showMes:boolean = true;
   CarId:number=0;
   service:MyTranslateService ;
