@@ -140,5 +140,16 @@
     "MAIN_AUTOMATIC":"Automatic",
     "MAIN_CABRIO":"Cabriolet",
     "MAIN_MINIVAN":"Minivan",
-    "BSC":"Book specific car, not category"
+    "BSC":"Book specific car, not category",
+    "BSC_TEXT":"What car you choose - you will take on arrival.",
+    "PREPAYMENT":"No prepayment on site",
+    "PREPAYMENT_TEXT":"Reservation is free and no prepayment on the website is necessary. The payment is carried out after the contract is signed. We accept payments with cash, Visa/Master credit cards.",
+    "CANCELLATION":"Free cancellation",
+    "CANCELLATION_TEXT":"Becase we do not take eny deposit for booking car, be responsible to tell us for cancellation 5 days before arrival date.",
+    "FINAL_PRICE":"Final price & NO Extra payment",
+    "FINAL_PRICE_TEXT":"You see the FINAL car rental price with our company. No hidden taxes and extra insuranses. Our rates include 24% VAT, Full Insurance, unlimited Mileage, 24 hours road. Assistance all over Crete.",
+    "INSURANCE":"Full Insurance without EXCESS",
+    "INSURANCE_TEXT":"Full coverage insurance (FCDW)<br>Personal accident insurance (PAI)<br>Theft & Fire insurance<br>Liability Insurance (LI)<br>",
+    "ATTENTION":"ATTENTION!",
+    "MAIN_ATTENTION_TEXT":"The insurance policy does not cover incidents that have occurred due to violation of traffic rules, or because of the driver, who was intoxicated. Insuranse does not apply, when driving off the road."
 }

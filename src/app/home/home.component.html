@@ -91,115 +91,6 @@
     </div>
 </div>
 
-<!-- <div class="container best-cars"  >
-
-    <div class="advs" >
-        <div class="row">
-            <div class="col-xs-4">
-                <div>
-                    <i class="fa fa-plane box-icon-border box-icon-center round box-icon-white box-icon-big"></i>
-                    <h3>Pick up & Drop off directly at the Airport</h3>
-                    <p>We are based in Heraklion Airport and Chania Airport. You can collect and return your hired vehicle straight at any Crete's Airport</p>
-                </div>
-                
-            </div>
-            <div class="col-xs-4">
-                <div>
-                    <i class="fa fa-shield box-icon-border box-icon-center round box-icon-white box-icon-big"></i>
-                    <h3>All Risk Insurance with NO EXCESS!</h3>
-                    <p>Our prices and specials offers include no additional fees & extra -hidden- insurances. The price you reserve is the price you pay.</p>
-                </div>
-                
-            </div>
-            <div class="col-xs-4">
-                <div>
-                    <i class="fa fa-car box-icon-border box-icon-center round box-icon-white box-icon-big"></i>
-                    <h3>Book Early, Avoid disappointment</h3>
-                    <p>Book your next rental car in Crete with Justrentals and avoid disappointment. No credit card is required.</p>
-                </div>
-            </div>
-        </div>
-        <div class="arrow" [ngStyle]='{"opacity":showAdvs?"0":"1"}'>
-            <img src="../../assets/images/arrow.gif" alt="">
-        </div>
-    </div>
-    <h2>{{'BEST_CARS' | translate}}</h2>
-    <div *ngFor='let car of bestCars; let i = index' [ngClass]="{'between':betweenCars}"  class="car-item">
-        <h3>{{car.Model}}</h3>
-      <div  class="car-img">
-        <img src="{{car.Photo}}" alt="">
-        <div (click)="showCarInfo(car)" class="blur"></div>
-        <div [ngClass]="{'price':car.Sales.length==0, 'sale-price':car.Sales.length>0}">
-        
-          <span>{{car.Sales.length>0?getCarPrice(car):car.Price}}€</span>
-        </div>
-        <div *ngIf="car.Sales.length>0" class="discount">
-          <span>{{getCarPrice(car,true)}}</span>
-        </div>
-        <div class="rating">
-          <rating [mark]="car.Mark"></rating>
-        </div>
-        <i (click)="showCarPhotos(car.Id)" class="fa fa-picture-o" aria-hidden="true"></i>
-      </div>
-      <div class="car-info">
-        
-        <div class="details">
-          <div class="detail-item">
-            <div class="detail-messege">
-              <span>{{"PASSENGERS_S" | translate}}</span>
-            </div>
-            <i class="fa fa-male"></i>
-            <span>x {{car.Passengers}}</span>
-          </div>
-          <div class="detail-item">
-            <div class="detail-messege">
-                <span>{{"DOORS" | translate}}</span>
-            </div>
-            <i class="fa fa-car"></i>
-            <span>x {{car.Doors}}</span>
-          </div>
-          <div class="detail-item">
-            <div class="detail-messege">
-              <span>{{"TRANSMISSION" | translate}}</span>
-            </div>  
-            <i class="fa fa-cogs"></i>
-            <span>{{car.Transmission}}</span>
-          </div>
-          <div *ngIf="car.AC" class="detail-item">
-            <div class="detail-messege">
-              <span>A/C</span>
-            </div>
-            <i class="fa fa-snowflake-o"></i>
-            <span>A/C</span>
-          </div>
-          <div class="detail-item">
-            <div class="detail-messege">
-              <span>{{'BODY'| translate}}</span>
-            </div>
-            <i class="fa fa-truck"></i>
-            <span>{{car.BodyType}}</span>
-          </div>
-          <div class="detail-item">
-            <div class="detail-messege">
-              <span>{{"FUEL" | translate}}</span>
-            </div>
-            <i class="fa fa-tint"></i>
-            <span>{{car.Fuel}}</span>
-          </div>
-        </div>
-        <div class="buttons">
-          <button class="btn btn-info" (click)="showCarInfo(car)">{{"CAR_INFO" | translate}}</button>
-          <button class="btn btn-success" routerLink="/booking/{{car.Id}}">{{"BOOK" | translate}}</button>
-        </div>
-        
-      </div>
-      <div class="car-description">
-            <p>{{translate.currentLang=='ru'?(car?car.Description:''):car.Description_ENG}}</p>
-      </div>
-    </div>
-    <div class="car"></div>
-    <div class="car"></div>
-</div> -->
 
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" [ngClass]='{"show-advs":showAdvs}'>
     <div class="advs container" >
@@ -208,23 +99,23 @@
                 <div>
                     <i class="fa fa-car box-icon-border box-icon-center round box-icon-white box-icon-big"></i>
                     <h3>{{"BSC" | translate}}</h3>
-                    <p>What car you choose - you will take on arrival.</p>
+                    <p>{{"BSC_TEXT" | translate}}</p>
                 </div>
                 
             </div>
             <div class="col-xs-4">
                 <div>
                     <i class="fa fa-times box-icon-border box-icon-center round box-icon-white box-icon-big"></i>
-                    <h3>No Prepayment on site</h3>
-                    <p>Reservation is free and no prepayment on the website is necessary. The payment is carried out after the contract is signed. We accept payments with cash, Visa/Master credit cards.</p>
+                    <h3>{{"PREPAYMENT" | translate}}</h3>
+                    <p>{{"PREPAYMENT_TEXT" | translate}}"</p>
                 </div>
                 
             </div>
             <div class="col-xs-4">
                 <div>
                     <i class="fa fa-undo box-icon-border box-icon-center round box-icon-white box-icon-big"></i>
-                    <h3>Free Cancellation</h3>
-                    <p>Becase we do not take eny deposit for booking car, be responsible to tell us for cansellation 5 days before arrival date.</p>
+                    <h3>{{"CANCELLATION" | translate}}</h3>
+                    <p>{{"CANCELLATION_TEXT" | translate}}</p>
                 </div>
             </div>
         </div>
@@ -232,20 +123,16 @@
             <div class="d-flex justify-content-center" style="width: 40%;">
                 <div class="d-flex flex-column align-items-center">
                     <i class="fa fa-usd box-icon-border box-icon-center round box-icon-white box-icon-big"></i>
-                    <h3>Final price & NO Extra payment</h3>
-                    <p>You see the FINAL car rental price with our company. No hidden taxes and extra insuranses. Our rates include 24% VAT, Full Insurance, unlimited Mileage, 24 hours road. Assistance all over Crete.</p>
+                    <h3>{{"FINAL_PRICE" | translate}}</h3>
+                    <p>{{"FINAL_PRICE_TEXT" | translate}}</p>
                 </div>
                 
             </div>
             <div class="d-flex justify-content-center" style="width: 40%;">
                 <div class="d-flex flex-column align-items-center">
                     <i class="fa fa-user-md box-icon-border box-icon-center round box-icon-white box-icon-big"></i>
-                    <h3>Full Insurance without EXCESS</h3>
-                    <p style="white-space: pre-wrap">
-                        Full coverage insurance (FCDW)<br>
-                        Personal accident insurance (PAI)<br>
-                        Theft & Fire insurance<br>
-                        Liability Insurance (LI)<br></p>
+                    <h3>{{"INSURANCE" | translate}}</h3>
+                    <p style="white-space: pre-wrap" [innerHTML]="'INSURANCE_TEXT' | translate"></p>
                 </div>
             </div>
             
@@ -254,11 +141,8 @@
             <div  class="col-xs-12">
                 <div class="d-flex flex-column align-items-center">
                     
-                    <h3>Attention!</h3>
-                    <p style="white-space: pre-wrap">
-                        The insurance policy does not cover incidents that have occurred due to violation of traffic rules, or because of the driver, who was intoxicated. Insuranse does not apply,
-                        when driving off the road.
-                    </p>
+                    <h3>{{"ATTENTION" | translate}}</h3>
+                    <p style="white-space: pre-wrap">{{"MAIN_ATTENTION_TEXT" | translate}}</p>
                 </div>
             </div>
         </div>
