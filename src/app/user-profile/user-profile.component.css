@@ -279,4 +279,8 @@ button{
         left: 0;
     }
 }
+.card:hover{
+    background-color: lightgray;
+    cursor: pointer;
+}
 

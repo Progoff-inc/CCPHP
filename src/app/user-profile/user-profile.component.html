@@ -145,8 +145,24 @@
         </div>
       </div>
     </div>
-    <p *ngIf="userService.currentUser.IsAdmin" class="line" ><span (click)="addCar()">{{'ADD_CAR' | translate}} <i class="fa" [ngClass] = "{'fa-angle-down':!showAddCar, ' fa-angle-up':showAddCar}"></i></span></p>
-    
+    <p *ngIf="userService.currentUser.IsAdmin" class="line" ><span (click)="show('showAddCar')">{{'ADD_CAR' | translate}} <i class="fa" [ngClass] = "{'fa-angle-down':!showAddCar, ' fa-angle-up':showAddCar}"></i></span></p>
+    <div *ngIf="showAddCar">
+      <ul class="list-group my-3">
+        <li class="list-group-item" >
+          <h3 class="mt-0 mb-3">{{"CARS"| translate}}</h3>
+          <div  class="w-100 m-0 border-0" >
+            <div class="card mb-3 flex-column flex-sm-row justify-content-start align-items-start align-items-sm-center  "   *ngFor="let e of cars">
+              <div class="card-body d-sm-flex justify-content-sm-between align-items-center">
+                <h6  class="card-title m-sm-0">#{{e.Id}} {{e.Model}}</h6>
+              </div>
+            </div>
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-success"  >Добавить</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
     <p *ngIf="userService.currentUser.IsAdmin" class="line" ><span (click)="show('showAddSale')">{{'ADD_SALE' | translate}} <i class="fa" [ngClass] = "{'fa-angle-down':!showAddSale, ' fa-angle-up':showAddSale}"></i></span></p>
     <div *ngIf="userService.currentUser.IsAdmin && showAddSale">
       <div class="form">
