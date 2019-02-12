@@ -62,6 +62,9 @@ export class UserProfileComponent implements OnInit {
     
     
   }
+  addCar(){
+    this.router.navigate(['/add'])
+  }
   show(prop:string){
     this[prop] = !this[prop];
   }
@@ -157,29 +160,7 @@ export class UserProfileComponent implements OnInit {
       
     }
   }
-  addCar(){
-    this.carSubmitted =true;
-    for(let i =0; i<Object.keys(this.newCar).length;i++){
-      if(this.newCar[Object.keys(this.newCar)[i]]==null){
-        return;
-      }
-    }
-    this.newCar.Includes.forEach(x => {
-      if(this.translate.currentLang=='ru'){
-        this.newCar.Contain+=this.Includes.Includes.indexOf(x)+'/';
-      }
-      else{
-        this.newCar.Contain+=this.Includes.IncludesEng.indexOf(x)+'/';
-      }
-      
-    })
-    this.newCar.Contain = this.newCar.Contain.slice(0,this.newCar.Contain.length-1);
-    console.log(this.newCar);
-    this.carsService.AddCar(this.newCar).subscribe(data => {
-      this.newCar = new NewCar();
-      this.carSubmitted=false;
-    })
-  }
+  
   addSale(){
     this.saleSubmitted = true;
     for(let i =0; i<Object.keys(this.newSale).length;i++){
