@@ -139,5 +139,6 @@
     "MAIN_MANUAL":"Manual",
     "MAIN_AUTOMATIC":"Automatic",
     "MAIN_CABRIO":"Cabriolet",
-    "MAIN_MINIVAN":"Minivan"
+    "MAIN_MINIVAN":"Minivan",
+    "BSC":"Book specific car, not category"
 }
