@@ -151,5 +151,18 @@
     "INSURANCE":"Full Insurance without EXCESS",
     "INSURANCE_TEXT":"Full coverage insurance (FCDW)<br>Personal accident insurance (PAI)<br>Theft & Fire insurance<br>Liability Insurance (LI)<br>",
     "ATTENTION":"ATTENTION!",
-    "MAIN_ATTENTION_TEXT":"The insurance policy does not cover incidents that have occurred due to violation of traffic rules, or because of the driver, who was intoxicated. Insuranse does not apply, when driving off the road."
+    "MAIN_ATTENTION_TEXT":"The insurance policy does not cover incidents that have occurred due to violation of traffic rules, or because of the driver, who was intoxicated. Insuranse does not apply, when driving off the road.",
+    "RENT_CONDITIONS":"RENT CONDITIONS",
+    "ACCURATY":"Accuracy",
+    "ACCURATY_TEXT":"Communicate to us the desired location and time of car renting on Crete",
+    "AGE":"Minimal age",
+    "AGE_TEXT":"Be over 21 years old for A,B categories and 24 years old for C, C1, D, E, L, L1, L2",
+    "LICENSE":"Driver's license",
+    "LICENSE_TEXT":"Have a valid driver's license held for at least one year.",
+    "SOBRITY":"Sobrity",
+    "SOBRITY_TEXT":"Never drive under the influence",
+    "SR":"Stick to the rules",
+    "SR_TEXT":"Know rules of the road and never violate them",
+    "CARE":"Care",
+    "CARE_TEXT":"Take care of the rented car as of your own!"
 }

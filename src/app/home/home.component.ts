@@ -43,33 +43,33 @@ export class HomeComponent implements OnInit {
   steps = [
     {
       Icon:"../../assets/images/icons/diagnostic.svg",
-      Header:"CHOOSE_CAR",
-      Text:"CHOOSE_CAR_TEXT"
+      Header:"ACCURATY",
+      Text:"ACCURATY_TEXT"
     },
     {
       Icon:"../../assets/images/icons/writing.svg",
-      Header:"BOOK_CAR",
-      Text:"BOOK_CAR_TEXT"
+      Header:"AGE",
+      Text:"AGE_TEXT"
     },
     {
       Icon:"../../assets/images/icons/document.svg",
-      Header:"CONTRACT",
-      Text:"CONTRACT_TEXT"
+      Header:"LICENSE",
+      Text:"LICENSE_TEXT"
     },
     {
       Icon:"../../assets/images/icons/car.svg",
-      Header:"CLEAN_CAR",
-      Text:"CLEAN_CAR_TEXT"
+      Header:"SOBRITY",
+      Text:"SOBRITY_TEXT"
     },
     {
       Icon:"../../assets/images/icons/security.svg",
-      Header:"SAVE_CAR",
-      Text:"SAVE_CAR_TEXT"
+      Header:"SR",
+      Text:"SR_TEXT"
     },
     {
       Icon:"../../assets/images/icons/24-hours.svg",
-      Header:"RETURN_CAR",
-      Text:"RETURN_CAR_TEXT"
+      Header:"CARE",
+      Text:"CARE_TEXT"
     }
   ]
   bestCars: Car[];
