@@ -229,6 +229,16 @@
                 <span class="d-block is-invalid" >{{"ADMIN_VALIDATION" | translate}}</span>
               </div>
             </div>
+            <div class="item">
+              <span [ngClass]="{ 'is-invalid': adminSubmitted && newAdmin.IsAdmin == null }" class="header">{{'IS_ADMIN' | translate}}</span>
+              <select [(ngModel)]="newAdmin.IsAdmin">
+                <option value="{{true}}">{{'YES' | translate}}</option>
+                <option value="{{false}}">{{'NO' | translate}}</option>
+              </select>
+              <div *ngIf="adminSubmitted && newAdmin.UserId == 0" class="invalid-feedback">
+                <span class="d-block is-invalid" >{{"ADMIN_VALIDATION" | translate}}</span>
+              </div>
+            </div>
           </div>
           
         </div>

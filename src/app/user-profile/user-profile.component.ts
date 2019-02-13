@@ -21,7 +21,7 @@ export class UserProfileComponent implements OnInit {
   Includes:Contains = new Contains();
   cars:ReportCar[] = [];
   users:ReportUser[] = [];
-  newAdmin:any = {UserId:0};
+  newAdmin:any = {UserId:0, IsAdmin:null};
   saleErrors:any={DateStrart:true, DateFinish:true};
   newSale:Sale = new Sale();
   newCar:NewCar =new NewCar();
@@ -178,14 +178,16 @@ export class UserProfileComponent implements OnInit {
   }
   addAdmin(){
     this.adminSubmitted = true;
-    if(this.newAdmin.UserId==0){
+    if(this.newAdmin.UserId==0 || this.newAdmin.IsAdmin==null){
       return
     }
+    
+    this.newAdmin.IsAdmin = Boolean(this.newAdmin.IsAdmin);
     this.NewAdmin = this.users.find(x => x.Id == this.newAdmin.UserId);
-    this.NewAdmin.IsAdmin = !this.NewAdmin.IsAdmin;
-    this.userService.SetAdmin(this.NewAdmin).subscribe(data => {
+    this.NewAdmin.IsAdmin = this.newAdmin.IsAdmin;
+    this.userService.SetAdmin(this.NewAdmin.Id, this.NewAdmin.IsAdmin).subscribe(data => {
       this.NewAdmin = data;
-      this.newAdmin={UserId:0};
+      this.newAdmin={UserId:0, IsAdmin:null};
       this.adminSubmitted = false;
     })
   }

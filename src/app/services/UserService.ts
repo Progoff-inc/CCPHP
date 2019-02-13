@@ -37,8 +37,8 @@ export class UserService {
     UploadPhoto(data:any){
         return this.http.post<any>(this.baseUrl + 'UserController.php?Key=upload-user-photo', data)
     }
-    SetAdmin(data:any){
-        return this.http.post<ReportUser>(this.baseUrl + 'UserController.php?Key=set-admin', data)
+    SetAdmin(id, IsAdmin){
+        return this.http.get<ReportUser>(this.baseUrl + 'UserController.php?Key=set-admin&Id='+id+'&IsAdmin='+IsAdmin)
     }
     GetStatistics(){
         return this.http.get<Statistics>(this.baseUrl + 'UserController.php?Key=get-statistics')
