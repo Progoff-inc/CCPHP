@@ -2,37 +2,160 @@
   <form>
     <div class="row">
       <div class="col-sm-6">
+        
+        <div class="form-group">
+          <label for="MI">{{"MODEL" | translate}}</label>
+          <input type="text" class="form-control" id="MI" [placeholder]="'MODEL_INPUT' | translate">
+          <small class="form-text text-danger">{{"MODEL_INPUT" | translate}}</small>
+        </div>
+        
+        <div class="form-group">
+          <label for="LI">{{"PHOTO" | translate}}</label>
+          <input type="text" class="form-control" id="LI" [placeholder]="'PHOTO_INPUT' | translate">
+          <small class="form-text text-danger">{{"PHOTO_INPUT" | translate}}</small>
+        </div>
+        
+        <div class="col-sm-6 pl-0" style="min-width: 165px">
           <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <label for="SP">{{"S_PRICE" | translate}}</label>
+            <input type="number" class="form-control" id="SP" [placeholder]="'S_PRICE_INPUT' | translate">
+            <small class="form-text text-danger">{{"S_PRICE_INPUT" | translate}}</small>
           </div>
+        </div>
+        
+        <div class="col-sm-6 px-0" style="min-width: 165px">
           <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            <label for="WP">{{"W_PRICE" | translate}}</label>
+            <input type="number" class="form-control" id="WP" [placeholder]="'W_PRICE_INPUT' | translate">
+            <small class="form-text text-danger">{{"W_PRICE_INPUT" | translate}}</small>
           </div>
-          <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-          </div>
+        </div>
       </div>
+      
       <div class="col-sm-6">
-          <div class="form-group">
-            <label for="exampleInputEmail">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        
+        <div class="form-group">
+          <label for="BTI">{{"BODYTYPE" | translate}}</label>
+          <select class="form-control" id="BTI">
+            <option></option>
+            <option value="Sedan">{{"SEDAN" | translate}}</option>
+            <option value="Wagon">{{"WAGON" | translate}}</option>
+            <option value="Hatchback">{{"HATCHBACK" | translate}}</option>
+            <option value="Compact">{{"COMPACT" | translate}}</option>
+            <option value="Minivan">{{"MINIVAN" | translate}}</option>
+            <option value="Van">{{"VAN" | translate}}</option>
+            <option value="Coupe">{{"COUPE" | translate}}</option>
+            <option value="Sport_Coupe">{{"SPORT_COUPE" | translate}}</option>
+            <option value="SUV">{{"SUV" | translate}}</option>
+            <option value="Pickup">{{"PICKUP" | translate}}</option>
+          </select>
+          <small class="form-text text-danger">{{"BODYTYPE_INPUT" | translate}}</small>
+        </div>
+        
+        <div class="d-flex flex-wrap">
+          <div class="form-item">
+            <div class="form-group">
+              <label for="PI">{{"PASSENGERS_S" | translate}}</label>
+              <input type="number" class="form-control" id="PI" [placeholder]="'PASSENGERS_INPUT' | translate">
+              <small class="form-text text-danger">{{"PASSENGERS_INPUT" | translate}}</small>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="exampleInputPassword">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          
+          <div class="form-item">
+            <div class="form-group">
+              <label for="DI">{{"DOORS" | translate}}</label>
+              <input type="number" class="form-control" id="DI" [placeholder]="'DOORS_INPUT' | translate">
+              <small class="form-text text-danger">{{"DOORS_INPUT" | translate}}</small>
+            </div>
           </div>
-          <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck">
-            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+          
+          <div class="form-item">
+            <div class="form-group">
+              <label for="GI">{{"GROUPE" | translate}}</label>
+              <input type="text" class="form-control" id="GI" [placeholder]="'GROUPE_INPUT' | translate">
+              <small class="form-text text-danger">{{"GROUPE_INPUT" | translate}}</small>
+            </div>
           </div>
+          
+          <div class="form-item">
+            <div class="form-group">
+              <label for="AI">{{"MINAGE_S" | translate}}</label>
+              <input type="number" class="form-control" id="AI" [placeholder]="'AGE_INPUT' | translate">
+              <small class="form-text text-danger">{{"AGE_INPUT" | translate}}</small>
+            </div>
+          </div>
+        </div>
+        
+        <div class="d-flex flex-wrap">
+          
+          <div class="form-item">
+            <div class="form-group">
+                <label for="PowI">{{"POWER" | translate}}</label>
+                <input type="number" class="form-control" id="PowI" [placeholder]="'POWER_INPUT' | translate">
+                <small class="form-text text-danger">{{"POWER_INPUT" | translate}}</small>
+            </div>
+          </div>
+          
+          <div class="form-item">
+            <div class="form-group">
+                <label for="CI">{{"CONSUMPION" | translate}}</label>
+                <input type="number" class="form-control" id="CI" [placeholder]="'CONSUMPTION_INPUT' | translate">
+                <small class="form-text text-danger">{{"CONSUMPTION_INPUT" | translate}}</small>
+            </div>
+          </div>
+          
+          <div class="form-item">
+            <div class="form-group">
+                <label for="TI">{{"TRANSMISSION_S" | translate}}</label>
+                <select class="form-control" id="BTI">
+                  <option></option>
+                  <option value="AT">{{"AUTOMATIC" | translate}}</option>
+                  <option value="MT">{{"MANUAL" | translate}}</option>
+                </select>
+                <small class="form-text text-danger">{{"TRANSMISSION_INPUT" | translate}}</small>
+            </div>
+          </div>
+          
+          <div class="form-item">
+            <div class="form-group">
+                <label for="FI">{{"FUEL" | translate}}</label>
+                <select class="form-control" id="BTI">
+                  <option></option>
+                  <option value="Petrol">{{"PETROL" | translate}}</option>
+                  <option value="Deisel">{{"DEISEL" | translate}}</option>
+                </select>
+                <small class="form-text text-danger">{{"FUEL_INPUT" | translate}}</small>
+            </div>
+          </div>
+        </div>
+       </div>
       </div>
-    </div>
-    
+      <div class="row">
+        <div class="col-sm">
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="AC">
+            <label class="form-check-label ml-4" for="AC">{{"AC" | translate}}</label>
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="ABS">
+            <label class="form-check-label ml-4" for="ABS">ABS</label>
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="AB">
+            <label class="form-check-label ml-4" for="AB">{{"AIRBAGS" | translate}}</label>
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="Radio">
+            <label class="form-check-label ml-4" for="Radio">{{"RADIO" | translate}}</label>
+          </div>
+        </div>
+      </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 </div>

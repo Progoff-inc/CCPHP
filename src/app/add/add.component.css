@@ -50,3 +50,8 @@
 .includes:hover .include-items{
     display: inline;
 }
+
+.form-item{
+    min-width: 50px;
+    margin-right: 10px;
+}
