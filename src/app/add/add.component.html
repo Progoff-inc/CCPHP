@@ -52,7 +52,7 @@
           <small class="form-text text-danger">{{"BODYTYPE_INPUT" | translate}}</small>
         </div>
         
-        <div class="d-flex flex-wrap">
+        <div class="d-flex flex-wrap justify-content-between">
           <div class="form-item">
             <div class="form-group">
               <label for="PI">{{"PASSENGERS_S" | translate}}</label>
@@ -86,7 +86,7 @@
           </div>
         </div>
         
-        <div class="d-flex flex-wrap">
+        <div class="d-flex flex-wrap justify-content-between">
           
           <div class="form-item">
             <div class="form-group">
@@ -156,6 +156,17 @@
           </div>
         </div>
       </div>
+      <div class="form-group">
+          <label for="DES">{{"DESCRIPTION" | translate}}</label>
+          <textarea class="form-control" rows="5" id="DES" [placeholder]="'DESCRIPTION_INPUT' | translate"></textarea>
+          <small class="form-text text-danger">{{"DESCRIPTION_INPUT" | translate}}</small>
+      </div>
+      <div class="form-group">
+          <label for="DESENG">{{"DESCRIPTION_ENG" | translate}}</label>
+          <textarea class="form-control" rows="5" id="DESENG" [placeholder]="'DESCRIPTION_ENG_INPUT' | translate"></textarea>
+          <small class="form-text text-danger">{{"DESCRIPTION_ENG_INPUT" | translate}}</small>
+      </div>
+      <hr>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 </div>

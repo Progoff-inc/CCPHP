@@ -52,6 +52,7 @@
 }
 
 .form-item{
-    min-width: 50px;
-    margin-right: 10px;
+    width: 23%;
+    min-width: 110px;
+    margin-right: 2px;
 }
