@@ -43,9 +43,16 @@ export class AddComponent implements OnInit {
   }
   addCar(){
     this.carSubmitted=true;
+
+    
+    if(this.checkPrices()){
+      console.log(this.Prices);
+      return;
+    }
     if(this.carForm.invalid){
       return;
     }
+    
     console.log(this.carForm.value);
     this.carsService.AddCar(this.carForm.value).subscribe((CarId)=>{
       this.Prices.CarId=CarId;
@@ -55,6 +62,19 @@ export class AddComponent implements OnInit {
       })
     })
   }
+  checkPrices(){
+    this.g.forEach(e => {
+      console.log(!!this.Prices.WPrice[e])
+      if(!this.Prices.WPrice[e] || !this.Prices.SPrice[e]){
+        console.log(e);
+        return true;
+      }
+      
+    });
+    return false;
+  }
+  get g() { return Object.keys(this.Prices.SPrice); }
+  get f() { return this.carForm.controls; }
   date=[{
     HEADER:'ONE_DAY',
     TEXT:'ONE_DAY_INPUT',
@@ -86,17 +106,21 @@ export class AddComponent implements OnInit {
 }
 
 export class carPrices{
+  constructor(){
+    this.WPrice=new Price();
+    this.SPrice=new Price();
+  }
   CarId:number;
   WPrice:Price;
   SPrice:Price;
 }
 
 export class Price{
-  OneDay:number;
-  TwoDays:number;
-  ThreeDays:number;
-  FourDays:number;
-  FiveDays:number;
-  SixDays:number;
-  SevenDays:number;
+  OneDay:number = undefined;
+  TwoDays:number = undefined;
+  ThreeDays:number = undefined;
+  FourDays:number = undefined;
+  FiveDays:number = undefined;
+  SixDays:number = undefined;
+  SevenDays:number = undefined;
 }
