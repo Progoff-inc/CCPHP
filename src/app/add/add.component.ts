@@ -35,7 +35,7 @@ export class AddComponent implements OnInit {
       Fuel:['', Validators.required],
       AC:[false],
       ABS:[false],
-      Airbags:[false],
+      AirBags:[false],
       Radio:[false],
       Description:['', Validators.required],
       Description_ENG:['', Validators.required]
