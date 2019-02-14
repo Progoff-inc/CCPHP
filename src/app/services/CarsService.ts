@@ -32,11 +32,13 @@ export class CarsService implements OnInit {
     GetReportCars() {
         return this.http.get<ReportCar[]>(this.baseUrl + 'CarsController.php?Key=get-report-cars');
     }
-    AddCar(car: NewCar) {
+    AddCar(car) {
 
-        return this.http.post<NewCar>(this.baseUrl + 'CarsController.php?Key=add-car', car);
+        return this.http.post<number>(this.baseUrl + 'CarsController.php?Key=add-car', car);
     }
-
+    AddPrices(Price) {
+        return this.http.post(this.baseUrl + 'CarsController.php?Key=add-price', Price);
+    }
     BookCar(book: any) {
         // tslint:disable-next-line:max-line-length
         // return this.http.post<Book>(this.baseUrl + 'CarsController.php?Key=add-booking',{"Id":123,"DateStart":book.DateStart, "ExtraDateStart":book.ExtraDateStart, "DateFinish":book.DateFinish, "UserId":book.UserId, "CarId":book.CarId, "Price":book.Price, "Place":book.Place, "Comment":book.Comment, "SalesId":book.SalesId});

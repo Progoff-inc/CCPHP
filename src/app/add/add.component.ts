@@ -12,6 +12,7 @@ export class AddComponent implements OnInit {
   newCar:NewCar =new NewCar();
   carSubmitted = false;
   carForm:FormGroup;
+  Prices:carPrices=new carPrices();
   
   Includes:Contains = new Contains();
   
@@ -46,6 +47,13 @@ export class AddComponent implements OnInit {
       return;
     }
     console.log(this.carForm.value);
+    this.carsService.AddCar(this.carForm.value).subscribe((CarId)=>{
+      this.Prices.CarId=CarId;
+      this.carsService.AddPrices(this.Prices).subscribe(()=>{
+        this.Prices = new carPrices();
+        this.carForm.reset();
+      })
+    })
   }
   date=[{
     HEADER:'ONE_DAY',
@@ -75,4 +83,20 @@ export class AddComponent implements OnInit {
     HEADER:'SEVEN_DAY',
     TEXT:'SEVEN_DAY_INPUT',
   }]
+}
+
+export class carPrices{
+  CarId:number;
+  WPrice:Price;
+  SPrice:Price;
+}
+
+export class Price{
+  OneDay:number;
+  TwoDays:number;
+  ThreeDays:number;
+  FourDays:number;
+  FiveDays:number;
+  SixDays:number;
+  SevenDays:number;
 }
