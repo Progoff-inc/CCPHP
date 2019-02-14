@@ -1,24 +1,24 @@
 <div class="container my-5">
-  <form>
+  <form [formGroup]="carForm">
     <div class="row">
       <div class="col-sm-6">
         
         <div class="form-group">
           <label for="MI">{{"MODEL" | translate}}</label>
-          <input type="text" class="form-control" id="MI" [placeholder]="'MODEL_INPUT' | translate">
+          <input formControlName="Model" type="text" class="form-control" id="MI" [placeholder]="'MODEL_INPUT' | translate">
           <small class="form-text text-danger">{{"MODEL_INPUT" | translate}}</small>
         </div>
         
         <div class="form-group">
           <label for="LI">{{"PHOTO" | translate}}</label>
-          <input type="text" class="form-control" id="LI" [placeholder]="'PHOTO_INPUT' | translate">
+          <input formControlName="Photo" type="text" class="form-control" id="LI" [placeholder]="'PHOTO_INPUT' | translate">
           <small class="form-text text-danger">{{"PHOTO_INPUT" | translate}}</small>
         </div>
         
         <div class="col-sm-6 pl-0" style="min-width: 165px">
           <div class="form-group">
             <label for="SP">{{"S_PRICE" | translate}}</label>
-            <input type="number" class="form-control" id="SP" [placeholder]="'S_PRICE_INPUT' | translate">
+            <input formControlName="PriceS" type="number" class="form-control" id="SP" [placeholder]="'S_PRICE_INPUT' | translate">
             <small class="form-text text-danger">{{"S_PRICE_INPUT" | translate}}</small>
           </div>
         </div>
@@ -26,7 +26,7 @@
         <div class="col-sm-6 px-0" style="min-width: 165px">
           <div class="form-group">
             <label for="WP">{{"W_PRICE" | translate}}</label>
-            <input type="number" class="form-control" id="WP" [placeholder]="'W_PRICE_INPUT' | translate">
+            <input formControlName="PriceW" type="number" class="form-control" id="WP" [placeholder]="'W_PRICE_INPUT' | translate">
             <small class="form-text text-danger">{{"W_PRICE_INPUT" | translate}}</small>
           </div>
         </div>
@@ -36,7 +36,7 @@
         
         <div class="form-group">
           <label for="BTI">{{"BODYTYPE" | translate}}</label>
-          <select class="form-control" id="BTI">
+          <select formControlName="BodyType" class="form-control" id="BTI">
             <option></option>
             <option value="Sedan">{{"SEDAN" | translate}}</option>
             <option value="Wagon">{{"WAGON" | translate}}</option>
@@ -56,7 +56,7 @@
           <div class="form-item">
             <div class="form-group">
               <label for="PI">{{"PASSENGERS_S" | translate}}</label>
-              <input type="number" class="form-control" id="PI" [placeholder]="'PASSENGERS_INPUT' | translate">
+              <input formControlName="Passengers" type="number" class="form-control" id="PI" [placeholder]="'PASSENGERS_INPUT' | translate">
               <small class="form-text text-danger">{{"PASSENGERS_INPUT" | translate}}</small>
             </div>
           </div>
@@ -64,7 +64,7 @@
           <div class="form-item">
             <div class="form-group">
               <label for="DI">{{"DOORS" | translate}}</label>
-              <input type="number" class="form-control" id="DI" [placeholder]="'DOORS_INPUT' | translate">
+              <input formControlName="Doors" type="number" class="form-control" id="DI" [placeholder]="'DOORS_INPUT' | translate">
               <small class="form-text text-danger">{{"DOORS_INPUT" | translate}}</small>
             </div>
           </div>
@@ -72,7 +72,7 @@
           <div class="form-item">
             <div class="form-group">
               <label for="GI">{{"GROUPE" | translate}}</label>
-              <input type="text" class="form-control" id="GI" [placeholder]="'GROUPE_INPUT' | translate">
+              <input formControlName="Group" type="text" class="form-control" id="GI" [placeholder]="'GROUPE_INPUT' | translate">
               <small class="form-text text-danger">{{"GROUPE_INPUT" | translate}}</small>
             </div>
           </div>
@@ -80,7 +80,7 @@
           <div class="form-item">
             <div class="form-group">
               <label for="AI">{{"MINAGE_S" | translate}}</label>
-              <input type="number" class="form-control" id="AI" [placeholder]="'AGE_INPUT' | translate">
+              <input formControlName="MinAge" type="number" class="form-control" id="AI" [placeholder]="'AGE_INPUT' | translate">
               <small class="form-text text-danger">{{"AGE_INPUT" | translate}}</small>
             </div>
           </div>
@@ -91,7 +91,7 @@
           <div class="form-item">
             <div class="form-group">
                 <label for="PowI">{{"POWER" | translate}}</label>
-                <input type="number" class="form-control" id="PowI" [placeholder]="'POWER_INPUT' | translate">
+                <input formControlName="Power" type="number" class="form-control" id="PowI" [placeholder]="'POWER_INPUT' | translate">
                 <small class="form-text text-danger">{{"POWER_INPUT" | translate}}</small>
             </div>
           </div>
@@ -99,7 +99,7 @@
           <div class="form-item">
             <div class="form-group">
                 <label for="CI">{{"CONSUMPTION" | translate}}</label>
-                <input type="number" class="form-control" id="CI" [placeholder]="'CONSUMPTION_INPUT' | translate">
+                <input formControlName="Consumption" type="number" class="form-control" id="CI" [placeholder]="'CONSUMPTION_INPUT' | translate">
                 <small class="form-text text-danger">{{"CONSUMPTION_INPUT" | translate}}</small>
             </div>
           </div>
@@ -107,7 +107,7 @@
           <div class="form-item">
             <div class="form-group">
                 <label for="TI">{{"TRANSMISSION_S" | translate}}</label>
-                <select class="form-control" id="BTI">
+                <select formControlName="Transmission" class="form-control" id="BTI">
                   <option></option>
                   <option value="AT">{{"AUTOMATIC" | translate}}</option>
                   <option value="MT">{{"MANUAL" | translate}}</option>
@@ -119,7 +119,7 @@
           <div class="form-item">
             <div class="form-group">
                 <label for="FI">{{"FUEL" | translate}}</label>
-                <select class="form-control" id="BTI">
+                <select formControlName="Fuel" class="form-control" id="BTI">
                   <option></option>
                   <option value="Petrol">{{"PETROL" | translate}}</option>
                   <option value="Deisel">{{"DEISEL" | translate}}</option>
@@ -133,37 +133,37 @@
       <div class="row">
         <div class="col-sm">
           <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="AC">
+            <input formControlName="AC" type="checkbox" class="form-check-input" id="AC">
             <label class="form-check-label ml-4" for="AC">{{"AC" | translate}}</label>
           </div>
         </div>
         <div class="col-sm">
           <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="ABS">
+            <input formControlName="ABS" type="checkbox" class="form-check-input" id="ABS">
             <label class="form-check-label ml-4" for="ABS">ABS</label>
           </div>
         </div>
         <div class="col-sm">
           <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="AB">
+            <input formControlName="Airbags" type="checkbox" class="form-check-input" id="AB">
             <label class="form-check-label ml-4" for="AB">{{"AIRBAGS" | translate}}</label>
           </div>
         </div>
         <div class="col-sm">
           <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="Radio">
+            <input formControlName="Radio" type="checkbox" class="form-check-input" id="Radio">
             <label class="form-check-label ml-4" for="Radio">{{"RADIO" | translate}}</label>
           </div>
         </div>
       </div>
       <div class="form-group">
           <label for="DES">{{"DESCRIPTION" | translate}}</label>
-          <textarea class="form-control" rows="5" id="DES" [placeholder]="'DESCRIPTION_INPUT' | translate"></textarea>
+          <textarea formControlName="Description" class="form-control" rows="5" id="DES" [placeholder]="'DESCRIPTION_INPUT' | translate"></textarea>
           <small class="form-text text-danger">{{"DESCRIPTION_INPUT" | translate}}</small>
       </div>
       <div class="form-group">
           <label for="DESENG">{{"DESCRIPTION_ENG" | translate}}</label>
-          <textarea class="form-control" rows="5" id="DESENG" [placeholder]="'DESCRIPTION_ENG_INPUT' | translate"></textarea>
+          <textarea formControlName="Description_ENG" class="form-control" rows="5" id="DESENG" [placeholder]="'DESCRIPTION_ENG_INPUT' | translate"></textarea>
           <small class="form-text text-danger">{{"DESCRIPTION_ENG_INPUT" | translate}}</small>
       </div>
       <hr>
@@ -191,6 +191,6 @@
           </div>
         </div>
       </div>
-    <button type="submit" class="btn btn-primary">{{"ADD" | translate}}</button>
+    <button (click)="addCar()" class="btn btn-primary">{{"ADD" | translate}}</button>
   </form>
 </div>

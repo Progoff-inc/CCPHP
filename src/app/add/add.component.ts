@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NewCar, CarsService, Contains } from '../services/CarsService';
 import { TranslateService } from '@ngx-translate/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add',
@@ -10,35 +11,42 @@ import { TranslateService } from '@ngx-translate/core';
 export class AddComponent implements OnInit {
   newCar:NewCar =new NewCar();
   carSubmitted = false;
+  carForm:FormGroup;
+  
   Includes:Contains = new Contains();
   
-  constructor(private carsService:CarsService, public translate:TranslateService) { }
+  constructor(private fb:FormBuilder, private carsService:CarsService, public translate:TranslateService) { }
 
   ngOnInit() {
+    this.carForm = this.fb.group({
+      Model:['', Validators.required],
+      Photo:['', Validators.required],
+      PriceS:['', Validators.required],
+      PriceW:['', Validators.required],
+      BodyType:['', Validators.required],
+      Passengers:['', Validators.required],
+      Doors:['', Validators.required],
+      Group:['', Validators.required],
+      MinAge:['', Validators.required],
+      Power:['', Validators.required],
+      Consumption:['', Validators.required],
+      Transmission:['', Validators.required],
+      Fuel:['', Validators.required],
+      AC:[false],
+      ABS:[false],
+      Airbags:[false],
+      Radio:[false],
+      Description:['', Validators.required],
+      Description_ENG:['', Validators.required]
+    })
   }
   addCar(){
-    this.carSubmitted =true;
-    for(let i =0; i<Object.keys(this.newCar).length;i++){
-      if(this.newCar[Object.keys(this.newCar)[i]]==null){
-        return;
-      }
+    this.carSubmitted=true;
+    if(this.carForm.invalid){
+      return;
     }
-    this.newCar.Includes.forEach(x => {
-      if(this.translate.currentLang=='ru'){
-        this.newCar.Contain+=this.Includes.Includes.indexOf(x)+'/';
-      }
-      else{
-        this.newCar.Contain+=this.Includes.IncludesEng.indexOf(x)+'/';
-      }
-      
-    })
-    this.newCar.Contain = this.newCar.Contain.slice(0,this.newCar.Contain.length-1);
-    console.log(this.newCar);
-    this.carsService.AddCar(this.newCar).subscribe(data => {
-      this.newCar = new NewCar();
-      this.carSubmitted=false;
-    })
-  };
+    console.log(this.carForm.value);
+  }
   date=[{
     HEADER:'ONE_DAY',
     TEXT:'ONE_DAY_INPUT',
