@@ -6,20 +6,20 @@
         <div class="form-group">
           <label for="MI">{{"MODEL" | translate}}</label>
           <input formControlName="Model" type="text" class="form-control" id="MI" [placeholder]="'MODEL_INPUT' | translate">
-          <small class="form-text text-danger">{{"MODEL_INPUT" | translate}}</small>
+          <small *ngIf="carSubmitted && f.Model.errors" class="form-text text-danger">{{"MODEL_INPUT" | translate}}</small>
         </div>
         
         <div class="form-group">
           <label for="LI">{{"PHOTO" | translate}}</label>
           <input formControlName="Photo" type="text" class="form-control" id="LI" [placeholder]="'PHOTO_INPUT' | translate">
-          <small class="form-text text-danger">{{"PHOTO_INPUT" | translate}}</small>
+          <small *ngIf="carSubmitted && f.Photo.errors" class="form-text text-danger">{{"PHOTO_INPUT" | translate}}</small>
         </div>
         
         <div class="col-sm-6 pl-0" style="min-width: 165px">
           <div class="form-group">
             <label for="SP">{{"S_PRICE" | translate}}</label>
             <input formControlName="PriceS" type="number" class="form-control" id="SP" [placeholder]="'S_PRICE_INPUT' | translate">
-            <small class="form-text text-danger">{{"S_PRICE_INPUT" | translate}}</small>
+            <small *ngIf="carSubmitted && f.PriceS.errors" class="form-text text-danger">{{"S_PRICE_INPUT" | translate}}</small>
           </div>
         </div>
         
@@ -27,7 +27,7 @@
           <div class="form-group">
             <label for="WP">{{"W_PRICE" | translate}}</label>
             <input formControlName="PriceW" type="number" class="form-control" id="WP" [placeholder]="'W_PRICE_INPUT' | translate">
-            <small class="form-text text-danger">{{"W_PRICE_INPUT" | translate}}</small>
+            <small *ngIf="carSubmitted && f.PriceW.errors" class="form-text text-danger">{{"W_PRICE_INPUT" | translate}}</small>
           </div>
         </div>
       </div>
@@ -49,7 +49,7 @@
             <option value="SUV">{{"SUV" | translate}}</option>
             <option value="Pickup">{{"PICKUP" | translate}}</option>
           </select>
-          <small class="form-text text-danger">{{"BODYTYPE_INPUT" | translate}}</small>
+          <small *ngIf="carSubmitted && f.BodyType.errors" class="form-text text-danger">{{"BODYTYPE_INPUT" | translate}}</small>
         </div>
         
         <div class="d-flex flex-wrap justify-content-between">
@@ -57,7 +57,7 @@
             <div class="form-group">
               <label for="PI">{{"PASSENGERS_S" | translate}}</label>
               <input formControlName="Passengers" type="number" class="form-control" id="PI" [placeholder]="'PASSENGERS_INPUT' | translate">
-              <small class="form-text text-danger">{{"PASSENGERS_INPUT" | translate}}</small>
+              <small *ngIf="carSubmitted && f.Passengers.errors" class="form-text text-danger">{{"PASSENGERS_INPUT" | translate}}</small>
             </div>
           </div>
           
@@ -65,7 +65,7 @@
             <div class="form-group">
               <label for="DI">{{"DOORS" | translate}}</label>
               <input formControlName="Doors" type="number" class="form-control" id="DI" [placeholder]="'DOORS_INPUT' | translate">
-              <small class="form-text text-danger">{{"DOORS_INPUT" | translate}}</small>
+              <small *ngIf="carSubmitted && f.Doors.errors" class="form-text text-danger">{{"DOORS_INPUT" | translate}}</small>
             </div>
           </div>
           
@@ -73,7 +73,7 @@
             <div class="form-group">
               <label for="GI">{{"GROUPE" | translate}}</label>
               <input formControlName="Group" type="text" class="form-control" id="GI" [placeholder]="'GROUPE_INPUT' | translate">
-              <small class="form-text text-danger">{{"GROUPE_INPUT" | translate}}</small>
+              <small *ngIf="carSubmitted && f.Group.errors" class="form-text text-danger">{{"GROUPE_INPUT" | translate}}</small>
             </div>
           </div>
           
@@ -81,7 +81,7 @@
             <div class="form-group">
               <label for="AI">{{"MINAGE_S" | translate}}</label>
               <input formControlName="MinAge" type="number" class="form-control" id="AI" [placeholder]="'AGE_INPUT' | translate">
-              <small class="form-text text-danger">{{"AGE_INPUT" | translate}}</small>
+              <small *ngIf="carSubmitted && f.MinAge.errors" class="form-text text-danger">{{"AGE_INPUT" | translate}}</small>
             </div>
           </div>
         </div>
@@ -92,7 +92,7 @@
             <div class="form-group">
                 <label for="PowI">{{"POWER" | translate}}</label>
                 <input formControlName="Power" type="number" class="form-control" id="PowI" [placeholder]="'POWER_INPUT' | translate">
-                <small class="form-text text-danger">{{"POWER_INPUT" | translate}}</small>
+                <small *ngIf="carSubmitted && f.Power.errors" class="form-text text-danger">{{"POWER_INPUT" | translate}}</small>
             </div>
           </div>
           
@@ -100,7 +100,7 @@
             <div class="form-group">
                 <label for="CI">{{"CONSUMPTION" | translate}}</label>
                 <input formControlName="Consumption" type="number" class="form-control" id="CI" [placeholder]="'CONSUMPTION_INPUT' | translate">
-                <small class="form-text text-danger">{{"CONSUMPTION_INPUT" | translate}}</small>
+                <small *ngIf="carSubmitted && f.Consumption.errors" class="form-text text-danger">{{"CONSUMPTION_INPUT" | translate}}</small>
             </div>
           </div>
           
@@ -112,7 +112,7 @@
                   <option value="AT">{{"AUTOMATIC" | translate}}</option>
                   <option value="MT">{{"MANUAL" | translate}}</option>
                 </select>
-                <small class="form-text text-danger">{{"TRANSMISSION_INPUT" | translate}}</small>
+                <small *ngIf="carSubmitted && f.Transmission.errors" class="form-text text-danger">{{"TRANSMISSION_INPUT" | translate}}</small>
             </div>
           </div>
           
@@ -124,7 +124,7 @@
                   <option value="Petrol">{{"PETROL" | translate}}</option>
                   <option value="Deisel">{{"DEISEL" | translate}}</option>
                 </select>
-                <small class="form-text text-danger">{{"FUEL_INPUT" | translate}}</small>
+                <small *ngIf="carSubmitted && f.Fuel.errors" class="form-text text-danger">{{"FUEL_INPUT" | translate}}</small>
             </div>
           </div>
         </div>
@@ -159,12 +159,12 @@
       <div class="form-group">
           <label for="DES">{{"DESCRIPTION" | translate}}</label>
           <textarea formControlName="Description" class="form-control" rows="5" id="DES" [placeholder]="'DESCRIPTION_INPUT' | translate"></textarea>
-          <small class="form-text text-danger">{{"DESCRIPTION_INPUT" | translate}}</small>
+          <small *ngIf="carSubmitted && f.Description.errors" class="form-text text-danger">{{"DESCRIPTION_INPUT" | translate}}</small>
       </div>
       <div class="form-group">
           <label for="DESENG">{{"DESCRIPTION_ENG" | translate}}</label>
           <textarea formControlName="Description_ENG" class="form-control" rows="5" id="DESENG" [placeholder]="'DESCRIPTION_ENG_INPUT' | translate"></textarea>
-          <small class="form-text text-danger">{{"DESCRIPTION_ENG_INPUT" | translate}}</small>
+          <small *ngIf="carSubmitted && f.Description_ENG.errors" class="form-text text-danger">{{"DESCRIPTION_ENG_INPUT" | translate}}</small>
       </div>
       <hr>
       <div class="row">
