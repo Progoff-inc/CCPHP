@@ -38,5 +38,33 @@ export class AddComponent implements OnInit {
       this.newCar = new NewCar();
       this.carSubmitted=false;
     })
-  }
+  };
+  date=[{
+    HEADER:'ONE_DAY',
+    TEXT:'ONE_DAY_INPUT',
+  },
+  {
+    HEADER:'TWO_DAY',
+    TEXT:'TWO_DAY_INPUT',
+  },
+  {
+    HEADER:'THREE_DAY',
+    TEXT:'THREE_DAY_INPUT',
+  },
+  {
+    HEADER:'FOUR_DAY',
+    TEXT:'FOUR_DAY_INPUT',
+  },
+  {
+    HEADER:'FIVE_DAY',
+    TEXT:'FIVE_DAY_INPUT',
+  },
+  {
+    HEADER:'SIX_DAY',
+    TEXT:'SIX_DAY_INPUT',
+  },
+  {
+    HEADER:'SEVEN_DAY',
+    TEXT:'SEVEN_DAY_INPUT',
+  }]
 }

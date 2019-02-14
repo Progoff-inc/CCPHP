@@ -98,7 +98,7 @@
           
           <div class="form-item">
             <div class="form-group">
-                <label for="CI">{{"CONSUMPION" | translate}}</label>
+                <label for="CI">{{"CONSUMPTION" | translate}}</label>
                 <input type="number" class="form-control" id="CI" [placeholder]="'CONSUMPTION_INPUT' | translate">
                 <small class="form-text text-danger">{{"CONSUMPTION_INPUT" | translate}}</small>
             </div>
@@ -167,6 +167,30 @@
           <small class="form-text text-danger">{{"DESCRIPTION_ENG_INPUT" | translate}}</small>
       </div>
       <hr>
-    <button type="submit" class="btn btn-primary">Submit</button>
+      <div class="row">
+        <div class="col-12">
+            <h3>{{"S_PRICES" | translate}}</h3>
+        </div>
+        <div class="col-sm" *ngFor="let day of date">
+          <div class="form-group">
+            <label for="SPT">{{day.HEADER | translate}}</label>
+            <input type="number" class="form-control" id="SPT" [placeholder]="'PRICE_INPUT' | translate">
+            <small class="form-text text-danger">{{"PRICE_INPUT" | translate}}</small>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+            <h3>{{"W_PRICES" | translate}}</h3>
+        </div>
+        <div class="col-sm" *ngFor="let day of date">
+          <div class="form-group">
+            <label for="WPT">{{day.HEADER | translate}}</label>
+            <input type="number" class="form-control" id="WPT" [placeholder]="'PRICE_INPUT' | translate">
+            <small class="form-text text-danger">{{"PRICE_INPUT" | translate}}</small>
+          </div>
+        </div>
+      </div>
+    <button type="submit" class="btn btn-primary">{{"ADD" | translate}}</button>
   </form>
 </div>
