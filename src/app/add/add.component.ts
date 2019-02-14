@@ -22,12 +22,12 @@ export class AddComponent implements OnInit {
     this.carForm = this.fb.group({
       Model:['', Validators.required],
       Photo:['', Validators.required],
-      PriceS:['', Validators.required],
-      PriceW:['', Validators.required],
+      SPrice:['', Validators.required],
+      WPrice:['', Validators.required],
       BodyType:['', Validators.required],
       Passengers:['', Validators.required],
       Doors:['', Validators.required],
-      Group:['', Validators.required],
+      Groupe:['', Validators.required],
       MinAge:['', Validators.required],
       Power:['', Validators.required],
       Consumption:['', Validators.required],
@@ -56,10 +56,11 @@ export class AddComponent implements OnInit {
     console.log(this.carForm.value);
     this.carsService.AddCar(this.carForm.value).subscribe((CarId)=>{
       this.Prices.CarId=CarId;
-      this.carsService.AddPrices(this.Prices).subscribe(()=>{
-        this.Prices = new carPrices();
-        this.carForm.reset();
-      })
+      console.log(CarId);
+      // this.carsService.AddPrices(this.Prices).subscribe(()=>{
+      //   this.Prices = new carPrices();
+      //   this.carForm.reset();
+      // })
     })
   }
   checkPrices(){

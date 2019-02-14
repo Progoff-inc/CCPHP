@@ -18,16 +18,16 @@
         <div class="col-sm-6 pl-0" style="min-width: 165px">
           <div class="form-group">
             <label for="SP">{{"S_PRICE" | translate}}</label>
-            <input formControlName="PriceS" type="number" class="form-control" id="SP" [placeholder]="'S_PRICE_INPUT' | translate">
-            <small *ngIf="carSubmitted && f.PriceS.errors" class="form-text text-danger">{{"S_PRICE_INPUT" | translate}}</small>
+            <input formControlName="SPrice" type="number" class="form-control" id="SP" [placeholder]="'S_PRICE_INPUT' | translate">
+            <small *ngIf="carSubmitted && f.SPrice.errors" class="form-text text-danger">{{"S_PRICE_INPUT" | translate}}</small>
           </div>
         </div>
         
         <div class="col-sm-6 px-0" style="min-width: 165px">
           <div class="form-group">
             <label for="WP">{{"W_PRICE" | translate}}</label>
-            <input formControlName="PriceW" type="number" class="form-control" id="WP" [placeholder]="'W_PRICE_INPUT' | translate">
-            <small *ngIf="carSubmitted && f.PriceW.errors" class="form-text text-danger">{{"W_PRICE_INPUT" | translate}}</small>
+            <input formControlName="WPrice" type="number" class="form-control" id="WP" [placeholder]="'W_PRICE_INPUT' | translate">
+            <small *ngIf="carSubmitted && f.WPrice.errors" class="form-text text-danger">{{"W_PRICE_INPUT" | translate}}</small>
           </div>
         </div>
       </div>
@@ -72,8 +72,8 @@
           <div class="form-item">
             <div class="form-group">
               <label for="GI">{{"GROUPE" | translate}}</label>
-              <input formControlName="Group" type="text" class="form-control" id="GI" [placeholder]="'GROUPE_INPUT' | translate">
-              <small *ngIf="carSubmitted && f.Group.errors" class="form-text text-danger">{{"GROUPE_INPUT" | translate}}</small>
+              <input formControlName="Groupe" type="text" class="form-control" id="GI" [placeholder]="'GROUPE_INPUT' | translate">
+              <small *ngIf="carSubmitted && f.Groupe.errors" class="form-text text-danger">{{"GROUPE_INPUT" | translate}}</small>
             </div>
           </div>
           
