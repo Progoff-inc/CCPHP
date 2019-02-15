@@ -1,10 +1,10 @@
 <?php
 require 'repositories.php';
-
 header("Access-Control-Allow-Origin: *"); 
 header("Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token , Authorization");
 $db = new PDO('mysql:host=localhost;dbname=nomokoiw_cc;charset=UTF8','nomokoiw_cc','f%EO%6ta');
+
 $ctxt = new DataBase();
 if(isset($_GET['Key']))
 {
@@ -29,7 +29,6 @@ if(isset($_GET['Key']))
             break;
         case 'get-user':
             $q = $db->query("SELECT * FROM users where Id=8");
-
             $res = [];
             $s = $q->fetch();
             $user = new User($s['Id'], $s['Photo'], $s['Name'], $s['Email'],
@@ -40,7 +39,14 @@ if(isset($_GET['Key']))
         case 'get-car':
             echo json_encode($ctxt->getCar($_GET['Id'],true));
             break;
-        
+        case 'add-car':
+            $b = json_decode(file_get_contents('php://input'), true);  
+            echo json_encode($ctxt->addCar($b));
+            break;
+        case 'add-price':
+            $b = json_decode(file_get_contents('php://input'), true);  
+            echo json_encode($ctxt->addPrices($b));
+            break;
         case 'add-booking':
             $b = json_decode(file_get_contents('php://input'), true);
             $book = new Entree($b['Id'], $b['Date'], $b['Place']);  

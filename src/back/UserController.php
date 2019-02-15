@@ -25,6 +25,8 @@ if(isset($_GET['Key']))
             break;
         case 'get-report-cars':
             echo json_encode($ctxt->getReportCar(-1));
+        case 'get-users':
+            echo json_encode($ctxt->getReportUser(-1));
             break;
         case 'get-user':
             echo json_encode($ctxt->getUser($_GET['Email'], $_GET['Password']));
@@ -36,6 +38,10 @@ if(isset($_GET['Key']))
         case 'add-user':
             $b = json_decode(file_get_contents('php://input'), true);
             echo json_encode($ctxt->addUser($b['Name'], $b['Email'], $b['Password'], $b['Phone'], $b['Lang']));
+            break;
+        case 'set-admin':
+            $b = json_decode(file_get_contents('php://input'), true);
+            echo json_encode($ctxt->setAdmin($_GET['Id'], $_GET['IsAdmin']));
             break;
         default:
             echo "Введенный ключ несуществует";

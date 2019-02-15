@@ -1,6 +1,5 @@
 <?php
 require 'models.php';
-
 class DataBase {
     //$this->db = new PDO('mysql:host=localhost;dbname=nomokoiw_portal;charset=UTF8','nomokoiw_portal','KESRdV2f');
     public $db;
@@ -8,6 +7,22 @@ class DataBase {
     {
         //$this->db = new PDO('mysql:host=localhost;dbname=myblog;charset=UTF8','nlc','12345');
         $this->db = new PDO('mysql:host=localhost;dbname=nomokoiw_cc;charset=UTF8','nomokoiw_cc','f%EO%6ta');
+        $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+    }
+    private function genInsertQuery($ins, $t){
+        $res = array('INSERT INTO '.$t.' (',array());
+        $q = '';
+        for ($i = 0; $i < count(array_keys($ins)); $i++) {
+            $res[0] = $res[0].array_keys($ins)[$i].',';
+            $res[1][]=$ins[array_keys($ins)[$i]];
+            $q=$q.'?,';
+            
+        }
+        $res[0]=rtrim($res[0],',');
+        $res[0]=$res[0].') VALUES ('.rtrim($q,',').');';
+        
+        return $res;
+        
     }
     
     //####################Cars Controller#########################
@@ -15,6 +30,19 @@ class DataBase {
         $sth = $this->db->query("SELECT * FROM cars");
         $sth->setFetchMode(PDO::FETCH_CLASS, 'Car');
         return $sth->fetchAll();
+    }
+    public function addCar($car){
+        $res = $this->genInsertQuery($car,"cars");
+        $fff = (string)$res[0];
+        $s = $this->db->prepare($fff);
+        $s->execute($res[1]);
+        
+        return $res[0]==='INSERT INTO cars (Model,Photo,SPrice,WPrice,BodyType,Passengers,Doors,Groupe,MinAge,Power,Consumption,Transmission,Fuel,AC,ABS,AirBags,Radio,Description,Description_ENG) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);';
+    }
+    public function addPrices($p){
+        $a = (array)$p->SPrice;
+        $a['Id'] = $p->Id; 
+        return $this->genInsertQuery($a);
     }
     public function getCar($id, $reports=true) {
         $s = $this->db->prepare("SELECT * FROM cars WHERE Id=?");
@@ -74,10 +102,17 @@ class DataBase {
         return $comments;
     } 
     public function getReportUser($id){
-        $s = $this->db->prepare("SELECT Id,Name,Email,Photo,IsAdmin FROM users WHERE Id=?");
-        $s->execute(array($id));
-        $s->setFetchMode(PDO::FETCH_CLASS, 'ReportUser');
-        return $s->fetch();
+        
+        if($id>-1){
+            $s = $this->db->prepare("SELECT Id,Name,Email,Photo,IsAdmin FROM users WHERE Id=?");
+            $s->execute(array($id));
+            $s->setFetchMode(PDO::FETCH_CLASS, 'ReportUser');
+            return $s->fetch();
+        }else{
+            $s = $this->db->query("SELECT Id,Name,Email,Photo,IsAdmin FROM users");
+            $s->setFetchMode(PDO::FETCH_CLASS, 'ReportUser');
+            return $s->fetchAll();    
+        }
     } 
     public function getReportCar($id){
         if($id>0){
@@ -87,7 +122,7 @@ class DataBase {
             return $s->fetch();
         }
         else{
-            $s = $this->db->query("SELECT Id,Photo,Model,Price FROM cars");
+            $s = $this->db->query("SELECT Id,Photo,Model,SPrice as Price FROM cars");
             $s->setFetchMode(PDO::FETCH_CLASS, 'ReportCar');
             return $s->fetchAll();
         }
@@ -141,7 +176,11 @@ class DataBase {
         $u->Books = $this->getUserBooks($u->Id);
         return $u;
     } 
-    
+    public function setAdmin($id, $isa){
+        $s = $this->db->prepare("UPDATE users SET IsAdmin=? WHERE Id=?");
+        $s->execute(array($isa === 'true',$id));
+        return array($isa, $id);
+    }
     public function getUserById($id){
         $s = $this->db->prepare("SELECT Id, Name, Email, CreatedDate, ModifiedDate, Phone, Photo, Lang, IsAdmin FROM users WHERE Id=?");
         $s->execute(array($id));
@@ -151,7 +190,6 @@ class DataBase {
         $u->Books = $this->getUserBooks($u->Id);
         return $u;
     }
-
     
     public function getUserBooks($id) {
         $s = $this->db->prepare("SELECT * FROM books WHERE UserId=?");
@@ -196,5 +234,4 @@ class DataBase {
     }
     //####################Messager Controller###########################
 }
-
 ?>
