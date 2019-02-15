@@ -35,7 +35,7 @@ export class AddComponent implements OnInit {
       Fuel:['', Validators.required],
       AC:[false],
       ABS:[false],
-      Airbags:[false],
+      AirBags:[false],
       Radio:[false],
       Description:['', Validators.required],
       Description_ENG:['', Validators.required]
@@ -55,7 +55,7 @@ export class AddComponent implements OnInit {
     
     console.log(this.carForm.value);
     this.carsService.AddCar(this.carForm.value).subscribe((CarId)=>{
-      this.Prices.Id=CarId;
+      this.Prices.CarId=CarId;
       console.log(CarId);
       // this.carsService.AddPrices(this.Prices).subscribe(()=>{
       //   this.Prices = new carPrices();
@@ -107,6 +107,7 @@ export class AddComponent implements OnInit {
 }
 
 export class carPrices{
+  CarId: number;
   constructor(){
     this.WPrice=new Price();
     this.SPrice=new Price();
