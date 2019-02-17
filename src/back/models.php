@@ -28,7 +28,7 @@ class Car
         public $IncludesEng;
         public $AC;
         public $MinAge;
-        public $Airbags;
+        public $AirBags;
         public $Groupe;
         public $Radio;
         public $ABS;
@@ -36,15 +36,29 @@ class Car
         public $Fuel;
         public $Consumption;
         public $Description;
-        public $Description_ENG;
-        public $Price;
+        public $Description_Eng;
+        public $SPrice;
+        public $WPrice;
         public $Mark;
         
         public $Reports;
         public $Books;
-        public $Sales;
+        public $Prices;
     }
 
+class CarPrices{
+        public $WinterPrices;
+        public $SummerPrices;
+}
+class Prices{
+    public $OneDayPrice;
+    public $TwoDaysPrice;
+    public $ThreeDaysPrice;
+    public $FourDaysPrice;
+    public $FiveDaysPrice;
+    public $SixDaysPrice;
+    public $SevenDaysPrice;
+}
 class BookTimes
     {
         public $DateStart;

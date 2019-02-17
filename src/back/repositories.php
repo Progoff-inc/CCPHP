@@ -29,7 +29,12 @@ class DataBase {
     public function getCars() {
         $sth = $this->db->query("SELECT * FROM cars");
         $sth->setFetchMode(PDO::FETCH_CLASS, 'Car');
-        return $sth->fetchAll();
+        $cars = [];
+        while($car = $sth->fetch()){
+            $car->Prices = $this->getCarPrices($car->Id);
+            $cars[] = $car;
+        }
+        return $cars;
     }
     public function addCar($car){
         $res = $this->genInsertQuery($car,"cars");
@@ -58,6 +63,7 @@ class DataBase {
         if($reports){
             $car->Reports = $this->getCarReports($id);
             $car->Books = $this->getCarBooks($id);
+            $car->Prices = $this->getCarPrices($id);
         }
         return $car;
     }
@@ -80,6 +86,26 @@ class DataBase {
         $s->execute(array($id));
         $s->setFetchMode(PDO::FETCH_CLASS, 'Book');
         return $s->fetchAll();
+    }
+    public function getCarPrices($id) {
+        $res = new CarPrices();
+        $res->WinterPrices = $this->getPrices($id,true);
+        $res->SummerPrices = $this->getPrices($id,false);
+        return $res;
+    }
+    public function getPrices($id, $t) {
+        if($t){
+             $s = $this->db->prepare("SELECT * FROM winter_prices WHERE Id=?");
+            $s->execute(array($id));
+            $s->setFetchMode(PDO::FETCH_CLASS, 'Prices');
+            return $s->fetch();
+        }else{
+             $s = $this->db->prepare("SELECT * FROM summer_prices WHERE Id=?");
+            $s->execute(array($id));
+            $s->setFetchMode(PDO::FETCH_CLASS, 'Prices');
+            return $s->fetch();
+        }
+       
     }
     public function getSameCars($id) {
         $car = $this->getCar($id);
@@ -221,6 +247,11 @@ class DataBase {
     //####################User Controller###########################
     
     //####################Messager Controller###########################
+    
+    public function createTopic($uid, $rid,$s){
+        $s = $this->db->prepare("INSERT INTO topics (UserId, UserReciverId, ModifyDate, Seen) VALUES (?,?,now(),?");
+        $s->execute(array($uid, $rid, $s));
+    }
     
     public function saveMessage($uid, $tid, $t){
         $s = $this->db->prepare("INSERT INTO messages (UserId, TopicId, Text, CreateDate) Values (?,?,?,now())");
