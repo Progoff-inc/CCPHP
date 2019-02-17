@@ -9,7 +9,7 @@
                     <div class="item">
                         <span [ngClass]="{ 'is-invalid': submitted && f.Pick.errors }">{{"PICK_UP_LOCATION" | translate}}</span>
                         <select class="input" formControlName="Pick" [ngClass]="{ 'is-invalid': submitted && f.Pick.errors }" >
-                            <option *ngFor="let t of locations">{{t}}</option>
+                            <option *ngFor="let t of locations">{{t | translate}}</option>
                         </select>
                         <div *ngIf="submitted && f.Pick.errors" class="invalid-feedback">
                             <span class="d-block is-invalid" *ngIf="f.Pick.errors.required">{{"PICK_UP_VALIDATION" | translate}}</span>
@@ -43,7 +43,7 @@
                     <div class="item">
                         <span [ngClass]="{ 'is-invalid': submitted && f.Drop.errors }">{{"DROP_OFF_LOCATION" | translate}}</span>
                         <select class="input" formControlName="Drop" [ngClass]="{ 'is-invalid': submitted && f.Drop.errors }" >
-                            <option *ngFor="let t of locations">{{t}}</option>
+                            <option *ngFor="let t of locations">{{t | translate}}</option>
                         </select>
 
                         <div *ngIf="submitted && f.Drop.errors" class="invalid-feedback">
