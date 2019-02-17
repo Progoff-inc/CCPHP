@@ -199,7 +199,6 @@ export class BookingFormComponent implements OnInit, OnChanges {
     }
     
     ngOnInit() {
-      console.log(this.us.GenPassword());
       this.errors={DateStrart:true, DateFinish:true};
       this.showBook = false;
       this.minDate = new Date();
