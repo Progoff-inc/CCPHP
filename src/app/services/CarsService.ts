@@ -14,6 +14,7 @@ export class CarsService implements OnInit {
 
 
     }
+    
     GetCars() {
         return this.http.get<Car[]>(this.baseUrl + 'CarsController.php?Key=get-cars');
     }
@@ -41,12 +42,12 @@ export class CarsService implements OnInit {
     }
     BookCar(book: any) {
         // tslint:disable-next-line:max-line-length
-        // return this.http.post<Book>(this.baseUrl + 'CarsController.php?Key=add-booking',{"Id":123,"DateStart":book.DateStart, "ExtraDateStart":book.ExtraDateStart, "DateFinish":book.DateFinish, "UserId":book.UserId, "CarId":book.CarId, "Price":book.Price, "Place":book.Place, "Comment":book.Comment, "SalesId":book.SalesId});
+        // return this.http.post<Book>(this.baseUrl + 'CarsController.php?Key=add-booking',{"Id":123,"DateStart":book.DateStart, "ExtraDateStart":book.ExtraDateStart, "DateFinish":book.DateFinish, "UserId":book.UserId, "CarId":book.CarId, "Price":book.Price, "Place":book.Place, "Coment":book.Coment, "SalesId":book.SalesId});
         return this.http.post(this.baseUrl + 'CarsController.php?Key=add-booking', book);
     }
-    BookCarNew(book: Book) {
+    BookCarNew(book: NewBook) {
         // tslint:disable-next-line:max-line-length
-        return this.http.post<Book>(this.baseUrl + 'CarsController.php?Key=add-booking-new', {'DateStart': book.DateStart, 'DateFinish': book.DateFinish,  'CarId': book.CarId, 'Price': book.Price, 'Place': book.Place, 'PlaceOff': book.PlaceOff, 'Email': book.Email,  'Name': book.Name, 'SalesId': book.SalesId, 'Phone': book.Tel, 'Comment': book.Comment});
+        return this.http.post<Book>(this.baseUrl + 'CarsController.php?Key=add-booking-new', book);
     }
     GetSales() {
         return this.http.get<Sale[]>(this.baseUrl + 'CarsController.php?Key=get-sales');
@@ -99,8 +100,8 @@ export interface Car {
     Airbags: boolean;
     Description: string;
     Description_ENG: string;
-    Price: number;
-
+    SPrice: number;
+    WPrice:number;
     Mark: number;
     Reports: FeedBack[];
     Books: Book[];
@@ -148,7 +149,22 @@ export class Book {
     PlaceOff: string;
     Email?: string;
     Tel?: string;
-    Comment?: string;
+    Coment?: string;
+    Name?: string;
+}
+export class NewBook {
+    DateStart: Date;
+    DateFinish: Date;
+    Sum: number;
+    UserId: number;
+    CarId: number;
+    OldPrice?: number;
+    Price: number;
+    Place: string;
+    PlaceOff: string;
+    Email?: string;
+    Tel?: string;
+    Coment?: string;
     Name?: string;
 }
 

@@ -48,7 +48,7 @@
                 
                 <p>{{translate.currentLang=='ru'?(service.car?service.car.Description:''):service.car.Description_ENG}}</p>
                 
-                <span>{{"PRICE" | translate}}: {{service.car?service.car.Price:''}}€</span> 
+                <span>{{"PRICE" | translate}}: {{service.car?getPrice():''}}€</span> 
               </div>
             </div>
             <div class="row car-info-area" style="margin-top: 20px; padding-top: 10px; border-top:1px solid lightgray; ">
@@ -100,7 +100,7 @@
                       <i class="fa fa-snowflake-o"></i>
                       <span>A/C</span>
                     </div>
-                    <div *ngIf="service.car?service.car.Airbags:false" class="detail-item">
+                    <div *ngIf="service.car?service.car.AirBags:false" class="detail-item">
                       <i class="fa fa-plus-circle" aria-hidden="true"></i>
                       <span>{{'AIRBAGS'|translate}}</span>
                     </div>
@@ -232,12 +232,12 @@
                   
                     </div>
                     <div class="item">
-                      <span [ngClass]="{ 'is-invalid': submitted && f.Place.errors }">{{'DROP_OFF_LOCATION'|translate}}</span>
-                      <select formControlName="Place" class="input" [ngClass]="{ 'is-invalid': submitted && f.Place.errors }" required>
+                      <span [ngClass]="{ 'is-invalid': submitted && f.PlaceOff.errors }">{{'DROP_OFF_LOCATION'|translate}}</span>
+                      <select formControlName="PlaceOff" class="input" [ngClass]="{ 'is-invalid': submitted && f.PlaceOff.errors }" required>
                         <option *ngFor="let t of locations" value="{{t}}">{{t}}</option>
                       </select>
-                      <div *ngIf="submitted && f.Place.errors">
-                        <span class="d-block is-invalid" *ngIf="f.Place.errors.required">{{'DROP_OFF_VALIDATION'|translate}}</span>
+                      <div *ngIf="submitted && f.PlaceOff.errors">
+                        <span class="d-block is-invalid" *ngIf="f.PlaceOff.errors.required">{{'DROP_OFF_VALIDATION'|translate}}</span>
                 
                       </div>
                   
@@ -263,7 +263,7 @@
                 </div>
                 <div class="item ">
                     <span>{{'COMMENT'|translate}}</span>
-                    <textarea class="input" formControlName="Comment"  cols="10" rows="5" #report></textarea>
+                    <textarea class="input" formControlName="Coment"  cols="10" rows="5" #report></textarea>
                     
                 </div>
                 <div *ngIf="getSum()!=0" class="item sum">

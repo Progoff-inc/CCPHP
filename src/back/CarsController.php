@@ -48,9 +48,8 @@ if(isset($_GET['Key']))
             echo json_encode($ctxt->addPrices($b));
             break;
         case 'add-booking':
-            $b = json_decode(file_get_contents('php://input'), true);
-            $book = new Entree($b['Id'], $b['Date'], $b['Place']);  
-            echo json_encode($book);
+            $b = json_decode(file_get_contents('php://input'), true); 
+            echo json_encode($ctxt->addBooking($b));
             break;
         default:
             echo "Введенный ключ несуществует";

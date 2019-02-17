@@ -39,6 +39,12 @@ class DataBase {
         
         return $res[0]==='INSERT INTO cars (Model,Photo,SPrice,WPrice,BodyType,Passengers,Doors,Groupe,MinAge,Power,Consumption,Transmission,Fuel,AC,ABS,AirBags,Radio,Description,Description_ENG) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);';
     }
+    public function addBooking($book){
+        $res = $this->genInsertQuery($book,"books");
+        $s = $this->db->prepare($res[0]);
+        $s->execute($res[1]); 
+        return $res;
+    }
     public function addPrices($p){
         $a = (array)$p->SPrice;
         $a['Id'] = $p->Id; 

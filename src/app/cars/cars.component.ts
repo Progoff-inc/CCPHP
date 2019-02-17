@@ -115,9 +115,9 @@ export class CarsComponent {
       }
       case "price":{
         this.filteredCars.sort(function(a, b){
-          a.Price = Number(a.Price);
-          b.Price = Number(b.Price);
-          return sort?(a.Price>b.Price?1:-1):(a.Price<b.Price?1:-1);
+          a.SPrice = Number(a.SPrice);
+          b.SPrice = Number(b.SPrice);
+          return sort?(a.SPrice>b.SPrice?1:-1):(a.SPrice<b.SPrice?1:-1);
         })
         break;
       }
