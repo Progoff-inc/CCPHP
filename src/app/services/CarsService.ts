@@ -83,7 +83,7 @@ export class CarsService implements OnInit {
     }
 }
 
-export interface Car {
+export class Car {
     Id: number;
     Model: string;
     Photo: string;
@@ -93,13 +93,13 @@ export interface Car {
     Fuel: string;
     Consumption: number;
     BodyType: string;
-    FilterProp: number;
+    MinAge: number;
     AC: boolean;
     ABS: boolean;
     Radio: boolean;
-    Airbags: boolean;
+    AirBags: boolean;
     Description: string;
-    Description_ENG: string;
+    Description_Eng: string;
     SPrice: number;
     WPrice:number;
     Mark: number;
@@ -108,6 +108,26 @@ export interface Car {
     Sales: Sale[];
     Includes: string[];
     IncludesEng: string[];
+    Groupe:string;
+    Power:number;
+    Prices:CarPrices;
+}
+export class CarPrices{
+    constructor(){
+        this.SummerPrices = new Prices();
+        this.WinterPrices = new Prices();
+    }
+    WinterPrices:Prices;
+    SummerPrices:Prices;
+}
+export class Prices{
+    OneDayPrice:number = undefined;
+    TwoDaysPrice:number = undefined;
+    ThreeDaysPrice:number = undefined;
+    FourDaysPrice:number = undefined;
+    FiveDaysPrice:number = undefined;
+    SixDaysPrice:number = undefined;
+    SevenDaysPrice:number = undefined;
 }
 export class NewCar {
     Id = 0;
@@ -124,10 +144,9 @@ export class NewCar {
     AC = false;
     ABS = false;
     Radio = false;
-    Airbags = false;
+    AirBags = false;
     Description: string = null;
     Description_ENG: string = null;
-    Price: number = null;
     Includes: string[] = [];
 }
 export interface BookTimes {
