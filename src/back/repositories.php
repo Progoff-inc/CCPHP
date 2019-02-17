@@ -29,7 +29,12 @@ class DataBase {
     public function getCars() {
         $sth = $this->db->query("SELECT * FROM cars");
         $sth->setFetchMode(PDO::FETCH_CLASS, 'Car');
-        return $sth->fetchAll();
+        $cars = [];
+        while($car = $sth->fetch()){
+            $car->Prices = $this->getCarPrices($car->Id);
+            $cars[] = $car;
+        }
+        return $cars;
     }
     public function addCar($car){
         $res = $this->genInsertQuery($car,"cars");
@@ -38,6 +43,12 @@ class DataBase {
         $s->execute($res[1]);
         
         return $res[0]==='INSERT INTO cars (Model,Photo,SPrice,WPrice,BodyType,Passengers,Doors,Groupe,MinAge,Power,Consumption,Transmission,Fuel,AC,ABS,AirBags,Radio,Description,Description_ENG) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);';
+    }
+    public function addBooking($book){
+        $res = $this->genInsertQuery($book,"books");
+        $s = $this->db->prepare($res[0]);
+        $s->execute($res[1]); 
+        return $res;
     }
     public function addPrices($p){
         $a = (array)$p->SPrice;
@@ -52,6 +63,7 @@ class DataBase {
         if($reports){
             $car->Reports = $this->getCarReports($id);
             $car->Books = $this->getCarBooks($id);
+            $car->Prices = $this->getCarPrices($id);
         }
         return $car;
     }
@@ -75,6 +87,26 @@ class DataBase {
         $s->setFetchMode(PDO::FETCH_CLASS, 'Book');
         return $s->fetchAll();
     }
+    public function getCarPrices($id) {
+        $res = new CarPrices();
+        $res->WinterPrices = $this->getPrices($id,true);
+        $res->SummerPrices = $this->getPrices($id,false);
+        return $res;
+    }
+    public function getPrices($id, $t) {
+        if($t){
+             $s = $this->db->prepare("SELECT * FROM winter_prices WHERE Id=?");
+            $s->execute(array($id));
+            $s->setFetchMode(PDO::FETCH_CLASS, 'Prices');
+            return $s->fetch();
+        }else{
+             $s = $this->db->prepare("SELECT * FROM summer_prices WHERE Id=?");
+            $s->execute(array($id));
+            $s->setFetchMode(PDO::FETCH_CLASS, 'Prices');
+            return $s->fetch();
+        }
+       
+    }
     public function getSameCars($id) {
         $car = $this->getCar($id);
         $s = $this->db->prepare("SELECT * FROM cars WHERE Groupe=? or (Price>=? and Price<=?)");
@@ -88,7 +120,12 @@ class DataBase {
         $s->execute(array($rid, $t));
         $s->setFetchMode(PDO::FETCH_CLASS, 'Like');
         return $s->fetchAll();
-    } 
+    }
+    
+    public function addReport($id){
+        
+    }
+    
     public function getReportComments($rid){
         $s = $this->db->prepare("SELECT * FROM comments WHERE FeedBackId=?");
         $s->execute(array($rid));
@@ -211,6 +248,26 @@ class DataBase {
     
     //####################Messager Controller###########################
     
+    public function createTopic($uid, $rid,$s){
+        $s = $this->db->prepare("INSERT INTO topics (UserId, UserReciverId, ModifyDate, Seen) VALUES (?,?,now(),?");
+        $s->execute(array($uid, $rid, $s));
+    }
+    
+    public function saveMessage($uid, $tid, $t){
+        $s = $this->db->prepare("INSERT INTO messages (UserId, TopicId, Text, CreateDate) Values (?,?,?,now())");
+        $s->execute(array($uid, $tid, $t));
+        
+        return $this->getMessageById($this->db->lastInsertId());
+    } 
+    
+    public function getMessageById($id) {
+        $s = $this->db->prepare("SELECT Id, TopicId, UserId, Text, CreateDate FROM messages WHERE Id=?");
+        $s->execute(array($id));
+        $s->setFetchMode(PDO::FETCH_CLASS, 'Message');
+        $u=$s->fetch();
+        return $u;
+    }
+    
     public function getUserTopics($id) {
         $s = $this->db->prepare("SELECT * FROM topics WHERE UserId=? OR UserReciverId=?");
         $s->execute(array($id, $id));
@@ -225,12 +282,27 @@ class DataBase {
         return $topics;
     }
     
-    
     public function getMessages($tid){
         $s = $this->db->prepare("SELECT * FROM messages WHERE TopicId=?");
         $s->execute(array($id));
         $s->setFetchMode(PDO::FETCH_CLASS, 'Message');
         return $s->fetchAll();
+    }
+    
+    public function addComment($uid, $fid, $t){
+        $s = $this->db->prepare("INSERT INTO comments (UserId, FeedBackId, Text, CreateDate) VALUES (?,?,?,now())");
+        $s->execute(array($uid, $fid, $t));
+        return $this->getCommentById($this->db->lastInsertId());
+    }
+    
+    public function getCommentById($id){
+        $s = $this->db->prepare("SELECT Id, FeedBackId, UserId, Text, CreateDate FROM comments WHERE Id=?");
+        $s->execute(array($id));
+        $s->setFetchMode(PDO::FETCH_CLASS, 'Comment');
+        $u=$s->fetch();
+        $u->User = $this->getUserById($u->UserId);
+        $u->Likes = $this->getLikes($u->Id,2);
+        return $u;
     }
     //####################Messager Controller###########################
 }

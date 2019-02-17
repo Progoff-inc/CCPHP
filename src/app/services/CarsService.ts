@@ -14,6 +14,7 @@ export class CarsService implements OnInit {
 
 
     }
+    
     GetCars() {
         return this.http.get<Car[]>(this.baseUrl + 'CarsController.php?Key=get-cars');
     }
@@ -41,12 +42,12 @@ export class CarsService implements OnInit {
     }
     BookCar(book: any) {
         // tslint:disable-next-line:max-line-length
-        // return this.http.post<Book>(this.baseUrl + 'CarsController.php?Key=add-booking',{"Id":123,"DateStart":book.DateStart, "ExtraDateStart":book.ExtraDateStart, "DateFinish":book.DateFinish, "UserId":book.UserId, "CarId":book.CarId, "Price":book.Price, "Place":book.Place, "Comment":book.Comment, "SalesId":book.SalesId});
+        // return this.http.post<Book>(this.baseUrl + 'CarsController.php?Key=add-booking',{"Id":123,"DateStart":book.DateStart, "ExtraDateStart":book.ExtraDateStart, "DateFinish":book.DateFinish, "UserId":book.UserId, "CarId":book.CarId, "Price":book.Price, "Place":book.Place, "Coment":book.Coment, "SalesId":book.SalesId});
         return this.http.post(this.baseUrl + 'CarsController.php?Key=add-booking', book);
     }
-    BookCarNew(book: Book) {
+    BookCarNew(book: NewBook) {
         // tslint:disable-next-line:max-line-length
-        return this.http.post<Book>(this.baseUrl + 'CarsController.php?Key=add-booking-new', {'DateStart': book.DateStart, 'DateFinish': book.DateFinish,  'CarId': book.CarId, 'Price': book.Price, 'Place': book.Place, 'PlaceOff': book.PlaceOff, 'Email': book.Email,  'Name': book.Name, 'SalesId': book.SalesId, 'Phone': book.Tel, 'Comment': book.Comment});
+        return this.http.post<Book>(this.baseUrl + 'CarsController.php?Key=add-booking-new', book);
     }
     GetSales() {
         return this.http.get<Sale[]>(this.baseUrl + 'CarsController.php?Key=get-sales');
@@ -82,7 +83,7 @@ export class CarsService implements OnInit {
     }
 }
 
-export interface Car {
+export class Car {
     Id: number;
     Model: string;
     Photo: string;
@@ -92,21 +93,41 @@ export interface Car {
     Fuel: string;
     Consumption: number;
     BodyType: string;
-    FilterProp: number;
+    MinAge: number;
     AC: boolean;
     ABS: boolean;
     Radio: boolean;
-    Airbags: boolean;
+    AirBags: boolean;
     Description: string;
-    Description_ENG: string;
-    Price: number;
-
+    Description_Eng: string;
+    SPrice: number;
+    WPrice:number;
     Mark: number;
     Reports: FeedBack[];
     Books: Book[];
     Sales: Sale[];
     Includes: string[];
     IncludesEng: string[];
+    Groupe:string;
+    Power:number;
+    Prices:CarPrices;
+}
+export class CarPrices{
+    constructor(){
+        this.SummerPrices = new Prices();
+        this.WinterPrices = new Prices();
+    }
+    WinterPrices:Prices;
+    SummerPrices:Prices;
+}
+export class Prices{
+    OneDayPrice:number = undefined;
+    TwoDaysPrice:number = undefined;
+    ThreeDaysPrice:number = undefined;
+    FourDaysPrice:number = undefined;
+    FiveDaysPrice:number = undefined;
+    SixDaysPrice:number = undefined;
+    SevenDaysPrice:number = undefined;
 }
 export class NewCar {
     Id = 0;
@@ -123,10 +144,9 @@ export class NewCar {
     AC = false;
     ABS = false;
     Radio = false;
-    Airbags = false;
+    AirBags = false;
     Description: string = null;
     Description_ENG: string = null;
-    Price: number = null;
     Includes: string[] = [];
 }
 export interface BookTimes {
@@ -148,7 +168,22 @@ export class Book {
     PlaceOff: string;
     Email?: string;
     Tel?: string;
-    Comment?: string;
+    Coment?: string;
+    Name?: string;
+}
+export class NewBook {
+    DateStart: Date;
+    DateFinish: Date;
+    Sum: number;
+    UserId: number;
+    CarId: number;
+    OldPrice?: number;
+    Price: number;
+    Place: string;
+    PlaceOff: string;
+    Email?: string;
+    Tel?: string;
+    Coment?: string;
     Name?: string;
 }
 

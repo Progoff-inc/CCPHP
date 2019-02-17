@@ -14,7 +14,7 @@ import { TranslateService } from '../../../node_modules/@ngx-translate/core';
 })
 export class UserProfileComponent implements OnInit {
   @Input() NewAdmin:ReportUser;
-  showBooks:boolean = true;
+  showBooks:boolean = false;
   showAddCar:boolean = false;
   showAddNewAdmin:boolean = false;
   showAddSale:boolean = false;
@@ -40,6 +40,7 @@ export class UserProfileComponent implements OnInit {
         data.Topics.forEach(x => {
           x.ModifyDate= new Date(x.ModifyDate);
         })
+        console.log(data);
         this.userService.currentUser=data;
         this.changeValues[0]=data.Email;
         this.changeValues[1]=data.Phone;
@@ -64,6 +65,13 @@ export class UserProfileComponent implements OnInit {
   }
   addCar(){
     this.router.navigate(['/add'])
+  }
+  changeCar(id){
+    this.router.navigate(['/add'],{
+      queryParams:{
+          'CarId': id
+      }
+  })
   }
   show(prop:string){
     this[prop] = !this[prop];

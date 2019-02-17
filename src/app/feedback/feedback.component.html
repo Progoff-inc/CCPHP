@@ -94,7 +94,7 @@
                                         <p>{{comment.Text}}</p>
                                     </div>
                                     <div class="col-sm-3">
-                                        <span class="glyphicon glyphicon-time"></span> {{comment.CreatedDate | date: 'dd.MM.yyyy'}}
+                                        <span class="glyphicon glyphicon-time"></span> {{comment.CreateDate | date: 'dd.MM.yyyy'}}
                                         <br>
                                         <div class="com-rat" (click)="addLikes(comment, true, 2)">
                                                 <i class="fa fa-thumbs-up" [ngClass]="{'checked-up':getUserLike(comment)?getUserLike(comment).IsLike==true:false}" aria-hidden="true"></i>

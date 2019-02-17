@@ -174,7 +174,7 @@
         <div class="col-sm" *ngFor="let day of date; let i = index">
           <div class="form-group">
             <label for="SPT">{{day.HEADER | translate}}</label>
-            <input type="number" class="form-control" id="SPT" [(ngModel)]="Prices.SPrice[g[i]]" [ngModelOptions]="{standalone: true}" [placeholder]="'PRICE_INPUT' | translate">
+            <input type="number" class="form-control" id="SPT" [(ngModel)]="Prices.SummerPrices[g[i]]" [ngModelOptions]="{standalone: true}" [placeholder]="'PRICE_INPUT' | translate">
             <small *ngIf="carSubmitted && !Prices.SPrice[g[i]]" class="form-text text-danger">{{"PRICE_INPUT" | translate}}</small>
           </div>
         </div>
@@ -186,7 +186,7 @@
         <div class="col-sm" *ngFor="let day of date; let i = index">
           <div class="form-group">
             <label for="WPT">{{day.HEADER | translate}}</label>
-            <input type="number" class="form-control" [(ngModel)]="Prices.WPrice[g[i]]" [ngModelOptions]="{standalone: true}" id="WPT" [placeholder]="'PRICE_INPUT' | translate">
+            <input type="number" class="form-control" [(ngModel)]="Prices.WinterPrices[g[i]]" [ngModelOptions]="{standalone: true}" id="WPT" [placeholder]="'PRICE_INPUT' | translate">
             <small *ngIf="carSubmitted && !Prices.WPrice[g[i]]" class="form-text text-danger">{{"PRICE_INPUT" | translate}}</small>
           </div>
         </div>

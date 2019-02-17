@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NewCar, CarsService, Contains } from '../services/CarsService';
+import { NewCar, CarsService, Contains, Car, CarPrices } from '../services/CarsService';
 import { TranslateService } from '@ngx-translate/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-add',
@@ -9,14 +10,55 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./add.component.css']
 })
 export class AddComponent implements OnInit {
-  newCar:NewCar =new NewCar();
   carSubmitted = false;
+  showBtn= true;
   carForm:FormGroup;
-  Prices:carPrices=new carPrices();
+  Prices:CarPrices=new CarPrices();
+  car:Car = new Car();
   
   Includes:Contains = new Contains();
   
-  constructor(private fb:FormBuilder, private carsService:CarsService, public translate:TranslateService) { }
+  constructor(private fb:FormBuilder, private route:ActivatedRoute, private carsService:CarsService, public translate:TranslateService) { 
+    this.route.queryParams.subscribe(
+      (queryParam: any) => {
+          this.car.Id = queryParam['CarId'];
+          if(this.car.Id>0){
+            this.showBtn=false;
+            this.carsService.GetCar(this.car.Id.toString()).subscribe(data => {
+              console.log(data);
+              this.car = data;
+              this.carForm = this.fb.group({
+                Model:[this.car.Model],
+                Photo:[this.car.Photo],
+                SPrice:[this.car.SPrice],
+                WPrice:[this.car.WPrice],
+                BodyType:[this.car.BodyType],
+                Passengers:[this.car.Passengers],
+                Doors:[this.car.Doors],
+                Groupe:[this.car.Groupe],
+                MinAge:[this.car.MinAge],
+                Power:[this.car.Power],
+                Consumption:[this.car.Consumption],
+                Transmission:[this.car.Transmission],
+                Fuel:[this.car.Fuel],
+                AC:[Boolean(Number(this.car.AC))],
+                ABS:[Boolean(Number(this.car.ABS))],
+                AirBags:[Boolean(Number(this.car.AirBags))],
+                Radio:[Boolean(Number(this.car.Radio))],
+                Description:[this.car.Description],
+                Description_ENG:[this.car.Description_Eng]
+              });
+              this.Prices = data.Prices;
+              this.carForm.valueChanges.subscribe(data => {
+                console.log(data);
+              })
+            })
+          }else{
+            
+          }
+      }
+    );
+  }
 
   ngOnInit() {
     this.carForm = this.fb.group({
@@ -55,9 +97,9 @@ export class AddComponent implements OnInit {
     
     console.log(this.carForm.value);
     this.carsService.AddCar(this.carForm.value).subscribe((CarId)=>{
-      this.Prices.CarId=CarId;
+      
       console.log(CarId);
-      // this.carsService.AddPrices(this.Prices).subscribe(()=>{
+      // this.carsService.AddPrices(CarID, this.Prices).subscribe(()=>{
       //   this.Prices = new carPrices();
       //   this.carForm.reset();
       // })
@@ -65,8 +107,8 @@ export class AddComponent implements OnInit {
   }
   checkPrices(){
     this.g.forEach(e => {
-      console.log(!!this.Prices.WPrice[e])
-      if(!this.Prices.WPrice[e] || !this.Prices.SPrice[e]){
+      console.log(!!this.Prices.WinterPrices[e])
+      if(!this.Prices.WinterPrices[e] || !this.Prices.SummerPrices[e]){
         console.log(e);
         return true;
       }
@@ -74,7 +116,7 @@ export class AddComponent implements OnInit {
     });
     return false;
   }
-  get g() { return Object.keys(this.Prices.SPrice); }
+  get g() { return Object.keys(this.Prices.SummerPrices); }
   get f() { return this.carForm.controls; }
   date=[{
     HEADER:'ONE_DAY',
@@ -104,25 +146,4 @@ export class AddComponent implements OnInit {
     HEADER:'SEVEN_DAY',
     TEXT:'SEVEN_DAY_INPUT',
   }]
-}
-
-export class carPrices{
-  CarId: number;
-  constructor(){
-    this.WPrice=new Price();
-    this.SPrice=new Price();
-  }
-  Id:number;
-  WPrice:Price;
-  SPrice:Price;
-}
-
-export class Price{
-  OneDay:number = undefined;
-  TwoDays:number = undefined;
-  ThreeDays:number = undefined;
-  FourDays:number = undefined;
-  FiveDays:number = undefined;
-  SixDays:number = undefined;
-  SevenDays:number = undefined;
 }
