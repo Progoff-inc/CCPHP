@@ -88,7 +88,12 @@ class DataBase {
         $s->execute(array($rid, $t));
         $s->setFetchMode(PDO::FETCH_CLASS, 'Like');
         return $s->fetchAll();
-    } 
+    }
+    
+    public function addReport($id){
+        
+    }
+    
     public function getReportComments($rid){
         $s = $this->db->prepare("SELECT * FROM comments WHERE FeedBackId=?");
         $s->execute(array($rid));
@@ -211,6 +216,21 @@ class DataBase {
     
     //####################Messager Controller###########################
     
+    public function saveMessage($uid, $tid, $t){
+        $s = $this->db->prepare("INSERT INTO messages (UserId, TopicId, Text, CreateDate) Values (?,?,?,now())");
+        $s->execute(array($uid, $tid, $t));
+        
+        return $this->getMessageById($this->db->lastInsertId());
+    } 
+    
+    public function getMessageById($id) {
+        $s = $this->db->prepare("SELECT Id, TopicId, UserId, Text, CreateDate FROM messages WHERE Id=?");
+        $s->execute(array($id));
+        $s->setFetchMode(PDO::FETCH_CLASS, 'Message');
+        $u=$s->fetch();
+        return $u;
+    }
+    
     public function getUserTopics($id) {
         $s = $this->db->prepare("SELECT * FROM topics WHERE UserId=? OR UserReciverId=?");
         $s->execute(array($id, $id));
@@ -225,12 +245,27 @@ class DataBase {
         return $topics;
     }
     
-    
     public function getMessages($tid){
         $s = $this->db->prepare("SELECT * FROM messages WHERE TopicId=?");
         $s->execute(array($id));
         $s->setFetchMode(PDO::FETCH_CLASS, 'Message');
         return $s->fetchAll();
+    }
+    
+    public function addComment($uid, $fid, $t){
+        $s = $this->db->prepare("INSERT INTO comments (UserId, FeedBackId, Text, CreateDate) VALUES (?,?,?,now())");
+        $s->execute(array($uid, $fid, $t));
+        return $this->getCommentById($this->db->lastInsertId());
+    }
+    
+    public function getCommentById($id){
+        $s = $this->db->prepare("SELECT Id, FeedBackId, UserId, Text, CreateDate FROM comments WHERE Id=?");
+        $s->execute(array($id));
+        $s->setFetchMode(PDO::FETCH_CLASS, 'Comment');
+        $u=$s->fetch();
+        $u->User = $this->getUserById($u->UserId);
+        $u->Likes = $this->getLikes($u->Id,2);
+        return $u;
     }
     //####################Messager Controller###########################
 }

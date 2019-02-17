@@ -25,6 +25,10 @@ if(isset($_GET['Key']))
             $b = json_decode(file_get_contents('php://input'), true);
             echo json_encode($ctxt->addLike($b['OwnerId'], $b['UserId'], $b['IsLike'], $b['Type']));
             break;
+        case 'add-comment':
+            $b = json_decode(file_get_contents('php://input'), true);
+            echo json_encode($ctxt->addComment($b['UserId'], $b['FeedBackId'], $b['Text']));
+            break;
         default:
             echo "Введенный ключ несуществует";
         

@@ -141,7 +141,7 @@ class Comment{
     public $FeedBackId;
     public $UserId;
     public $Text;
-    public $CreatedDate;
+    public $CreateDate;
     
     public $User;
     public $Likes;

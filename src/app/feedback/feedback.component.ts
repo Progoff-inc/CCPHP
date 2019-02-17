@@ -150,7 +150,7 @@ export class FeedbackComponent implements OnInit, OnChanges {
     if (this.commentForm.invalid) { 
         return;
     }
-    this.feedBackService.addComment(this.carsService.checkStr(text), this.userService.currentUser.Id, report.Id).subscribe(data =>{
+    this.feedBackService.addComment(text, this.userService.currentUser.Id, report.Id).subscribe(data =>{
       report.ShowForm=!report.ShowForm;
       this.commentForm.reset();
       report.Comments.push(data);
