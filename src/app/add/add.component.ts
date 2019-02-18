@@ -15,9 +15,9 @@ export class AddComponent implements OnInit {
   carForm:FormGroup;
   Prices:CarPrices=new CarPrices();
   car:Car = new Car();
-  
   Includes:Contains = new Contains();
-  
+  change:Change = new Change();
+  changeP:Change = new Change();
   constructor(private fb:FormBuilder, private route:ActivatedRoute, private carsService:CarsService, public translate:TranslateService) { 
     this.route.queryParams.subscribe(
       (queryParam: any) => {
@@ -25,7 +25,6 @@ export class AddComponent implements OnInit {
           if(this.car.Id>0){
             this.showBtn=false;
             this.carsService.GetCar(this.car.Id.toString()).subscribe(data => {
-              console.log(data);
               this.car = data;
               this.carForm = this.fb.group({
                 Model:[this.car.Model],
@@ -46,11 +45,11 @@ export class AddComponent implements OnInit {
                 AirBags:[Boolean(Number(this.car.AirBags))],
                 Radio:[Boolean(Number(this.car.Radio))],
                 Description:[this.car.Description],
-                Description_ENG:[this.car.Description_Eng]
+                Description_Eng:[this.car.Description_Eng]
               });
-              this.Prices = data.Prices;
+              this.Prices = JSON.parse(JSON.stringify(this.car.Prices));
               this.carForm.valueChanges.subscribe(data => {
-                console.log(data);
+                this.checkUpdate();
               })
             })
           }else{
@@ -59,8 +58,42 @@ export class AddComponent implements OnInit {
       }
     );
   }
-
+  checkUpdate(){
+    if(!!this.car.Model){
+      this.change.clear();
+      
+      Object.keys(this.car).forEach(c => {
+        if(this.car[c] != this.carForm.value[c] && this.carForm.value[c]!=undefined){
+          this.change.add(c, this.carForm.value[c]);
+        }
+      })
+      console.log(this.change);
+      this.showBtn = this.change.Keys.length>0;
+    }
+    return this.showBtn;
+    
+  }
+  checkUpdateP(){
+    if(!!this.car.Model){
+      this.changeP.clear();
+      
+      Object.keys(this.car.Prices).forEach(c => {
+        Object.keys(this.car.Prices[c]).forEach(p => {
+          if(this.car.Prices[c][p] != this.Prices[c][p] ){
+            if(this.changeP.Keys.indexOf(c)<0) this.changeP.add(c, this.Prices[c]);
+          }
+        })
+        
+      })
+      console.log(this.changeP);
+      this.showBtn = this.changeP.Keys.length>0;
+    }
+    return this.showBtn;
+  }
   ngOnInit() {
+    if(this.car.Model){
+      
+    }
     this.carForm = this.fb.group({
       Model:['', Validators.required],
       Photo:['', Validators.required],
@@ -80,7 +113,7 @@ export class AddComponent implements OnInit {
       AirBags:[false],
       Radio:[false],
       Description:['', Validators.required],
-      Description_ENG:['', Validators.required]
+      Description_Eng:['', Validators.required]
     })
   }
   addCar(){
@@ -116,6 +149,19 @@ export class AddComponent implements OnInit {
     });
     return false;
   }
+  updateCar(){
+    if(this.change.Keys.length>0){
+      this.carsService.UpdateCar(this.change).subscribe((data)=>{
+        this.car = JSON.parse(JSON.stringify(this.carForm.value));
+      })
+    }
+    if(this.changeP.Keys.length>0){
+      this.carsService.UpdatePrices(this.changeP).subscribe((data)=>{
+        this.car.Prices = JSON.parse(JSON.stringify(this.Prices));
+      })
+    }
+    
+  }
   get g() { return Object.keys(this.Prices.SummerPrices); }
   get f() { return this.carForm.controls; }
   date=[{
@@ -146,4 +192,18 @@ export class AddComponent implements OnInit {
     HEADER:'SEVEN_DAY',
     TEXT:'SEVEN_DAY_INPUT',
   }]
+}
+
+export class Change{
+  Keys:string[] = [];
+  Values:any[] = [];
+
+  clear(){
+    this.Keys = [];
+    this.Values = [];
+  }
+  add(k, v){
+    this.Keys.push(k);
+    this.Values.push(v);
+  }
 }

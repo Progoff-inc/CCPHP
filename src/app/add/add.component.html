@@ -163,8 +163,8 @@
       </div>
       <div class="form-group">
           <label for="DESENG">{{"DESCRIPTION_ENG" | translate}}</label>
-          <textarea formControlName="Description_ENG" class="form-control" rows="5" id="DESENG" [placeholder]="'DESCRIPTION_ENG_INPUT' | translate"></textarea>
-          <small *ngIf="carSubmitted && f.Description_ENG.errors" class="form-text text-danger">{{"DESCRIPTION_ENG_INPUT" | translate}}</small>
+          <textarea formControlName="Description_Eng" class="form-control" rows="5" id="DESENG" [placeholder]="'DESCRIPTION_ENG_INPUT' | translate"></textarea>
+          <small *ngIf="carSubmitted && f.Description_Eng.errors" class="form-text text-danger">{{"DESCRIPTION_ENG_INPUT" | translate}}</small>
       </div>
       <hr>
       <div class="row">
@@ -174,7 +174,7 @@
         <div class="col-sm" *ngFor="let day of date; let i = index">
           <div class="form-group">
             <label for="SPT">{{day.HEADER | translate}}</label>
-            <input type="number" class="form-control" id="SPT" [(ngModel)]="Prices.SummerPrices[g[i]]" [ngModelOptions]="{standalone: true}" [placeholder]="'PRICE_INPUT' | translate">
+            <input (keyup)="checkUpdateP()" (change)="checkUpdateP()" type="number" class="form-control" id="SPT" [(ngModel)]="Prices.SummerPrices[g[i]]" [ngModelOptions]="{standalone: true}" [placeholder]="'PRICE_INPUT' | translate">
             <small *ngIf="carSubmitted && !Prices.SPrice[g[i]]" class="form-text text-danger">{{"PRICE_INPUT" | translate}}</small>
           </div>
         </div>
@@ -186,11 +186,11 @@
         <div class="col-sm" *ngFor="let day of date; let i = index">
           <div class="form-group">
             <label for="WPT">{{day.HEADER | translate}}</label>
-            <input type="number" class="form-control" [(ngModel)]="Prices.WinterPrices[g[i]]" [ngModelOptions]="{standalone: true}" id="WPT" [placeholder]="'PRICE_INPUT' | translate">
+            <input (keyup)="checkUpdateP()" (change)="checkUpdateP()" type="number" class="form-control" [(ngModel)]="Prices.WinterPrices[g[i]]" [ngModelOptions]="{standalone: true}" id="WPT" [placeholder]="'PRICE_INPUT' | translate">
             <small *ngIf="carSubmitted && !Prices.WPrice[g[i]]" class="form-text text-danger">{{"PRICE_INPUT" | translate}}</small>
           </div>
         </div>
       </div>
-    <button (click)="addCar()" class="btn btn-primary">{{"ADD" | translate}}</button>
+    <button (click)="car.Model?updateCar():addCar()" *ngIf="showBtn" class="btn btn-primary">{{car.Model?("UPDATE" | translate):("ADD" | translate)}}</button>
   </form>
 </div>
