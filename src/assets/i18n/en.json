@@ -186,6 +186,9 @@
     "CARE":"Care",
     "CARE_TEXT":"Take care of the rented car as of your own!",
     "CONDITIONS":"Conditions",
+    "BOOKS":"Books",
+    "UPDATE":"Update",
+    "NO_DATA_MESSANGER":"No messanges",
 
     "MODEL_INPUT":"Enter model",
     "PHOTO":"Photo",
