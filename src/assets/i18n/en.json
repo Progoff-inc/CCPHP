@@ -229,5 +229,15 @@
 
     "AIR_HER":"Heraklion Airport",
     "AN_PAPAN":"Andreas Papandreou",
-    "HERSONISOS":"Hersonissos"
+    "HERSONISOS":"Hersonissos",
+
+    "ADD_CAR":"Add car",
+    "ADD_SALE":"Add sale",
+    "ADD_ADMIN":"Add administrator",
+
+    "DISCOUNT":"Discount",
+    "DAYS_NUMBER":"Days number",
+
+    "USER":"User",
+    "IS_ADMIN":"Admin rights"
 }

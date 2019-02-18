@@ -179,7 +179,7 @@
               
             </div>
             <div class="item">
-              <span [ngClass]="{ 'is-invalid': saleSubmitted && newSale.DateFinish==null }" class="header">{{'DATE_START' | translate}}</span>
+              <span [ngClass]="{ 'is-invalid': saleSubmitted && newSale.DateFinish==null }" class="header">{{'DATE_END' | translate}}</span>
               <date-picker  [Out]="newSale" [Prop]="'DateFinish'" [Errors]="saleErrors"  [DateStart]="newSale.DateStart"
                         [DateFinish]="newSale.DateFinish"></date-picker>
             </div>
@@ -224,7 +224,7 @@
           <div class="col-sm-3">
             <div class="item mb-3 ml-0 form-group">
               
-              <label [ngClass]="{ 'is-invalid': adminSubmitted && newAdmin.UserId == 0 }" class="header">{{'NEW_ADMIN' | translate}}</label>
+              <label [ngClass]="{ 'is-invalid': adminSubmitted && newAdmin.UserId == 0 }" class="header">{{'USER' | translate}}</label>
               <picker [items]="users" [out]="newAdmin" [prop]="'UserId'" [PropName]="'Name'"></picker>
               <div *ngIf="adminSubmitted && newAdmin.UserId == 0" class="invalid-feedback">
                 <span class="d-block is-invalid" >{{"ADMIN_VALIDATION" | translate}}</span>
