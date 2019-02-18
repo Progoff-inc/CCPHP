@@ -94,7 +94,7 @@
                         <option>{{'RU'| translate}}</option>
                         <option>{{'ENG'| translate}}</option>
                       </select>
-                      <button class="btn btn-success" (click)="changeInfo(2,'Lang', Lang.value)">Изменить</button>
+                      <button class="btn btn-success" (click)="changeInfo(2,'Lang', Lang.value)">{{"UPDATE" | translate}}</button>
                     </div>
                 </div>
                 <div *ngIf="changes[2]"  class="background-blur" (click)="showChangeInfo(2,false)"></div>
@@ -110,7 +110,7 @@
   <div  class="statistics">
     <!-- <statistics *ngIf="userService.currentUser.Name=='Admin'"></statistics> -->
     
-    <p *ngIf="userService.currentUser?userService.currentUser.Books.length>0:false" class="line" ><span (click)="show('showBooks')">{{userService.currentUser.IsAdmin?'BOOKS':'MY_BOOKS' | translate}} <i class="fa" [ngClass] = "{'fa-angle-down':!showBooks, ' fa-angle-up':showBooks}"></i></span></p>
+    <p *ngIf="userService.currentUser?userService.currentUser.Books.length>0:false" class="line" ><span (click)="show('showBooks')">{{userService.currentUser.IsAdmin?('BOOKS' | translate): ('MY_BOOKS' | translate)}} <i class="fa" [ngClass] = "{'fa-angle-down':!showBooks, ' fa-angle-up':showBooks}"></i></span></p>
     <div *ngIf="showBooks">
       <div class="book-item" [ngClass]="{'active-item':getStatus(book)=='Активно' }" *ngFor="let book of userService.currentUser.Books">
         <span class="status" [ngClass]="{'active':getStatus(book)=='Активно'}">{{getStatus(book)}}</span>
@@ -157,7 +157,7 @@
               </div>
             </div>
             <div class="btn-group" role="group" aria-label="Basic example">
-              <button type="button" class="btn btn-success" (click)="addCar()" >Добавить</button>
+              <button type="button" class="btn btn-success" (click)="addCar()" >{{"ADD" | translate}}</button>
             </div>
           </div>
         </li>

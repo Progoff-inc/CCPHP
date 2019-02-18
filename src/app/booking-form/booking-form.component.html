@@ -57,11 +57,11 @@
                   <div class="details">
                     <div class="detail-item">
                       <i class="fa fa-male"></i>
-                      <span>{{service.car?service.car.Passengers:''}} {{"PASSENGERS" | translate}}</span>
+                      <span>{{"PASSENGERS" | translate}}: {{service.car?service.car.Passengers:''}}</span>
                     </div>
                     <div class="detail-item">
                       <i class="fa fa-car"></i>
-                      <span>{{service.car?service.car.Doors:''}} {{"DOORS_S" | translate}}</span>
+                      <span>{{"DOORS" | translate}}: {{service.car?service.car.Doors:''}}</span>
                     </div>
                     <div class="detail-item">
                       <i class="fa fa-cogs"></i>
@@ -77,11 +77,11 @@
                     </div> -->
                     <div class="detail-item">
                       <i class="fa fa-user"></i>
-                      <span>{{'MINAGE'| translate}}: {{service.car?service.car.MinAge:''}} {{'YEARS'|translate}}</span>
+                      <span>{{'MINAGE'| translate}}: {{service.car?service.car.MinAge:''}}</span>
                     </div>
                     <div class="detail-item">
                       <i class="fa fa-truck"></i>
-                      <span>{{'BODY'| translate}}: {{service.car?service.car.BodyType:''}}</span>
+                      <span>{{'BODY'| translate}}: {{service.car?(service.car.BodyType.toUpperCase() | translate):''}}</span>
                     </div>
                     <div class="detail-item">
                       <i class="fa fa-tint"></i>
