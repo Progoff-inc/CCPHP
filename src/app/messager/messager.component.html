@@ -37,8 +37,8 @@
   <div class="topic top-topic" (click) = "showTopic()" [ngStyle]="{'margin-top':showTopics?'10px':''}"  *ngIf="(userProfile || showTopics) && (!!currentTopic)">
     <div class="row">
       <div class="col-sm-7">
-        <img class ="user-img-small"  src="{{currentTopic.User?currentTopic.User.Photo:''}}" alt="">
-        <span>{{currentTopic.User?currentTopic.User.Name:''}}</span></div>
+        <img class ="user-img-small"  src="{{currentTopic.UserReciver?currentTopic.UserReciver.Photo:''}}" alt="">
+        <span>{{currentTopic.UserReciver?currentTopic.UserReciver.Name:''}}</span></div>
       <div class="col-sm-5"><span>{{currentTopic.ModifyDate | date: 'HH:mm'}}</span></div>
     </div>
   </div>
@@ -57,8 +57,8 @@
     <div class="topic" [ngClass]="{'hidden':!!currentTopic, 'not-seen':(!top.Seen && this.userId == top.UserReciverId)}" (click) = "showTopic(top)"  *ngFor="let top of topics">
       <div class="row">
         <div class="col-sm-7">
-          <img class ="user-img-small"  src="{{top.User?top.User.Photo:''}}" alt="">
-          <span>{{top.User?top.User.Name:''}}</span></div>
+          <img class ="user-img-small"  src="{{top.UserReciver?top.UserReciver.Photo:''}}" alt="">
+          <span>{{top.UserReciver?top.UserReciver.Name:''}}</span></div>
         <div class="col-sm-5"><span>{{top.ModifyDate | date: 'HH:mm'}}</span></div>
       </div>
     </div>

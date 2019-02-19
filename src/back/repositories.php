@@ -248,11 +248,14 @@ class DataBase {
     
     //####################Messager Controller###########################
     
-    public function createTopic($uid, $rid,$s){
-        $s = $this->db->prepare("INSERT INTO topics (UserId, UserReciverId, ModifyDate, Seen) VALUES (?,?,now(),?");
-        $s->execute(array($uid, $rid, $s));
+    public function createTopic($uid){
+        $s = $this->db->query("SELECT Id FROM users WHERE IsAdmin=true");
+        $rid = $s->fetch()[0];
+        $s = $this->db->prepare("INSERT INTO topics (UserId, UserReciverId, ModifyDate) VALUES (?,?,now())");
+        $s->execute(array($uid, $rid));
+        
+        return $this->getUserTopics($rid);
     }
-    
     public function saveMessage($uid, $tid, $t){
         $s = $this->db->prepare("INSERT INTO messages (UserId, TopicId, Text, CreateDate) Values (?,?,?,now())");
         $s->execute(array($uid, $tid, $t));
@@ -284,7 +287,7 @@ class DataBase {
     
     public function getMessages($tid){
         $s = $this->db->prepare("SELECT * FROM messages WHERE TopicId=?");
-        $s->execute(array($id));
+        $s->execute(array($tid));
         $s->setFetchMode(PDO::FETCH_CLASS, 'Message');
         return $s->fetchAll();
     }
