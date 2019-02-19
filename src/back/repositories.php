@@ -122,8 +122,11 @@ class DataBase {
         return $s->fetchAll();
     }
     
-    public function addReport($id){
-        
+    public function addReport($r){
+        $a = $this->genInsertQuery($r, "feedbacks");
+        $s = $this->db->prepare($a[0]);
+        $s->execute($a[1]);
+        return $a;
     }
     
     public function getReportComments($rid){

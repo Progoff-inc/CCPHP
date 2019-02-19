@@ -18,7 +18,6 @@ export class FeedbackComponent implements OnInit, OnChanges {
   choosedCar:ReportCar;
   commentForm: FormGroup;
   errors:string[]=[];
-  Errors:any = {DateStart:true}; //Потом объединить c errors
   submitted = false;
   cars:ReportCar[]=[];
   feedBack:ShortFeedBack= new ShortFeedBack();
@@ -202,23 +201,19 @@ export class FeedbackComponent implements OnInit, OnChanges {
       if(this.errors.length>0){
         return;
       }
-      if(this.Errors.DateStart){
-        return;
-      }
       this.feedBack.UserId=this.userService.currentUser.Id;
       
-      this.feedBack.Report= this.carsService.checkStr(this.registerForm.value.Report);
+      this.feedBack.Text= this.registerForm.value.Report;
    
-      
       this.feedBackService.saveReport(this.feedBack).subscribe(data => {
         if(data) {
-          console.log(this.feedBack);
           console.log(data);
           this.feedBackService.getReports();
           this.feedBack = new ShortFeedBack();
           this.alertService.showA({type:'success',message:'Комментарий успешно оставлен.',show:true});
+          this.registerForm.reset();
         }
-        this.registerForm.reset();
+        
       },error => console.log(error))
       
       

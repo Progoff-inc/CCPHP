@@ -35,7 +35,7 @@ export class FeedBackService{
   }
   saveReport(report:ShortFeedBack){
     
-    return this.http.post<FeedBack>(this.baseUrl + 'FBController.php?Key=add-report', { "UserId": report.UserId, "CarId": report.CarId, "Look":report.Look, "Comfort": report.Comfort, "Drive": report.Drive, "DateStart": new Date(report.DateStart), "Mark":((report.Look+report.Comfort+report.Drive)/3), "Text":report.Report });
+    return this.http.post<FeedBack>(this.baseUrl + 'FBController.php?Key=add-report', { "UserId": report.UserId, "CarId": report.CarId, "Look":report.Look, "Comfort": report.Comfort, "Drive": report.Drive,  "Mark":((report.Look+report.Comfort+report.Drive)/3), "Text":report.Text });
   }
   changeLike(LikeId:number, IsLike){
     return this.http.post<FeedBack>(this.baseUrl + 'FBController.php?Key=change-like', { "IsLike": IsLike, "LikeId": LikeId});
@@ -82,14 +82,13 @@ export class FeedBackService{
 
 // }
 export class ShortFeedBack{
-  CarId:number=0;
-  DateStart:Date;
-  Look:number=0;
-  Comfort:number=0;
-  Drive:number=0;
-  Report:string='';
-  UserId:number=0;
-  Clear:boolean=false;
+  UserId:number = 0;
+  CarId:number = 0;
+  Look:number = 0;
+  Drive:number = 0;
+  Comfort:number = 0;
+  Mark:number = 0;
+  Text:string = '';
 }
 
 

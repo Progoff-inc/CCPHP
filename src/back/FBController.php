@@ -29,8 +29,9 @@ if(isset($_GET['Key']))
             $b = json_decode(file_get_contents('php://input'), true);
             echo json_encode($ctxt->addComment($b['UserId'], $b['FeedBackId'], $b['Text']));
             break;
-        default:
-            echo "Введенный ключ несуществует";
+        case 'add-report':
+            $b = json_decode(file_get_contents('php://input'), true);
+            echo json_encode($ctxt->addReport($b));
         
     }
     
