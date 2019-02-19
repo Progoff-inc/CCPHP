@@ -203,6 +203,7 @@ export class FeedbackComponent implements OnInit, OnChanges {
       }
       this.feedBack.UserId=this.userService.currentUser.Id;
       
+      
       this.feedBack.Text= this.registerForm.value.Report;
    
       this.feedBackService.saveReport(this.feedBack).subscribe(data => {
