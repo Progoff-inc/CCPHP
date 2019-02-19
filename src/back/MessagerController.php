@@ -27,7 +27,11 @@ if(isset($_GET['Key']))
             break;
         case 'save-message':
             $b = json_decode(file_get_contents('php://input'), true);
-            echo json_encode($ctxt->addLike($uid['UserId'], $tid['TopicId'], $t['Text']));
+            echo json_encode($ctxt->saveMessage($b['UserId'], $b['TopicId'], $b['Text']));
+            break;
+        case 'create-topic':
+            $b = json_decode(file_get_contents('php://input'), true);
+            echo json_encode($ctxt->createTopic($b['UserId']));
             break;
         default:
             echo "Введенный ключ несуществует";
