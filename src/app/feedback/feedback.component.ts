@@ -212,6 +212,8 @@ export class FeedbackComponent implements OnInit, OnChanges {
       
       this.feedBackService.saveReport(this.feedBack).subscribe(data => {
         if(data) {
+          console.log(this.feedBack);
+          console.log(data);
           this.feedBackService.getReports();
           this.feedBack = new ShortFeedBack();
           this.alertService.showA({type:'success',message:'Комментарий успешно оставлен.',show:true});

@@ -41,6 +41,7 @@ export class UserProfileComponent implements OnInit {
           x.ModifyDate= new Date(x.ModifyDate);
         })
         console.log(data);
+        data.IsAdmin = Boolean(Number(data.IsAdmin));
         this.userService.currentUser=data;
         this.changeValues[0]=data.Email;
         this.changeValues[1]=data.Phone;

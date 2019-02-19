@@ -193,9 +193,9 @@ export class MessagerComponent implements OnInit, OnChanges {
       UserReciverId:0,
       ModifyDate: new Date()
     }).subscribe(data => {
-      data.ModifyDate = new Date(data.ModifyDate);
+      data.forEach(x => {x.ModifyDate = new Date(x.ModifyDate)});
       
-      this.topics.unshift(data);
+      this.topics = data;
       this.showTopic(this.topics[0]);
     })
   }

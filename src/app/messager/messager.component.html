@@ -1,4 +1,4 @@
-<div (mouseover)="showScroll(0,100,showMess && userProfile)" class="container" [ngStyle]="{ 'bottom':showTopics && !showMess?'-463px':''}" [ngClass] = "{'cont-height':showTopics,'show':(showMess && !showAll && !userProfile),'ProfileShow':(showMess && userProfile), 'showP':(showMess && userProfile), 'InPage':showAll, 'Profile':userProfile}">
+<div  class="container" [ngStyle]="{ 'bottom':showTopics && !showMess?'-463px':''}" [ngClass] = "{'cont-height':showTopics,'show':(showMess && !showAll && !userProfile),'ProfileShow':(showMess && userProfile), 'showP':(showMess && userProfile), 'InPage':showAll, 'Profile':userProfile}">
   
   <div class="header"  [ngClass]="{'hidden-header':(showMess && userProfile)}" (click)="show(showAll)">
     <i class="fa fa-comments" ></i>

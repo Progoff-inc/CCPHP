@@ -80,7 +80,6 @@ export class CarsService implements OnInit {
             const reg = /(^\+?\d{1,3}?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$|^((\+?7|8)[ \-] ?)?((\(\d{3}\))|(\d{3}))?([ \-])?(\d{3}[\- ]?\d{2}[\- ]?\d{2})$)/g;
 
             str = str.replace(/\D/g, '');
-            console.log(str.match(reg));
             return str.match(reg) ? str.match(reg)[0] : null;
         }
         return str;

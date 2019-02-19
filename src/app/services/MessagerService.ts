@@ -16,7 +16,7 @@ export class MessagerService{
     }
     createTopic(top:any){
     
-        return this.http.post<Topic>(this.baseUrl + 'MessagerController.php?Key=create-topic', top);
+        return this.http.post<Topic[]>(this.baseUrl + 'MessagerController.php?Key=create-topic', top);
     }
     sendMessage(mess:any){
     
