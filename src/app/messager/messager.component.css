@@ -275,7 +275,7 @@ h3{
         bottom: 20px;
         opacity: 1;
         padding: 10px;
-        z-index: 300;
+        z-index: 1000;
         background-color: rgb(69, 189, 69); 
         font-size: 30px;
         color: white;
@@ -297,6 +297,7 @@ h3{
         margin: auto;
         left:auto;
         right:auto;
+        z-index: 999 !important;
     }
     
     .ProfileShow{
