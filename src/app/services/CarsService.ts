@@ -7,6 +7,8 @@ export class CarsService implements OnInit {
     showCarInfo = false;
     showBookingForm = false;
     bookings: BookTimes[];
+    DateStart:Date = undefined;
+    DateFinish:Date = undefined;
     public car: Car = null;
     baseUrl:string='http://client.nomokoiw.beget.tech/back/';
     //baseUrl = 'http://localhost:80/CCPHP/';

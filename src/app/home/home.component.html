@@ -1,79 +1,78 @@
 <div class="description">
     <h2>{{'FIND_CAR' | translate}}</h2>
     <div class="search-form">
-        <form [formGroup]="searchForm" >
+        <form >
             
             
             <div class="row">
                 <div class="col-sm-6">
                     <div class="item">
-                        <span [ngClass]="{ 'is-invalid': submitted && f.Pick.errors }">{{"PICK_UP_LOCATION" | translate}}</span>
-                        <select class="input" formControlName="Pick" [ngClass]="{ 'is-invalid': submitted && f.Pick.errors }" >
-                            <option *ngFor="let t of locations">{{t | translate}}</option>
+                        <!-- <span [ngClass]="{ 'is-invalid': submitted && f.Pick.errors }">{{"PICK_UP_LOCATION" | translate}}</span> -->
+                        <select [(ngModel)]="search.Pick" [ngModelOptions]="{standalone: true}" class="input"  [ngClass]="{ 'is-invalid': submitted && f.Pick.errors }" >
+                            <option *ngFor="let t of locations" value="{{t}}">{{t | translate}}</option>
                         </select>
-                        <div *ngIf="submitted && f.Pick.errors" class="invalid-feedback">
+                        <!-- <div *ngIf="submitted && f.Pick.errors" class="invalid-feedback">
                             <span class="d-block is-invalid" *ngIf="f.Pick.errors.required">{{"PICK_UP_VALIDATION" | translate}}</span>
                 
-                        </div>
+                        </div> -->
                     </div>
                     <div class="item">
-                        <span [ngClass]="{ 'is-invalid': submitted && errors.DateStart }">{{"DATE_START" | translate}}</span>
+                        <!-- <span [ngClass]="{ 'is-invalid': submitted && errors.DateStart }">{{"DATE_START" | translate}}</span> -->
                         <date-picker  
                           [Out]="search" 
                           [Prop]="'DateStart'" 
-                          [Errors]="errors"
+                          [MinDate]="DStart"
                         ></date-picker>
-                        <div *ngIf="submitted && errors.DateStart" class="invalid-feedback">
+                        <!-- <div *ngIf="submitted && errors.DateStart" class="invalid-feedback">
                         
                             <span class="d-block is-invalid" *ngIf="errors.DateStart">{{"ENTER_DATE" | translate}}</span>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="item">
-                        <span [ngClass]="{ 'is-invalid': submitted && f.PickTime.errors }">{{"PICK_UP_TIME" | translate}}</span>
-                        <select class="input" formControlName="PickTime" [ngClass]="{ 'is-invalid': submitted && f.PickTime.errors }" >
+                        <!-- <span [ngClass]="{ 'is-invalid': submitted && f.PickTime.errors }">{{"PICK_UP_TIME" | translate}}</span> -->
+                        <select [(ngModel)]="search.PickTime" [ngModelOptions]="{standalone: true}" class="input"  [ngClass]="{ 'is-invalid': submitted && f.PickTime.errors }" >
                             <option *ngFor="let t of times">{{t}}</option>
                         </select>
-                        <div *ngIf="submitted && f.PickTime.errors" class="invalid-feedback">
+                        <!-- <div *ngIf="submitted && f.PickTime.errors" class="invalid-feedback">
                             <span class="d-block is-invalid" *ngIf="f.PickTime.errors.required">{{"PICK_UP_TIME_VALIDATION" | translate}}</span>
                 
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="item">
-                        <span [ngClass]="{ 'is-invalid': submitted && f.Drop.errors }">{{"DROP_OFF_LOCATION" | translate}}</span>
-                        <select class="input" formControlName="Drop" [ngClass]="{ 'is-invalid': submitted && f.Drop.errors }" >
-                            <option *ngFor="let t of locations">{{t | translate}}</option>
+                        <!-- <span [ngClass]="{ 'is-invalid': submitted && f.Drop.errors }">{{"DROP_OFF_LOCATION" | translate}}</span> -->
+                        <select [(ngModel)]="search.Drop" [ngModelOptions]="{standalone: true}" class="input"  [ngClass]="{ 'is-invalid': submitted && f.Drop.errors }" >
+                            <option *ngFor="let t of locations" value="{{t}}">{{t | translate}}</option>
                         </select>
 
-                        <div *ngIf="submitted && f.Drop.errors" class="invalid-feedback">
+                        <!-- <div *ngIf="submitted && f.Drop.errors" class="invalid-feedback">
                             <span class="d-block is-invalid" *ngIf="f.Drop.errors.required">{{"DROP_OFF_VALIDATION" | translate}}</span>
                         
-                        </div>
+                        </div> -->
                     </div>
                     <div class="item">
-                        <span [ngClass]="{ 'is-invalid': submitted && errors.DateFinish }">{{"DATE_END" | translate}}</span>
+                        <!-- <span [ngClass]="{ 'is-invalid': submitted && errors.DateFinish }">{{"DATE_END" | translate}}</span> -->
                         <date-picker  
                           [Out]="search" 
                           [Prop]="'DateFinish'" 
-                          [Errors]="errors"
                           [DateStart]="search.DateStart"
                           [DateFinish]="search.DateFinish"
                         ></date-picker>
-                        <div *ngIf="submitted && errors.DateFinish" class="invalid-feedback">
+                        <!-- <div *ngIf="submitted && errors.DateFinish" class="invalid-feedback">
                             <span class="d-block is-invalid" *ngIf="errors.DateFinish">{{"ENTER_DATE" | translate}}</span>
                         
-                        </div>
+                        </div> -->
                     </div>
                     <div class="item">
-                        <span [ngClass]="{ 'is-invalid': submitted && f.DropTime.errors }">{{"DROP_OFF_TIME" | translate}}</span>
-                        <select class="input" formControlName="DropTime" [ngClass]="{ 'is-invalid': submitted && f.DropTime.errors }"  >
-                            <option *ngFor="let t of times">{{t}}</option>
+                        <!-- <span [ngClass]="{ 'is-invalid': submitted && f.DropTime.errors }">{{"DROP_OFF_TIME" | translate}}</span> -->
+                        <select [(ngModel)]="search.DropTime" [ngModelOptions]="{standalone: true}" class="input"  [ngClass]="{ 'is-invalid': submitted && f.DropTime.errors }"  >
+                            <option *ngFor="let t of times" value="{{t}}">{{t}}</option>
                         </select>
-                        <div *ngIf="submitted && f.DropTime.errors" class="invalid-feedback">
+                        <!-- <div *ngIf="submitted && f.DropTime.errors" class="invalid-feedback">
                             <span class="d-block is-invalid" *ngIf="f.DropTime.errors.required">{{"DROP_OFF_TIME_VALIDATION" | translate}}</span>
                 
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -82,7 +81,7 @@
         
             
             <div class="buttons">
-                <button class="btn btn-success" >{{'SEARCH' | translate}}</button>
+                <button class="btn btn-success" (click)="Search()">{{'SEARCH' | translate}}</button>
             
             </div>
         

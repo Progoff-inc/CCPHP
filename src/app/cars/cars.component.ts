@@ -24,6 +24,7 @@ export class CarsComponent {
   public filter:Filter[]=[];
   public cars:Car[] = [];
   photos:string[];
+  showPrices = false;
   showPhotos:any = {show:false};
   filteredCars:Car[];
   
@@ -36,8 +37,8 @@ export class CarsComponent {
         
         this.cars=data;
       }
-      else{
-        
+      if(this.service.DateStart && this.service.DateFinish){
+        this.showPrices = true;
       }
       this.filteredCars=this.cars;
       this.load=false;
@@ -68,14 +69,14 @@ export class CarsComponent {
     this.service.showCarInfo=true;
   }
   getCarPrice(car:Car, discount:boolean){
-    if(car.Sales.length>0){
-      if(discount){
-        return Math.max.apply( Math, car.Sales.map(x => x.Discount) );
+    if(this.showPrices){
+      console.log(this.service.DateStart.getMonth());
+      if(this.service.DateStart.getMonth()>4 && this.service.DateStart.getMonth()<8){
+        return car.SPrice;
       }
       else{
-        return Math.min.apply( Math, car.Sales.map(x => x.NewPrice) );
+        return car.WPrice;
       }
-      
     }
   }
 

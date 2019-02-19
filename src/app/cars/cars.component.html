@@ -27,11 +27,11 @@
               <div  class="car-img">
                 <img src="{{car.Photo}}" alt="">
                 <div (click)="showCarInfo(car)" class="blur"></div>
-                <!-- <div [ngClass]="{'price':car.Sales.length==0, 'sale-price':car.Sales.length>0}">
+                <div *ngIf="showPrices"  [ngClass]="{'price':true}">
                 
-                  <span>{{car.Sales.length>0?getCarPrice(car):car.Price}}€</span>
+                  <span>{{getCarPrice(car)}}€</span>
                 </div>
-                <div *ngIf="car.Sales.length>0" class="discount">
+                <!-- <div *ngIf="car.Sales.length>0" class="discount">
                   <span>{{getCarPrice(car,true)}}</span>
                 </div> -->
                 <div class="rating">
