@@ -133,6 +133,8 @@
     "MINIVAN":"Minivan",
     "MANUAL":"Manual",
     "AUTOMATIC":"Automatic",
+    "MT":"Manual",
+    "AT":"Automatic",
     "GROUPE":"Groupe",
     "ECONOMY":"Economy",
     "FULL_SIZED":"Full-sized",
