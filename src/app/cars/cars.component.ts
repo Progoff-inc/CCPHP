@@ -68,7 +68,7 @@ export class CarsComponent {
 
     this.service.showCarInfo=true;
   }
-  getCarPrice(car:Car, discount:boolean){
+  getCarPrice(car:Car){
     if(this.showPrices){
       console.log(this.service.DateStart.getMonth());
       if(this.service.DateStart.getMonth()>4 && this.service.DateStart.getMonth()<8){
@@ -115,10 +115,11 @@ export class CarsComponent {
         break;
       }
       case "price":{
+        var vm = this;
         this.filteredCars.sort(function(a, b){
 
-          let a1 = Number(this.getCarPrice(a));
-          let b1 = Number(this.getCarPrice(b));
+          let a1 = Number(vm.getCarPrice(a));
+          let b1 = Number(vm.getCarPrice(b));
           return sort?(a1>b1?1:-1):(a1<b1?1:-1);
         })
         break;
