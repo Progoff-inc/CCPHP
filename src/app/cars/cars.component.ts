@@ -17,8 +17,8 @@ export class CarsComponent {
   CurSorting:string;
   public user:User;
   CurFilters=[];
-  filters:Filter[] = [{Name:"Passengers", Values:['4', '5','7', '9']},{Name:"Body", Values:['HATCHBACK','CROSSOVER', 'CABRIOLET', 'MINIVAN']},
-  {Name:"Transmission", Values:['MANUAL','AUTOMATIC']}, {Name:"Fuel", Values:['PETROL','DEISEL']}
+  filters:Filter[] = [{Name:"Passengers", Values:['4', '5','7', '9']},{Name:"BodyType", Values:['HATCHBACK','CROSSOVER', 'CABRIOLET', 'MINIVAN']},
+  {Name:"Transmission", Values:['MT','AT']}, {Name:"Fuel", Values:['PETROL','DEISEL']}
   ];
   public alert:AlertService = new AlertService();
   public filter:Filter[]=[];
