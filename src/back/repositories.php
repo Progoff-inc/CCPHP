@@ -32,6 +32,7 @@ class DataBase {
         $cars = [];
         while($car = $sth->fetch()){
             $car->Prices = $this->getCarPrices($car->Id);
+            $car->Reports = $this->getCarReports($car->Id);
             $cars[] = $car;
         }
         return $cars;
@@ -155,8 +156,10 @@ class DataBase {
         }
     } 
     public function getReportCar($id){
+        
         if($id>0){
-            $s = $this->db->prepare("SELECT Id,Photo,Model,Price FROM cars WHERE Id=?");
+            
+            $s = $this->db->prepare("SELECT Id,Photo,Model FROM cars WHERE Id=?");
             $s->execute(array($id));
             $s->setFetchMode(PDO::FETCH_CLASS, 'ReportCar');
             return $s->fetch();
@@ -235,7 +238,13 @@ class DataBase {
         $s = $this->db->prepare("SELECT * FROM books WHERE UserId=?");
         $s->execute(array($id));
         $s->setFetchMode(PDO::FETCH_CLASS, 'Book');
-        return $s->fetchAll();
+        $books =[];
+        while($b = $s->fetch()){
+            $b->Car = $this->getReportCar($b->CarId);
+            $b->User = $this->getReportUser($b->UserId);
+            $books[] = $b;
+        }
+        return $books;
     }
     
     public function addUser($n, $e, $p, $ph, $l){
