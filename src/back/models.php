@@ -105,7 +105,6 @@ class Book{
     public $CarId;
     public $SaleId;
     public $DateStart;
-    public $ExtraDateStart;
     public $DateFinish;
     public $Price;
     public $Place;
