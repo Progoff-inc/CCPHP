@@ -132,10 +132,11 @@ export class AddComponent implements OnInit {
     this.carsService.AddCar(this.carForm.value).subscribe((CarId)=>{
       
       console.log(CarId);
-      // this.carsService.AddPrices(CarID, this.Prices).subscribe(()=>{
-      //   this.Prices = new carPrices();
-      //   this.carForm.reset();
-      // })
+      this.carsService.AddPrices(CarId, this.Prices).subscribe((data)=>{
+        console.log(data);
+        // this.Prices = new CarPrices();
+        // this.carForm.reset();
+      })
     })
   }
   checkPrices(){

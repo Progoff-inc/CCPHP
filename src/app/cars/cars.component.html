@@ -5,10 +5,13 @@
       <h4 class="show-filters" (click)="showFilters()"><b>{{(ShowFilters?'CLOSE_FILTERS':'SHOW_FILTERS') | translate}} <i class="fa fa-filter" aria-hidden="true"></i></b></h4>
       <div class="sortings">
           <h4><b>{{'SORT_BY' | translate}}:</b></h4>
-          <span (click)="Sort('popularity')" [ngClass]="{'active-sort':CurSorting=='popularity'}">{{'POPULAR_SORTING' | translate}}</span>
-          <span *ngIf="showPrices" (click)="Sort('price')" [ngClass]="{'active-sort':CurSorting=='price'}">{{'PRICE_SORTING' | translate}}</span>
-          <span (click)="Sort('raiting')" [ngClass]="{'active-sort':CurSorting=='raiting'}">{{'RAITING_SORTING' | translate}}</span>
-          <span (click)="ChangeSort()"><i class="fa fa-sort-asc" [ngClass]='{"fa-sort-asc":SortUp, "fa-sort-desc":!SortUp}' aria-hidden="true"></i></span>
+          <div class="d-flex flex-wrap">
+            <span (click)="Sort('popularity')" [ngClass]="{'active-sort':CurSorting=='popularity'}">{{'POPULAR_SORTING' | translate}}</span>
+            <span *ngIf="showPrices" (click)="Sort('price')" [ngClass]="{'active-sort':CurSorting=='price'}">{{'PRICE_SORTING' | translate}}</span>
+            <span (click)="Sort('raiting')" [ngClass]="{'active-sort':CurSorting=='raiting'}">{{'RAITING_SORTING' | translate}}</span>
+            <span (click)="ChangeSort()"><i class="fa fa-sort-asc" [ngClass]='{"fa-sort-asc":SortUp, "fa-sort-desc":!SortUp}' aria-hidden="true"></i></span>
+          </div>
+          
       </div>
     </div>
     

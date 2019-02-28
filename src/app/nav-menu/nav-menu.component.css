@@ -155,7 +155,7 @@ li.link-active a:focus {
     
     border-radius: 0 0 50% 50%;
     height: 15px;
-    bottom: -15px;
+    bottom: -14px;
     z-index: 300;
     width: 100%;
     box-shadow: 0 3px 3px black;
@@ -317,7 +317,7 @@ li.link-active a:focus {
         
         border-radius: 0 0 50% 50%;
         height: 15px;
-        bottom: -15px;
+        bottom: -14px;
         z-index: 320;
         width: 100%;
         box-shadow: 0 3px 3px black;
