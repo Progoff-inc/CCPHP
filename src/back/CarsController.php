@@ -45,7 +45,7 @@ if(isset($_GET['Key']))
             break;
         case 'add-price':
             $b = json_decode(file_get_contents('php://input'), true);  
-            echo json_encode($ctxt->addPrices($b));
+            echo json_encode($ctxt->addPrices($_GET['Id'],$b));
             break;
         case 'add-booking':
             $b = json_decode(file_get_contents('php://input'), true); 

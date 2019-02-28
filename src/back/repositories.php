@@ -39,11 +39,10 @@ class DataBase {
     }
     public function addCar($car){
         $res = $this->genInsertQuery($car,"cars");
-        $fff = (string)$res[0];
-        $s = $this->db->prepare($fff);
+        $s = $this->db->prepare("INSERT INTO cars (Model,Photo,SPrice,WPrice,BodyType,Passengers,Doors,Groupe,MinAge,Power,Consumption,Transmission,Fuel,AC,ABS,AirBags,Radio,Description,Description_Eng) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
         $s->execute($res[1]);
         
-        return $res[0]==='INSERT INTO cars (Model,Photo,SPrice,WPrice,BodyType,Passengers,Doors,Groupe,MinAge,Power,Consumption,Transmission,Fuel,AC,ABS,AirBags,Radio,Description,Description_ENG) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);';
+        return $this->db->lastInsertId();;
     }
     public function addBooking($book){
         $res = $this->genInsertQuery($book,"books");
@@ -51,10 +50,19 @@ class DataBase {
         $s->execute($res[1]); 
         return $res;
     }
-    public function addPrices($p){
-        $a = (array)$p->SPrice;
-        $a['Id'] = $p->Id; 
-        return $this->genInsertQuery($a);
+    public function addPrices($id,$p){
+        $a = (array)$p['SummerPrices'];
+        $a['Id'] = $id; 
+        $q = $this->genInsertQuery($a,"summer_prices");
+        $s = $this->db->prepare("INSERT INTO summer_prices (OneDayPrice,TwoDaysPrice,ThreeDaysPrice,FourDaysPrice,FiveDaysPrice,SixDaysPrice,SevenDaysPrice,Id) VALUES (?,?,?,?,?,?,?,?);");
+        $s->execute($q[1]);
+        $w = (array)$p['WinterPrices'];
+        $w['Id'] = $id; 
+        $q = $this->genInsertQuery($w,"winter_prices");
+        
+        $s = $this->db->prepare("INSERT INTO winter_prices (OneDayPrice,TwoDaysPrice,ThreeDaysPrice,FourDaysPrice,FiveDaysPrice,SixDaysPrice,SevenDaysPrice,Id) VALUES (?,?,?,?,?,?,?,?);");
+        $s->execute($q[1]);
+        return $q[0];
     }
     public function getCar($id, $reports=true) {
         $s = $this->db->prepare("SELECT * FROM cars WHERE Id=?");
