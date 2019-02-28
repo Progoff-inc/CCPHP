@@ -1,7 +1,8 @@
 .topmenu{
     z-index: 1;
     position: relative;
-    background-color: #0B61A4;
+    /* background-color: #0B61A4; */
+    background-color: rgb(182, 22, 32);
     max-height: 103px;
     
 }
@@ -14,7 +15,8 @@
     
     height: 45px;
     position: relative;
-    background-color: #0B61A4;
+    /* background-color: #0B61A4; */
+    background-color: rgb(182, 22, 32);
     background-image: none !important;
     z-index: 800;
     transition: 0.5s;
@@ -123,7 +125,8 @@ li.link-active a:focus {
   
 }
 .in{
-    background-color: #0B61A4;
+    /* background-color: #0B61A4; */
+    background-color: rgb(182, 22, 32);
 }
 .navbar{
     
@@ -151,8 +154,8 @@ li.link-active a:focus {
 .navbar-inverse::after{
     content: '';
     position: absolute;
-    background-color: #0B61A4;
-    
+    /* background-color: #0B61A4; */
+    background-color: rgb(182, 22, 32);
     border-radius: 0 0 50% 50%;
     height: 15px;
     bottom: -14px;
@@ -313,8 +316,8 @@ li.link-active a:focus {
       .navbar-collapse::after{
         content: '';
         position: absolute;
-        background-color: #0B61A4;
-        
+        /* background-color: #0B61A4; */
+        background-color: rgb(182, 22, 32);
         border-radius: 0 0 50% 50%;
         height: 15px;
         bottom: -14px;
@@ -366,7 +369,8 @@ li.link-active a:focus {
         float: none !important;
     }
     .navbar-toggle{
-        background-color: #0B61A4 !important;
+        /* background-color: #0B61A4 !important; */
+        background-color: rgb(182, 22, 32);
     }
     .navbar-toggle {
         border:none;

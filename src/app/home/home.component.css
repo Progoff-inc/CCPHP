@@ -10,7 +10,8 @@
     align-items: center;
     color: white;
     margin-top: -20px;
-    background-color: #0B61A4;
+    /* background-color: #0B61A4; */
+    background-color: rgb(182, 22, 32);
 }
 .description .item{
     color: black;
