@@ -39,6 +39,8 @@ import {TranslateService} from '@ngx-translate/core';
 import { SameCarsComponent } from './same-cars/same-cars.component';
 import { PhotoViewerComponent } from './photo-viewer/photo-viewer.component';
 import { AddComponent } from './add/add.component';
+import { LoadComponent } from './load/load.component';
+import { LoadService } from './services/load.service';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
@@ -73,7 +75,8 @@ export function HttpLoaderFactory1(http: HttpClient) {
     DatePickerComponent,
     SameCarsComponent,
     PhotoViewerComponent,
-    AddComponent
+    AddComponent,
+    LoadComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -103,7 +106,7 @@ export function HttpLoaderFactory1(http: HttpClient) {
       { path: 'add', component: AddComponent},
     ],{ useHash: true})
   ],
-  providers: [TranslateService, UserService, CarsService, AlertService, FeedBackService, MessagerService, HttpClient],
+  providers: [TranslateService, UserService, CarsService, AlertService, FeedBackService, MessagerService, HttpClient, LoadService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

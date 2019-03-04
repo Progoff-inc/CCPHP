@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from '@angular/common/http'
 import { NewCar, Car, CarsService, ReportCar, Contains } from '../services/CarsService';
 import { TranslateService } from '../../../node_modules/@ngx-translate/core';
+import { LoadService } from '../services/load.service';
 
 
 @Component({
@@ -31,11 +32,13 @@ export class UserProfileComponent implements OnInit {
   changes:boolean[]=[false,false,false];
   changeValues:string[]=["","",""];
   submittes:boolean[]=[false,false,false];
-  constructor(public translate:TranslateService, public carsService:CarsService, private http: HttpClient, public userService:UserService, private router: Router) { }
+  constructor(private ls:LoadService, public translate:TranslateService, public carsService:CarsService, private http: HttpClient, public userService:UserService, private router: Router) { }
 
   ngOnInit() {
     if(localStorage.getItem("currentUser")){
+      this.ls.showLoad = true;
       this.userService.currentUser=JSON.parse(localStorage.getItem("currentUser"));
+      
       this.userService.GetUserById(this.userService.currentUser.Id).subscribe(data => {
         data.Topics.forEach(x => {
           x.ModifyDate= new Date(x.ModifyDate);
@@ -46,7 +49,7 @@ export class UserProfileComponent implements OnInit {
         this.changeValues[0]=data.Email;
         this.changeValues[1]=data.Phone;
         localStorage.setItem('currentUser',JSON.stringify(data));
-       
+        this.ls.showLoad=false;
       })
       if(this.userService.currentUser.IsAdmin){
         this.carsService.GetReportCars().subscribe( data => {

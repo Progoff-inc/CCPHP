@@ -5,6 +5,7 @@ import { AlertService } from '../services/AlertService';
 import { CarsService, ReportCar } from '../services/CarsService';
 import { FeedBackService, ShortFeedBack } from '../services/FeedBackService';
 import { ReportComment, UserService, FeedBack, Like } from '../services/UserService';
+import { LoadService } from '../services/load.service';
 
 @Component({
   selector: 'feedback',
@@ -28,7 +29,7 @@ export class FeedbackComponent implements OnInit, OnChanges {
   buttons:boolean[] = [];
   alertService = new AlertService(); 
   
-  constructor(private carsService:CarsService, private formBuilder: FormBuilder, public feedBackService:FeedBackService, public userService:UserService){}
+  constructor(private ls:LoadService, private carsService:CarsService, private formBuilder: FormBuilder, public feedBackService:FeedBackService, public userService:UserService){}
 
   ngOnChanges(ch:SimpleChanges){
     if(ch.reports){
@@ -47,6 +48,7 @@ export class FeedbackComponent implements OnInit, OnChanges {
 
       this.autorized=true;
     }
+    this.ls.showLoad = true;
     this.carsService.GetReportCars().subscribe( data => {
       this.cars=data;
       console.log(data);
@@ -62,6 +64,7 @@ export class FeedbackComponent implements OnInit, OnChanges {
       this.feedBackService.number=this.reports.length;
  
       this.feedBackService.changePage(0,21);
+      this.ls.showLoad = false;
     }
     
     
@@ -71,6 +74,7 @@ export class FeedbackComponent implements OnInit, OnChanges {
     this.commentForm = this.formBuilder.group({
       report:['', Validators.required]
     });
+    
   }
   getLikes(com:any, islike:boolean){
     let res = com.Likes.filter(x => x.IsLike == islike).length;
@@ -109,6 +113,7 @@ export class FeedbackComponent implements OnInit, OnChanges {
         let like = {Id:0,UserId: this.userService.currentUser.Id, OwnerId:report.Id, Type:type,IsLike:IsLike};
         console.log(like);
         this.feedBackService.addLikeOrDislike(like).subscribe((data) =>{
+          console.log(data);
           like.Id = data;
           report.Likes.push(like);
           console.log(report);

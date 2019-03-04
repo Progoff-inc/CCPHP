@@ -3,6 +3,7 @@ import { NewCar, CarsService, Contains, Car, CarPrices } from '../services/CarsS
 import { TranslateService } from '@ngx-translate/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { LoadService } from '../services/load.service';
 
 @Component({
   selector: 'app-add',
@@ -18,12 +19,13 @@ export class AddComponent implements OnInit {
   Includes:Contains = new Contains();
   change:Change = new Change();
   changeP:Change = new Change();
-  constructor(private fb:FormBuilder, private route:ActivatedRoute, private carsService:CarsService, public translate:TranslateService) { 
+  constructor(private ls:LoadService, private fb:FormBuilder, private route:ActivatedRoute, private carsService:CarsService, public translate:TranslateService) { 
     this.route.queryParams.subscribe(
       (queryParam: any) => {
           this.car.Id = queryParam['CarId'];
           if(this.car.Id>0){
             this.showBtn=false;
+            this.ls.showLoad=true;
             this.carsService.GetCar(this.car.Id.toString()).subscribe(data => {
               this.car = data;
               this.carForm = this.fb.group({
@@ -51,6 +53,7 @@ export class AddComponent implements OnInit {
               this.carForm.valueChanges.subscribe(data => {
                 this.checkUpdate();
               })
+              this.ls.showLoad=false;
             })
           }else{
             
@@ -128,14 +131,16 @@ export class AddComponent implements OnInit {
       return;
     }
     
-    console.log(this.carForm.value);
+    this.ls.showLoad=true;
     this.carsService.AddCar(this.carForm.value).subscribe((CarId)=>{
       
       console.log(CarId);
       this.carsService.AddPrices(CarId, this.Prices).subscribe((data)=>{
         console.log(data);
-        // this.Prices = new CarPrices();
-        // this.carForm.reset();
+        this.Prices = new CarPrices();
+        this.carForm.reset();
+        this.ls.showLoad=false;
+        this.carSubmitted=false;
       })
     })
   }
@@ -152,6 +157,7 @@ export class AddComponent implements OnInit {
   }
   updateCar(){
     console.log(this.car.Id);
+    this.ls.showLoad=true;
     if(this.change.Keys.length>0){
       this.carsService.UpdateCar(this.change, this.car.Id).subscribe((data)=>{
         console.log(data);
@@ -160,12 +166,14 @@ export class AddComponent implements OnInit {
         }
         this.change=new Change();
         this.showBtn = false;
+        this.ls.showLoad=false;
       })
     }
     if(this.changeP.Keys.length>0){
       this.carsService.UpdatePrices(this.changeP, this.car.Id).subscribe((data)=>{
         console.log(data);
         this.car.Prices = JSON.parse(JSON.stringify(this.Prices));
+        this.ls.showLoad=false;
       })
     }
     

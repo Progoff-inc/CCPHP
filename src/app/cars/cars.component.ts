@@ -3,6 +3,7 @@ import { AlertService } from '../services/AlertService';
 
 import {User} from '../services/UserService';
 import {CarsService, Car, Filter, Book} from '../services/CarsService';
+import { LoadService } from '../services/load.service';
 
 @Component({
   selector: 'cars',
@@ -11,7 +12,6 @@ import {CarsService, Car, Filter, Book} from '../services/CarsService';
 
 })
 export class CarsComponent {
-  load:boolean=true;
   ShowFilters = window.innerWidth<992?false:true;
   SortUp = true;
   CurSorting:string;
@@ -28,9 +28,9 @@ export class CarsComponent {
   showPhotos:any = {show:false};
   filteredCars:Car[];
   
-  constructor(public service:CarsService) {
+  constructor(public service:CarsService, private ls:LoadService) {
     service.ngOnInit();
-    
+    this.ls.showLoad = true;
     this.service.GetCars().subscribe(data => {
       console.log(data);
       if(data.length!=0){
@@ -41,7 +41,7 @@ export class CarsComponent {
         this.showPrices = true;
       }
       this.filteredCars=this.cars;
-      this.load=false;
+      this.ls.showLoad = false;
       
     })
   }

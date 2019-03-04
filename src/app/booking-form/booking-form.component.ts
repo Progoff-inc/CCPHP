@@ -6,6 +6,7 @@ import {User, ShowSale, UserService} from '../services/UserService';
 import { ActivatedRoute, Route, Router, NavigationEnd } from "@angular/router";
 import {TranslateService} from '@ngx-translate/core';
 import {Observable, Subscription} from 'rxjs';
+import { LoadService } from '../services/load.service';
 
 @Component({
   selector: 'booking-form',
@@ -36,7 +37,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
   locations:string[] = ['Аэропорт Ираклиона','Андреа Папандреу','Херсонисос'];
   
   
-  constructor(public translate: TranslateService,private formBuilder: FormBuilder,private router:Router, private route: ActivatedRoute, public service:CarsService, private us:UserService, public alert:AlertService) { 
+  constructor(private ls:LoadService, public translate: TranslateService,private formBuilder: FormBuilder,private router:Router, private route: ActivatedRoute, public service:CarsService, private us:UserService, public alert:AlertService) { 
     this.sale.Id = 0;
     this.book.DateFinish = null;
     this.book.DateStart =null;
@@ -78,7 +79,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
         this.errors.DateFinish = true;
         return
       }
-      
+      this.ls.showLoad = true;
       if(localStorage.getItem("currentUser")){
         
         this.book = {
@@ -199,6 +200,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
     }
     
     ngOnInit() {
+      this.ls.showLoad = true;
       this.errors={DateStrart:true, DateFinish:true};
       this.showBook = false;
       this.minDate = new Date();
@@ -271,7 +273,10 @@ export class BookingFormComponent implements OnInit, OnChanges {
         //   return {Discount:x.Discount, Id:x.Id, NewPrice:x.NewPrice, Checked:false, DaysNumber:x.DaysNumber}
         // })
         this.route.queryParamMap.subscribe(data => this.chooseNewSale(Number(data.get('saleId'))));
-      }})
+        
+      }
+      this.ls.showLoad = false;
+    })
   }
   chooseSale(sale:any){
     if(!sale.Checked){

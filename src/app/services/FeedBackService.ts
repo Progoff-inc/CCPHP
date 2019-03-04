@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject, Injectable } from '@angular/core';
 import {User, ReportComment, FeedBack, Like} from '../services/UserService';
 import {CarsService, Car, Book} from '../services/CarsService';
+import { LoadService } from './load.service';
 
 
 
@@ -14,7 +15,7 @@ export class FeedBackService{
   baseUrl:string='http://client.nomokoiw.beget.tech/back/';
   //baseUrl:string='http://localhost:80/CCPHP/';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private ls:LoadService) {
     
     
   }
@@ -30,7 +31,7 @@ export class FeedBackService{
       })
       this.number=this.reports.length;
       this.changePage(0,21);
-      console.log(this.curReports);
+      this.ls.showLoad=false;
     })
   }
   saveReport(report:ShortFeedBack){

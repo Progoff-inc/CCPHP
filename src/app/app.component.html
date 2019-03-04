@@ -1,7 +1,11 @@
 <app-nav-menu [service]='service'></app-nav-menu> 
-<router-outlet></router-outlet>
+<div style="min-height:70vh">
+    <router-outlet></router-outlet>
+</div>
+
 <same-cars *ngIf="showSameCars" [CarId]="CarId"></same-cars>
 <!-- <sales></sales> -->
 <footer></footer>
 <messager *ngIf="showMes"></messager>
 <span class="scroll" (click)="scroll()" [ngClass]="{'scroll-show':showButtonUp}"><i class="fa fa-arrow-up" aria-hidden="true"></i></span>
+<app-load></app-load>
