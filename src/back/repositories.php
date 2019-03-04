@@ -158,6 +158,25 @@ class DataBase {
         $s->execute($a[1]);
         return $a;
     }
+    public function updatePrices($c, $id){
+        $a = array();
+        for ($i = 0; $i < count($c['Keys']); $i++) {
+            if($c['Keys'][$i]=='SummerPrices'){
+                $a=$this->genUpdateQuery(array_keys($c['Values'][$i]), array_values($c['Values'][$i]), "summer_prices", $id);
+                $s = $this->db->prepare($a[0]);
+                $s->execute($a[1]);
+            }
+            if($c['Keys'][$i]=='WinterPrices'){
+                $a=$this->genUpdateQuery(array_keys($c['Values'][$i]), array_values($c['Values'][$i]), "winter_prices", $id);
+                $s = $this->db->prepare($a[0]);
+                $s->execute($a[1]);
+            }
+            
+        }
+        
+        
+        return $c;
+    }
     
     public function getReportComments($rid){
         $s = $this->db->prepare("SELECT * FROM comments WHERE FeedBackId=?");

@@ -163,7 +163,8 @@ export class AddComponent implements OnInit {
       })
     }
     if(this.changeP.Keys.length>0){
-      this.carsService.UpdatePrices(this.changeP).subscribe((data)=>{
+      this.carsService.UpdatePrices(this.changeP, this.car.Id).subscribe((data)=>{
+        console.log(data);
         this.car.Prices = JSON.parse(JSON.stringify(this.Prices));
       })
     }

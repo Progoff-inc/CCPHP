@@ -46,8 +46,8 @@ export class CarsService implements OnInit {
 
         return this.http.post<Car>(this.baseUrl + 'CarsController.php?Key=update-car&Id=' + id, car);
     }
-    UpdatePrices(Price) {
-        return this.http.post<Prices>(this.baseUrl + 'CarsController.php?Key=update-price', Price);
+    UpdatePrices(Price, id) {
+        return this.http.post<Prices>(this.baseUrl + 'CarsController.php?Key=update-prices&Id=' + id, Price);
     }
     BookCar(book: any) {
         // tslint:disable-next-line:max-line-length
