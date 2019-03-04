@@ -24,6 +24,20 @@ class DataBase {
         return $res;
         
     }
+    private function genUpdateQuery($keys, $values, $t, $id){
+        $res = array('UPDATE '.$t.' SET ',array());
+        $q = '';
+        for ($i = 0; $i < count($keys); $i++) {
+            $res[0] = $res[0].$keys[$i].'=?, ';
+            $res[1][]=$values[$i];
+            
+        }
+        $res[0]=rtrim($res[0],', ');
+        $res[0]=$res[0].' WHERE Id = '.$id;
+        
+        return $res;
+        
+    }
     
     //####################Cars Controller#########################
     public function getCars() {
@@ -42,7 +56,7 @@ class DataBase {
         $s = $this->db->prepare("INSERT INTO cars (Model,Photo,SPrice,WPrice,BodyType,Passengers,Doors,Groupe,MinAge,Power,Consumption,Transmission,Fuel,AC,ABS,AirBags,Radio,Description,Description_Eng) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
         $s->execute($res[1]);
         
-        return $this->db->lastInsertId();;
+        return $this->db->lastInsertId();
     }
     public function addBooking($book){
         $res = $this->genInsertQuery($book,"books");
@@ -133,6 +147,13 @@ class DataBase {
     
     public function addReport($r){
         $a = $this->genInsertQuery($r, "feedbacks");
+        $s = $this->db->prepare($a[0]);
+        $s->execute($a[1]);
+        return $a;
+    }
+    
+    public function updateCar($c, $id){
+        $a = $this->genUpdateQuery($c['Keys'], $c['Values'], "cars", $id);
         $s = $this->db->prepare($a[0]);
         $s->execute($a[1]);
         return $a;

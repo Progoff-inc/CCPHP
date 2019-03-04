@@ -51,6 +51,10 @@ if(isset($_GET['Key']))
             $b = json_decode(file_get_contents('php://input'), true); 
             echo json_encode($ctxt->addBooking($b));
             break;
+        case 'update-car':
+            $b = json_decode(file_get_contents('php://input'), true); 
+            echo json_encode($ctxt->updateCar($b, $_GET['Id']));
+            break;
         default:
             echo "Введенный ключ несуществует";
         

@@ -42,9 +42,9 @@ export class CarsService implements OnInit {
     AddPrices(CarId,Price) {
         return this.http.post(this.baseUrl + 'CarsController.php?Key=add-price&Id=' + CarId, Price);
     }
-    UpdateCar(car) {
+    UpdateCar(car, id) {
 
-        return this.http.post<Car>(this.baseUrl + 'CarsController.php?Key=update-car', car);
+        return this.http.post<Car>(this.baseUrl + 'CarsController.php?Key=update-car&Id=' + id, car);
     }
     UpdatePrices(Price) {
         return this.http.post<Prices>(this.baseUrl + 'CarsController.php?Key=update-price', Price);

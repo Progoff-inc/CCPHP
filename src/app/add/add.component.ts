@@ -151,9 +151,15 @@ export class AddComponent implements OnInit {
     return false;
   }
   updateCar(){
+    console.log(this.car.Id);
     if(this.change.Keys.length>0){
-      this.carsService.UpdateCar(this.change).subscribe((data)=>{
-        this.car = JSON.parse(JSON.stringify(this.carForm.value));
+      this.carsService.UpdateCar(this.change, this.car.Id).subscribe((data)=>{
+        console.log(data);
+        for(let i = 0;i<this.change.Keys.length;i++){
+          this.car[this.change.Keys[i]]=this.change.Values[i];
+        }
+        this.change=new Change();
+        this.showBtn = false;
       })
     }
     if(this.changeP.Keys.length>0){
