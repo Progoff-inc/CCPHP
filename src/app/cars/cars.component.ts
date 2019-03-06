@@ -17,8 +17,11 @@ export class CarsComponent {
   CurSorting:string;
   public user:User;
   CurFilters=[];
-  filters:Filter[] = [{Name:"Passengers", Values:['4', '5','7', '9']},{Name:"BodyType", Values:['HATCHBACK','CROSSOVER', 'CABRIOLET', 'MINIVAN']},
-  {Name:"Transmission", Values:['MT','AT']}, {Name:"Fuel", Values:['PETROL','DEISEL']}
+  // filters:Filter[] = [{Name:"Passengers", Values:['4', '5','7', '9']},{Name:"BodyType", Values:['HATCHBACK','CROSSOVER', 'CABRIOLET', 'MINIVAN']},
+  // {Name:"Transmission", Values:['MT','AT']}, {Name:"Fuel", Values:['PETROL','DEISEL']}
+  // ];
+  filters:Filter[] = [{Name:"Passengers", Values:[]},{Name:"BodyType", Values:[]},
+  {Name:"Transmission", Values:[]}, {Name:"Fuel", Values:[]}
   ];
   public alert:AlertService = new AlertService();
   public filter:Filter[]=[];
@@ -47,12 +50,21 @@ export class CarsComponent {
         this.CurFilters = this.service.CurFilters;
         this.Filter();
       }
-      
+      this.getFilters();
       this.ls.showLoad = false;
       
     })
   }
-  
+  getFilters(){
+    this.cars.forEach(car => {
+      for(let i = 0; i<this.filters.length;i++){
+        let prop = car[this.filters[i].Name];
+        if(this.filters[i].Values.map(x => x.toUpperCase()).indexOf(prop.toUpperCase())==-1){
+          this.filters[i].Values.push(prop);
+        }
+      }
+    })
+  }
   bookCar(car:Car){
     this.service.car=car;
 
@@ -81,14 +93,14 @@ export class CarsComponent {
 
   get f() {return this.CurFilters.map(x=>x.Value)}
   addFilter(name:string,value:string){
-    if(this.CurFilters.map(x=>x.Value.toUpperCase()).indexOf(name=='Passengers'?value[0]:value.toUpperCase())==-1){
+    if(this.CurFilters.map(x=>x.Value.toUpperCase()).indexOf(value.toUpperCase())==-1){
      
-      this.CurFilters.push({Name:name,Value:name=='Passengers'?value[0]:value});
+      this.CurFilters.push({Name:name,Value:value});
       
       this.Filter();
     }
     else{
-      this.CurFilters.splice(this.CurFilters.map(x=>x.Value.toUpperCase()).indexOf(name=='Passengers'?value[0]:value.toUpperCase()),1);
+      this.CurFilters.splice(this.CurFilters.map(x=>x.Value.toUpperCase()).indexOf(value.toUpperCase()),1);
       if(this.CurFilters.length>0){
         this.Filter();
       }
