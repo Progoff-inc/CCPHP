@@ -32,7 +32,7 @@
                 <div (click)="showCarInfo(car)" class="blur"></div>
                 <div *ngIf="showPrices"  [ngClass]="{'price':true}">
                 
-                  <span>{{getCarPrice(car)}}€</span>
+                  <span>{{service.getCarPrice(car)}}€</span>
                 </div>
                 <!-- <div *ngIf="car.Sales.length>0" class="discount">
                   <span>{{getCarPrice(car,true)}}</span>

@@ -17,15 +17,5 @@ export class CarCardComponent implements OnInit {
       this.showPrices = true;
     }
   }
-  getCarPrice(car:Car){
-    if(this.showPrices){
-      console.log(this.service.DateStart.getMonth());
-      if(this.service.DateStart.getMonth()>4 && this.service.DateStart.getMonth()<8){
-        return car.SPrice;
-      }
-      else{
-        return car.WPrice;
-      }
-    }
-  }
+  
 }

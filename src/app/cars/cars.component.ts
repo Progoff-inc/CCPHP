@@ -58,9 +58,11 @@ export class CarsComponent {
 
     this.service.showBookingForm=true;
   }
+
   showFilters(){
     this.ShowFilters=!this.ShowFilters;
   }
+
   showCarPhotos(id:number){
     this.service.GetCarPhotos(id).subscribe(data => {
       if(data.length>0){
@@ -70,21 +72,12 @@ export class CarsComponent {
       
     })
   }
+
   showCarInfo(car:Car){
     this.service.car=car;
     this.service.showCarInfo=true;
   }
-  getCarPrice(car:Car){
-    if(this.showPrices){
-      console.log(this.service.DateStart.getMonth());
-      if(this.service.DateStart.getMonth()>4 && this.service.DateStart.getMonth()<8){
-        return car.SPrice;
-      }
-      else{
-        return car.WPrice;
-      }
-    }
-  }
+  
 
   get f() {return this.CurFilters.map(x=>x.Value)}
   addFilter(name:string,value:string){
@@ -124,8 +117,8 @@ export class CarsComponent {
         var vm = this;
         this.filteredCars.sort(function(a, b){
 
-          let a1 = Number(vm.getCarPrice(a));
-          let b1 = Number(vm.getCarPrice(b));
+          let a1 = Number(vm.service.getCarPrice(a));
+          let b1 = Number(vm.service.getCarPrice(b));
           return sort?(a1>b1?1:-1):(a1<b1?1:-1);
         })
         break;

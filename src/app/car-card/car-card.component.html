@@ -11,7 +11,7 @@
         </div>
         <div class="col-sm-7">
           <p>{{translate.currentLang=='ru'?service.car.Description:service.car.Description_ENG}}</p>
-          <p *ngIf='showPrices'><span>{{"PRICE" | translate}}:</span> {{getCarPrice(service.car)}}€</p>
+          <p *ngIf='showPrices'><span>{{"PRICE" | translate}}:</span> {{service.getCarPrice(service.car)}}€</p>
         </div>
       </div>
       <div class="sep"></div>
