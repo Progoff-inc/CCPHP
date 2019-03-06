@@ -11,7 +11,7 @@ import { LoadService } from '../services/load.service';
 @Component({
   selector: 'user-profile',
   templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css']
+  styleUrls: ['./user-profile.component.less']
 })
 export class UserProfileComponent implements OnInit {
   @Input() NewAdmin:ReportUser;
@@ -22,6 +22,8 @@ export class UserProfileComponent implements OnInit {
   Includes:Contains = new Contains();
   cars:ReportCar[] = [];
   users:ReportUser[] = [];
+  findUsers = [];
+  curUserPage = 0;
   newAdmin:any = {UserId:0, IsAdmin:null};
   saleErrors:any={DateStrart:true, DateFinish:true};
   newSale:Sale = new Sale();
@@ -172,6 +174,10 @@ export class UserProfileComponent implements OnInit {
       
     }
   }
+
+  changePage(p){
+    this.curUserPage=p;
+  }
   
   addSale(){
     this.saleSubmitted = true;
@@ -202,6 +208,17 @@ export class UserProfileComponent implements OnInit {
       this.adminSubmitted = false;
     })
   }
+  FindUsers(name){
+    this.findUsers = this.setPages(this.users.filter(x => x.Name.indexOf(name)>-1));
+  }
+  
+  setPages(items, n = 1){
+    let pagedItems = [];
+    while(items.length>0){
+        pagedItems.push(items.splice(0,n));
+    }
+    return pagedItems;
+}
   
 
 }

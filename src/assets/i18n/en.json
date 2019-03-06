@@ -229,6 +229,7 @@
     "SEVEN_DAY":"Seven days",
     "PRICE_INPUT":"Enter price",
     "ADD":"Add",
+    "DELETE":"Delete",
 
     "YES":"Yes",
     "NO":"No",
@@ -245,5 +246,5 @@
     "DAYS_NUMBER":"Days number",
 
     "USER":"User",
-    "IS_ADMIN":"Admin rights"
+    "IS_ADMIN":"Administrator"
 }
