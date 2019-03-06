@@ -37,6 +37,7 @@ export interface Message{
     Text:string;
     UserId:number;
     TopicId:number;
+    ShowDate?:boolean;
 }
 
 export interface Topic{

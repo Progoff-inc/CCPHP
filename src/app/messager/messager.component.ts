@@ -41,6 +41,7 @@ export class MessagerComponent implements OnInit, OnChanges {
       this.user = JSON.parse(localStorage.getItem('currentUser'));
       this.userId = this.user.Id;
     }
+    
     if(this.topics.length==1){
       this.showTopic(this.topics[0]);
     }
@@ -58,19 +59,23 @@ export class MessagerComponent implements OnInit, OnChanges {
       }
     }
   }
-  showDate(date:Date){
-    date = new Date(date);
+  showDate(i){
+    if(this.currentTopic){
+      let mes:Message = this.currentTopic.Messages[i];
+      mes.ShowDate = false;
+      if(i == 0){
+        mes.ShowDate=true;
+        return true;
+      }
+      
+      let prevMes:Message = this.currentTopic.Messages[i-1];
+      mes.ShowDate = mes.CreateDate.toDateString() != prevMes.CreateDate.toDateString();
+      
+    }
     
-    if (this.topicDate && this.topicDate.toDateString()!=date.toDateString() ){
-      this.topicDate = date;
-      return true;
-    }
-
-    if(!this.topicDate){
-      this.topicDate = date;
-      return true;
-    }
-    return false;
+    return true;
+    
+    
 
   }
   showTopic(top?:Topic){
@@ -94,11 +99,16 @@ export class MessagerComponent implements OnInit, OnChanges {
   }
   ngOnChanges(ch:SimpleChanges){
     if(ch.topics){
-      
+      this.topics.forEach(t => {
+        t.Messages.forEach(m => {
+          m.CreateDate = new Date(m.CreateDate);
+        })
+      })
       if(this.currentTopic){
         this.currentTopic = ch.topics.currentValue.find(x => x.Id = this.currentTopic.Id);
       }
     }
+    
 
   }
   sendButton(event:KeyboardEvent, message:HTMLInputElement){
