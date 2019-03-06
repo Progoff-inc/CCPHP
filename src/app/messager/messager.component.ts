@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChange, SimpleChanges, ViewR
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Message, MessagerService, Topic } from '../services/MessagerService';
 import { Router, ActivatedRoute } from '@angular/router';
-import { User, ReportUser } from '../services/UserService';
+import { User, ReportUser, UserService } from '../services/UserService';
 import { AlertService } from '../services/AlertService';
 import { CarsService } from '../services/CarsService';
 
@@ -30,7 +30,7 @@ export class MessagerComponent implements OnInit, OnChanges {
   currentTopic:Topic = null;
   submitted = false;
   
-  constructor(public cService:CarsService, private messagerService: MessagerService, private formBuilder: FormBuilder, private router: Router, private ARouter: ActivatedRoute){
+  constructor(private us:UserService, public cService:CarsService, private messagerService: MessagerService, private formBuilder: FormBuilder, private router: Router, private ARouter: ActivatedRoute){
    
     
    }
@@ -41,6 +41,7 @@ export class MessagerComponent implements OnInit, OnChanges {
       this.user = JSON.parse(localStorage.getItem('currentUser'));
       this.userId = this.user.Id;
     }
+    
     if(this.topics.length==1){
       this.showTopic(this.topics[0]);
     }
@@ -58,19 +59,23 @@ export class MessagerComponent implements OnInit, OnChanges {
       }
     }
   }
-  showDate(date:Date){
-    date = new Date(date);
+  showDate(i){
+    if(this.currentTopic){
+      let mes:Message = this.currentTopic.Messages[i];
+      mes.ShowDate = false;
+      if(i == 0){
+        mes.ShowDate=true;
+        return true;
+      }
+      
+      let prevMes:Message = this.currentTopic.Messages[i-1];
+      mes.ShowDate = mes.CreateDate.toDateString() != prevMes.CreateDate.toDateString();
+      
+    }
     
-    if (this.topicDate && this.topicDate.toDateString()!=date.toDateString() ){
-      this.topicDate = date;
-      return true;
-    }
-
-    if(!this.topicDate){
-      this.topicDate = date;
-      return true;
-    }
-    return false;
+    return true;
+    
+    
 
   }
   showTopic(top?:Topic){
@@ -79,6 +84,7 @@ export class MessagerComponent implements OnInit, OnChanges {
     }
     else{
       this.currentTopic = top;
+      
       if(this.user){
         if(!top.Seen && this.user.Id == top.UserReciverId){
           this.messagerService.changeSeen(top.Id).subscribe(data => {
@@ -94,11 +100,22 @@ export class MessagerComponent implements OnInit, OnChanges {
   }
   ngOnChanges(ch:SimpleChanges){
     if(ch.topics){
-      
+      this.topics.forEach(t => {
+        t.Messages.forEach(m => {
+          m.CreateDate = new Date(m.CreateDate);
+        })
+        
+      })
       if(this.currentTopic){
         this.currentTopic = ch.topics.currentValue.find(x => x.Id = this.currentTopic.Id);
+        console.log(this.currentTopic.Messages);
+        this.currentTopic.Messages.sort(function(a,b){
+          return a.CreateDate.getTime()>b.CreateDate.getTime()?-1:1
+        })
+        console.log(this.currentTopic.Messages);
       }
     }
+    
 
   }
   sendButton(event:KeyboardEvent, message:HTMLInputElement){
@@ -137,38 +154,20 @@ export class MessagerComponent implements OnInit, OnChanges {
   send(admin?:boolean){
     if(!admin){
       this.submitted=true;
-      if(this.cService.checkEmail(this.v.Email)){
-        return;
-      }
       if(this.messageForm.invalid){
         return;
       }
     
-      
-      this.messagerService.sendMessage({
-        Email:this.messageForm.value.Email,
-        Name:this.messageForm.value.Name,
-        Text:this.messageForm.value.Message
-      }).subscribe(data => {
-        if(!this.showAll){
-          this.topics=data;
-          if(this.topics.length==1){
-            this.showTopic(this.topics[0]);
-          }
-          if(!this.user){
-            this.user = this.topics[0].User;
-            this.userId = this.user.Id;
-          }
-          this.showTopics=true;
-        }
-        else{
-          this.alert.showA({type:'success',message:'Сообщение отправленно',show:true});
-          this.messageForm.setValue({Name: this.user?this.user.Name:'',
-          Email: this.user?this.user.Email:'',
-          Message: ''});
-          this.submitted = false;
-        }
-      
+      this.us.AddUser({Name:this.messageForm.value.Name, Email:this.messageForm.value.Email, Tel:'', Password:this.us.GenPassword()}).subscribe(data => {
+          this.messagerService.saveMessage(
+            {
+              Id:0,
+              UserId:this.userId,
+              TopicId: 1,
+              Text:this.messageForm.value.Message,
+              CreateDate: new Date()
+            }
+          )
         })
       }
       else{

@@ -9,25 +9,15 @@ import { Car, CarsService } from '../services/CarsService';
 export class SameCarsComponent implements OnInit {
   @Input() CarId:number;
   filteredCars:Car[] = [];
-  constructor(private carsService:CarsService) { }
+  constructor(private service:CarsService) { }
 
   ngOnInit() {
-    this.carsService.GetSameCars(this.CarId).subscribe(data => {
+    this.service.GetSameCars(this.CarId).subscribe(data => {
       this.filteredCars = data;
     })
 
   }
-  getCarPrice(car:Car, discount:boolean){
-    if(car.Sales.length>0){
-      if(discount){
-        return Math.max.apply( Math, car.Sales.map(x => x.Discount) );
-      }
-      else{
-        return Math.min.apply( Math, car.Sales.map(x => x.NewPrice) );
-      }
-      
-    }
-  }
+  
   
 
 }

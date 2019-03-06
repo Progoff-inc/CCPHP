@@ -1,6 +1,7 @@
 import { Inject, Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import {FeedBack, Sale} from './UserService';
+import { PickerComponent } from '../picker/picker.component';
 
 @Injectable()
 export class CarsService implements OnInit {
@@ -9,6 +10,7 @@ export class CarsService implements OnInit {
     bookings: BookTimes[];
     DateStart:Date = undefined;
     DateFinish:Date = undefined;
+    CurFilters = [];
     public car: Car = null;
     baseUrl:string='http://client.nomokoiw.beget.tech/back/';
     //baseUrl = 'http://localhost:80/CCPHP/';
@@ -88,6 +90,43 @@ export class CarsService implements OnInit {
     }
     checkEmail(str: string) {
         return !str.match(/[a-z]+@[a-z]+\.[a-z]+/ig);
+    }
+    addFilter(name,value){
+        this.CurFilters.push({Name:name,Value:name=='Passengers'?value[0]:value});
+    }
+    getCarPrice(car:Car){
+        car.SPrice = Number(car.SPrice);
+        car.WPrice = Number(car.WPrice);
+        if(this.DateStart.getMonth()>4 && this.DateStart.getMonth()<8){
+            let price = 0;
+            let days = Math.ceil(Math.abs(this.DateFinish.getTime() - this.DateStart.getTime()) / (1000 * 3600 * 24));
+            console.log( car.Prices.SummerPrices[days-1]);
+            if(days<8){
+                return car.Prices.SummerPrices[Object.keys(car.Prices.SummerPrices)[days-1]];
+            }
+            else{
+                price = Number(car.Prices.SummerPrices.SevenDaysPrice);
+                for(let i =0; i<days-7;i++){
+                    price+=car.SPrice;
+                }
+            }
+            return price;
+        }
+        else{
+            let price = 0;
+            let days = Math.ceil(Math.abs(this.DateFinish.getTime() - this.DateStart.getTime()) / (1000 * 3600 * 24));
+            console.log( car.Prices.SummerPrices[Object.keys(car.Prices.SummerPrices)[days-1]]);
+            if(days<8){
+                return car.Prices.SummerPrices[Object.keys(car.Prices.SummerPrices)[days-1]];
+            }
+            else{
+                price = Number(car.Prices.WinterPrices.SevenDaysPrice);
+                for(let i =0; i<days-7;i++){
+                    price+=car.WPrice;
+                }
+            }
+            return price;
+        }
     }
 }
 

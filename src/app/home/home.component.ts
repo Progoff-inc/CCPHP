@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CarsService, Car } from '../services/CarsService';
+import { CarsService, Car, Filter } from '../services/CarsService';
 import { TranslateService } from '../../../node_modules/@ngx-translate/core';
 import { Router } from '@angular/router';
 
@@ -22,25 +22,34 @@ export class HomeComponent implements OnInit {
     Photo:'../../assets/images/manual.jpg',
     Header:'MAIN_MANUAL',
     MinPrice:22,
-    Text:'MAIN_MANUAL_TEXT'
+    Text:'MAIN_MANUAL_TEXT',
+    FilterName:'Transmission',
+    FilterValue:'MT'
   },
   {
     Photo:'../../assets/images/automatic.jpg',
     Header:'MAIN_AUTOMATIC',
     MinPrice:28,
-    Text:'MAIN_AUTOMATIC_TEXT'
+    Text:'MAIN_AUTOMATIC_TEXT',
+    FilterName:'Transmission',
+    FilterValue:'AT'
   },
   {
     Photo:'../../assets/images/cabrio.jpg',
-    Header:'MAIN_CABRIO',
+    Header:'MAIN_HATCHBACK',
     MinPrice:75,
-    Text:'MAIN_CABRIO_TEXT'
+    Text:'MAIN_HATCHBACK_TEXT',
+    FilterName:'BodyType',
+    FilterValue:'HATCHBACK'
   },
   {
     Photo:'../../assets/images/minivan.jpg',
     Header:'MAIN_MINIVAN',
     MinPrice:69,
-    Text:'MAIN_MINIVAN_TEXT'
+    Text:'MAIN_MINIVAN_TEXT',
+    FilterName:'BodyType',
+    FilterValue:'MINIVAN'
+    
   }]
   steps = [
     {
@@ -102,13 +111,17 @@ export class HomeComponent implements OnInit {
 
             }
   constructor(public translate: TranslateService, private router:Router, public service: CarsService) {
-
+    this.service.CurFilters = [];
   }
   ngOnInit() {
     
     
     this.workCoords = document.getElementsByClassName("work")[0].getBoundingClientRect().top;
     
+  }
+  showCars(n,v){
+    this.service.addFilter(n,v);
+    this.router.navigate(['/allcars']);
   }
   Search(){
     this.service.DateStart = this.search.DateStart;
