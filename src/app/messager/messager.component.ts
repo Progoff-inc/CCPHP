@@ -84,6 +84,7 @@ export class MessagerComponent implements OnInit, OnChanges {
     }
     else{
       this.currentTopic = top;
+      
       if(this.user){
         if(!top.Seen && this.user.Id == top.UserReciverId){
           this.messagerService.changeSeen(top.Id).subscribe(data => {
@@ -103,9 +104,15 @@ export class MessagerComponent implements OnInit, OnChanges {
         t.Messages.forEach(m => {
           m.CreateDate = new Date(m.CreateDate);
         })
+        
       })
       if(this.currentTopic){
         this.currentTopic = ch.topics.currentValue.find(x => x.Id = this.currentTopic.Id);
+        console.log(this.currentTopic.Messages);
+        this.currentTopic.Messages.sort(function(a,b){
+          return a.CreateDate.getTime()>b.CreateDate.getTime()?-1:1
+        })
+        console.log(this.currentTopic.Messages);
       }
     }
     
