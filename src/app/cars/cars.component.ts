@@ -35,7 +35,6 @@ export class CarsComponent {
     service.ngOnInit();
     this.ls.showLoad = true;
     this.service.GetCars().subscribe(data => {
-      console.log(data);
       if(data.length!=0){
         
         this.cars=data;
@@ -43,6 +42,8 @@ export class CarsComponent {
       if(this.service.DateStart && this.service.DateFinish){
         this.showPrices = true;
       }
+      
+      this.getFilters();
       if(this.service.CurFilters.length==0){
         this.filteredCars=this.cars;
       }
@@ -50,7 +51,6 @@ export class CarsComponent {
         this.CurFilters = this.service.CurFilters;
         this.Filter();
       }
-      this.getFilters();
       this.ls.showLoad = false;
       
     })
