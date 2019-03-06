@@ -9,6 +9,7 @@ export class CarsService implements OnInit {
     bookings: BookTimes[];
     DateStart:Date = undefined;
     DateFinish:Date = undefined;
+    CurFilters = [];
     public car: Car = null;
     baseUrl:string='http://client.nomokoiw.beget.tech/back/';
     //baseUrl = 'http://localhost:80/CCPHP/';
@@ -88,6 +89,9 @@ export class CarsService implements OnInit {
     }
     checkEmail(str: string) {
         return !str.match(/[a-z]+@[a-z]+\.[a-z]+/ig);
+    }
+    addFilter(name,value){
+        this.CurFilters.push({Name:name,Value:name=='Passengers'?value[0]:value});
     }
 }
 

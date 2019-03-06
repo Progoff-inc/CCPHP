@@ -40,7 +40,14 @@ export class CarsComponent {
       if(this.service.DateStart && this.service.DateFinish){
         this.showPrices = true;
       }
-      this.filteredCars=this.cars;
+      if(this.service.CurFilters.length==0){
+        this.filteredCars=this.cars;
+      }
+      else{
+        this.CurFilters = this.service.CurFilters;
+        this.Filter();
+      }
+      
       this.ls.showLoad = false;
       
     })
@@ -65,7 +72,6 @@ export class CarsComponent {
   }
   showCarInfo(car:Car){
     this.service.car=car;
-
     this.service.showCarInfo=true;
   }
   getCarPrice(car:Car){

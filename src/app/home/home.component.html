@@ -160,7 +160,7 @@
               <hr>
               <h4>{{'FROM' | translate}} {{car.MinPrice}}€ / {{'DAY' | translate}}</h4>
               <p>{{car.Text | translate}}</p>
-              <button class="btn btn-info">{{'CONNECT' | translate}}</button>
+              <button class="btn btn-info" (click)="showCars(car.FilterName, car.FilterValue)">{{'CONNECT' | translate}}</button>
           </div>
             
       </div>
