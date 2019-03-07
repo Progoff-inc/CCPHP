@@ -60,6 +60,9 @@ export class UserProfileComponent implements OnInit {
         })
         this.userService.GetUsers().subscribe(data => {
           this.users = data;
+          this.users.forEach(u => {
+            u.IsAdmin = Boolean(Number(u.IsAdmin));
+          })
         })
       }
     }
@@ -194,26 +197,16 @@ export class UserProfileComponent implements OnInit {
       this.saleSubmitted = false;
     })
   }
-  addAdmin(){
-    this.adminSubmitted = true;
-    if(this.newAdmin.UserId==0 || this.newAdmin.IsAdmin==null){
-      return
-    }
-    
-    this.NewAdmin = this.users.find(x => x.Id == this.newAdmin.UserId);
-    this.NewAdmin.IsAdmin = this.newAdmin.IsAdmin==='true';
-    console.log(this.NewAdmin.Id,this.NewAdmin.IsAdmin);
-    this.userService.SetAdmin(this.NewAdmin.Id, this.NewAdmin.IsAdmin).subscribe(data => {
-      this.NewAdmin = data;
-      this.newAdmin={UserId:0, IsAdmin:null};
-      this.adminSubmitted = false;
+  addAdmin(user, isAdmin){
+    this.userService.SetAdmin(user.Id, isAdmin).subscribe(data => {
+      user.IsAdmin = isAdmin;
     })
   }
   delAdmin(){
 
   }
   FindUsers(name){
-    this.findUsers = this.setPages(this.users.filter(x => x.Name.indexOf(name)>-1));
+    this.findUsers = this.setPages(this.users.filter(x => x.Name.toUpperCase().indexOf(name.toUpperCase())>-1));
   }
   
   setPages(items, n = 1){
