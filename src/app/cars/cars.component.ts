@@ -91,7 +91,7 @@ export class CarsComponent {
   }
   
 
-  get f() {return this.CurFilters.map(x=>x.Value)}
+  get f() {return this.CurFilters.map(x=>x.Value.toUpperCase())}
   addFilter(name:string,value:string){
     if(this.CurFilters.map(x=>x.Value.toUpperCase()).indexOf(value.toUpperCase())==-1){
      
