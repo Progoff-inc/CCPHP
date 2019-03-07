@@ -237,7 +237,7 @@
                 <div class="col-sm-3 card-title m-sm-0">Статус</div>
             </div>
           </div> -->
-          <div class="card  my-2" *ngFor='let user of findUsers[curUserPage]'>
+          <div class="form my-2" *ngFor='let user of findUsers[curUserPage]'>
             <div class="card-body d-sm-flex justify-content-sm-between align-items-center">
               <div class="col-sm-2 card-title m-sm-0">
                 <img class="img-rounded img-responsive" src="{{userService.currentUser?userService.currentUser.Photo:'user.Photo'}}" alt="">
@@ -247,8 +247,8 @@
               <div *ngIf="user.IsAdmin==1" class="col-sm-2 card-title m-sm-0">{{'IS_ADMIN' | translate}}</div>
               <div *ngIf="user.IsAdmin==0" class="col-sm-2 card-title m-sm-0">{{'USER' | translate}}</div>
               <div>
-                <div class="btn btn-success mx-2">{{'ADD' | translate}}</div>
-                <div class="btn btn-danger mx-2">{{'DELETE' | translate}}</div>
+                <button class="btn btn-success mx-2" (click)="addAdmin()">{{'ADD' | translate}}</button>
+                <button class="btn btn-danger mx-2" (click)="delAdmin()">{{'DELETE' | translate}}</button>
               </div>
             </div>
           </div>

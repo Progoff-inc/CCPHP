@@ -202,11 +202,15 @@ export class UserProfileComponent implements OnInit {
     
     this.NewAdmin = this.users.find(x => x.Id == this.newAdmin.UserId);
     this.NewAdmin.IsAdmin = this.newAdmin.IsAdmin==='true';
+    console.log(this.NewAdmin.Id,this.NewAdmin.IsAdmin);
     this.userService.SetAdmin(this.NewAdmin.Id, this.NewAdmin.IsAdmin).subscribe(data => {
       this.NewAdmin = data;
       this.newAdmin={UserId:0, IsAdmin:null};
       this.adminSubmitted = false;
     })
+  }
+  delAdmin(){
+
   }
   FindUsers(name){
     this.findUsers = this.setPages(this.users.filter(x => x.Name.indexOf(name)>-1));
