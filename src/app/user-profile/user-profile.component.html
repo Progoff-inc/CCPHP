@@ -151,9 +151,12 @@
         <li class="list-group-item" >
           <h3 class="mt-0 mb-3">{{"CARS"| translate}}</h3>
           <div  class="w-100 m-0 border-0" >
-            <div class="card mb-3 flex-column flex-sm-row justify-content-start align-items-start align-items-sm-center  "   *ngFor="let e of cars" (click)="changeCar(e.Id)">
+            <div class="card mb-3 flex-column flex-sm-row justify-content-start align-items-start align-items-sm-center  "   *ngFor="let e of cars" (click)="changeCar(e.Id,$event)" name="chang">
               <div class="card-body d-sm-flex justify-content-sm-between align-items-center">
                 <h6  class="card-title m-sm-0">#{{e.Id}} {{e.Model}}</h6>
+              </div>
+              <div>
+                <div class="btn btn-link text-danger mx-2" (click)="DelCar(e.Id,$event)" name="delete">{{'DELETE' | translate}}</div>
               </div>
             </div>
             <div class="btn-group" role="group" aria-label="Basic example">

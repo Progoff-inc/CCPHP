@@ -75,12 +75,19 @@ export class UserProfileComponent implements OnInit {
   addCar(){
     this.router.navigate(['/add'])
   }
-  changeCar(id){
-    this.router.navigate(['/add'],{
-      queryParams:{
-          'CarId': id
-      }
-  })
+  DelCar(id,e){
+    console.log(e.target.name)
+    this.carsService.DeleteCar(id).subscribe(d => {
+      this.cars.splice(this.cars.map(c => c.Id).indexOf(id),1)
+      })
+  }
+  changeCar(id,e){
+    console.log(e.target.name)
+  //   this.router.navigate(['/add'],{
+  //     queryParams:{
+  //         'CarId': id
+  //     }
+  // })
   }
   show(prop:string){
     this[prop] = !this[prop];
@@ -201,9 +208,6 @@ export class UserProfileComponent implements OnInit {
     this.userService.SetAdmin(user.Id, isAdmin).subscribe(data => {
       user.IsAdmin = isAdmin;
     })
-  }
-  delAdmin(){
-
   }
   FindUsers(name){
     this.findUsers = this.setPages(this.users.filter(x => x.Name.toUpperCase().indexOf(name.toUpperCase())>-1));
