@@ -75,12 +75,20 @@ export class UserProfileComponent implements OnInit {
   addCar(){
     this.router.navigate(['/add'])
   }
-  changeCar(id){
-    this.router.navigate(['/add'],{
-      queryParams:{
-          'CarId': id
-      }
-  })
+  DelCar(id){
+    this.carsService.DeleteCar(id).subscribe(d => {
+      this.cars.splice(this.cars.map(c => c.Id).indexOf(id),1)
+      })
+  }
+  changeCar(id,e){
+    if(e.target.name!='delete'){
+      this.router.navigate(['/add'],{
+          queryParams:{
+              'CarId': id
+          }
+      })
+    }
+ 
   }
   show(prop:string){
     this[prop] = !this[prop];
@@ -123,19 +131,13 @@ export class UserProfileComponent implements OnInit {
     }
   }
   changeInfo(item:number,type:string, value:string, t?:HTMLInputElement){
-    console.log(t);
     this.submittes[item]=true;
-    if(type == 'Email' && this.carsService.checkEmail(value)){
-      
-      return;
-    }
     if(type == 'Phone' && !this.carsService.checkStr(value,'phone-check')){
 
       return;
     }
     if(value != ''){
-      console.log(true);
-      this.userService.ChangeInfo(type, this.carsService.checkStr(value,'phone'), this.userService.currentUser.Id).subscribe(data => {
+      this.userService.ChangeInfo(type, type == 'Phone'?this.carsService.checkStr(value,'phone'):value, this.userService.currentUser.Id).subscribe(data => {
         if(data){
           this.userService.currentUser[type]= this.carsService.checkStr(value,'phone');
           localStorage.setItem('currentUser', JSON.stringify(this.userService.currentUser));

@@ -41,6 +41,9 @@ export class CarsService implements OnInit {
 
         return this.http.post<number>(this.baseUrl + 'CarsController.php?Key=add-car', car);
     }
+    DeleteCar(id){
+        return this.http.delete(this.baseUrl + 'CarsController.php?Key=delete-car&Id' + id)
+    }
     AddPrices(CarId,Price) {
         return this.http.post(this.baseUrl + 'CarsController.php?Key=add-price&Id=' + CarId, Price);
     }
