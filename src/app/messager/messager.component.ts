@@ -40,6 +40,7 @@ export class MessagerComponent implements OnInit, OnChanges {
     if(localStorage.getItem('currentUser')){
       this.user = JSON.parse(localStorage.getItem('currentUser'));
       this.userId = this.user.Id;
+      this.user.IsAdmin = Boolean(Number(this.user.IsAdmin));
     }
     
     if(this.topics.length==1){
@@ -79,12 +80,13 @@ export class MessagerComponent implements OnInit, OnChanges {
 
   }
   showTopic(top?:Topic){
+    
     if(this.currentTopic){
       this.currentTopic = null;
     }
     else{
       this.currentTopic = top;
-      
+      console.log(this.currentTopic);
       if(this.user){
         if(!top.Seen && this.user.Id == top.UserReciverId){
           this.messagerService.changeSeen(top.Id).subscribe(data => {
@@ -158,17 +160,38 @@ export class MessagerComponent implements OnInit, OnChanges {
         return;
       }
     
-      this.us.AddUser({Name:this.messageForm.value.Name, Email:this.messageForm.value.Email, Tel:'', Password:this.us.GenPassword()}).subscribe(data => {
+      this.us.AddUser({Name:this.messageForm.value.Name, Email:this.messageForm.value.Email, Tel:'', Password:this.us.GenPassword()}).subscribe(userid => {
+        this.userId = userid.Id;
+        this.messagerService.createTopic({
+          Id:0,
+          UserId:userid.Id,
+          UserReciverId:0,
+          ModifyDate: new Date()
+        }).subscribe(topics => {
+          console.log(topics);
+          let m = {
+            Id:0,
+            UserId:userid.Id,
+            TopicId: topics[0].Id,
+            Text:this.messageForm.value.Message,
+            CreateDate: new Date()
+          };
           this.messagerService.saveMessage(
-            {
-              Id:0,
-              UserId:this.userId,
-              TopicId: 1,
-              Text:this.messageForm.value.Message,
-              CreateDate: new Date()
-            }
-          )
+            m
+          ).subscribe(data => {
+            topics.forEach(x => {x.ModifyDate = new Date(x.ModifyDate)});
+            data.CreateDate= new Date(data.CreateDate);
+            this.topics = topics;
+            this.topics[0].Messages.push(data);
+            this.showTopic(this.topics[0]);
+            this.showTopics=true;
+          })
         })
+          
+        })
+        
+        
+        
       }
       else{
         

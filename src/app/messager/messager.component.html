@@ -37,8 +37,8 @@
   <div class="topic top-topic" (click) = "showTopic()" [ngStyle]="{'margin-top':showTopics?'10px':''}"  *ngIf="(userProfile || showTopics) && (!!currentTopic)">
     <div class="row">
       <div class="col-sm-7">
-        <img class ="user-img-small"  src="{{currentTopic.UserReciver?currentTopic.UserReciver.Photo:''}}" alt="">
-        <span>{{currentTopic.UserReciver?currentTopic.UserReciver.Name:''}}</span></div>
+        <img class ="user-img-small"  src="{{currentTopic.UserReciver.Id==userService.currentUser.Id?currentTopic.User.Photo:currentTopic.UserReciver.Photo'}}" alt="">
+        <span>{{currentTopic.UserReciver.Id==userService.currentUser.Id?currentTopic.User.Name:currentTopic.UserReciver.Name}}</span></div>
       <div class="col-sm-5"><span>{{currentTopic.ModifyDate | date: 'HH:mm'}}</span></div>
     </div>
   </div>
@@ -47,7 +47,7 @@
     <!-- <i class="fa fa-car" (click)="showPicker()"></i> -->
     <i class="fa fa-paper-plane" (click)="sendMessage(message, messages)"></i>
   </div>
-  <div *ngIf="(userProfile || showTopics) && topics.length==0" class="panel">
+  <div *ngIf="(userProfile || showTopics) && topics.length==0 && !user.IsAdmin" class="panel">
     <button class="btn btn-default" (click)="CreateTopic()">Написать</button>
   </div>
   <div #messages *ngIf=" (userProfile || showTopics)"  [ngStyle]="{'height':!currentTopic && userProfile ?'100%':!currentTopic && !userProfile?'95%':''}" class="messages">

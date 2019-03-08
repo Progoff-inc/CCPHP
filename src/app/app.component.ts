@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   service:MyTranslateService ;
   showButtonUp:boolean = false;
   showSameCars:boolean = false;
-  
+  user = null;
   constructor(private router:Router, private translate: TranslateService, private s:CarsService){
     this.service = new MyTranslateService(translate);
     
@@ -32,6 +32,11 @@ export class AppComponent implements OnInit {
     }
 
   ngOnInit(){
+    if(localStorage.getItem("currentUser")){
+      this.user = JSON.parse(localStorage.getItem("currentUser"));
+      this.user.IsAdmin = Boolean(Number(this.user.IsAdmin));
+      console.log(this.user.IsAdmin);
+    }
     window.scrollTo(0, 0);
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {

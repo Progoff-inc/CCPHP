@@ -200,10 +200,12 @@ export class UserProfileComponent implements OnInit {
   addAdmin(user, isAdmin){
     this.userService.SetAdmin(user.Id, isAdmin).subscribe(data => {
       user.IsAdmin = isAdmin;
+     
     })
   }
   FindUsers(name){
-    this.findUsers = this.setPages(this.users.filter(x => x.Name.toUpperCase().indexOf(name.toUpperCase())>-1));
+    this.findUsers = this.setPages(this.users.filter(
+      x => x.Name.toUpperCase().indexOf(name.toUpperCase())>-1 && x.Id!=this.userService.currentUser.Id));
   }
   
   setPages(items, n = 1){
