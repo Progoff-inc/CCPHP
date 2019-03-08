@@ -75,19 +75,20 @@ export class UserProfileComponent implements OnInit {
   addCar(){
     this.router.navigate(['/add'])
   }
-  DelCar(id,e){
-    console.log(e.target.name)
+  DelCar(id){
     this.carsService.DeleteCar(id).subscribe(d => {
       this.cars.splice(this.cars.map(c => c.Id).indexOf(id),1)
       })
   }
   changeCar(id,e){
-    console.log(e.target.name)
-  //   this.router.navigate(['/add'],{
-  //     queryParams:{
-  //         'CarId': id
-  //     }
-  // })
+    if(e.target.name!='delete'){
+      this.router.navigate(['/add'],{
+          queryParams:{
+              'CarId': id
+          }
+      })
+    }
+ 
   }
   show(prop:string){
     this[prop] = !this[prop];
