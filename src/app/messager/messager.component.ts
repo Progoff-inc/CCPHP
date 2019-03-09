@@ -30,7 +30,7 @@ export class MessagerComponent implements OnInit, OnChanges {
   currentTopic:Topic = null;
   submitted = false;
   
-  constructor(private us:UserService, public cService:CarsService, private messagerService: MessagerService, private formBuilder: FormBuilder, private router: Router, private ARouter: ActivatedRoute){
+  constructor(public us:UserService, public cService:CarsService, private messagerService: MessagerService, private formBuilder: FormBuilder, private router: Router, private ARouter: ActivatedRoute){
    
     
    }
@@ -109,6 +109,7 @@ export class MessagerComponent implements OnInit, OnChanges {
         
       })
       if(this.currentTopic){
+        console.log(this.currentTopic);
         this.currentTopic = ch.topics.currentValue.find(x => x.Id = this.currentTopic.Id);
         console.log(this.currentTopic.Messages);
         this.currentTopic.Messages.sort(function(a,b){
