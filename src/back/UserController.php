@@ -34,10 +34,13 @@ if(isset($_GET['Key']))
         case 'get-user-by-id':
             echo json_encode($ctxt->getUserById($_GET['Id']));
             break;
-        
         case 'add-user':
             $b = json_decode(file_get_contents('php://input'), true);
             echo json_encode($ctxt->addUser($b['Name'], $b['Email'], $b['Password'], $b['Phone'], $b['Lang']));
+            break;
+        case 'change-info':
+            $b = json_decode(file_get_contents('php://input'), true);
+            echo json_encode($ctxt->changeInfo($b['Type'], $b['Value'], $b['UserId']));
             break;
         case 'set-admin':
             $b = json_decode(file_get_contents('php://input'), true);

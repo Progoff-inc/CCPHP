@@ -245,6 +245,7 @@ class DataBase {
     public function addLike($oid, $uid, $isl, $type){
         $s = $this->db->prepare("INSERT INTO likes (OwnerId, UserId, IsLike, Type) Values (?,?,?,?)");
         $s->execute(array($oid, $uid, $isl, $type));
+       
         return $this->db->lastInsertId();
     }
     public function deleteLike($id){
@@ -259,6 +260,7 @@ class DataBase {
     //####################User Controller###########################
     
     public function getUser($e, $p){
+        $p = md5(md5($p));
         $s = $this->db->prepare("SELECT Id, Name, Email, CreatedDate, ModifiedDate, Phone, Photo, Lang, IsAdmin FROM users WHERE Email=? and Password=?");
         $s->execute(array($e, $p));
         $s->setFetchMode(PDO::FETCH_CLASS, 'User');
@@ -296,13 +298,19 @@ class DataBase {
     }
     
     public function addUser($n, $e, $p, $ph, $l){
+        $p = md5(md5($p));
         $s = $this->db->prepare("INSERT INTO users (Name, Email, Password, Phone, Lang, Photo, CreatedDate, ModifiedDate) Values (?,?,?,?,?,?,now(),now())");
         $s->execute(array($n, $e, $p, $ph, $l,'../../assets/images/default_user_photo.jpg'));
         
         return $this->getUserById($this->db->lastInsertId());
     }
     
-    
+    public function changeInfo($t, $v, $uid){
+       $s = $this->db->prepare("UPDATE users SET $t=?, ModifiedDate=now() WHERE Id=?");
+       $s->execute(array($v, $uid));
+       
+       return (array($t, $v, $uid));
+    }
     
     //####################User Controller###########################
     
@@ -314,7 +322,7 @@ class DataBase {
         $s = $this->db->prepare("INSERT INTO topics (UserId, UserReciverId, ModifyDate) VALUES (?,?,now())");
         $s->execute(array($uid, $rid));
         
-        return $this->getUserTopics($rid);
+        return $this->getUserTopics($uid);
     }
     public function saveMessage($uid, $tid, $t){
         $s = $this->db->prepare("INSERT INTO messages (UserId, TopicId, Text, CreateDate) Values (?,?,?,now())");

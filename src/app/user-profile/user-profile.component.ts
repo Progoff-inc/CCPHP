@@ -139,9 +139,10 @@ export class UserProfileComponent implements OnInit {
     if(value != ''){
       this.userService.ChangeInfo(type, type == 'Phone'?this.carsService.checkStr(value,'phone'):value, this.userService.currentUser.Id).subscribe(data => {
         if(data){
-          this.userService.currentUser[type]= this.carsService.checkStr(value,'phone');
+          this.userService.currentUser[type]= type == 'Phone'?this.carsService.checkStr(value,'phone'):value;
           localStorage.setItem('currentUser', JSON.stringify(this.userService.currentUser));
         }
+        console.log(data);
       })
     }
     
