@@ -1,4 +1,4 @@
 <p (mouseleave)="changeRating({Id:4,Type:0},true)">
     <i *ngFor="let star of stars" (click)="setRating(star)" (mouseenter)="changeRating(star)"  class="fa" [ngClass]="{'fa-star':star.Type==1, 'fa-star-half-o':star.Type==2, 'fa-star-o':star.Type==0}"></i>
-    <span>{{Mark}}</span>
+    <span>{{Mark%1==0?Mark+'.00':Mark}}</span>
 </p>
