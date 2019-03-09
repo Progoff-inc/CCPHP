@@ -190,12 +190,26 @@ input{
 }
 .form{
     padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px black;
+    border-radius: 4px;
+    // box-shadow: 0 0 10px black;s
     background-color: white;
 }
 .form>.item{
     margin-left: 0;
+}
+.form .card .btn{
+    background-color: white;
+}
+.border-success:hover{
+    background-color: #28a745 !important;
+    color: white;
+    font-weight: 500;
+    
+}
+.border-danger:hover{
+    background-color: #dc3545 !important;
+    color: white;
+    font-weight: 500;
 }
 .includes{
     width: 100%;
@@ -347,8 +361,8 @@ i{
         left: 0;
     }
 }
-.card:hover{
-    background-color: lightgray;
+li .card:hover{
+    background-color: rgb(236, 236, 236);
     cursor: pointer;
 }
 @media (min-width:800px){

@@ -366,7 +366,7 @@ li.link-active a:focus {
         /* background-color: #0B61A4 !important; */
         background-color: rgb(182, 22, 32);
     }
-    .navbar-inverse .navbar-toggle:hover{
+    .navbar-inverse .navbar-toggle:hover,  .navbar-toggle:focus{
         background-color: transparent;
     }
     .navbar-toggle {

@@ -76,9 +76,16 @@ export class UserProfileComponent implements OnInit {
     this.router.navigate(['/add'])
   }
   DelCar(id){
-    this.carsService.DeleteCar(id).subscribe(d => {
-      this.cars.splice(this.cars.map(c => c.Id).indexOf(id),1)
-      })
+    if(confirm(this.translate.currentLang=='ru'?"Удалить автомобиль?":"Delete car?")){
+      alert("Удален");
+      this.carsService.DeleteCar(id).subscribe(d => {
+        this.cars.splice(this.cars.map(c => c.Id).indexOf(id),1)
+        })
+    }
+    else{
+      alert("Не удален");
+    }
+    
   }
   changeCar(id,e){
     if(e.target.name!='delete'){
@@ -208,10 +215,13 @@ export class UserProfileComponent implements OnInit {
   }
   FindUsers(name){
     this.findUsers = this.setPages(this.users.filter(
-      x => x.Name.toUpperCase().indexOf(name.toUpperCase())>-1 && x.Id!=this.userService.currentUser.Id));
+      x => ((x.Name.toUpperCase().indexOf(name.toUpperCase())>-1
+      || x.Id == name
+      || x.Email.toUpperCase().indexOf(name.toUpperCase())>-1)
+      && x.Id!=this.userService.currentUser.Id)));
   }
   
-  setPages(items, n = 1){
+  setPages(items, n = 10){
     let pagedItems = [];
     while(items.length>0){
         pagedItems.push(items.splice(0,n));

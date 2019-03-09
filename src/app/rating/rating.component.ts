@@ -1,6 +1,4 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { ShortFeedBack } from '../services/FeedBackService';
-import { checkNoChanges } from '@angular/core/src/render3/instructions';
 
 @Component({
   selector: 'rating',
@@ -18,6 +16,7 @@ export class RatingComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    this.mark=Number(this.mark?(Number(this.mark).toFixed(2)):0);
     this.stars = [{Id:0, Type:0},{Id:1, Type:0},{Id:2, Type:0},{Id:3, Type:0},{Id:4, Type:0}];
     this.Mark=0;
     if(this.mark>0){
