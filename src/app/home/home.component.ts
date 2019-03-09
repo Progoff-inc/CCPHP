@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
   search:Search = new Search();
   DStart:Date= new Date();
   workCoords:number;
+  submitted = false;
   slides = [{
     Photo:'../../assets/images/manual.jpg',
     Header:'MAIN_MANUAL',
@@ -119,6 +120,7 @@ export class HomeComponent implements OnInit {
     this.workCoords = document.getElementsByClassName("work")[0].getBoundingClientRect().top;
     
   }
+  
   showCars(n,v){
     this.service.addFilter(n,v);
     this.router.navigate(['/allcars']);

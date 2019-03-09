@@ -10,7 +10,7 @@
           <img src="{{service.car.Photo}}" alt="">
         </div>
         <div class="col-sm-7">
-          <p>{{translate.currentLang=='ru'?service.car.Description:service.car.Description_ENG}}</p>
+          <p>{{translate.currentLang=='ru'?service.car.Description:service.car.Description_Eng}}</p>
           <p *ngIf='showPrices'><span>{{"PRICE" | translate}}:</span> {{service.getCarPrice(service.car)}}€</p>
         </div>
       </div>
