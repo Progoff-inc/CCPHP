@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost
--- Время создания: Мар 09 2019 г., 16:07
+-- Время создания: Мар 04 2019 г., 21:47
 -- Версия сервера: 5.7.21-20-beget-5.7.21-20-1-log
 -- Версия PHP: 5.6.38
 
@@ -27,8 +27,8 @@ SET time_zone = "+00:00";
 --
 -- Структура таблицы `books`
 --
--- Создание: Мар 09 2019 г., 11:28
--- Последнее обновление: Мар 09 2019 г., 11:28
+-- Создание: Фев 27 2019 г., 17:14
+-- Последнее обновление: Фев 27 2019 г., 17:15
 --
 
 DROP TABLE IF EXISTS `books`;
@@ -53,8 +53,7 @@ CREATE TABLE `books` (
 --
 
 INSERT INTO `books` (`Id`, `UserId`, `CarId`, `DateStart`, `DateFinish`, `Price`, `Sum`, `Place`, `CreateDate`, `SalesId`, `PlaceOff`, `Tel`, `Coment`) VALUES
-(22, 8, 7, '2019-03-20 14:00:00', '2019-03-29 18:00:00', 40, 360, 'Аэропорт Ираклиона', '2019-02-27 20:15:10', 0, 'Андреа Папандреу', '89151999845', NULL),
-(24, 8, 4, '2019-03-05 12:00:00', '2019-03-14 14:00:00', 35, 315, 'Андреа Папандреу', '2019-03-04 22:54:00', 0, 'Андреа Папандреу', '89151999845', NULL);
+(22, 8, 7, '2019-03-20 14:00:00', '2019-03-29 18:00:00', 40, 360, 'Аэропорт Ираклиона', '2019-02-27 20:15:10', 0, 'Андреа Папандреу', '89151999845', NULL);
 
 -- --------------------------------------------------------
 
@@ -62,7 +61,7 @@ INSERT INTO `books` (`Id`, `UserId`, `CarId`, `DateStart`, `DateFinish`, `Price`
 -- Структура таблицы `cars`
 --
 -- Создание: Фев 14 2019 г., 15:56
--- Последнее обновление: Мар 06 2019 г., 15:07
+-- Последнее обновление: Мар 04 2019 г., 18:45
 --
 
 DROP TABLE IF EXISTS `cars`;
@@ -103,20 +102,20 @@ INSERT INTO `cars` (`Id`, `Model`, `Photo`, `Passengers`, `Doors`, `Transmission
 (10, 'Nissan Micra', '../../assets/images/Micra.jpg', 5, 5, 'AT', 'Deisel', 9, 'Автомобиль с АКПП, 1,5 литра, 110 лошадиных сил. Кондционер, радио-CD, расход топлива 9 литров/100 км. В машину свободно входят пять взрослых пассажиров, 2 большие и 2 маленькие дорожные сумки.', 'Eng description of the car.', 35, 0, 'Crossover', b'1', b'1', b'1', '0/1/2/3/4', 'Full-Sized', 23, b'1', 28, NULL),
 (20, 'VW CADDY 7 PAX', '../../assets/images/Caddy.jpg', 7, 5, 'MT', 'Petrol', 7, 'Семиместный минивен, 1,4 литра, дизель. Специальные условия на длительную аренду.', 'Eng description of the car.', 60, 0, 'Minivan', b'1', b'0', b'1', '0/1/6/3/4', 'Full-Sized', 23, b'1', 55, NULL),
 (22, 'Hyundai i10', '../../assets/images/Hi10.jpg', 5, 5, 'MT', 'Petrol', 5, 'Автомобиль с МКПП, кондционером, радио-CD, расход топлива 5 литров/100 км. В машину свободно входят четыре взрослых пассажира, 2 большие дорожные сумки.', 'Eng description of the car.', 35, 0, 'Hatchback', b'0', b'1', b'1', '0/1/2/3/4', 'Economy', 23, b'1', 28, NULL),
-(23, 'Chevrolet Matiz', '../../assets/images/Matiz.jpg', 4, 5, 'MT', 'Petrol', 4, 'русское описание', 'Eng description of the car', 30, 0, 'Hatchback', b'1', b'1', b'1', '', 'Economy', 23, b'1', 25, NULL),
+(23, 'Chevrolet Matiz', '../../assets/images/Matiz.jpg', 4, 5, 'MT', 'petrol', 4, 'русское описание', 'Eng description of the car', 30, 0, 'Hatchback', b'1', b'0', b'1', '', 'Economy', 23, b'1', 25, NULL),
 (24, 'Chevrolet Spark', '../../assets/images/Spark.jpg', 5, 5, 'MT', 'Petrol', 4, 'русское описание', 'Eng description of the car.', 35, 0, 'Hatchback', b'1', b'1', b'1', '', 'Economy', 23, b'1', 28, NULL),
 (25, 'VW Polo', '../../assets/images/PoloMan.jpg', 5, 5, 'MT', 'Petrol', 8, 'русское описание', 'Eng description of the car.', 40, 0, 'Hatchback', b'1', b'1', b'1', '', 'Full-Sized', 23, b'1', 31, NULL),
 (26, 'Hyunday i20', '../../assets/images/Hi20.jpg', 5, 5, 'MT', 'Petrol', 5, 'русское описание', 'Eng description of the car.', 40, 0, 'Hatchback', b'1', b'1', b'1', '', 'Economy', 23, b'1', 31, NULL),
 (27, 'VW Polo Diesel', '../../assets/images/PoloDiesel.jpg', 5, 5, 'MT', 'Deisel', 7, 'русское описание', 'Eng description of the car.', 40, 0, 'Hatchback', b'1', b'1', b'1', '', 'Full-Sized', 23, b'1', 34, NULL),
-(28, 'VW Polo', '../../assets/images/PoloAT.jpg', 5, 5, 'AT', 'Petrol', 8, 'русское описание', 'Eng description of the car.', 45, 0, 'Hatchback', b'1', b'1', b'1', '', 'Full-Sized', 23, b'1', 40, NULL);
+(28, 'VW Polo', '../../assets/images/PoloAT.jpg', 5, 5, 'AT', 'Petrol', 8, 'русское описание', 'Eng description of the car.', 45, 0, 'Hatchback', b'1', b'1', b'1', '', 'Full-Sized', 23, b'1', 40, NULL),
+(81, '111', '222', 333, 444, 'AT', 'Deisel', 222, '222dwdw', 'wwdwd', 222, 0, 'Wagon', b'1', b'0', b'1', NULL, '333', 332, b'0', 333, 333);
 
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `comments`
 --
--- Создание: Мар 09 2019 г., 11:28
--- Последнее обновление: Мар 09 2019 г., 11:28
+-- Создание: Фев 11 2019 г., 09:21
 --
 
 DROP TABLE IF EXISTS `comments`;
@@ -145,8 +144,8 @@ INSERT INTO `comments` (`Id`, `UserId`, `FeedBackId`, `Text`, `CreateDate`) VALU
 --
 -- Структура таблицы `feedbacks`
 --
--- Создание: Мар 09 2019 г., 11:27
--- Последнее обновление: Мар 09 2019 г., 11:27
+-- Создание: Фев 19 2019 г., 14:00
+-- Последнее обновление: Фев 26 2019 г., 09:19
 --
 
 DROP TABLE IF EXISTS `feedbacks`;
@@ -169,16 +168,14 @@ CREATE TABLE `feedbacks` (
 INSERT INTO `feedbacks` (`Id`, `UserId`, `CarId`, `Mark`, `Text`, `CreatedDate`, `Comfort`, `Drive`, `Look`) VALUES
 (60030, 8, 26, 4, 'Отличное авто', '2019-02-17 07:13:00', 4, 4, 4),
 (60036, 8, 7, 4.66667, 'Четкий автомобиль.', '2019-02-19 17:35:22', 4, 5, 5),
-(60037, 8, 7, 5, 'КАЙФОВО ПОКАТАЛИСЬ, ВАСЯ', '2019-02-26 12:19:59', 5, 5, 5),
-(60039, 25, 7, 3.33333, 'тест', '2019-03-04 23:09:40', 4, 3, 3);
+(60037, 8, 7, 5, 'КАЙФОВО ПОКАТАЛИСЬ, ВАСЯ', '2019-02-26 12:19:59', 5, 5, 5);
 
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `likes`
 --
--- Создание: Мар 09 2019 г., 11:28
--- Последнее обновление: Мар 09 2019 г., 11:28
+-- Создание: Фев 11 2019 г., 10:05
 --
 
 DROP TABLE IF EXISTS `likes`;
@@ -186,27 +183,26 @@ CREATE TABLE `likes` (
   `Id` int(20) NOT NULL,
   `UserId` bigint(20) NOT NULL,
   `IsLike` bit(1) NOT NULL,
-  `Type` tinyint(4) NOT NULL,
-  `OwnerId` int(20) DEFAULT NULL
+  `OwnerId` int(20) NOT NULL,
+  `Type` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `likes`
 --
 
-INSERT INTO `likes` (`Id`, `UserId`, `IsLike`, `Type`, `OwnerId`) VALUES
-(20, 8, b'1', 1, 60030),
-(24, 25, b'1', 1, 60030),
-(25, 25, b'0', 1, 60036),
-(26, 25, b'1', 1, 60039);
+INSERT INTO `likes` (`Id`, `UserId`, `IsLike`, `OwnerId`, `Type`) VALUES
+(7, 24, b'0', 6, 2),
+(8, 8, b'1', 5, 2),
+(9, 17, b'1', 60030, 1),
+(10, 8, b'1', 60036, 1);
 
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `messages`
 --
--- Создание: Мар 09 2019 г., 11:29
--- Последнее обновление: Мар 09 2019 г., 11:47
+-- Создание: Фев 11 2019 г., 09:20
 --
 
 DROP TABLE IF EXISTS `messages`;
@@ -223,18 +219,18 @@ CREATE TABLE `messages` (
 --
 
 INSERT INTO `messages` (`Id`, `UserId`, `TopicId`, `CreateDate`, `Text`) VALUES
-(37, 8, 29, '2019-03-09 13:26:37', '123'),
-(38, 45, 29, '2019-03-09 13:42:30', '4443'),
-(39, 8, 29, '2019-03-09 13:42:58', '444342'),
-(40, 45, 29, '2019-03-09 13:43:24', '777'),
-(44, 49, 33, '2019-03-09 14:47:56', 'qqqq');
+(7, 8, 12, '2019-02-19 11:41:56', 'kfdjkdjdkfjdf'),
+(8, 8, 12, '2019-02-19 11:43:30', 'uuu'),
+(9, 8, 12, '2019-02-19 11:44:23', '222'),
+(14, 8, 12, '2019-02-19 11:55:56', '222'),
+(15, 17, 12, '2019-02-19 11:56:13', 'qq');
 
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `photos`
 --
--- Создание: Мар 09 2019 г., 11:29
+-- Создание: Фев 11 2019 г., 09:25
 --
 
 DROP TABLE IF EXISTS `photos`;
@@ -249,7 +245,7 @@ CREATE TABLE `photos` (
 --
 -- Структура таблицы `sales`
 --
--- Создание: Мар 09 2019 г., 11:29
+-- Создание: Фев 11 2019 г., 09:25
 --
 
 DROP TABLE IF EXISTS `sales`;
@@ -270,7 +266,7 @@ CREATE TABLE `sales` (
 -- Структура таблицы `summer_prices`
 --
 -- Создание: Фев 12 2019 г., 06:38
--- Последнее обновление: Мар 04 2019 г., 20:15
+-- Последнее обновление: Фев 28 2019 г., 12:23
 --
 
 DROP TABLE IF EXISTS `summer_prices`;
@@ -303,16 +299,14 @@ INSERT INTO `summer_prices` (`Id`, `OneDayPrice`, `TwoDaysPrice`, `ThreeDaysPric
 (26, 74, 130, 167, 188, 225, 258, 287),
 (27, 79, 150, 176, 200, 240, 276, 308),
 (28, 67, 130, 189, 224, 250, 288, 329),
-(81, 11111, 11111, 11111, 11111, 11111, 11111, 11111),
-(82, 2, 1, 1, 1, 2, 3, 4);
+(81, 11111, 11111, 11111, 11111, 11111, 11111, 11111);
 
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `topics`
 --
--- Создание: Мар 09 2019 г., 11:29
--- Последнее обновление: Мар 09 2019 г., 11:47
+-- Создание: Фев 11 2019 г., 09:20
 --
 
 DROP TABLE IF EXISTS `topics`;
@@ -329,16 +323,14 @@ CREATE TABLE `topics` (
 --
 
 INSERT INTO `topics` (`Id`, `UserId`, `UserReciverId`, `ModifyDate`, `Seen`) VALUES
-(29, 8, 45, '2019-03-09 13:26:33', b'0'),
-(33, 49, 45, '2019-03-09 14:47:56', b'0');
+(12, 8, 17, '2019-02-19 11:38:56', b'0');
 
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `users`
 --
--- Создание: Мар 09 2019 г., 10:40
--- Последнее обновление: Мар 09 2019 г., 12:13
+-- Создание: Фев 12 2019 г., 06:15
 --
 
 DROP TABLE IF EXISTS `users`;
@@ -347,7 +339,7 @@ CREATE TABLE `users` (
   `Name` varchar(128) NOT NULL,
   `Email` varchar(255) NOT NULL,
   `CreatedDate` datetime NOT NULL,
-  `ModifiedDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ModifiedDate` datetime NOT NULL,
   `Password` varchar(255) NOT NULL,
   `Phone` varchar(255) DEFAULT NULL,
   `Photo` varchar(255) DEFAULT NULL,
@@ -360,12 +352,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`Id`, `Name`, `Email`, `CreatedDate`, `ModifiedDate`, `Password`, `Phone`, `Photo`, `Lang`, `IsAdmin`) VALUES
-(8, 'Ваня Номоконов (gmail)', 'nomokonov.vana@gmail.com', '2019-01-09 00:00:00', '2019-01-11 00:00:00', 'd9b1d7db4cd6e70935368a1efb10e377', '89151999845', '../../assets/images/myava.jpg', 'RU', b'1'),
-(17, 'Иван', 'i.a.volik@gmail.com', '2019-02-12 09:24:11', '2019-02-12 09:24:11', '51c43cea9362c7a5fc337c7d847a2f58', '89670654854', '../../assets/images/default_user_photo.jpg', 'RU', b'1'),
-(24, 'Andrew', 'andres.ledachev@mail.ru', '2019-02-17 19:18:06', '2019-02-17 19:18:06', 'b537a06cf3bcb33206237d7149c27bc3', '89169362676', '../../assets/images/default_user_photo.jpg', 'RU', b'0'),
-(25, 'admin', 'admin@testmakerfree.com', '2019-02-17 22:12:39', '2019-02-17 22:12:39', 'Az2We2S21p', '34443332211', '../../assets/images/default_user_photo.jpg', NULL, b'0'),
-(45, 'Andrew', 'durak@mail.ru4', '2019-03-09 13:24:58', '2019-03-09 13:45:10', 'd9b1d7db4cd6e70935368a1efb10e377', '89169362679', '../../assets/images/default_user_photo.jpg', 'ENG', b'1'),
-(49, 'yyyy', 'qqqqq@weeww.ru', '2019-03-09 14:47:56', '2019-03-09 14:47:56', 'eab2b05adfa7cb1842c07e0f9b17ca83', '', '../../assets/images/default_user_photo.jpg', NULL, b'0');
+(8, 'Ваня Номоконов (gmail)', 'nomokonov.vana@gmail.com', '2019-01-09 00:00:00', '2019-01-11 00:00:00', '123', '89151999845', '../../assets/images/myava.jpg', 'RU', b'1'),
+(17, 'Иван', 'i.a.volik@gmail.com', '2019-02-12 09:24:11', '2019-02-12 09:24:11', 'QaZmLp1098', '89670654854', '../../assets/images/default_user_photo.jpg', 'RU', b'1'),
+(24, 'Andrew', 'andres.ledachev@mail.ru', '2019-02-17 19:18:06', '2019-02-17 19:18:06', '123321', '89169362676', '../../assets/images/default_user_photo.jpg', 'RU', b'1'),
+(25, 'admin', 'admin@testmakerfree.com', '2019-02-17 22:12:39', '2019-02-17 22:12:39', 'Az2We2S21p', '34443332211', '../../assets/images/default_user_photo.jpg', NULL, b'0');
 
 -- --------------------------------------------------------
 
@@ -373,7 +363,7 @@ INSERT INTO `users` (`Id`, `Name`, `Email`, `CreatedDate`, `ModifiedDate`, `Pass
 -- Структура таблицы `winter_prices`
 --
 -- Создание: Фев 12 2019 г., 06:39
--- Последнее обновление: Мар 04 2019 г., 20:15
+-- Последнее обновление: Фев 28 2019 г., 12:23
 --
 
 DROP TABLE IF EXISTS `winter_prices`;
@@ -406,8 +396,7 @@ INSERT INTO `winter_prices` (`Id`, `OneDayPrice`, `TwoDaysPrice`, `ThreeDaysPric
 (26, 53, 102, 147, 158, 175, 198, 210),
 (27, 56, 108, 156, 170, 190, 216, 238),
 (28, 67, 130, 189, 214, 230, 258, 287),
-(81, 11111, 11111, 11111, 11111, 11111, 11111, 11111),
-(82, 1, 4, 41, 1, 11, 2, 2);
+(81, 11111, 11111, 11111, 11111, 11111, 11111, 11111);
 
 --
 -- Индексы сохранённых таблиц
@@ -449,8 +438,9 @@ ALTER TABLE `feedbacks`
 --
 ALTER TABLE `likes`
   ADD PRIMARY KEY (`Id`),
+  ADD UNIQUE KEY `OwnerId` (`OwnerId`,`Type`),
   ADD KEY `UserId` (`UserId`),
-  ADD KEY `OwnerId` (`OwnerId`) USING BTREE;
+  ADD KEY `OwnerId_2` (`OwnerId`,`Type`);
 
 --
 -- Индексы таблицы `messages`
@@ -508,13 +498,13 @@ ALTER TABLE `winter_prices`
 -- AUTO_INCREMENT для таблицы `books`
 --
 ALTER TABLE `books`
-  MODIFY `Id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `Id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT для таблицы `cars`
 --
 ALTER TABLE `cars`
-  MODIFY `Id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `Id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT для таблицы `comments`
@@ -526,19 +516,19 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT для таблицы `feedbacks`
 --
 ALTER TABLE `feedbacks`
-  MODIFY `Id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60040;
+  MODIFY `Id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60038;
 
 --
 -- AUTO_INCREMENT для таблицы `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `Id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `Id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT для таблицы `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `Id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `Id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT для таблицы `photos`
@@ -556,25 +546,25 @@ ALTER TABLE `sales`
 -- AUTO_INCREMENT для таблицы `summer_prices`
 --
 ALTER TABLE `summer_prices`
-  MODIFY `Id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `Id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT для таблицы `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `Id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `Id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `Id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `Id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT для таблицы `winter_prices`
 --
 ALTER TABLE `winter_prices`
-  MODIFY `Id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `Id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
@@ -584,54 +574,54 @@ ALTER TABLE `winter_prices`
 -- Ограничения внешнего ключа таблицы `books`
 --
 ALTER TABLE `books`
-  ADD CONSTRAINT `books_ibfk_1` FOREIGN KEY (`CarId`) REFERENCES `cars` (`Id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `books_user_fk` FOREIGN KEY (`UserId`) REFERENCES `users` (`Id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `books_ibfk_1` FOREIGN KEY (`CarId`) REFERENCES `cars` (`Id`),
+  ADD CONSTRAINT `books_user_fk` FOREIGN KEY (`UserId`) REFERENCES `users` (`Id`);
 
 --
 -- Ограничения внешнего ключа таблицы `comments`
 --
 ALTER TABLE `comments`
-  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`FeedBackId`) REFERENCES `feedbacks` (`Id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `comments_user_fk` FOREIGN KEY (`UserId`) REFERENCES `users` (`Id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`FeedBackId`) REFERENCES `feedbacks` (`Id`),
+  ADD CONSTRAINT `comments_user_fk` FOREIGN KEY (`UserId`) REFERENCES `users` (`Id`);
 
 --
 -- Ограничения внешнего ключа таблицы `feedbacks`
 --
 ALTER TABLE `feedbacks`
-  ADD CONSTRAINT `feedbacks_ibfk_1` FOREIGN KEY (`CarId`) REFERENCES `cars` (`Id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `feedbacks_user_fk` FOREIGN KEY (`UserId`) REFERENCES `users` (`Id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `feedbacks_ibfk_1` FOREIGN KEY (`CarId`) REFERENCES `cars` (`Id`),
+  ADD CONSTRAINT `feedbacks_user_fk` FOREIGN KEY (`UserId`) REFERENCES `users` (`Id`);
 
 --
 -- Ограничения внешнего ключа таблицы `likes`
 --
 ALTER TABLE `likes`
-  ADD CONSTRAINT `likes_user_fk` FOREIGN KEY (`UserId`) REFERENCES `users` (`Id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `likes_user_fk` FOREIGN KEY (`UserId`) REFERENCES `users` (`Id`);
 
 --
 -- Ограничения внешнего ключа таблицы `messages`
 --
 ALTER TABLE `messages`
-  ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`TopicId`) REFERENCES `topics` (`Id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `messages_user_fk` FOREIGN KEY (`UserId`) REFERENCES `users` (`Id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`TopicId`) REFERENCES `topics` (`Id`),
+  ADD CONSTRAINT `messages_user_fk` FOREIGN KEY (`UserId`) REFERENCES `users` (`Id`);
 
 --
 -- Ограничения внешнего ключа таблицы `photos`
 --
 ALTER TABLE `photos`
-  ADD CONSTRAINT `photos_ibfk_1` FOREIGN KEY (`CarId`) REFERENCES `cars` (`Id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `photos_ibfk_1` FOREIGN KEY (`CarId`) REFERENCES `cars` (`Id`);
 
 --
 -- Ограничения внешнего ключа таблицы `sales`
 --
 ALTER TABLE `sales`
-  ADD CONSTRAINT `sales_ibfk_1` FOREIGN KEY (`CarId`) REFERENCES `cars` (`Id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `sales_ibfk_1` FOREIGN KEY (`CarId`) REFERENCES `cars` (`Id`);
 
 --
 -- Ограничения внешнего ключа таблицы `topics`
 --
 ALTER TABLE `topics`
-  ADD CONSTRAINT `topics_fk` FOREIGN KEY (`UserReciverId`) REFERENCES `users` (`Id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `topics_users_fk` FOREIGN KEY (`UserId`) REFERENCES `users` (`Id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `topics_fk` FOREIGN KEY (`UserReciverId`) REFERENCES `users` (`Id`),
+  ADD CONSTRAINT `topics_users_fk` FOREIGN KEY (`UserId`) REFERENCES `users` (`Id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
