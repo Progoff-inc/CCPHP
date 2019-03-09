@@ -13,6 +13,7 @@ export class SameCarsComponent implements OnInit {
 
   ngOnInit() {
     this.service.GetSameCars(this.CarId).subscribe(data => {
+      console.log(data);
       this.filteredCars = data;
     })
 

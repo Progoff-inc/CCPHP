@@ -132,8 +132,8 @@ class DataBase {
     }
     public function getSameCars($id) {
         $car = $this->getCar($id);
-        $s = $this->db->prepare("SELECT * FROM cars WHERE Groupe=? or (Price>=? and Price<=?)");
-        $s->execute(array($car->Groupe,$car->Price-20, $car->Price+20));
+        $s = $this->db->prepare("SELECT * FROM cars WHERE Groupe=? or (SPrice>=? and SPrice<=?)");
+        $s->execute(array($car->Groupe,$car->SPrice-10, $car->SPrice+10));
         $s->setFetchMode(PDO::FETCH_CLASS, 'Car');
         return $s->fetchAll();
     }
@@ -149,6 +149,8 @@ class DataBase {
         $a = $this->genInsertQuery($r, "feedbacks");
         $s = $this->db->prepare($a[0]);
         $s->execute($a[1]);
+        //$s = $this->db->prepare("UPDATE cars SET Mark=? WHERE Id=?");
+        //$s->execute(array($isa === 'true',$id));
         return $a;
     }
     
