@@ -30,7 +30,7 @@ export class MessagerComponent implements OnInit, OnChanges {
   currentTopic:Topic = null;
   submitted = false;
   
-  constructor(public us:UserService, public cService:CarsService, private messagerService: MessagerService, private formBuilder: FormBuilder, private router: Router, private ARouter: ActivatedRoute){
+  constructor(private as:AlertService, public us:UserService, public cService:CarsService, private messagerService: MessagerService, private formBuilder: FormBuilder, private router: Router, private ARouter: ActivatedRoute){
    
     
    }
@@ -180,12 +180,21 @@ export class MessagerComponent implements OnInit, OnChanges {
           this.messagerService.saveMessage(
             m
           ).subscribe(data => {
-            topics.forEach(x => {x.ModifyDate = new Date(x.ModifyDate)});
-            data.CreateDate= new Date(data.CreateDate);
-            this.topics = topics;
-            this.topics[0].Messages.push(data);
-            this.showTopic(this.topics[0]);
-            this.showTopics=true;
+            if(!this.showAll){
+              topics.forEach(x => {x.ModifyDate = new Date(x.ModifyDate)});
+              data.CreateDate= new Date(data.CreateDate);
+              this.topics = topics;
+              this.topics[0].Messages.push(data);
+              this.showTopic(this.topics[0]);
+              this.showTopics=true;
+            }
+            else{
+              this.submitted=false;
+              this.messageForm.reset();
+              this.alert.showA({type:'success',message:'Сообщение отправлено',show:true});
+            }
+            
+            
           })
         })
           

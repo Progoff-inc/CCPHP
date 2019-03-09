@@ -297,7 +297,7 @@ h3{
         margin: auto;
         left:auto;
         right:auto;
-        z-index: 999 !important;
+        z-index: 999;
     }
     
     .ProfileShow{
