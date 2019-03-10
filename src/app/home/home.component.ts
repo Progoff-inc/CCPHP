@@ -36,9 +36,9 @@ export class HomeComponent implements OnInit {
     FilterValue:'AT'
   },
   {
-    Photo:'../../assets/images/cabrio.jpg',
+    Photo:'../../assets/images/golf_7_1.jpg',
     Header:'MAIN_HATCHBACK',
-    MinPrice:75,
+    MinPrice:25,
     Text:'MAIN_HATCHBACK_TEXT',
     FilterName:'BodyType',
     FilterValue:'HATCHBACK'
