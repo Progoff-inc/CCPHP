@@ -241,7 +241,7 @@
             </div>
           </div> -->
           <div *ngIf="findUsers.length>0" class="form users my-2 px-0" >
-            <div class="card flex-row d-sm-flex justify-content-sm-between align-items-center p-2" *ngFor='let user of findUsers[curUserPage]'>
+            <div class="card flex-row flex-wrap d-sm-flex justify-content-sm-between align-items-center p-2" *ngFor='let user of findUsers[curUserPage]'>
               <!-- <div class="col-sm-2 m-sm-0 p-0 px-sm-3">
                 <img class="img-rounded img-responsive w-50" src="{{userService.currentUser?userService.currentUser.Photo:'user.Photo'}}" alt="">
               </div> -->
