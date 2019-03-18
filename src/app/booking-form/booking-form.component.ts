@@ -54,7 +54,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
   
     onSubmit(ds:HTMLInputElement, df:HTMLInputElement) {
       this.submitted=true;
-      if (this.bookingForm.invalid || this.service.checkEmail(this.v.Email)) {
+      if (this.bookingForm.invalid) {
         if(!this.book.DateStart){
           
           this.errors.DateStart = true;
@@ -225,7 +225,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
       this.service.car=null;
       this.bookingForm = this.formBuilder.group({
         Name: [this.user?this.user.Name:'', Validators.required],
-        Email: [this.user?this.user.Email:'', Validators.required],
+        Email: [this.user?this.user.Email:'', [Validators.required, Validators.email]],
         Tel: [this.user?(this.user.Phone?this.user.Phone:''):''],
         Place:['', Validators.required],
         PlaceOff:['', Validators.required],

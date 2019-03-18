@@ -136,10 +136,12 @@
                       </div>
                       <div class="item">
                         <span [ngClass]="{ 'is-invalid': submitted && f.Email.errors }">{{'EMAIL'|translate}}</span>
-                        <input formControlName="Email" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" class="input" value="{{user?user.Email:''}}" name="name" type="Email"   required>
-                        <div *ngIf="submitted && (f.Email.errors || service.checkEmail(v.Email))" class="invalid-feedback">
-                            <span class="d-block is-invalid" *ngIf="f.Email.errors?f.Email.errors.required:false">{{'EMAIL_VALIDATION'|translate}}</span>
-                            <span class="d-block is-invalid" *ngIf="f.Email.errors?false:service.checkEmail(v.Email)">{{'WRONG_EMAIL_VALIDATION'|translate}}</span>
+                        <input formControlName="Email" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" class="input" value="{{user?user.Email:''}}" name="name" type="Email" >
+                        {{submitted && !!f.Email.errors}}
+                        <div *ngIf="true" class="invalid-feedback">
+                          {{11111}}
+                            <span class="d-block is-invalid" *ngIf="f.Email.errors.required">{{'EMAIL_VALIDATION'|translate}}</span>
+                            <span class="d-block is-invalid" *ngIf="f.Email.errors.email">{{'WRONG_EMAIL_VALIDATION'|translate}}</span>
                         </div>
                       </div>
                       <div class="item">
