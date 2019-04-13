@@ -31,7 +31,7 @@
                     <div class="item">
                         <span [ngClass]="{ 'is-invalid': submitted  }">{{"PICK_UP_TIME" | translate}}</span>
                         <select [(ngModel)]="search.PickTime" [ngModelOptions]="{standalone: true}" class="input"  [ngClass]="{ 'is-invalid': submitted  }" >
-                            <option *ngFor="let t of times">{{t}}</option>
+                            <option *ngFor="let time of times" value="{{time}}">{{time | date:'HH:mm'}}</option>
                         </select>
                         <!-- <div *ngIf="submitted && f.PickTime.errors" class="invalid-feedback">
                             <span class="d-block is-invalid" *ngIf="f.PickTime.errors.required">{{"PICK_UP_TIME_VALIDATION" | translate}}</span>
@@ -67,7 +67,7 @@
                     <div class="item">
                         <span [ngClass]="{ 'is-invalid': submitted}">{{"DROP_OFF_TIME" | translate}}</span>
                         <select [(ngModel)]="search.DropTime" [ngModelOptions]="{standalone: true}" class="input"  [ngClass]="{ 'is-invalid': submitted }"  >
-                            <option *ngFor="let t of times" value="{{t}}">{{t}}</option>
+                            <option *ngFor="let time of times" value="{{time}}">{{time | date:'HH:mm'}}</option>
                         </select>
                         <!-- <div *ngIf="submitted && f.DropTime.errors" class="invalid-feedback">
                             <span class="d-block is-invalid" *ngIf="f.DropTime.errors.required">{{"DROP_OFF_TIME_VALIDATION" | translate}}</span>

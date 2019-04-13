@@ -16,6 +16,7 @@
     "NAME_VALIDATION": "Введите имя",
     "EMAIL_VALIDATION": "Введите адрес электронной почты",
     "PASSWORD_VALIDATION":"Введите пароль",
+    "PHONE_VALIDATION":"Введите телефон",
     "ENTER":"Войти",
     "REGISTRATION":"Регистрация",
     "CANCEL":"Отмена",

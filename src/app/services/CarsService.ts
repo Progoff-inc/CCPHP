@@ -10,6 +10,8 @@ export class CarsService implements OnInit {
     bookings: BookTimes[];
     DateStart:Date = undefined;
     DateFinish:Date = undefined;
+    StartPoint:string = undefined;
+    EndPoint:string = undefined;
     CurFilters = [];
     public car: Car = null;
     baseUrl:string='http://client.nomokoiw.beget.tech/back/';

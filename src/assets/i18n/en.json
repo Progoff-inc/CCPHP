@@ -16,6 +16,7 @@
     "NAME_VALIDATION": "Enter your name",
     "EMAIL_VALIDATION": "Enter your email",
     "PASSWORD_VALIDATION":"Enter your password",
+    "PHONE_VALIDATION":"Enter your phone number",
     "ENTER":"Enter",
     "REGISTRATION":"Registration",
     "CANCEL":"Cancel",
