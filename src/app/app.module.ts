@@ -32,8 +32,6 @@ import { RentalPolicyComponent } from './rental-policy/rental-policy.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { AboutCreteComponent } from './about-crete/about-crete.component';
 import { FooterComponent } from './footer/footer.component';
-import { MessagerComponent } from './messager/messager.component';
-import { SalesComponent } from './sales/sales.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
 import {TranslateService} from '@ngx-translate/core';
 import { SameCarsComponent } from './same-cars/same-cars.component';
@@ -70,8 +68,6 @@ export function HttpLoaderFactory1(http: HttpClient) {
     ContactsComponent,
     AboutCreteComponent,
     FooterComponent,
-    MessagerComponent,
-    SalesComponent,
     DatePickerComponent,
     SameCarsComponent,
     PhotoViewerComponent,
