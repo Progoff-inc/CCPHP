@@ -40,6 +40,9 @@
     margin: auto;
     
 }
+.btn:focus{
+    outline: none;
+}
 .dates i{
     font-size: 30px; margin-right: 5px;
 }
@@ -119,7 +122,7 @@
     padding-top: 5px;
 
 }
-.active{
+.status.active{
     background-color: rgba(0, 128, 0, 0.397) !important;
     border: 1px solid green !important;
 }
@@ -185,16 +188,28 @@ input{
     width: 100%;
     height: 100px;
 }
-button{
-    margin-top: 10px; 
-}
 .form{
     padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px black;
+    border-radius: 4px;
+    // box-shadow: 0 0 10px black;s
+    background-color: white;
 }
 .form>.item{
     margin-left: 0;
+}
+.form .card .btn{
+    background-color: white;
+}
+.border-success:hover{
+    background-color: #28a745 !important;
+    color: white;
+    font-weight: 500;
+    
+}
+.border-danger:hover{
+    background-color: #dc3545 !important;
+    color: white;
+    font-weight: 500;
 }
 .includes{
     width: 100%;
@@ -248,6 +263,73 @@ button{
 .includes:hover .include-items{
     display: inline;
 }
+.dropdown-menu{
+    .card:hover{
+        cursor: pointer;
+        background-color: #f8f9fa;
+    }
+}
+.filters{
+    span{
+        margin-right: .25rem;
+        font-size: 14px;
+        cursor: pointer;
+
+        
+    }
+}
+.name{
+    align-items: center;
+    h2{
+        margin: 0 5px 0 0;
+    }
+    i{
+        font-size: 2rem;
+
+    }
+}
+
+
+.pagination{
+    display: flex;
+}
+i{
+    cursor: pointer;
+}
+.page-link:focus{
+    box-shadow: none;
+}
+.pages{
+    a{
+        border-radius: 0 !important;
+    }
+    max-width: 50vw;
+    overflow: hidden;
+    overflow-x: scroll;
+    &::-webkit-scrollbar {
+        height: 0px;
+        width: 0px;
+    }
+    
+    /* Track */
+    &::-webkit-scrollbar-track {
+        box-shadow: none;; 
+        border-radius: 4px;
+        background-color: white;
+    }
+    
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+        background: rgb(207, 216, 255); 
+        
+        border-radius: 4px;
+    }
+    
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+        background: #b6c3ff; 
+    }
+}
 @media(max-width:767px){
     .user-photo>.upload{
         transition: 0.2s;
@@ -279,8 +361,18 @@ button{
         left: 0;
     }
 }
-.card:hover{
-    background-color: lightgray;
+li .card:hover{
+    background-color: rgb(236, 236, 236);
     cursor: pointer;
 }
-
+@media (min-width:800px){
+    .pages::-webkit-scrollbar{
+        height: 5px;
+    }
+    .filters span:hover{
+        background-color: #28a7467c
+    }
+    i:hover{
+        color:#007bff;
+    }
+}

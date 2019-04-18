@@ -11,13 +11,13 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  times:string[] = ["01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00",
-  "15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","23:50"];
+  times:Date[] = [];
   locations:string[] = ['AIR_HER','AN_PAPAN','HERSONISOS'];
   // tslint:disable-next-line:whitespace
   search:Search = new Search();
   DStart:Date= new Date();
   workCoords:number;
+  submitted = false;
   slides = [{
     Photo:'../../assets/images/manual.jpg',
     Header:'MAIN_MANUAL',
@@ -35,9 +35,9 @@ export class HomeComponent implements OnInit {
     FilterValue:'AT'
   },
   {
-    Photo:'../../assets/images/cabrio.jpg',
+    Photo:'../../assets/images/golf_7_1.jpg',
     Header:'MAIN_HATCHBACK',
-    MinPrice:75,
+    MinPrice:25,
     Text:'MAIN_HATCHBACK_TEXT',
     FilterName:'BodyType',
     FilterValue:'HATCHBACK'
@@ -115,26 +115,46 @@ export class HomeComponent implements OnInit {
   }
   ngOnInit() {
     
-    
+    this.getTimes();
+    this.search.PickTime = this.times[0];
+    this.search.DropTime = this.times[0];
     this.workCoords = document.getElementsByClassName("work")[0].getBoundingClientRect().top;
     
   }
+  
   showCars(n,v){
     this.service.addFilter(n,v);
     this.router.navigate(['/allcars']);
   }
   Search(){
-    this.service.DateStart = this.search.DateStart;
-    this.service.DateFinish = this.search.DateFinish;
+    this.service.DateStart = this.getExtraTime(this.search.DateStart, this.search.PickTime);
+    this.service.DateFinish = this.getExtraTime(this.search.DateFinish, this.search.DropTime);
+    this.service.StartPoint = this.search.Pick;
+    this.service.EndPoint = this.search.Drop;
     this.router.navigate(['/allcars']);
+  }
+
+  getTimes(){
+    let t  = new Date(1,1,1,0);
+    for(let i = 0; i<12; i++){
+      
+      this.times.push(new Date(t.getTime()+i*3600000+12*3600000))
+    }
+    return this.times;
+  }
+  getExtraTime(t, time){
+    
+      let e = new Date(time);
+      return new Date(t.getFullYear(), t.getMonth(), t.getDate(), e.getHours())
+   
   }
 }
 
 export class Search {
   Pick: string = 'AIR_HER';
   Drop: string = 'AIR_HER';
-  PickTime: string = '12:00';
-  DropTime: string = '12:00';
+  PickTime: Date;
+  DropTime: Date;
   DateStart: Date = new Date();
   DateFinish: Date = new Date();
 }

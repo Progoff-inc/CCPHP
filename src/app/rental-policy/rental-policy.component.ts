@@ -35,7 +35,7 @@ export class RentalPolicyComponent implements OnInit {
     },
     {
       Name: "Полная страховка без излишеств",
-      Description: "<div ><ul class='d-block' ><li>КАСКО с полным покрытием (FCDW)</li><li>Страхование от несчастных случаев (PAI)</li><li>Страховка на случай кражи или пожара</li><li>Полис ОСАГО (LI)</li></ul></div>",
+      Description: "КАСКО с полным покрытием (FCDW)<br>Страхование от несчастных случаев (PAI)<br>Страховка на случай кражи или пожара<br>Полис ОСАГО (LI)",
       NameEng: "Full Insurance without EXCESS",
       DescriptionEng: "Full coverage insurance (FCDW)<br>Personal accident insurance (PAI)<br>Theft & Fire insurance<br>Liability Insurance (LI)",
     }

@@ -23,11 +23,15 @@ export class FeedBackService{
     this.reports=[];
     this.number=0;
     this.http.get<FeedBack[]>(this.baseUrl + 'CarsController.php?Key=get-reports').subscribe(data => {
+      
       this.reports=data;
-   
+      
       this.reports.forEach(r => {
           r.CreatedDate = new Date(r.CreatedDate);
           r.ButtonText = "SHOW_COMMENTS";
+      })
+      this.reports.sort((a,b)=>{
+        return a.CreatedDate>b.CreatedDate?-1:1
       })
       this.number=this.reports.length;
       this.changePage(0,21);

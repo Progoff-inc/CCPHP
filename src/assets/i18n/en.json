@@ -16,6 +16,7 @@
     "NAME_VALIDATION": "Enter your name",
     "EMAIL_VALIDATION": "Enter your email",
     "PASSWORD_VALIDATION":"Enter your password",
+    "PHONE_VALIDATION":"Enter your phone number",
     "ENTER":"Enter",
     "REGISTRATION":"Registration",
     "CANCEL":"Cancel",
@@ -109,6 +110,7 @@
     "MAIN_AUTOMATIC_TEXT":"Cars with an automatic transmission are distinguished by their utmost ease of use, high build quality and, as a rule, high comfort",
     "MAIN_CABRIO_TEXT":"Cabriolet - the best choice for trips around the island of Crete. At the wheel of such a car, you can easily enjoy the fresh sea air, bask in the sun and just ride with the wind",
     "MAIN_MINIVAN_TEXT":"Minivan - ideal for large companies, whether it is a large family, or just friends who decide to have a good rest",
+    "MAIN_HATCHBACK_TEXT":"This car is suitable for those who can not choose between comfort, spaciousness and speed. Hatchbacks are characterized by high capacity, relative to the size, as well as incredible dynamics",
 
     "CONNECT":"Connect",
 
@@ -162,6 +164,7 @@
     "MAIN_AUTOMATIC":"Automatic",
     "MAIN_CABRIO":"Cabriolet",
     "MAIN_MINIVAN":"Minivan",
+    "MAIN_HATCHBACK":"Hatchback",
     "BSC":"Book specific car, not category",
     "BSC_TEXT":"What car you choose - you will take on arrival.",
     "PREPAYMENT":"No prepayment on site",
@@ -229,6 +232,7 @@
     "SEVEN_DAY":"Seven days",
     "PRICE_INPUT":"Enter price",
     "ADD":"Add",
+    "DELETE":"Delete",
 
     "YES":"Yes",
     "NO":"No",
@@ -245,5 +249,5 @@
     "DAYS_NUMBER":"Days number",
 
     "USER":"User",
-    "IS_ADMIN":"Admin rights"
+    "IS_ADMIN":"Administrator"
 }

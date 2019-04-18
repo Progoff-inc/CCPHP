@@ -26,7 +26,7 @@
     display: flex;
     align-items: center;
     right: 30px;
-    color: white;
+    /* color: white; */
     
 }
 .menu-prop>div:not(.lang){
@@ -38,14 +38,6 @@
     transition: 0.2s;
     cursor: pointer;
     
-}
-.menu-prop .link-active, .menu-prop .link-active *{
-    color: white !important;
-    background-color: transparent !important;
-}
-
-.menu-prop .link-active:hover{
-    color:white !important;
 }
 .menu-prop>div{
     margin-right: 10px;
@@ -71,6 +63,8 @@
     display: flex;
     flex-direction: column;
     width: 50px;
+    background-color: white;
+    color: black;
     border: 1px dashed black;
     border-radius: 4px;
     overflow: hidden;
@@ -372,6 +366,9 @@ li.link-active a:focus {
         /* background-color: #0B61A4 !important; */
         background-color: rgb(182, 22, 32);
     }
+    .navbar-inverse .navbar-toggle:hover,  .navbar-toggle:focus{
+        background-color: transparent;
+    }
     .navbar-toggle {
         border:none;
         position: absolute;
@@ -439,5 +436,8 @@ li.link-active a:focus {
        border: 0;
        -webkit-box-shadow: none;
        box-shadow: none;
+    }
+    .link-active{
+        background-color: transparent;
     }
 }

@@ -150,9 +150,12 @@
         <li class="list-group-item" >
           <h3 class="mt-0 mb-3">{{"CARS"| translate}}</h3>
           <div  class="w-100 m-0 border-0" >
-            <div class="card mb-3 flex-column flex-sm-row justify-content-start align-items-start align-items-sm-center  "   *ngFor="let e of cars" (click)="changeCar(e.Id)">
+            <div name="chang" class="card mb-3 flex-column flex-sm-row justify-content-start align-items-start align-items-sm-center  "   *ngFor="let e of cars" (click)="changeCar(e.Id,$event)" >
               <div class="card-body d-sm-flex justify-content-sm-between align-items-center">
                 <h6  class="card-title m-sm-0">#{{e.Id}} {{e.Model}}</h6>
+              </div>
+              <div>
+                <button class="btn btn-link text-danger mx-2" (click)="DelCar(e.Id,$event)" name="delete">{{'DELETE' | translate}}</button>
               </div>
             </div>
             <div class="btn-group" role="group" aria-label="Basic example">
@@ -219,30 +222,61 @@
     <p *ngIf="userService.currentUser.IsAdmin" class="line" ><span (click)="show('showAddNewAdmin')">{{'ADD_ADMIN' | translate}} <i class="fa" [ngClass] = "{'fa-angle-down':!showAddNewAdmin, ' fa-angle-up':showAddNewAdmin}"></i></span></p>
     <div *ngIf="userService.currentUser.IsAdmin && showAddNewAdmin">
       <div class="form my-4">
-        <div class="row">
-          <div class="col-sm-3">
-            <div class="item mb-3 ml-0 form-group">
-              
-              <label [ngClass]="{ 'is-invalid': adminSubmitted && newAdmin.UserId == 0 }" class="header">{{'USER' | translate}}</label>
-              <picker [items]="users" [out]="newAdmin" [prop]="'UserId'" [PropName]="'Name'"></picker>
-              <div *ngIf="adminSubmitted && newAdmin.UserId == 0" class="invalid-feedback">
-                <span class="d-block is-invalid" >{{"ADMIN_VALIDATION" | translate}}</span>
-              </div>
+          <h3 class="mt-0 mb-3">{{"USER"| translate}}</h3>
+        <form class="form-inline">
+          <div class="form-group mr-sm-3 mb-2">
+            <label for="inputPassword2" class="sr-only">{{'USER' | translate}}</label>
+            <input type="text" class="form-control" id="inputPassword2" placeholder="{{'USER' | translate}}" #search>
+          </div>
+          <button (click)="FindUsers(search.value)" type="submit" class="btn btn-primary mb-2">{{'SEARCH' | translate}}</button>
+        </form>
+        <div>
+          <!-- <div class="card  my-2">
+            <div class="card-body d-sm-flex justify-content-sm-between align-items-center">
+                <div class="col-sm-3 card-title m-sm-0">Фото</div>
+                <div class="col-sm-3 card-title m-sm-0">Почта</div>
+                <div class="col-sm-3 card-title m-sm-0">Имя</div>
+                <div class="col-sm-3 card-title m-sm-0">Статус</div>
             </div>
-            <div class="form-group">
-              <label [ngClass]="{ 'is-invalid': adminSubmitted && newAdmin.IsAdmin == null }" class="header">{{'IS_ADMIN' | translate}}</label>
-              <select class="form-control" [(ngModel)]="newAdmin.IsAdmin">
-                <option value="{{true}}">{{'YES' | translate}}</option>
-                <option value="{{false}}">{{'NO' | translate}}</option>
-              </select>
-              <div *ngIf="adminSubmitted && newAdmin.UserId == 0" class="invalid-feedback">
-                <span class="d-block is-invalid" >{{"ADMIN_VALIDATION" | translate}}</span>
+          </div> -->
+          <div *ngIf="findUsers.length>0" class="form users my-2 px-0" >
+            <div class="card flex-row flex-wrap d-sm-flex justify-content-sm-between align-items-center p-2" *ngFor='let user of findUsers[curUserPage]'>
+              <!-- <div class="col-sm-2 m-sm-0 p-0 px-sm-3">
+                <img class="img-rounded img-responsive w-50" src="{{userService.currentUser?userService.currentUser.Photo:'user.Photo'}}" alt="">
+              </div> -->
+              
+              
+              <div class="col-sm-2 m-sm-0 p-0 px-sm-3">#{{user.Id}}  {{user.Name}}</div>
+              <div class="col-sm-2 m-sm-0 p-0 px-sm-3">{{user.Email}}</div>
+              
+              <div *ngIf="user.IsAdmin" class="col-sm-2 m-sm-0 p-0 px-sm-3">{{'IS_ADMIN' | translate}}</div>
+              <div *ngIf="!user.IsAdmin" class="col-sm-2 m-sm-0 p-0 px-sm-3">{{'USER' | translate}}</div>
+              <div>
+                <button *ngIf="!user.IsAdmin" class="btn border-success mx-2" (click)="addAdmin(user, true)">{{'ADD' | translate}}</button>
+                <button *ngIf="user.IsAdmin" class="btn border-danger mx-2" (click)="addAdmin(user, false)">{{'DELETE' | translate}}</button>
               </div>
             </div>
           </div>
-          
+          <nav *ngIf="findUsers.length>1" class="mb-3" aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+              <li class="page-item">
+                <button class="page-link"  (click)="changePage(curUserPage-1)" [disabled]="curUserPage-1<0" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                  <span class="sr-only">Previous</span>
+                </button>
+              </li>
+              <div class="d-flex pages">
+                <li class="page-item" [ngClass]="{'active':i==curUserPage}" *ngFor="let p of findUsers; let i = index;" (click)="changePage(i)"><a class="page-link">{{i+1}}</a></li>
+              </div>
+              <li class="page-item">
+                <button class="page-link" (click)="changePage(curUserPage+1)"  [disabled]="curUserPage+1==findUsers.length" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span class="sr-only">Next</span>
+                </button>
+              </li>
+            </ul>
+          </nav>
         </div>
-        <button (click)="addAdmin()" class="btn btn-primary">{{'ADD' | translate}}</button>
       </div>
     </div>
   </div>

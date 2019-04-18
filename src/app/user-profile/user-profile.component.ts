@@ -11,7 +11,7 @@ import { LoadService } from '../services/load.service';
 @Component({
   selector: 'user-profile',
   templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css']
+  styleUrls: ['./user-profile.component.less']
 })
 export class UserProfileComponent implements OnInit {
   @Input() NewAdmin:ReportUser;
@@ -22,6 +22,8 @@ export class UserProfileComponent implements OnInit {
   Includes:Contains = new Contains();
   cars:ReportCar[] = [];
   users:ReportUser[] = [];
+  findUsers = [];
+  curUserPage = 0;
   newAdmin:any = {UserId:0, IsAdmin:null};
   saleErrors:any={DateStrart:true, DateFinish:true};
   newSale:Sale = new Sale();
@@ -58,6 +60,9 @@ export class UserProfileComponent implements OnInit {
         })
         this.userService.GetUsers().subscribe(data => {
           this.users = data;
+          this.users.forEach(u => {
+            u.IsAdmin = Boolean(Number(u.IsAdmin));
+          })
         })
       }
     }
@@ -70,12 +75,27 @@ export class UserProfileComponent implements OnInit {
   addCar(){
     this.router.navigate(['/add'])
   }
-  changeCar(id){
-    this.router.navigate(['/add'],{
-      queryParams:{
-          'CarId': id
-      }
-  })
+  DelCar(id){
+    if(confirm(this.translate.currentLang=='ru'?"Удалить автомобиль?":"Delete car?")){
+      alert("Удален");
+      this.carsService.DeleteCar(id).subscribe(d => {
+        this.cars.splice(this.cars.map(c => c.Id).indexOf(id),1)
+        })
+    }
+    else{
+      alert("Не удален");
+    }
+    
+  }
+  changeCar(id,e){
+    if(e.target.name!='delete'){
+      this.router.navigate(['/add'],{
+          queryParams:{
+              'CarId': id
+          }
+      })
+    }
+ 
   }
   show(prop:string){
     this[prop] = !this[prop];
@@ -118,23 +138,18 @@ export class UserProfileComponent implements OnInit {
     }
   }
   changeInfo(item:number,type:string, value:string, t?:HTMLInputElement){
-    console.log(t);
     this.submittes[item]=true;
-    if(type == 'Email' && this.carsService.checkEmail(value)){
-      
-      return;
-    }
     if(type == 'Phone' && !this.carsService.checkStr(value,'phone-check')){
 
       return;
     }
     if(value != ''){
-      console.log(true);
-      this.userService.ChangeInfo(type, this.carsService.checkStr(value,'phone'), this.userService.currentUser.Id).subscribe(data => {
+      this.userService.ChangeInfo(type, type == 'Phone'?this.carsService.checkStr(value,'phone'):value, this.userService.currentUser.Id).subscribe(data => {
         if(data){
-          this.userService.currentUser[type]= this.carsService.checkStr(value,'phone');
+          this.userService.currentUser[type]= type == 'Phone'?this.carsService.checkStr(value,'phone'):value;
           localStorage.setItem('currentUser', JSON.stringify(this.userService.currentUser));
         }
+        console.log(data);
       })
     }
     
@@ -172,6 +187,10 @@ export class UserProfileComponent implements OnInit {
       
     }
   }
+
+  changePage(p){
+    this.curUserPage=p;
+  }
   
   addSale(){
     this.saleSubmitted = true;
@@ -188,20 +207,27 @@ export class UserProfileComponent implements OnInit {
       this.saleSubmitted = false;
     })
   }
-  addAdmin(){
-    this.adminSubmitted = true;
-    if(this.newAdmin.UserId==0 || this.newAdmin.IsAdmin==null){
-      return
-    }
-    
-    this.NewAdmin = this.users.find(x => x.Id == this.newAdmin.UserId);
-    this.NewAdmin.IsAdmin = this.newAdmin.IsAdmin==='true';
-    this.userService.SetAdmin(this.NewAdmin.Id, this.NewAdmin.IsAdmin).subscribe(data => {
-      this.NewAdmin = data;
-      this.newAdmin={UserId:0, IsAdmin:null};
-      this.adminSubmitted = false;
+  addAdmin(user, isAdmin){
+    this.userService.SetAdmin(user.Id, isAdmin).subscribe(data => {
+      user.IsAdmin = isAdmin;
+     
     })
   }
+  FindUsers(name){
+    this.findUsers = this.setPages(this.users.filter(
+      x => ((x.Name.toUpperCase().indexOf(name.toUpperCase())>-1
+      || x.Id == name
+      || x.Email.toUpperCase().indexOf(name.toUpperCase())>-1)
+      && x.Id!=this.userService.currentUser.Id)));
+  }
+  
+  setPages(items, n = 10){
+    let pagedItems = [];
+    while(items.length>0){
+        pagedItems.push(items.splice(0,n));
+    }
+    return pagedItems;
+}
   
 
 }
