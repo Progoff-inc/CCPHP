@@ -6,7 +6,8 @@
     position: relative;
 }
 .main-info{
-    margin: 20px 0 30px 0;
+    margin-top: 20px;
+    margin-bottom: 30px;
     position: relative;
 }
 .d-flex>p{
@@ -27,6 +28,7 @@
 }
 .main-info .info{
     padding: 20px;
+    width: 100%;
     border-radius: 10px;
     box-shadow: 0 0 10px black inset;
     background-color: white;
@@ -116,6 +118,7 @@
 }
 .book-item{
     box-shadow: 0 0 7px rgb(255, 48, 48);
+    background-color: rgba(255, 255, 255, 0.308);
     border-radius: 4px;
     margin-bottom: 20px;
     position: relative;
@@ -153,10 +156,18 @@
 .dates{
     justify-content: center;
 }
-.status{
+.btns{
     position: absolute;
     top: 5px;
     right: 5px;
+    display: flex;
+    *:first-child{
+        padding-right: 0;
+    }
+}
+.status{
+    width: 90px;
+    text-align: center;
     padding: 5px;
     border-radius: 4px;
     border: 1px solid rgb(255, 33, 33);
@@ -359,6 +370,9 @@ i{
     }
     .change-panel{
         left: 0;
+    }
+    .main-info{
+        padding: 0 !important;
     }
 }
 li .card:hover{

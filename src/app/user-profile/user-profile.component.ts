@@ -45,6 +45,9 @@ export class UserProfileComponent implements OnInit {
         data.Topics.forEach(x => {
           x.ModifyDate= new Date(x.ModifyDate);
         })
+        data.Books.sort((a,b)=>{
+          return a.DateStart<b.DateStart?1:-1
+        })
         console.log(data);
         data.IsAdmin = Boolean(Number(data.IsAdmin));
         this.userService.currentUser=data;

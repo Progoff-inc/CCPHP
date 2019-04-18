@@ -1,6 +1,6 @@
 import { Inject, Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import {FeedBack, Sale} from './UserService';
+import {FeedBack, Sale, User} from './UserService';
 import { PickerComponent } from '../picker/picker.component';
 
 @Injectable()
@@ -32,6 +32,9 @@ export class CarsService implements OnInit {
     }
     GetCar(id: string) {
         return this.http.get<Car>(this.baseUrl + 'CarsController.php?Key=get-car&Id=' + id);
+    }
+    GetBook(id: string) {
+        return this.http.get<Book>(this.baseUrl + 'CarsController.php?Key=get-book&Id=' + id);
     }
     GetCarPhotos(id: number) {
         return this.http.get<string[]>(this.baseUrl + 'CarsController.php?Key=get-photos&Id=' + id);
@@ -222,6 +225,9 @@ export class Book {
     Tel?: string;
     Coment?: string;
     Name?: string;
+    
+    Car?:Car;
+    User?:User;
 }
 export class NewBook {
     DateStart: Date;

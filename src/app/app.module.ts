@@ -39,6 +39,7 @@ import { PhotoViewerComponent } from './photo-viewer/photo-viewer.component';
 import { AddComponent } from './add/add.component';
 import { LoadComponent } from './load/load.component';
 import { LoadService } from './services/load.service';
+import { ChangeBookComponent } from './change-book/change-book.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
@@ -72,7 +73,8 @@ export function HttpLoaderFactory1(http: HttpClient) {
     SameCarsComponent,
     PhotoViewerComponent,
     AddComponent,
-    LoadComponent
+    LoadComponent,
+    ChangeBookComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -94,6 +96,7 @@ export function HttpLoaderFactory1(http: HttpClient) {
       { path: 'counter', component: CounterComponent },
       { path: 'allcars', component: CarsComponent },
       { path: 'booking/:id', component: BookingFormComponent },
+      { path: 'change-book/:id', component: ChangeBookComponent },
       { path: 'feedback', component:FeedbackComponent},
       { path: 'user', component: UserProfileComponent},
       { path: 'policy', component: RentalPolicyComponent},

@@ -172,8 +172,11 @@ export class BookingFormComponent implements OnInit, OnChanges {
     }
     getSum(){
       if(this.book.DateStart && this.book.DateFinish){
+        let ds = new Date(this.book.DateStart.getFullYear(), this.book.DateStart.getMonth(), this.book.DateStart.getDate());
+        let df = new Date(this.book.DateFinish.getFullYear(), this.book.DateFinish.getMonth(), this.book.DateFinish.getDate());
+        console.log(ds);
         if(this.service.car){
-          this.book.Sum = (this.book.DateFinish.getTime()-this.book.DateStart.getTime())/86400000*(this.getPrice());
+          this.book.Sum = (df.getTime()-ds.getTime())/86400000*(this.getPrice());
           return this.book.Sum;
         }
         else{
