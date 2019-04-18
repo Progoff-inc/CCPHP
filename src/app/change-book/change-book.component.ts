@@ -54,33 +54,40 @@ export class ChangeBookComponent implements OnInit {
       this.user=JSON.parse(localStorage.getItem("currentUser"));
       this.getTimes();
       this.service.GetBook(this.route.snapshot.paramMap.get("id")).subscribe(data => {
-        console.log(data);
-        data.DateStart = new Date(data.DateStart);
-        data.DateFinish = new Date(data.DateFinish);
-        data.DateFinish.setHours(data.DateFinish.getHours()+3);
-        data.DateStart.setHours(data.DateStart.getHours()+3);
-        this.minDate = new Date();
-        this.minDate.setDate(this.minDate.getDate()+5);
-        this.ds = data.DateStart;
-        this.df = data.DateFinish;
-        this.book = data;
-        this.bookingForm = this.formBuilder.group({
-          Name: [data.User.Name, Validators.required],
-          Email: [data.User.Email, [Validators.required, Validators.email]],
-          Tel: [data.User.Phone],
-          Place:[data.Place, Validators.required],
-          PlaceOff:[data.PlaceOff, Validators.required],
-          Time:[new Date(1,1,1,data.DateStart.getHours())],
-          TimeOff:[new Date(1,1,1,data.DateFinish.getHours())],
-          Coment:[data.Description]
-        });
-        this.bookingForm.valueChanges.subscribe(data => {
-          console.log(data);
-          this.checkUpdate();
-        })
-        this.ls.showLoad = false;
+        if(data.UserId==this.user.Id || this.user.IsAdmin){
+          data.DateStart = new Date(data.DateStart);
+          data.DateFinish = new Date(data.DateFinish);
+          data.DateFinish.setHours(data.DateFinish.getHours()+3);
+          data.DateStart.setHours(data.DateStart.getHours()+3);
+          this.minDate = new Date();
+          this.minDate.setDate(this.minDate.getDate()+5);
+          this.ds = data.DateStart;
+          this.df = data.DateFinish;
+          this.book = data;
+          this.bookingForm = this.formBuilder.group({
+            Name: [data.User.Name, Validators.required],
+            Email: [data.User.Email, [Validators.required, Validators.email]],
+            Tel: [data.User.Phone],
+            Place:[data.Place, Validators.required],
+            PlaceOff:[data.PlaceOff, Validators.required],
+            Time:[new Date(1,1,1,data.DateStart.getHours())],
+            TimeOff:[new Date(1,1,1,data.DateFinish.getHours())],
+            Coment:[data.Description]
+          });
+          this.bookingForm.valueChanges.subscribe(data => {
+            console.log(data);
+            this.checkUpdate();
+          })
+          this.ls.showLoad = false;
+        }else{
+          this.ls.showLoad = false;
+          window.history.back();
+        }
+        
       });
       
+    }else{
+      window.history.back();
     }
     
   }
