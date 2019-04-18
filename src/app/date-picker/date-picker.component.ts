@@ -104,6 +104,9 @@ export class DatePickerComponent implements OnInit, OnChanges {
     if(this.DateFinish){
       date = this.DateFinish
     } 
+    if(this.Out[this.Prop]){
+      this.Errors[this.Prop]=false;
+    }
     if(this.translate.currentLang=="ru"){
       this.weekStart=1;
       this.week = ["MON","TUE","WED","THU","FRI","SUT","SUN"];
@@ -180,7 +183,7 @@ export class DatePickerComponent implements OnInit, OnChanges {
           if(this.Errors){
             this.Errors[this.Prop]=false;
           }
-          //this.hide();
+          this.hide();
         }
       }
       else{
@@ -189,7 +192,7 @@ export class DatePickerComponent implements OnInit, OnChanges {
             this.Errors[this.Prop]=false;
           }
          
-          //this.hide();
+          this.hide();
       }
       
     }

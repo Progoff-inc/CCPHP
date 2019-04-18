@@ -4,6 +4,7 @@ import { User } from '../services/UserService';
 import { CarsService, Book } from '../services/CarsService';
 import { ActivatedRoute } from '@angular/router';
 import { LoadService } from '../services/load.service';
+import { Change } from '../add/add.component';
 
 @Component({
   selector: 'app-change-book',
@@ -12,11 +13,16 @@ import { LoadService } from '../services/load.service';
 })
 export class ChangeBookComponent implements OnInit {
   bookingForm:FormGroup;
+  showBtn=false;
+  change:Change = new Change();
   user:User;
   times = [];
   book:Book;
   errors:any;
   minDate:Date;
+  maxDate:Date;
+  ds:Date;
+  df:Date;
   invalidIntarvals:any;
   submitted:any;
   locations:string[] = ['AIR_HER','AN_PAPAN','HERSONISOS'];
@@ -26,6 +32,7 @@ export class ChangeBookComponent implements OnInit {
     this.ls.showLoad = true;
       this.errors={DateStrart:true, DateFinish:true};
       this.minDate = new Date();
+      
       this.invalidIntarvals = [];
       //this.sales;
       this.submitted = false;
@@ -50,17 +57,25 @@ export class ChangeBookComponent implements OnInit {
         console.log(data);
         data.DateStart = new Date(data.DateStart);
         data.DateFinish = new Date(data.DateFinish);
+        data.DateFinish.setHours(data.DateFinish.getHours()+3);
+        data.DateStart.setHours(data.DateStart.getHours()+3);
+        this.ds = data.DateStart;
+        this.df = data.DateFinish;
         this.book = data;
         this.bookingForm = this.formBuilder.group({
           Name: [data.User.Name, Validators.required],
-          Email: [data.Email, [Validators.required, Validators.email]],
-          Tel: [data.Tel],
+          Email: [data.User.Email, [Validators.required, Validators.email]],
+          Tel: [data.User.Phone],
           Place:[data.Place, Validators.required],
           PlaceOff:[data.PlaceOff, Validators.required],
           Time:[new Date(1,1,1,data.DateStart.getHours())],
           TimeOff:[new Date(1,1,1,data.DateFinish.getHours())],
-          Coment:['']
+          Coment:[data.Description]
         });
+        this.bookingForm.valueChanges.subscribe(data => {
+          console.log(data);
+          this.checkUpdate();
+        })
         this.ls.showLoad = false;
       });
       
@@ -109,5 +124,49 @@ export class ChangeBookComponent implements OnInit {
     
     return res.toFixed(2)
   }
+  checkUpdate(){
+    if(!!this.book){
+      this.change.clear();
+      
+      Object.keys(this.book).forEach(c => {
+        if( this.bookingForm.value[c]!=undefined && this.book[c] != this.bookingForm.value[c] ){
+          this.change.add(c, this.bookingForm.value[c]);
+        }
+      })
+      this.book.DateStart=this.getExtraTime(this.book.DateStart, this.bookingForm.value.Time);
+      this.book.DateFinish=this.getExtraTime(this.book.DateFinish, this.bookingForm.value.TimeOff);
+      if(this.book.DateStart!=this.ds){
+        this.change.add('DateStart', this.book.DateStart);
+      }
+      if(this.book.DateFinish!=this.df){
+        this.change.add('DateFinish', this.book.DateFinish);
+      }
+      console.log(this.change);
+      this.showBtn = this.change.Keys.length>0;
+    }
+    return this.showBtn;
+    
+  }
+
+  onSubmit(){
+    this.submitted = true;
+    this.ls.showLoad=true;
+    if(this.bookingForm.invalid){
+      return;
+    }
+    if(this.change.Keys.length>0){
+      this.service.UpdateBook(this.change, this.book.Id).subscribe((data)=>{
+        for(let i = 0;i<this.change.Keys.length;i++){
+          this.book[this.change.Keys[i]]=this.change.Values[i];
+        }
+        this.change=new Change();
+        this.showBtn = false;
+        this.submitted = false;
+        this.ls.showLoad=false;
+      })
+    }
+  }
+  get f() { return this.bookingForm.controls; }
+  get v() { return this.bookingForm.value; }
 
 }

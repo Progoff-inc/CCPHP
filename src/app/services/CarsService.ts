@@ -56,6 +56,10 @@ export class CarsService implements OnInit {
 
         return this.http.post<Car>(this.baseUrl + 'CarsController.php?Key=update-car&Id=' + id, car);
     }
+    UpdateBook(book, id) {
+
+        return this.http.post<Car>(this.baseUrl + 'CarsController.php?Key=update-book&Id=' + id, book);
+    }
     UpdatePrices(Price, id) {
         return this.http.post<Prices>(this.baseUrl + 'CarsController.php?Key=update-prices&Id=' + id, Price);
     }
@@ -225,6 +229,7 @@ export class Book {
     Tel?: string;
     Coment?: string;
     Name?: string;
+    Description?:string;
     
     Car?:Car;
     User?:User;
@@ -243,6 +248,7 @@ export class NewBook {
     Tel?: string;
     Coment?: string;
     Name?: string;
+    Description?:string;
 }
 
 export interface ReportCar {
