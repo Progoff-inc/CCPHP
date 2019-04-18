@@ -251,5 +251,7 @@
     "DAYS_NUMBER":"Days number",
 
     "USER":"User",
-    "IS_ADMIN":"Administrator"
+    "IS_ADMIN":"Administrator",
+
+    "PRICES_SHOWN_PERIOD":"Prices are for the period"
 }

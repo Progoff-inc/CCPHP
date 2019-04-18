@@ -59,6 +59,8 @@ export class ChangeBookComponent implements OnInit {
         data.DateFinish = new Date(data.DateFinish);
         data.DateFinish.setHours(data.DateFinish.getHours()+3);
         data.DateStart.setHours(data.DateStart.getHours()+3);
+        this.minDate = new Date();
+        this.minDate.setDate(this.minDate.getDate()+5);
         this.ds = data.DateStart;
         this.df = data.DateFinish;
         this.book = data;

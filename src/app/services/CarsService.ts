@@ -47,7 +47,10 @@ export class CarsService implements OnInit {
         return this.http.post<number>(this.baseUrl + 'CarsController.php?Key=add-car', car);
     }
     DeleteCar(id){
-        return this.http.delete(this.baseUrl + 'CarsController.php?Key=delete-car&Id' + id)
+        return this.http.delete(this.baseUrl + 'CarsController.php?Key=delete-car&Id=' + id)
+    }
+    DeleteBook(id){
+        return this.http.delete(this.baseUrl + 'CarsController.php?Key=delete-book&Id=' + id)
     }
     AddPrices(CarId,Price) {
         return this.http.post(this.baseUrl + 'CarsController.php?Key=add-price&Id=' + CarId, Price);
@@ -106,12 +109,12 @@ export class CarsService implements OnInit {
     addFilter(name,value){
         this.CurFilters.push({Name:name,Value:name=='Passengers'?value[0]:value});
     }
-    getCarPrice(car:Car){
+    getCarPrice(car:Car, ds = this.DateStart, df = this.DateFinish){
         car.SPrice = Number(car.SPrice);
         car.WPrice = Number(car.WPrice);
-        if(this.DateStart.getMonth()>4 && this.DateStart.getMonth()<8){
+        if(ds.getMonth()>4 && ds.getMonth()<8){
             let price = 0;
-            let days = Math.ceil(Math.abs(this.DateFinish.getTime() - this.DateStart.getTime()) / (1000 * 3600 * 24));
+            let days = Math.ceil(Math.abs(df.getTime() - ds.getTime()) / (1000 * 3600 * 24));
             console.log( car.Prices.SummerPrices[days-1]);
             if(days<8){
                 return car.Prices.SummerPrices[Object.keys(car.Prices.SummerPrices)[days-1]];
@@ -126,7 +129,7 @@ export class CarsService implements OnInit {
         }
         else{
             let price = 0;
-            let days = Math.ceil(Math.abs(this.DateFinish.getTime() - this.DateStart.getTime()) / (1000 * 3600 * 24));
+            let days = Math.ceil(Math.abs(df.getTime() - ds.getTime()) / (1000 * 3600 * 24));
             console.log( car.Prices.SummerPrices[Object.keys(car.Prices.SummerPrices)[days-1]]);
             if(days<8){
                 return car.Prices.SummerPrices[Object.keys(car.Prices.SummerPrices)[days-1]];
@@ -140,6 +143,8 @@ export class CarsService implements OnInit {
             return price;
         }
     }
+
+    
 }
 
 export class Car {

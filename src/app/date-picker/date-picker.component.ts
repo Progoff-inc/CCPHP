@@ -104,7 +104,7 @@ export class DatePickerComponent implements OnInit, OnChanges {
     if(this.DateFinish){
       date = this.DateFinish
     } 
-    if(this.Out[this.Prop]){
+    if(this.Out[this.Prop] && this.Errors){
       this.Errors[this.Prop]=false;
     }
     if(this.translate.currentLang=="ru"){

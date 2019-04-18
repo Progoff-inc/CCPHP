@@ -34,11 +34,16 @@ export class UserProfileComponent implements OnInit {
   changes:boolean[]=[false,false,false];
   changeValues:string[]=["","",""];
   submittes:boolean[]=[false,false,false];
+
+  changeDate:Date = new Date();
+  deleteDate:Date = new Date();
   constructor(private ls:LoadService, public translate:TranslateService, public carsService:CarsService, private http: HttpClient, public userService:UserService, private router: Router) { }
 
   ngOnInit() {
     if(localStorage.getItem("currentUser")){
       this.ls.showLoad = true;
+      this.changeDate.setDate(this.changeDate.getDate()+5);
+      this.deleteDate.setDate(this.deleteDate.getDate()+3);
       this.userService.currentUser=JSON.parse(localStorage.getItem("currentUser"));
       
       this.userService.GetUserById(this.userService.currentUser.Id).subscribe(data => {
@@ -230,7 +235,31 @@ export class UserProfileComponent implements OnInit {
         pagedItems.push(items.splice(0,n));
     }
     return pagedItems;
-}
+  }
+
+  checkChange(b:Book){
+    b.DateStart = new Date(b.DateStart);
+    b.DateFinish = new Date(b.DateFinish);
+    console.log(b.DateStart);
+    console.log(this.changeDate)
+    return b.DateStart>this.changeDate;
+  }
+
+  checkDelete(b:Book){
+    b.DateStart = new Date(b.DateStart);
+    b.DateFinish = new Date(b.DateFinish);
+    return b.DateStart>this.deleteDate;
+  }
+
+  cancel(b:Book){
+    if(confirm("Вы уверены, что хотите удалить бронь?")){
+      this.carsService.DeleteBook(b.Id).subscribe((d)=> {
+        console.log(d);
+        this.userService.currentUser.Books.splice(this.userService.currentUser.Books.findIndex(x => x.Id == b.Id), 1);
+        this.userService.Save();
+      })
+    }
+  }
   
 
 }

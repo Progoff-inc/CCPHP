@@ -87,7 +87,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
           Sum:Math.ceil(this.book.Sum),
           DateStart:this.getExtraTime(this.book.DateStart, this.bookingForm.value.Time),
           DateFinish:this.getExtraTime(this.book.DateFinish, this.bookingForm.value.TimeOff),
-          Price:this.getPrice(),
+          Price:0,
           Place:this.bookingForm.value.Place,
           PlaceOff:this.bookingForm.value.PlaceOff,
           Tel:this.service.checkStr(this.bookingForm.value.Tel,'phone'),
@@ -127,7 +127,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
             Sum:Math.ceil(this.book.Sum),
             DateStart:this.getExtraTime(this.book.DateStart, this.bookingForm.value.Time),
             DateFinish:this.getExtraTime(this.book.DateFinish, this.bookingForm.value.TimeOff),
-            Price:this.getPrice(),
+            Price:0,
             Place:this.bookingForm.value.Place,
             PlaceOff:this.bookingForm.value.PlaceOff,
             Tel:this.bookingForm.value.Tel,
@@ -156,9 +156,6 @@ export class BookingFormComponent implements OnInit, OnChanges {
         return new Date(t.getFullYear(), t.getMonth(), t.getDate(), e.getHours())
      
     }
-    getPrice(){
-      return this.service.car.SPrice;
-    }
     hide(){
       this.service.showBookingForm=false;
     }
@@ -169,23 +166,6 @@ export class BookingFormComponent implements OnInit, OnChanges {
           this.showPhotos.show=true;
         }
       })
-    }
-    getSum(){
-      if(this.book.DateStart && this.book.DateFinish){
-        let ds = new Date(this.book.DateStart.getFullYear(), this.book.DateStart.getMonth(), this.book.DateStart.getDate());
-        let df = new Date(this.book.DateFinish.getFullYear(), this.book.DateFinish.getMonth(), this.book.DateFinish.getDate());
-        console.log(ds);
-        if(this.service.car){
-          this.book.Sum = (df.getTime()-ds.getTime())/86400000*(this.getPrice());
-          return this.book.Sum;
-        }
-        else{
-          return 0;
-        }
-      }
-      else{
-        return 0
-      }
     }
     getProgress(type:string, car:Car){
       if(car.Reports.length==0){
