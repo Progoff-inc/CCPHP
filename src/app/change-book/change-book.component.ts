@@ -55,7 +55,7 @@ export class ChangeBookComponent implements OnInit {
       this.getTimes();
       this.service.GetBook(this.route.snapshot.paramMap.get("id")).subscribe(data => {
         if(data.UserId==this.user.Id || this.user.IsAdmin){
-          data.DateStart = new Date(data.DateStart);
+          data.DateStart = new Date(data.DateStart.replace('-','/','g'));
           data.DateFinish = new Date(data.DateFinish);
           data.DateFinish.setHours(data.DateFinish.getHours()+3);
           data.DateStart.setHours(data.DateStart.getHours()+3);

@@ -84,7 +84,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
         this.book = {
           CarId:this.service.car.Id,
           UserId:this.user.Id,
-          Sum:Math.ceil(this.book.Sum),
+          Sum:Math.ceil(this.service.getCarPrice(this.service.car, this.book.DateStart, this.book.DateFinish)),
           DateStart:this.getExtraTime(this.book.DateStart, this.bookingForm.value.Time),
           DateFinish:this.getExtraTime(this.book.DateFinish, this.bookingForm.value.TimeOff),
           Price:0,

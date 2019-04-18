@@ -220,8 +220,8 @@ export interface BookTimes {
 }
 export class Book {
     Id: number;
-    DateStart: Date;
-    DateFinish: Date;
+    DateStart: any;
+    DateFinish: any;
     Sum: number;
     UserId: number;
     CarId: number;
