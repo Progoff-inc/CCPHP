@@ -1,6 +1,6 @@
 
 <div class="container-fluid">
-    <h1>{{"OUR_CARS" | translate}}</h1>
+    <h1>{{"OUR_CARS" | translate}} <span style="color:black; font-size: 14px; text-shadow: none;" class="ml-3" *ngIf="service.DateStart">{{"PRICES_SHOWN_PERIOD" | translate}}: {{service.DateStart | date:'dd.MM.yyyy'}} - {{service.DateFinish | date:'dd.MM.yyyy'}}</span></h1>
     <div class="filter-sort">
       <h4 class="show-filters" (click)="showFilters()"><b>{{(ShowFilters?'CLOSE_FILTERS':'SHOW_FILTERS') | translate}} <i class="fa fa-filter" aria-hidden="true"></i></b></h4>
       <div class="sortings">
@@ -41,7 +41,7 @@
                 <div class="rating">
                   <rating [mark]="car.Mark"></rating>
                 </div>
-                <i (click)="showCarPhotos(car.Id)" class="fa fa-picture-o" aria-hidden="true"></i>
+                <!-- <i (click)="showCarPhotos(car.Id)" class="fa fa-picture-o" aria-hidden="true"></i> -->
               </div>
               <div class="car-info">
                 <h5>{{car.Model}}</h5>

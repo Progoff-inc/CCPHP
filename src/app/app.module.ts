@@ -32,8 +32,6 @@ import { RentalPolicyComponent } from './rental-policy/rental-policy.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { AboutCreteComponent } from './about-crete/about-crete.component';
 import { FooterComponent } from './footer/footer.component';
-import { MessagerComponent } from './messager/messager.component';
-import { SalesComponent } from './sales/sales.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
 import {TranslateService} from '@ngx-translate/core';
 import { SameCarsComponent } from './same-cars/same-cars.component';
@@ -41,6 +39,7 @@ import { PhotoViewerComponent } from './photo-viewer/photo-viewer.component';
 import { AddComponent } from './add/add.component';
 import { LoadComponent } from './load/load.component';
 import { LoadService } from './services/load.service';
+import { ChangeBookComponent } from './change-book/change-book.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
@@ -70,13 +69,12 @@ export function HttpLoaderFactory1(http: HttpClient) {
     ContactsComponent,
     AboutCreteComponent,
     FooterComponent,
-    MessagerComponent,
-    SalesComponent,
     DatePickerComponent,
     SameCarsComponent,
     PhotoViewerComponent,
     AddComponent,
-    LoadComponent
+    LoadComponent,
+    ChangeBookComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -98,6 +96,7 @@ export function HttpLoaderFactory1(http: HttpClient) {
       { path: 'counter', component: CounterComponent },
       { path: 'allcars', component: CarsComponent },
       { path: 'booking/:id', component: BookingFormComponent },
+      { path: 'change-book/:id', component: ChangeBookComponent },
       { path: 'feedback', component:FeedbackComponent},
       { path: 'user', component: UserProfileComponent},
       { path: 'policy', component: RentalPolicyComponent},

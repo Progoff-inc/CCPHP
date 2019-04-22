@@ -16,9 +16,11 @@
     "NAME_VALIDATION": "Введите имя",
     "EMAIL_VALIDATION": "Введите адрес электронной почты",
     "PASSWORD_VALIDATION":"Введите пароль",
+    "PHONE_VALIDATION":"Введите телефон",
     "ENTER":"Войти",
     "REGISTRATION":"Регистрация",
     "CANCEL":"Отмена",
+    "CHANGE":"Изменить",
     "ACCOUNT_EXCIST":"Уже есть аккаунт",
     "CAR_INFO": "Детали",
     "BOOK": "Забронировать",
@@ -151,7 +153,7 @@
     "SHOW_FILTERS":"Показать фильтры",
     "LEAVE_COMMENT":"Оставить комментарий",
     "SEARCH":"Поиск",
-    "BOOKING_FORM":"Форма бронирования",
+    "CHANGE_BOOKING_FORM":"Форма редактирования бронирования",
     "CAR_FEATURES":"Особенности автомобиля",
     "DEFAULT_EQUIPMENT":"Базовая комплектация",
     "INCLUDE":"Включает",
@@ -254,5 +256,7 @@
     "DAYS_NUMBER":"Длительность",
 
     "USER":"Пользователь",
-    "IS_ADMIN":"Администратор"
+    "IS_ADMIN":"Администратор",
+
+    "PRICES_SHOWN_PERIOD":"Цены указаны на период"
 }

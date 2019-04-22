@@ -74,6 +74,10 @@ export class UserService {
 
     }
 
+    Save(){
+        localStorage.setItem( 'currentUser', JSON.stringify(this.currentUser));
+    }
+
 }
 export interface Statistics{
     Cars:Car[];

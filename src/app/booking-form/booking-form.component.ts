@@ -34,13 +34,12 @@ export class BookingFormComponent implements OnInit, OnChanges {
   public user:User;
   photos:string[];
   showPhotos:any = {show:false};
-  locations:string[] = ['Аэропорт Ираклиона','Андреа Папандреу','Херсонисос'];
+  locations:string[] = ['AIR_HER','AN_PAPAN','HERSONISOS'];
   
   
   constructor(private ls:LoadService, public translate: TranslateService,private formBuilder: FormBuilder,private router:Router, private route: ActivatedRoute, public service:CarsService, private us:UserService, public alert:AlertService) { 
     this.sale.Id = 0;
-    this.book.DateFinish = null;
-    this.book.DateStart =null;
+    
   }
   get f() { return this.bookingForm.controls; }
   get v() { return this.bookingForm.value; }
@@ -54,7 +53,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
   
     onSubmit(ds:HTMLInputElement, df:HTMLInputElement) {
       this.submitted=true;
-      if (this.bookingForm.invalid || this.service.checkEmail(this.v.Email)) {
+      if (this.bookingForm.invalid) {
         if(!this.book.DateStart){
           
           this.errors.DateStart = true;
@@ -85,10 +84,10 @@ export class BookingFormComponent implements OnInit, OnChanges {
         this.book = {
           CarId:this.service.car.Id,
           UserId:this.user.Id,
-          Sum:Math.ceil(this.book.Sum),
+          Sum:Math.ceil(this.service.getCarPrice(this.service.car, this.book.DateStart, this.book.DateFinish)),
           DateStart:this.getExtraTime(this.book.DateStart, this.bookingForm.value.Time),
           DateFinish:this.getExtraTime(this.book.DateFinish, this.bookingForm.value.TimeOff),
-          Price:this.getPrice(),
+          Price:0,
           Place:this.bookingForm.value.Place,
           PlaceOff:this.bookingForm.value.PlaceOff,
           Tel:this.service.checkStr(this.bookingForm.value.Tel,'phone'),
@@ -128,11 +127,11 @@ export class BookingFormComponent implements OnInit, OnChanges {
             Sum:Math.ceil(this.book.Sum),
             DateStart:this.getExtraTime(this.book.DateStart, this.bookingForm.value.Time),
             DateFinish:this.getExtraTime(this.book.DateFinish, this.bookingForm.value.TimeOff),
-            Price:this.getPrice(),
+            Price:0,
             Place:this.bookingForm.value.Place,
             PlaceOff:this.bookingForm.value.PlaceOff,
-            Tel:this.service.checkStr(this.bookingForm.value.Tel,'phone'),
-            Coment:this.service.checkStr(this.bookingForm.value.Coment)
+            Tel:this.bookingForm.value.Tel,
+            Coment:this.bookingForm.value.Coment
           }
           console.log(this.book);
           this.service.BookCar(this.book).subscribe(data => {
@@ -144,9 +143,10 @@ export class BookingFormComponent implements OnInit, OnChanges {
       }
     }
     getTimes(){
-      
+      let t  = new Date(1,1,1,0);
       for(let i = 0; i<12; i++){
-        this.times.push(new Date(this.book.DateStart.getTime()+i*3600000+12*3600000))
+        
+        this.times.push(new Date(t.getTime()+i*3600000+12*3600000))
       }
       return this.times;
     }
@@ -155,9 +155,6 @@ export class BookingFormComponent implements OnInit, OnChanges {
         let e = new Date(time);
         return new Date(t.getFullYear(), t.getMonth(), t.getDate(), e.getHours())
      
-    }
-    getPrice(){
-      return this.service.car.SPrice;
     }
     hide(){
       this.service.showBookingForm=false;
@@ -169,20 +166,6 @@ export class BookingFormComponent implements OnInit, OnChanges {
           this.showPhotos.show=true;
         }
       })
-    }
-    getSum(){
-      if(this.book.DateStart && this.book.DateFinish){
-        if(this.service.car){
-          this.book.Sum = (this.book.DateFinish.getTime()-this.book.DateStart.getTime())/86400000*(this.getPrice());
-          return this.book.Sum;
-        }
-        else{
-          return 0;
-        }
-      }
-      else{
-        return 0
-      }
     }
     getProgress(type:string, car:Car){
       if(car.Reports.length==0){
@@ -215,25 +198,26 @@ export class BookingFormComponent implements OnInit, OnChanges {
       this.times = [];
       this.rating = {Look:0, Comfort:0, Drive:0};
       this.book = new NewBook();
-      this.user;
+      this.book.DateFinish = this.service.DateFinish?this.service.DateFinish:null;
+      this.book.DateStart = this.service.DateStart?this.service.DateStart:null;
+      this.getTimes();
       //photos:string[];
       //showPhotos:any = {show:false};
-      this.locations = ['Аэропорт Ираклиона','Андреа Папандреу','Херсонисос'];
       if(localStorage.getItem("currentUser")){
         this.user=JSON.parse(localStorage.getItem("currentUser"));
       }
       this.service.car=null;
       this.bookingForm = this.formBuilder.group({
         Name: [this.user?this.user.Name:'', Validators.required],
-        Email: [this.user?this.user.Email:'', Validators.required],
+        Email: [this.user?this.user.Email:'', [Validators.required, Validators.email]],
         Tel: [this.user?(this.user.Phone?this.user.Phone:''):''],
-        Place:['', Validators.required],
-        PlaceOff:['', Validators.required],
-        Time:['12:00'],
-        TimeOff:['12:00'],
+        Place:[this.service.StartPoint?this.service.StartPoint:'', Validators.required],
+        PlaceOff:[this.service.EndPoint?this.service.EndPoint:'', Validators.required],
+        Time:[this.service.DateStart?new Date(1,1,1,this.service.DateStart.getHours()):this.times[0]],
+        TimeOff:[this.service.DateFinish?new Date(1,1,1,this.service.DateFinish.getHours()):this.times[0]],
         Coment:['']
       });
-      
+      console.log(this.bookingForm.value);
       this.getCar();
       this.router.events.subscribe((evt) => {
         if (!(evt instanceof NavigationEnd)) {

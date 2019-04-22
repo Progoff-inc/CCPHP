@@ -1,6 +1,6 @@
 import { Inject, Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import {FeedBack, Sale} from './UserService';
+import {FeedBack, Sale, User} from './UserService';
 import { PickerComponent } from '../picker/picker.component';
 
 @Injectable()
@@ -10,6 +10,8 @@ export class CarsService implements OnInit {
     bookings: BookTimes[];
     DateStart:Date = undefined;
     DateFinish:Date = undefined;
+    StartPoint:string = undefined;
+    EndPoint:string = undefined;
     CurFilters = [];
     public car: Car = null;
     baseUrl:string='http://client.nomokoiw.beget.tech/back/';
@@ -31,6 +33,9 @@ export class CarsService implements OnInit {
     GetCar(id: string) {
         return this.http.get<Car>(this.baseUrl + 'CarsController.php?Key=get-car&Id=' + id);
     }
+    GetBook(id: string) {
+        return this.http.get<Book>(this.baseUrl + 'CarsController.php?Key=get-book&Id=' + id);
+    }
     GetCarPhotos(id: number) {
         return this.http.get<string[]>(this.baseUrl + 'CarsController.php?Key=get-photos&Id=' + id);
     }
@@ -42,7 +47,10 @@ export class CarsService implements OnInit {
         return this.http.post<number>(this.baseUrl + 'CarsController.php?Key=add-car', car);
     }
     DeleteCar(id){
-        return this.http.delete(this.baseUrl + 'CarsController.php?Key=delete-car&Id' + id)
+        return this.http.delete(this.baseUrl + 'CarsController.php?Key=delete-car&Id=' + id)
+    }
+    DeleteBook(id){
+        return this.http.delete(this.baseUrl + 'CarsController.php?Key=delete-book&Id=' + id)
     }
     AddPrices(CarId,Price) {
         return this.http.post(this.baseUrl + 'CarsController.php?Key=add-price&Id=' + CarId, Price);
@@ -50,6 +58,10 @@ export class CarsService implements OnInit {
     UpdateCar(car, id) {
 
         return this.http.post<Car>(this.baseUrl + 'CarsController.php?Key=update-car&Id=' + id, car);
+    }
+    UpdateBook(book, id) {
+
+        return this.http.post<Car>(this.baseUrl + 'CarsController.php?Key=update-book&Id=' + id, book);
     }
     UpdatePrices(Price, id) {
         return this.http.post<Prices>(this.baseUrl + 'CarsController.php?Key=update-prices&Id=' + id, Price);
@@ -97,12 +109,12 @@ export class CarsService implements OnInit {
     addFilter(name,value){
         this.CurFilters.push({Name:name,Value:name=='Passengers'?value[0]:value});
     }
-    getCarPrice(car:Car){
+    getCarPrice(car:Car, ds = this.DateStart, df = this.DateFinish){
         car.SPrice = Number(car.SPrice);
         car.WPrice = Number(car.WPrice);
-        if(this.DateStart.getMonth()>4 && this.DateStart.getMonth()<8){
+        if(ds.getMonth()>4 && ds.getMonth()<8){
             let price = 0;
-            let days = Math.ceil(Math.abs(this.DateFinish.getTime() - this.DateStart.getTime()) / (1000 * 3600 * 24));
+            let days = Math.ceil(Math.abs(df.getTime() - ds.getTime()) / (1000 * 3600 * 24));
             console.log( car.Prices.SummerPrices[days-1]);
             if(days<8){
                 return car.Prices.SummerPrices[Object.keys(car.Prices.SummerPrices)[days-1]];
@@ -117,7 +129,7 @@ export class CarsService implements OnInit {
         }
         else{
             let price = 0;
-            let days = Math.ceil(Math.abs(this.DateFinish.getTime() - this.DateStart.getTime()) / (1000 * 3600 * 24));
+            let days = Math.ceil(Math.abs(df.getTime() - ds.getTime()) / (1000 * 3600 * 24));
             console.log( car.Prices.SummerPrices[Object.keys(car.Prices.SummerPrices)[days-1]]);
             if(days<8){
                 return car.Prices.SummerPrices[Object.keys(car.Prices.SummerPrices)[days-1]];
@@ -131,6 +143,8 @@ export class CarsService implements OnInit {
             return price;
         }
     }
+
+    
 }
 
 export class Car {
@@ -206,8 +220,8 @@ export interface BookTimes {
 }
 export class Book {
     Id: number;
-    DateStart: Date;
-    DateFinish: Date;
+    DateStart: any;
+    DateFinish: any;
     Sum: number;
     UserId: number;
     CarId: number;
@@ -220,6 +234,10 @@ export class Book {
     Tel?: string;
     Coment?: string;
     Name?: string;
+    Description?:string;
+    
+    Car?:Car;
+    User?:User;
 }
 export class NewBook {
     DateStart: Date;
@@ -235,6 +253,7 @@ export class NewBook {
     Tel?: string;
     Coment?: string;
     Name?: string;
+    Description?:string;
 }
 
 export interface ReportCar {
