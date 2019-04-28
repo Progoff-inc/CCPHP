@@ -27,7 +27,6 @@ import { MessagerService } from './services/MessagerService';
 import { RatingComponent } from './rating/rating.component';
 import { PickerComponent } from './picker/picker.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
-import { StatisticsComponent } from './statistics/statistics.component';
 import { RentalPolicyComponent } from './rental-policy/rental-policy.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { AboutCreteComponent } from './about-crete/about-crete.component';
@@ -64,7 +63,6 @@ export function HttpLoaderFactory1(http: HttpClient) {
     RatingComponent,
     PickerComponent,
     UserProfileComponent,
-    StatisticsComponent,
     RentalPolicyComponent,
     ContactsComponent,
     AboutCreteComponent,

@@ -1,6 +1,6 @@
 import { Inject, Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Car } from '../services/CarsService';
+import { Car, Book } from '../services/CarsService';
 import { Topic } from './MessagerService';
 
 @Injectable()
@@ -144,17 +144,6 @@ export class ReportUser{
     Email:string;
     Photo:string;
     IsAdmin:boolean;
-}
-export interface Book{
-    Id:number;
-    DateStart:Date;
-    DateFinish:Date;
-    CreateDate:Date;
-    UserId:number;
-    CarId:number;
-    Price:number;
-    Place:string;
-    Car:Car;
 }
 
 export interface Like{

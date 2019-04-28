@@ -75,7 +75,6 @@ export class ChangeBookComponent implements OnInit {
             Coment:[data.Description]
           });
           this.bookingForm.valueChanges.subscribe(data => {
-            console.log(data);
             this.checkUpdate();
           })
           this.ls.showLoad = false;
@@ -95,7 +94,7 @@ export class ChangeBookComponent implements OnInit {
     if(this.book.DateStart && this.book.DateFinish){
       let ds = new Date(this.book.DateStart.getFullYear(), this.book.DateStart.getMonth(), this.book.DateStart.getDate());
       let df = new Date(this.book.DateFinish.getFullYear(), this.book.DateFinish.getMonth(), this.book.DateFinish.getDate());
-      console.log(ds);
+      
       if(this.book){
         this.book.Sum = (df.getTime()-ds.getTime())/86400000*(this.getPrice());
         return this.book.Sum;

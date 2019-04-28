@@ -36,6 +36,9 @@ export class CarsService implements OnInit {
     GetBook(id: string) {
         return this.http.get<Book>(this.baseUrl + 'CarsController.php?Key=get-book&Id=' + id);
     }
+    GetBooks() {
+        return this.http.get<Book[]>(this.baseUrl + 'CarsController.php?Key=get-books');
+    }
     GetCarPhotos(id: number) {
         return this.http.get<string[]>(this.baseUrl + 'CarsController.php?Key=get-photos&Id=' + id);
     }
@@ -222,6 +225,7 @@ export class Book {
     Id: number;
     DateStart: any;
     DateFinish: any;
+    CreateDate: Date;
     Sum: number;
     UserId: number;
     CarId: number;

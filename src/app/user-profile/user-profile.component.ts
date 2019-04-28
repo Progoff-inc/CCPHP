@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {User, UserService, Book, Sale, ReportUser} from '../services/UserService';
+import {User, UserService, Sale, ReportUser} from '../services/UserService';
 
 import {Router} from '@angular/router';
 import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from '@angular/common/http'
-import { NewCar, Car, CarsService, ReportCar, Contains } from '../services/CarsService';
+import { NewCar, Car, CarsService, ReportCar, Contains, Book } from '../services/CarsService';
 import { TranslateService } from '../../../node_modules/@ngx-translate/core';
 import { LoadService } from '../services/load.service';
 
@@ -22,6 +22,7 @@ export class UserProfileComponent implements OnInit {
   Includes:Contains = new Contains();
   cars:ReportCar[] = [];
   users:ReportUser[] = [];
+  books:Book[] = [];
   findUsers = [];
   curUserPage = 0;
   newAdmin:any = {UserId:0, IsAdmin:null};
@@ -47,14 +48,16 @@ export class UserProfileComponent implements OnInit {
       this.userService.currentUser=JSON.parse(localStorage.getItem("currentUser"));
       
       this.userService.GetUserById(this.userService.currentUser.Id).subscribe(data => {
+        data.IsAdmin = Boolean(Number(data.IsAdmin));
         data.Topics.forEach(x => {
           x.ModifyDate= new Date(x.ModifyDate);
         })
-        data.Books.sort((a,b)=>{
-          return a.DateStart<b.DateStart?1:-1
-        })
-        console.log(data);
-        data.IsAdmin = Boolean(Number(data.IsAdmin));
+        if(!data.IsAdmin){
+          data.Books.sort((a,b)=>{
+            return a.DateStart<b.DateStart?1:-1
+          })
+        }
+        
         this.userService.currentUser=data;
         this.changeValues[0]=data.Email;
         this.changeValues[1]=data.Phone;
@@ -70,6 +73,12 @@ export class UserProfileComponent implements OnInit {
           this.users = data;
           this.users.forEach(u => {
             u.IsAdmin = Boolean(Number(u.IsAdmin));
+          })
+        })
+        this.carsService.GetBooks().subscribe(books => {
+          this.books = books;
+          this.books.sort((a,b)=>{
+            return a.DateStart<b.DateStart?1:-1
           })
         })
       }
@@ -240,21 +249,35 @@ export class UserProfileComponent implements OnInit {
   checkChange(b:Book){
     b.DateStart = new Date(b.DateStart);
     b.DateFinish = new Date(b.DateFinish);
-    return b.DateStart>this.changeDate;
+    if(!this.userService.currentUser.IsAdmin){
+      return b.DateStart>this.changeDate;
+    }else{
+      return b.DateStart>new Date();
+    }
   }
 
   checkDelete(b:Book){
     b.DateStart = new Date(b.DateStart);
     b.DateFinish = new Date(b.DateFinish);
-    return b.DateStart>this.deleteDate;
+    if(!this.userService.currentUser.IsAdmin){
+      return b.DateStart>this.deleteDate;
+    }else{
+      return b.DateStart>new Date();
+    }
+    
   }
 
   cancel(b:Book){
     if(confirm("Вы уверены, что хотите удалить бронь?")){
       this.carsService.DeleteBook(b.Id).subscribe((d)=> {
-        console.log(d);
-        this.userService.currentUser.Books.splice(this.userService.currentUser.Books.findIndex(x => x.Id == b.Id), 1);
-        this.userService.Save();
+        console.log(b);
+        if(this.userService.currentUser.IsAdmin){
+          this.books.splice(this.books.findIndex(x => x.Id == b.Id), 1);
+        }else{
+          this.userService.currentUser.Books.splice(this.userService.currentUser.Books.findIndex(x => x.Id == b.Id), 1);
+          this.userService.Save();
+        }
+        
       })
     }
   }
