@@ -46,7 +46,7 @@
                   
                 </div>
                 
-                <!-- <p>{{translate.currentLang=='ru'?(service.car?service.car.Description:''):service.car.Description_ENG}}</p> -->
+                <p>{{translate.currentLang=='ru'?(service.car?service.car.Description:''):service.car.Description_ENG}}</p>
                 
                 <span *ngIf="book.DateStart && book.DateFinish">{{"PRICE" | translate}}: {{service.car?service.getCarPrice(service.car, book.DateStart, book.DateFinish):''}}€</span> 
               </div>

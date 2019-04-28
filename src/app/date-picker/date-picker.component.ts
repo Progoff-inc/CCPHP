@@ -238,16 +238,17 @@ export class DatePickerComponent implements OnInit, OnChanges {
     let res = false;
     if(IsStart){
       if(this.DateStart && this.DateFinish){
-        if(day.getTime() == this.DateStart.getTime()){
+        if(day.toDateString() == this.DateStart.toDateString()){
           res = true;
         }
       }
     }
     else{
       if(this.DateStart && this.DateFinish){
-        if(day.getTime() == this.DateFinish.getTime()){
+        if(day.toDateString() == this.DateFinish.toDateString()){
           res = true;
         }
+        
       }
     }
     return res;

@@ -79,6 +79,7 @@
     width: 35px;
 }
 .choosed-finish{
+    border-radius: 50%;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     margin-left: 0;
