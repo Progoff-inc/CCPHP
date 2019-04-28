@@ -2,25 +2,6 @@
   <div class="main-info container">
     <h3 style="font-size:25pt">{{userService.currentUser?userService.currentUser.Name:''}}</h3>
     <div class="row">
-      <!-- <div class="col-md-4">
-        <div class="d-flex flex-column justify-content-center">
-          <div class="user-photo">
-            <img class="img-rounded img-responsive" src="{{userService.currentUser?userService.currentUser.Photo:'../../assets/images/default_user_photo.jpg'}}" alt="">
-            
-            <div class="upload">
-              <div>
-                  <label for="uploadbtn" class="uploadButton">{{'UPLOAD_PHOTO' | translate}}</label>
-                  <input style="opacity: 0; "  name="upload" id="uploadbtn" #file type="file"  (change)="upload(file.files)" />
-              </div>
-              
-            </div>
-            
-          </div>
-          
-          <p style="text-align: center; font-size:18pt">{{userService.currentUser?userService.currentUser.Name:''}}</p>
-        </div>
-      </div> -->
-      <!-- <div class="col-md-1"></div> -->
 
       <div class="col-md-12">
         <div class="info">
@@ -92,7 +73,7 @@
                 <div *ngIf="changes[2]" class="change-panel">
                     <div class="form">
                       <span>{{'LANG' | translate}}: </span>
-                      <select [ngClass]="{ 'is-invalid': submitted && f.Lang.errors }" class="input"  required #Lang>
+                      <select [ngClass]="{ 'is-invalid': submitted && f.Lang.errors }" [ngModel]="userService.currentUser.Lang" class="input"  required #Lang>
                         <option>{{'RU'| translate}}</option>
                         <option>{{'ENG'| translate}}</option>
                       </select>
@@ -109,7 +90,6 @@
     </div>
   </div>
   <div  class="statistics">
-    <!-- <statistics *ngIf="userService.currentUser.Name=='Admin'"></statistics> -->
     
     <p *ngIf="userService.currentUser?userService.currentUser.Books.length>0:false" class="line" ><span (click)="show('showBooks')">{{userService.currentUser.IsAdmin?('BOOKS' | translate): ('MY_BOOKS' | translate)}} <i class="fa" [ngClass] = "{'fa-angle-down':!showBooks, ' fa-angle-up':showBooks}"></i></span></p>
     <div *ngIf="showBooks">
@@ -172,60 +152,7 @@
         </li>
       </ul>
     </div>
-    <!-- <p *ngIf="userService.currentUser.IsAdmin" class="line" ><span (click)="show('showAddSale')">{{'ADD_SALE' | translate}} <i class="fa" [ngClass] = "{'fa-angle-down':!showAddSale, ' fa-angle-up':showAddSale}"></i></span></p> -->
-    <!-- <div *ngIf="userService.currentUser.IsAdmin && showAddSale">
-      <div class="form">
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="item">
-              <span [ngClass]="{ 'is-invalid': saleSubmitted && newSale.CarId==null }" class="header">{{'CAR' | translate}}</span>
-              <picker *ngIf="cars.length!=0" [items]="cars" [out]="newSale" [prop]="'CarId'"></picker>
-            </div>
-            <div class="item">
-              <span [ngClass]="{ 'is-invalid': saleSubmitted && newSale.DateStart==null }" class="header">{{'DATE_START' | translate}}</span>
-              <date-picker  [Out]="newSale" [Prop]="'DateStart'" [Errors]="saleErrors"  [DateStart]="newSale.DateStart"
-                        [DateFinish]="newSale.DateFinish"></date-picker>
-              
-            </div>
-            <div class="item">
-              <span [ngClass]="{ 'is-invalid': saleSubmitted && newSale.DateFinish==null }" class="header">{{'DATE_END' | translate}}</span>
-              <date-picker  [Out]="newSale" [Prop]="'DateFinish'" [Errors]="saleErrors"  [DateStart]="newSale.DateStart"
-                        [DateFinish]="newSale.DateFinish"></date-picker>
-            </div>
-            
-          </div>
-          <div class="col-sm-6">
-            <div class="item inner">
-              <div class="item inner-item">
-                <span [ngClass]="{ 'is-invalid': saleSubmitted && newSale.Discount==null }" class="header">{{'DISCOUNT' | translate}}</span>
-                <input [ngClass]="{ 'is-invalid': saleSubmitted && newSale.Discount==null }" type="number" class="input"  [(ngModel)]="newSale.Discount">
-              </div>
-              <div class="item inner-item">
-                <span  class="header">{{'DAYS_NUMBER' | translate}}</span>
-                <input type="number" class="input"  [(ngModel)]="newSale.DaysNumber">
-              </div>
-              
-            </div>
-            <div *ngIf="getSalePrice()!=0" class="item">
-              <span class="header">{{'PRICE' | translate}}</span>
-              <span>{{getSalePrice()}}€</span>
-            </div>
-            
-            
-          </div>
-        </div>
-        <div class="item">
-          <span class="header">{{'DESCRIPTION' | translate}}</span>
-          <textarea class="input" [(ngModel)]="newCar.Description"></textarea>
-
-        </div>
-        <div class="item">
-          <span class="header">{{'DESCRIPTION_ENG' | translate}}</span>
-          <textarea class="input" [(ngModel)]="newCar.Description_Eng"></textarea>
-        </div>
-        <button (click)="addSale()" class="btn btn-primary">{{'ADD' | translate}}</button>
-      </div>
-    </div> -->
+    
     <p *ngIf="userService.currentUser.IsAdmin" class="line" ><span (click)="show('showAddNewAdmin')">{{'ADD_ADMIN' | translate}} <i class="fa" [ngClass] = "{'fa-angle-down':!showAddNewAdmin, ' fa-angle-up':showAddNewAdmin}"></i></span></p>
     <div *ngIf="userService.currentUser.IsAdmin && showAddNewAdmin">
       <div class="form my-4">
@@ -238,19 +165,8 @@
           <button (click)="FindUsers(search.value)" type="submit" class="btn btn-primary mb-2">{{'SEARCH' | translate}}</button>
         </form>
         <div>
-          <!-- <div class="card  my-2">
-            <div class="card-body d-sm-flex justify-content-sm-between align-items-center">
-                <div class="col-sm-3 card-title m-sm-0">Фото</div>
-                <div class="col-sm-3 card-title m-sm-0">Почта</div>
-                <div class="col-sm-3 card-title m-sm-0">Имя</div>
-                <div class="col-sm-3 card-title m-sm-0">Статус</div>
-            </div>
-          </div> -->
           <div *ngIf="findUsers.length>0" class="form users my-2 px-0" >
             <div class="card flex-row flex-wrap d-sm-flex justify-content-sm-between align-items-center p-2" *ngFor='let user of findUsers[curUserPage]'>
-              <!-- <div class="col-sm-2 m-sm-0 p-0 px-sm-3">
-                <img class="img-rounded img-responsive w-50" src="{{userService.currentUser?userService.currentUser.Photo:'user.Photo'}}" alt="">
-              </div> -->
               
               
               <div class="col-sm-2 m-sm-0 p-0 px-sm-3">#{{user.Id}}  {{user.Name}}</div>
