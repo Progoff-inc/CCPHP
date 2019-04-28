@@ -39,6 +39,12 @@ if(isset($_GET['Key']))
         case 'get-car':
             echo json_encode($ctxt->getCar($_GET['Id'],true));
             break;
+        case 'get-book':
+            echo json_encode($ctxt->getBook($_GET['Id']));
+            break;
+        case 'get-books':
+            echo json_encode($ctxt->getBooks());
+            break;
         case 'add-car':
             $b = json_decode(file_get_contents('php://input'), true);  
             echo json_encode($ctxt->addCar($b));
@@ -55,9 +61,16 @@ if(isset($_GET['Key']))
             $b = json_decode(file_get_contents('php://input'), true); 
             echo json_encode($ctxt->updateCar($b, $_GET['Id']));
             break;
+        case 'update-book':
+            $b = json_decode(file_get_contents('php://input'), true); 
+            echo json_encode($ctxt->updateBook($b, $_GET['Id']));
+            break;
         case 'update-prices':
             $b = json_decode(file_get_contents('php://input'), true); 
             echo json_encode($ctxt->updatePrices($b, $_GET['Id']));
+            break;
+        case 'delete-book':
+            echo json_encode($ctxt->deleteBook($_GET['Id']));
             break;
         default:
             echo "Введенный ключ несуществует";

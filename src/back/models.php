@@ -103,18 +103,15 @@ class Book{
     public $Id;
     public $UserId;
     public $CarId;
-    public $SaleId;
     public $DateStart;
     public $DateFinish;
     public $Price;
     public $Place;
-    public $OldPrice;
     public $CreateDate;
     public $Sum;
     
     public $User;
     public $Car;
-    public $Sale;
 }
 
 class Like{

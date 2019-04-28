@@ -46,6 +46,10 @@ if(isset($_GET['Key']))
             $b = json_decode(file_get_contents('php://input'), true);
             echo json_encode($ctxt->setAdmin($_GET['Id'], $_GET['IsAdmin']));
             break;
+        case 'delete-user':
+            $b = json_decode(file_get_contents('php://input'), true);
+            echo json_encode($ctxt->deleteUser($_GET['Id']));
+            break;
         default:
             echo "Введенный ключ несуществует";
         

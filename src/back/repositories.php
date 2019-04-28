@@ -51,6 +51,19 @@ class DataBase {
         }
         return $cars;
     }
+    
+    public function getBooks() {
+        $sth = $this->db->query("SELECT * FROM books");
+        $sth->setFetchMode(PDO::FETCH_CLASS, 'Book');
+        $books = [];
+        while($book = $sth->fetch()){
+            $book->User = $this->getUserById($book->UserId, false);
+            $book->Car = $this->getCar($book->CarId, false);
+            $books[] = $book;
+        }
+        return $books;
+    }
+    
     public function addCar($car){
         $res = $this->genInsertQuery($car,"cars");
         $s = $this->db->prepare("INSERT INTO cars (Model,Photo,SPrice,WPrice,BodyType,Passengers,Doors,Groupe,MinAge,Power,Consumption,Transmission,Fuel,AC,ABS,AirBags,Radio,Description,Description_Eng) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
@@ -83,13 +96,31 @@ class DataBase {
         $s->execute(array($id));
         $s->setFetchMode(PDO::FETCH_CLASS, 'Car');
         $car = $s->fetch();
+        $car->Prices = $this->getCarPrices($id);
         if($reports){
             $car->Reports = $this->getCarReports($id);
             $car->Books = $this->getCarBooks($id);
-            $car->Prices = $this->getCarPrices($id);
+            
         }
         return $car;
     }
+    
+    public function getBook($id) {
+        $s = $this->db->prepare("SELECT * FROM books WHERE Id=?");
+        $s->execute(array($id));
+        $s->setFetchMode(PDO::FETCH_CLASS, 'Book');
+        $book = $s->fetch();
+        $book->User = $this->getUserById($book->UserId, false);
+        $book->Car = $this->getCar($book->CarId, false);
+        return $book;
+    }
+    
+    public function deleteBook($id) {
+        $s = $this->db->prepare("DELETE FROM books WHERE Id=?");
+        $s->execute(array($id));
+        return array($id);
+    }
+    
     public function getCarReports($id) {
         $s = $this->db->prepare("SELECT * FROM feedbacks WHERE CarId=?");
         $s->execute(array($id));
@@ -149,13 +180,30 @@ class DataBase {
         $a = $this->genInsertQuery($r, "feedbacks");
         $s = $this->db->prepare($a[0]);
         $s->execute($a[1]);
-        //$s = $this->db->prepare("UPDATE cars SET Mark=? WHERE Id=?");
-        //$s->execute(array($isa === 'true',$id));
-        return $a;
+        $s = $this->db->prepare("UPDATE cars SET Mark=? WHERE Id=?");
+        $s->execute(array($this->getNewMark($r['CarId'], 0+$r['Mark']),$r['CarId']));
+        return array($this->getNewMark($r['CarId'], 0+$r['Mark']),$r['CarId']);
+    }
+    
+    private function getNewMark($cid, $mark){
+        $l = count($this->getCarReports($cid));
+        return ($this->getCarMark($cid)*$l+$mark)/($l);
+    }
+    
+    private function getCarMark($cid){
+        $s = $this->db->prepare("SELECT Mark FROM cars WHERE Id=?");
+        $s->execute(array($cid));
+        return $s->fetch['Mark'];
     }
     
     public function updateCar($c, $id){
         $a = $this->genUpdateQuery($c['Keys'], $c['Values'], "cars", $id);
+        $s = $this->db->prepare($a[0]);
+        $s->execute($a[1]);
+        return $a;
+    }
+    public function updateBook($c, $id){
+        $a = $this->genUpdateQuery($c['Keys'], $c['Values'], "books", $id);
         $s = $this->db->prepare($a[0]);
         $s->execute($a[1]);
         return $a;
@@ -276,13 +324,16 @@ class DataBase {
         $s->execute(array($isa === 'true',$id));
         return array($isa, $id);
     }
-    public function getUserById($id){
+    public function getUserById($id, $full = true){
         $s = $this->db->prepare("SELECT Id, Name, Email, CreatedDate, ModifiedDate, Phone, Photo, Lang, IsAdmin FROM users WHERE Id=?");
         $s->execute(array($id));
         $s->setFetchMode(PDO::FETCH_CLASS, 'User');
         $u=$s->fetch();
-        $u->Topics = $this->getUserTopics($u->Id);
-        $u->Books = $this->getUserBooks($u->Id);
+        if($full){
+            $u->Topics = $this->getUserTopics($u->Id);
+            $u->Books = $this->getUserBooks($u->Id);        
+        }
+        
         return $u;
     }
     
@@ -312,6 +363,13 @@ class DataBase {
        $s->execute(array($v, $uid));
        
        return (array($t, $v, $uid));
+    }
+    
+    public function deleteUser($id){
+        $s = $this->db->prepare("DELETE * FROM users WHERE UserId=?");
+        $s->execute(array($id));
+        
+        return $id;
     }
     
     //####################User Controller###########################
