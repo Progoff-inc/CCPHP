@@ -240,8 +240,6 @@ export class UserProfileComponent implements OnInit {
   checkChange(b:Book){
     b.DateStart = new Date(b.DateStart);
     b.DateFinish = new Date(b.DateFinish);
-    console.log(b.DateStart);
-    console.log(this.changeDate)
     return b.DateStart>this.changeDate;
   }
 

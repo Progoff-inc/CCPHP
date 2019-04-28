@@ -118,8 +118,11 @@ export class HomeComponent implements OnInit {
     this.getTimes();
     this.search.PickTime = this.times[0];
     this.search.DropTime = this.times[0];
-    this.search.DateStart = this.service.DateStart?this.service.DateStart:new Date();
-    this.search.DateFinish = this.service.DateFinish?this.service.DateFinish:new Date();
+    let date = new Date();
+    date.setDate(date.getDate()+1);
+    this.search.DateStart = this.service.DateStart?this.service.DateStart:new Date(date.toDateString());
+    date.setDate(date.getDate()+1);
+    this.search.DateFinish = this.service.DateFinish?this.service.DateFinish:date;
     this.workCoords = document.getElementsByClassName("work")[0].getBoundingClientRect().top;
     
   }

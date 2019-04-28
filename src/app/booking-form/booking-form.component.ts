@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CarsService, Car, Book, NewBook } from '../services/CarsService';
 import { AlertService } from '../services/AlertService';
 import {User, ShowSale, UserService} from '../services/UserService';
-import { ActivatedRoute, Route, Router, NavigationEnd } from "@angular/router";
+import { ActivatedRoute, Route, Router, NavigationEnd, ChildActivationStart } from "@angular/router";
 import {TranslateService} from '@ngx-translate/core';
 import {Observable, Subscription} from 'rxjs';
 import { LoadService } from '../services/load.service';
@@ -217,15 +217,16 @@ export class BookingFormComponent implements OnInit, OnChanges {
         TimeOff:[this.service.DateFinish?new Date(1,1,1,this.service.DateFinish.getHours()):this.times[0]],
         Coment:['']
       });
-      console.log(this.bookingForm.value);
-      this.getCar();
+      this.route.paramMap.subscribe(x=>{
+        this.getCar(x.get('id'))
+      });
       this.router.events.subscribe((evt) => {
         if (!(evt instanceof NavigationEnd)) {
           return;
         }
         if(evt.url.indexOf('booking')>-1){
           if(this.service.car.Id!=Number(evt.url.split('/')[2].split('?')[0])){
-            this.getCar();
+            this.getCar(Number(evt.url.split('/')[2].split('?')[0]));
           }
         }
       });
@@ -235,8 +236,8 @@ export class BookingFormComponent implements OnInit, OnChanges {
     })
       
   }
-  getCar(){
-    this.service.GetCar(this.route.snapshot.paramMap.get("id")).subscribe(data => {
+  getCar(id){
+    this.service.GetCar(id).subscribe(data => {
       if(data){
       
         this.service.car=data;
