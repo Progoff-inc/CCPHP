@@ -63,7 +63,6 @@ export class AppComponent implements OnInit {
   }
   test(){
     this.s.BookCar({Id:23, Date: new Date(), Place:'Iraklion'}).subscribe(d => {
-      console.log(d);
     });
   }
 }

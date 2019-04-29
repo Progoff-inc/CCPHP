@@ -27,7 +27,6 @@ export class PhotoViewerComponent implements OnInit {
   }
   choosePhoto(photo:string){
     this.currentItem=this.items.indexOf(photo);
-    console.log(photo);
   }
   next(){
     if(this.currentItem!=this.items.length-1){

@@ -40,7 +40,6 @@ export class NavMenuComponent implements OnInit {
 
   collapse() {
     this.isExpanded = false;
-    console.log(this.isExpanded);
   }
   Exit(){
     this.userService.currentUser=null;

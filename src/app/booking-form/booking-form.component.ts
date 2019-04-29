@@ -93,7 +93,6 @@ export class BookingFormComponent implements OnInit, OnChanges {
           Tel:this.service.checkStr(this.bookingForm.value.Tel,'phone'),
           Coment:this.service.checkStr(this.bookingForm.value.Coment)
         }
-        console.log(this.book);
         this.service.BookCar(this.book).subscribe(data => {
           this.ngOnInit();
          
@@ -123,7 +122,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
         this.us.AddUser({Name:this.bookingForm.value.Name, Email:this.bookingForm.value.Email, Tel:this.bookingForm.value.Tel, Password:this.us.GenPassword()}).subscribe(data => {
           this.book = {
             CarId:this.service.car.Id,
-            UserId:data.Id,
+            UserId:data[0].Id,
             Sum:Math.ceil(this.book.Sum),
             DateStart:this.getExtraTime(this.book.DateStart, this.bookingForm.value.Time),
             DateFinish:this.getExtraTime(this.book.DateFinish, this.bookingForm.value.TimeOff),
@@ -133,7 +132,6 @@ export class BookingFormComponent implements OnInit, OnChanges {
             Tel:this.bookingForm.value.Tel,
             Coment:this.bookingForm.value.Coment
           }
-          console.log(this.book);
           this.service.BookCar(this.book).subscribe(data => {
             this.ngOnInit();
            

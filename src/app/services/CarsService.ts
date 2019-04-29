@@ -116,7 +116,6 @@ export class CarsService implements OnInit {
         if(ds.getMonth()>4 && ds.getMonth()<8){
             let price = 0;
             let days = Math.ceil(Math.abs(df.getTime() - ds.getTime()) / (1000 * 3600 * 24));
-            console.log( car.Prices.SummerPrices[days-1]);
             if(days<8){
                 return car.Prices.SummerPrices[Object.keys(car.Prices.SummerPrices)[days-1]];
             }
@@ -131,7 +130,6 @@ export class CarsService implements OnInit {
         else{
             let price = 0;
             let days = Math.ceil(Math.abs(df.getTime() - ds.getTime()) / (1000 * 3600 * 24));
-            console.log( car.Prices.SummerPrices[Object.keys(car.Prices.SummerPrices)[days-1]]);
             if(days<8){
                 return car.Prices.SummerPrices[Object.keys(car.Prices.SummerPrices)[days-1]];
             }

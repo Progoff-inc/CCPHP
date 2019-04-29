@@ -51,7 +51,6 @@ export class FeedbackComponent implements OnInit, OnChanges {
     this.ls.showLoad = true;
     this.carsService.GetReportCars().subscribe( data => {
       this.cars=data;
-      console.log(data);
   
     })
     if(this.type=='all'){
@@ -111,12 +110,10 @@ export class FeedbackComponent implements OnInit, OnChanges {
       }
       else{
         let like = {Id:0,UserId: this.userService.currentUser.Id, OwnerId:report.Id, Type:type,IsLike:IsLike};
-        console.log(like);
+        
         this.feedBackService.addLikeOrDislike(like).subscribe((data) =>{
-          console.log(data);
           like.Id = data;
           report.Likes.push(like);
-          console.log(report);
         })
       }
     }
@@ -155,7 +152,7 @@ export class FeedbackComponent implements OnInit, OnChanges {
         return;
     }
     this.feedBackService.addComment(text, this.userService.currentUser.Id, report.Id).subscribe(data =>{
-      console.log(data);
+     
       report.ShowForm=!report.ShowForm;
       this.commentForm.reset();
       report.Comments.push(data);
@@ -214,7 +211,6 @@ export class FeedbackComponent implements OnInit, OnChanges {
    
       this.feedBackService.saveReport(this.feedBack).subscribe(data => {
         if(data) {
-          console.log(data);
           this.feedBackService.getReports();
           this.feedBack = new ShortFeedBack();
           this.alertService.showA({type:'success',message:'Комментарий успешно оставлен.',show:true});

@@ -49,9 +49,7 @@ export class UserProfileComponent implements OnInit {
       
       this.userService.GetUserById(this.userService.currentUser.Id).subscribe(data => {
         this.userService.Token = data[1];
-        console.log(this.userService.Token);
         data = data[0];
-        console.log(data);
         data.IsAdmin = Boolean(Number(data.IsAdmin));
         
         if(!data.IsAdmin){
@@ -78,7 +76,6 @@ export class UserProfileComponent implements OnInit {
           })
           this.carsService.GetBooks().subscribe(books => {
             this.books = books;
-            console.log(books)
             this.books.sort((a,b)=>{
               return a.DateStart<b.DateStart?1:-1
             })
@@ -120,7 +117,6 @@ export class UserProfileComponent implements OnInit {
  
   }
   show(prop:string){
-    console.log(prop);
     this[prop] = !this[prop];
   }
   removeInclude(inc:string){
@@ -172,7 +168,6 @@ export class UserProfileComponent implements OnInit {
           this.userService.currentUser[type]= type == 'Phone'?this.carsService.checkStr(value,'phone'):value;
           localStorage.setItem('currentUser', JSON.stringify(this.userService.currentUser));
         }
-        console.log(data);
       })
     }
     
@@ -183,7 +178,6 @@ export class UserProfileComponent implements OnInit {
     // files[0].name = this.userService.currentUser.Id.toString()+files[0].name.split('.')[1] ;
     
     let n = this.userService.currentUser.Id.toString()+'.'+files[0].name.split('.')[1] ;
-    console.log(n);
     formData.append(n, files[0]);
 
     this.userService.UploadPhoto(formData).subscribe(event => {
@@ -260,7 +254,6 @@ export class UserProfileComponent implements OnInit {
   cancel(b:Book){
     if(confirm("Вы уверены, что хотите удалить бронь?")){
       this.carsService.DeleteBook(b.Id).subscribe((d)=> {
-        console.log(b);
         if(this.userService.currentUser.IsAdmin){
           this.books.splice(this.books.findIndex(x => x.Id == b.Id), 1);
         }else{

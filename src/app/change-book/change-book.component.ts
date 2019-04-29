@@ -149,7 +149,6 @@ export class ChangeBookComponent implements OnInit {
       if(this.book.DateFinish!=this.df){
         this.change.add('DateFinish', this.book.DateFinish);
       }
-      console.log(this.change);
       this.showBtn = this.change.Keys.length>0;
     }
     return this.showBtn;

@@ -108,7 +108,6 @@ export class CarsComponent {
         this.filteredCars = this.cars;
       }
     }
-    console.log(this.CurFilters);
     
   }
   Sort(order:string, s = false){
@@ -120,7 +119,6 @@ export class CarsComponent {
     switch(order){
       case "popularity":{
         this.filteredCars.sort(function(a, b){
-          console.log(a.Reports);
           return !sort?(a.Reports.length>b.Reports.length?1:-1):(a.Reports.length<b.Reports.length?1:-1);
         })
         break;
@@ -144,7 +142,6 @@ export class CarsComponent {
         break;
       }
     }
-    console.log(this.filteredCars);
     this.CurSorting=order;
   }
   ChangeSort(){

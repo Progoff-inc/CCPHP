@@ -174,7 +174,6 @@ export class DatePickerComponent implements OnInit, OnChanges {
     this.fillCalendar();
   }
   pick(date:Date){
-    console.log(this.Out);
     if(date.getTime()>this.MinDate.getTime() && this.checkDate(date)){
       if(this.DateStart && this.Out.DateFinish){
         if(date.getTime()!=this.DateStart.getTime() && date.getTime()!=this.Out.DateFinish.getTime()){

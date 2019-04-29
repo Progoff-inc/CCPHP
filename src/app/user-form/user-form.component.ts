@@ -50,7 +50,6 @@ export class UserFormComponent implements OnInit {
 
     if(this.service.type==0){
       this.service.GetUser(this.userForm.value).subscribe(data=>{
-        console.log(data);
         if(!data[0].Id){
           this.alert.showA({type:'wrong',message:'Пользователь не найден',show:true});
           this.submitted=false;

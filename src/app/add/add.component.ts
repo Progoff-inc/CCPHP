@@ -70,7 +70,6 @@ export class AddComponent implements OnInit {
           this.change.add(c, this.carForm.value[c]);
         }
       })
-      console.log(this.change);
       this.showBtn = this.change.Keys.length>0;
     }
     return this.showBtn;
@@ -88,7 +87,6 @@ export class AddComponent implements OnInit {
         })
         
       })
-      console.log(this.changeP);
       this.showBtn = this.changeP.Keys.length>0;
     }
     return this.showBtn;
@@ -124,7 +122,6 @@ export class AddComponent implements OnInit {
 
     
     if(this.checkPrices()){
-      console.log(this.Prices);
       return;
     }
     if(this.carForm.invalid){
@@ -134,9 +131,7 @@ export class AddComponent implements OnInit {
     this.ls.showLoad=true;
     this.carsService.AddCar(this.carForm.value).subscribe((CarId)=>{
       
-      console.log(CarId);
       this.carsService.AddPrices(CarId, this.Prices).subscribe((data)=>{
-        console.log(data);
         this.Prices = new CarPrices();
         this.carForm.reset();
         this.ls.showLoad=false;
@@ -146,9 +141,7 @@ export class AddComponent implements OnInit {
   }
   checkPrices(){
     this.g.forEach(e => {
-      console.log(!!this.Prices.WinterPrices[e])
       if(!this.Prices.WinterPrices[e] || !this.Prices.SummerPrices[e]){
-        console.log(e);
         return true;
       }
       
@@ -156,11 +149,9 @@ export class AddComponent implements OnInit {
     return false;
   }
   updateCar(){
-    console.log(this.car.Id);
     this.ls.showLoad=true;
     if(this.change.Keys.length>0){
       this.carsService.UpdateCar(this.change, this.car.Id).subscribe((data)=>{
-        console.log(data);
         for(let i = 0;i<this.change.Keys.length;i++){
           this.car[this.change.Keys[i]]=this.change.Values[i];
         }
@@ -171,7 +162,6 @@ export class AddComponent implements OnInit {
     }
     if(this.changeP.Keys.length>0){
       this.carsService.UpdatePrices(this.changeP, this.car.Id).subscribe((data)=>{
-        console.log(data);
         this.car.Prices = JSON.parse(JSON.stringify(this.Prices));
         this.ls.showLoad=false;
       })
