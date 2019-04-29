@@ -12,7 +12,7 @@ export class FeedBackService{
   curReports:FeedBack[];
   buttons:any = [];
   number:number=0;
-  baseUrl:string='http://client.nomokoiw.beget.tech/back1/';
+  baseUrl:string='http://client.nomokoiw.beget.tech/back/';
   //baseUrl:string='http://localhost:80/CCPHP/';
 
   constructor(private http: HttpClient, private ls:LoadService, private us:UserService) {

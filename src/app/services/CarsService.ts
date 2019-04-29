@@ -15,7 +15,7 @@ export class CarsService implements OnInit {
     EndPoint:string = undefined;
     CurFilters = [];
     public car: Car = null;
-    baseUrl:string='http://client.nomokoiw.beget.tech/back1/';
+    baseUrl:string='http://client.nomokoiw.beget.tech/back/';
     //baseUrl = 'http://localhost:80/CCPHP/';
     constructor(private http: HttpClient, private us:UserService ) {
 

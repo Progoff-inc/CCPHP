@@ -8,7 +8,7 @@ export class UserService {
     openForm:boolean=false;
     type:number;
     currentUser:User;
-    baseUrl:string='http://client.nomokoiw.beget.tech/back1/';
+    baseUrl:string='http://client.nomokoiw.beget.tech/back/';
     private token:string;
     //baseUrl:string='http://localhost:80/CCPHP/';
     constructor(private http: HttpClient){
