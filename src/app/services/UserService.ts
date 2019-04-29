@@ -8,11 +8,14 @@ export class UserService {
     openForm:boolean=false;
     type:number;
     currentUser:User;
-    baseUrl:string='http://client.nomokoiw.beget.tech/back/';
+    baseUrl:string='http://client.nomokoiw.beget.tech/back1/';
+    private token:string;
     //baseUrl:string='http://localhost:80/CCPHP/';
     constructor(private http: HttpClient){
-        
-      }
+    }
+
+    get Token(){return this.token};
+    set Token(token){this.token = token};
   
     ShowForm(type?:number){
         this.openForm=!this.openForm;
@@ -38,19 +41,16 @@ export class UserService {
         return this.http.post<any>(this.baseUrl + 'UserController.php?Key=upload-user-photo', data)
     }
     SetAdmin(id, IsAdmin){
-        return this.http.get<ReportUser>(this.baseUrl + 'UserController.php?Key=set-admin&Id='+id+'&IsAdmin='+IsAdmin)
+        return this.http.get<ReportUser>(this.baseUrl + 'UserController.php?Key=set-admin&Id='+id+'&IsAdmin='+IsAdmin+'&Token='+this.Token)
     }
     GetStatistics(){
         return this.http.get<Statistics>(this.baseUrl + 'UserController.php?Key=get-statistics')
     }
     ChangeInfo(type:string, value:string, userId:number){
-        return this.http.post<boolean>(this.baseUrl + 'UserController.php?Key=change-info', { "Type": type, "Value": value, "UserId":userId});
+        return this.http.post<boolean>(this.baseUrl + 'UserController.php?Key=change-info&Token='+this.Token, { "Type": type, "Value": value, "UserId":userId});
     }
     ChangePhoto(res:any){
         return this.http.post<boolean>(this.baseUrl + 'UserController.php?Key=change-photo', res);
-    }
-    AddSale(sale:Sale){
-        return this.http.post<Sale>(this.baseUrl + 'UserController.php?Key=add-sale',sale);
     }
     GenPassword(){
         let alf = [ "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" ];

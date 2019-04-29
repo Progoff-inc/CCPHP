@@ -39,6 +39,29 @@ class DataBase {
         
     }
     
+    private function checkToken($token, $uid=0, $admin=false){
+        $u = $this->getUserByToken($token);
+        if($uid>0 && $uid != $u->Id){
+            return false;
+        }
+        if($u->IsAdmin){
+            return true;
+        }
+        if($admin){
+            return false;
+        }
+        return true;
+    }
+    
+    public function getUserByToken($token){
+        $s = $this->db->prepare("SELECT * FROM users WHERE Token=?");
+        $s->execute(array($token));
+        $s->setFetchMode(PDO::FETCH_CLASS, 'User');
+        $u=$s->fetch();
+        
+        return $u;
+    }
+    
     //####################Cars Controller#########################
     public function getCars() {
         $sth = $this->db->query("SELECT * FROM cars");
@@ -52,24 +75,35 @@ class DataBase {
         return $cars;
     }
     
-    public function getBooks() {
-        $sth = $this->db->query("SELECT * FROM books");
-        $sth->setFetchMode(PDO::FETCH_CLASS, 'Book');
-        $books = [];
-        while($book = $sth->fetch()){
-            $book->User = $this->getUserById($book->UserId, false);
-            $book->Car = $this->getCar($book->CarId, false);
-            $books[] = $book;
+    public function getBooks($token) {
+        if($this->checkToken($token, 0, true)){
+            $sth = $this->db->query("SELECT * FROM books");
+            $sth->setFetchMode(PDO::FETCH_CLASS, 'Book');
+            $books = [];
+            while($book = $sth->fetch()){
+                $book->User = $this->getUserById($book->UserId, false);
+                $book->Car = $this->getCar($book->CarId, false);
+                $books[] = $book;
+            }
+            return $books;
+        }else{
+            return null;
         }
-        return $books;
+        
     }
     
-    public function addCar($car){
-        $res = $this->genInsertQuery($car,"cars");
-        $s = $this->db->prepare("INSERT INTO cars (Model,Photo,SPrice,WPrice,BodyType,Passengers,Doors,Groupe,MinAge,Power,Consumption,Transmission,Fuel,AC,ABS,AirBags,Radio,Description,Description_Eng) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
-        $s->execute($res[1]);
+    public function addCar($token, $car){
+        if($this->checkToken($token, 0, true)){
+            $res = $this->genInsertQuery($car,"cars");
+            $s = $this->db->prepare("INSERT INTO cars (Model,Photo,SPrice,WPrice,BodyType,Passengers,Doors,Groupe,MinAge,Power,Consumption,Transmission,Fuel,AC,ABS,AirBags,Radio,Description,Description_Eng) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
+            $s->execute($res[1]);
+            
+            return $this->db->lastInsertId();
+        }else{
+            return null;
+        }
+            
         
-        return $this->db->lastInsertId();
     }
     public function addBooking($book){
         $res = $this->genInsertQuery($book,"books");
@@ -77,19 +111,24 @@ class DataBase {
         $s->execute($res[1]); 
         return $res;
     }
-    public function addPrices($id,$p){
-        $a = (array)$p['SummerPrices'];
-        $a['Id'] = $id; 
-        $q = $this->genInsertQuery($a,"summer_prices");
-        $s = $this->db->prepare("INSERT INTO summer_prices (OneDayPrice,TwoDaysPrice,ThreeDaysPrice,FourDaysPrice,FiveDaysPrice,SixDaysPrice,SevenDaysPrice,Id) VALUES (?,?,?,?,?,?,?,?);");
-        $s->execute($q[1]);
-        $w = (array)$p['WinterPrices'];
-        $w['Id'] = $id; 
-        $q = $this->genInsertQuery($w,"winter_prices");
+    public function addPrices($token, $id,$p){
+        if($this->checkToken($token, 0, true)){
+            $a = (array)$p['SummerPrices'];
+            $a['Id'] = $id; 
+            $q = $this->genInsertQuery($a,"summer_prices");
+            $s = $this->db->prepare("INSERT INTO summer_prices (OneDayPrice,TwoDaysPrice,ThreeDaysPrice,FourDaysPrice,FiveDaysPrice,SixDaysPrice,SevenDaysPrice,Id) VALUES (?,?,?,?,?,?,?,?);");
+            $s->execute($q[1]);
+            $w = (array)$p['WinterPrices'];
+            $w['Id'] = $id; 
+            $q = $this->genInsertQuery($w,"winter_prices");
+            
+            $s = $this->db->prepare("INSERT INTO winter_prices (OneDayPrice,TwoDaysPrice,ThreeDaysPrice,FourDaysPrice,FiveDaysPrice,SixDaysPrice,SevenDaysPrice,Id) VALUES (?,?,?,?,?,?,?,?);");
+            $s->execute($q[1]);
+            return $q[0];
+        }else{
+            return null;
+        }
         
-        $s = $this->db->prepare("INSERT INTO winter_prices (OneDayPrice,TwoDaysPrice,ThreeDaysPrice,FourDaysPrice,FiveDaysPrice,SixDaysPrice,SevenDaysPrice,Id) VALUES (?,?,?,?,?,?,?,?);");
-        $s->execute($q[1]);
-        return $q[0];
     }
     public function getCar($id, $reports=true) {
         $s = $this->db->prepare("SELECT * FROM cars WHERE Id=?");
@@ -105,20 +144,44 @@ class DataBase {
         return $car;
     }
     
-    public function getBook($id) {
+    public function getBook($token, $id) {
         $s = $this->db->prepare("SELECT * FROM books WHERE Id=?");
         $s->execute(array($id));
         $s->setFetchMode(PDO::FETCH_CLASS, 'Book');
         $book = $s->fetch();
-        $book->User = $this->getUserById($book->UserId, false);
-        $book->Car = $this->getCar($book->CarId, false);
-        return $book;
+        
+        if($this->checkToken($token, $book->UserId)){
+            $book->User = $this->getUserById($book->UserId, false);
+            $book->Car = $this->getCar($book->CarId, false);
+            return $book;
+        }
+        else{
+            return null;
+        }
+        
     }
     
-    public function deleteBook($id) {
-        $s = $this->db->prepare("DELETE FROM books WHERE Id=?");
+    private function getBookUserId($id){
+        $s = $this->db->prepare("SELECT UserId FROM books WHERE Id=?");
         $s->execute(array($id));
-        return array($id);
+        return $s->fetch()['UserId'];
+    }
+    
+    private function getLikeUserId($id){
+        $s = $this->db->prepare("SELECT UserId FROM likes WHERE Id=?");
+        $s->execute(array($id));
+        return $s->fetch()['UserId'];
+    }
+    
+    public function deleteBook($token, $id) {
+        if($this->checkToken($token, $this->getBookUserId($id))){
+            $s = $this->db->prepare("DELETE FROM books WHERE Id=?");
+            $s->execute(array($id));
+            return array($id);
+        }else{
+            return null;
+        }
+        
     }
     
     public function getCarReports($id) {
@@ -176,13 +239,18 @@ class DataBase {
         return $s->fetchAll();
     }
     
-    public function addReport($r){
-        $a = $this->genInsertQuery($r, "feedbacks");
-        $s = $this->db->prepare($a[0]);
-        $s->execute($a[1]);
-        $s = $this->db->prepare("UPDATE cars SET Mark=? WHERE Id=?");
-        $s->execute(array($this->getNewMark($r['CarId'], 0+$r['Mark']),$r['CarId']));
-        return array($this->getNewMark($r['CarId'], 0+$r['Mark']),$r['CarId']);
+    public function addReport($token, $r){
+        if($this->checkToken($token, $r['UserId'])){
+            $a = $this->genInsertQuery($r, "feedbacks");
+            $s = $this->db->prepare($a[0]);
+            $s->execute($a[1]);
+            $s = $this->db->prepare("UPDATE cars SET Mark=? WHERE Id=?");
+            $s->execute(array($this->getNewMark($r['CarId'], 0+$r['Mark']),$r['CarId']));
+            return array($this->getNewMark($r['CarId'], 0+$r['Mark']),$r['CarId']);
+        }else{
+            return null;
+        }
+        
     }
     
     private function getNewMark($cid, $mark){
@@ -196,36 +264,51 @@ class DataBase {
         return $s->fetch['Mark'];
     }
     
-    public function updateCar($c, $id){
-        $a = $this->genUpdateQuery($c['Keys'], $c['Values'], "cars", $id);
-        $s = $this->db->prepare($a[0]);
-        $s->execute($a[1]);
-        return $a;
-    }
-    public function updateBook($c, $id){
-        $a = $this->genUpdateQuery($c['Keys'], $c['Values'], "books", $id);
-        $s = $this->db->prepare($a[0]);
-        $s->execute($a[1]);
-        return $a;
-    }
-    public function updatePrices($c, $id){
-        $a = array();
-        for ($i = 0; $i < count($c['Keys']); $i++) {
-            if($c['Keys'][$i]=='SummerPrices'){
-                $a=$this->genUpdateQuery(array_keys($c['Values'][$i]), array_values($c['Values'][$i]), "summer_prices", $id);
-                $s = $this->db->prepare($a[0]);
-                $s->execute($a[1]);
-            }
-            if($c['Keys'][$i]=='WinterPrices'){
-                $a=$this->genUpdateQuery(array_keys($c['Values'][$i]), array_values($c['Values'][$i]), "winter_prices", $id);
-                $s = $this->db->prepare($a[0]);
-                $s->execute($a[1]);
-            }
-            
+    public function updateCar($token, $c, $id){
+        if($this->checkToken($token, 0, true)){
+            $a = $this->genUpdateQuery($c['Keys'], $c['Values'], "cars", $id);
+            $s = $this->db->prepare($a[0]);
+            $s->execute($a[1]);
+            return $a;
+        }else{
+            return false;
         }
         
+    }
+    public function updateBook($token, $c, $id){
+        if($this->checkToken($token, $this->getBookUserId())){
+            $a = $this->genUpdateQuery($c['Keys'], $c['Values'], "books", $id);
+            $s = $this->db->prepare($a[0]);
+            $s->execute($a[1]);
+            return $a;
+        }else{
+            return null;
+        }
         
-        return $c;
+    }
+    public function updatePrices($c, $id){
+        if($this->checkToken($token, 0, true)){
+            $a = array();
+            for ($i = 0; $i < count($c['Keys']); $i++) {
+                if($c['Keys'][$i]=='SummerPrices'){
+                    $a=$this->genUpdateQuery(array_keys($c['Values'][$i]), array_values($c['Values'][$i]), "summer_prices", $id);
+                    $s = $this->db->prepare($a[0]);
+                    $s->execute($a[1]);
+                }
+                if($c['Keys'][$i]=='WinterPrices'){
+                    $a=$this->genUpdateQuery(array_keys($c['Values'][$i]), array_values($c['Values'][$i]), "winter_prices", $id);
+                    $s = $this->db->prepare($a[0]);
+                    $s->execute($a[1]);
+                }
+                
+            }
+            
+            
+            return $c;
+        }else{
+            return null;
+        }
+        
     }
     
     public function getReportComments($rid){
@@ -287,21 +370,36 @@ class DataBase {
         }
         return $reports;
     }
-    public function changeLike($id, $il){
-        $s = $this->db->prepare("UPDATE likes SET IsLike=? WHERE Id=?");
-        $s->execute(array($il, $id));
-        return $this->db->lastInsertId();
+    public function changeLike($token, $id, $il){
+        if($this->checkToken($token, $this->getLikeUserId())){
+            $s = $this->db->prepare("UPDATE likes SET IsLike=? WHERE Id=?");
+            $s->execute(array($il, $id));
+            return $this->db->lastInsertId();
+        }else{
+            return null;
+        }
+        
     }
-    public function addLike($oid, $uid, $isl, $type){
-        $s = $this->db->prepare("INSERT INTO likes (OwnerId, UserId, IsLike, Type) Values (?,?,?,?)");
-        $s->execute(array($oid, $uid, $isl, $type));
-       
-        return $this->db->lastInsertId();
+    public function addLike($token, $oid, $uid, $isl, $type){
+        if($this->checkToken($token, $uid)){
+            $s = $this->db->prepare("INSERT INTO likes (OwnerId, UserId, IsLike, Type) Values (?,?,?,?)");
+            $s->execute(array($oid, $uid, $isl, $type));
+           
+            return $this->db->lastInsertId();
+        }else{
+            return null;
+        }
+        
     }
     public function deleteLike($id){
-        $s = $this->db->prepare("DELETE FROM likes WHERE Id=?");
-        $s->execute(array($id));
-        return $this->db->lastInsertId();
+        if($this->checkToken($token, $this->getLikeUserId())){
+            $s = $this->db->prepare("DELETE FROM likes WHERE Id=?");
+            $s->execute(array($id));
+            return $this->db->lastInsertId();
+        }else{
+            return null;
+        }
+        
     }
     
     
@@ -309,15 +407,26 @@ class DataBase {
     
     //####################User Controller###########################
     
+    private function setToken($uid, $token){
+        $s = $this->db->prepare('UPDATE users SET Token=? WHERE Id=?');
+        $s->execute(array($token, $uid));
+    }
+    
     public function getUser($e, $p){
         $p = md5(md5($p));
         $s = $this->db->prepare("SELECT Id, Name, Email, CreatedDate, ModifiedDate, Phone, Photo, Lang, IsAdmin FROM users WHERE Email=? and Password=?");
         $s->execute(array($e, $p));
         $s->setFetchMode(PDO::FETCH_CLASS, 'User');
         $u=$s->fetch();
-        $u->Topics = $this->getUserTopics($u->Id);
+        
+        $token = md5($u->ModifiedDate.rand(1000,9999));
+        
+        $this->setToken($u->Id, $token);
+        
+        
         $u->Books = $this->getUserBooks($u->Id);
-        return $u;
+        
+        return array($u,$token);
     } 
     public function setAdmin($id, $isa){
         $s = $this->db->prepare("UPDATE users SET IsAdmin=? WHERE Id=?");
@@ -329,15 +438,17 @@ class DataBase {
         $s->execute(array($id));
         $s->setFetchMode(PDO::FETCH_CLASS, 'User');
         $u=$s->fetch();
+        
+        $token = md5($u->ModifiedDate.rand(1000,9999));
+        $this->setToken($u->Id, $token);
         if($full){
-            $u->Topics = $this->getUserTopics($u->Id);
             $u->Books = $this->getUserBooks($u->Id);        
         }
         
-        return $u;
+        return array($u,$token);
     }
     
-    public function getUserBooks($id) {
+    private function getUserBooks($id) {
         $s = $this->db->prepare("SELECT * FROM books WHERE UserId=?");
         $s->execute(array($id));
         $s->setFetchMode(PDO::FETCH_CLASS, 'Book');
@@ -358,83 +469,30 @@ class DataBase {
         return $this->getUserById($this->db->lastInsertId());
     }
     
-    public function changeInfo($t, $v, $uid){
-       $s = $this->db->prepare("UPDATE users SET $t=?, ModifiedDate=now() WHERE Id=?");
-       $s->execute(array($v, $uid));
+    public function changeInfo($token, $t, $v, $uid){
+        if($this->checkToken($token, $uid)){
+            $s = $this->db->prepare("UPDATE users SET $t=?, ModifiedDate=now() WHERE Id=?");
+            $s->execute(array($v, $uid));
        
-       return (array($t, $v, $uid));
+           return (array($t, $v, $uid));
+        }else{
+            return null;
+        }
     }
     
-    public function deleteUser($id){
-        $s = $this->db->prepare("DELETE * FROM users WHERE UserId=?");
-        $s->execute(array($id));
-        
-        return $id;
+    public function deleteUser($token, $id){
+        if($this->checkToken($token, 0, true)){
+            $s = $this->db->prepare("DELETE * FROM users WHERE UserId=?");
+            $s->execute(array($id));
+            
+            return $id;
+        }else{
+            return null;
+        }
     }
     
     //####################User Controller###########################
     
-    //####################Messager Controller###########################
     
-    public function createTopic($uid){
-        $s = $this->db->query("SELECT Id FROM users WHERE IsAdmin=true");
-        $rid = $s->fetch()[0];
-        $s = $this->db->prepare("INSERT INTO topics (UserId, UserReciverId, ModifyDate) VALUES (?,?,now())");
-        $s->execute(array($uid, $rid));
-        
-        return $this->getUserTopics($uid);
-    }
-    public function saveMessage($uid, $tid, $t){
-        $s = $this->db->prepare("INSERT INTO messages (UserId, TopicId, Text, CreateDate) Values (?,?,?,now())");
-        $s->execute(array($uid, $tid, $t));
-        
-        return $this->getMessageById($this->db->lastInsertId());
-    } 
-    
-    public function getMessageById($id) {
-        $s = $this->db->prepare("SELECT Id, TopicId, UserId, Text, CreateDate FROM messages WHERE Id=?");
-        $s->execute(array($id));
-        $s->setFetchMode(PDO::FETCH_CLASS, 'Message');
-        $u=$s->fetch();
-        return $u;
-    }
-    
-    public function getUserTopics($id) {
-        $s = $this->db->prepare("SELECT * FROM topics WHERE UserId=? OR UserReciverId=?");
-        $s->execute(array($id, $id));
-        $s->setFetchMode(PDO::FETCH_CLASS, 'Topic');
-        $topics = [];
-        while($r = $s->fetch()){
-            $r->User = $this->getReportUser($r->UserId);
-            $r->UserReciver = $this->getReportUser($r->UserReciverId);
-            $r->Messages = $this->getMessages($r->Id);
-            $topics[] = $r;
-        }
-        return $topics;
-    }
-    
-    public function getMessages($tid){
-        $s = $this->db->prepare("SELECT * FROM messages WHERE TopicId=?");
-        $s->execute(array($tid));
-        $s->setFetchMode(PDO::FETCH_CLASS, 'Message');
-        return $s->fetchAll();
-    }
-    
-    public function addComment($uid, $fid, $t){
-        $s = $this->db->prepare("INSERT INTO comments (UserId, FeedBackId, Text, CreateDate) VALUES (?,?,?,now())");
-        $s->execute(array($uid, $fid, $t));
-        return $this->getCommentById($this->db->lastInsertId());
-    }
-    
-    public function getCommentById($id){
-        $s = $this->db->prepare("SELECT Id, FeedBackId, UserId, Text, CreateDate FROM comments WHERE Id=?");
-        $s->execute(array($id));
-        $s->setFetchMode(PDO::FETCH_CLASS, 'Comment');
-        $u=$s->fetch();
-        $u->User = $this->getUserById($u->UserId);
-        $u->Likes = $this->getLikes($u->Id,2);
-        return $u;
-    }
-    //####################Messager Controller###########################
 }
 ?>

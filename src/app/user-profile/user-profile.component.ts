@@ -48,40 +48,45 @@ export class UserProfileComponent implements OnInit {
       this.userService.currentUser=JSON.parse(localStorage.getItem("currentUser"));
       
       this.userService.GetUserById(this.userService.currentUser.Id).subscribe(data => {
+        this.userService.Token = data[1];
+        console.log(this.userService.Token);
+        data = data[0];
+        console.log(data);
         data.IsAdmin = Boolean(Number(data.IsAdmin));
-        data.Topics.forEach(x => {
-          x.ModifyDate= new Date(x.ModifyDate);
-        })
+        
         if(!data.IsAdmin){
           data.Books.sort((a,b)=>{
             return a.DateStart<b.DateStart?1:-1
           })
+          this.books = data.Books;
         }
         
         this.userService.currentUser=data;
         this.changeValues[0]=data.Email;
         this.changeValues[1]=data.Phone;
         localStorage.setItem('currentUser',JSON.stringify(data));
-        this.ls.showLoad=false;
+        if(this.userService.currentUser.IsAdmin){
+          this.carsService.GetReportCars().subscribe( data => {
+            this.cars=data;
+            this.ls.showLoad=false;
+          })
+          this.userService.GetUsers().subscribe(data => {
+            this.users = data;
+            this.users.forEach(u => {
+              u.IsAdmin = Boolean(Number(u.IsAdmin));
+            })
+          })
+          this.carsService.GetBooks().subscribe(books => {
+            this.books = books;
+            console.log(books)
+            this.books.sort((a,b)=>{
+              return a.DateStart<b.DateStart?1:-1
+            })
+          })
+        }
+        
       })
-      if(this.userService.currentUser.IsAdmin){
-        this.carsService.GetReportCars().subscribe( data => {
-          this.cars=data;
       
-        })
-        this.userService.GetUsers().subscribe(data => {
-          this.users = data;
-          this.users.forEach(u => {
-            u.IsAdmin = Boolean(Number(u.IsAdmin));
-          })
-        })
-        this.carsService.GetBooks().subscribe(books => {
-          this.books = books;
-          this.books.sort((a,b)=>{
-            return a.DateStart<b.DateStart?1:-1
-          })
-        })
-      }
     }
     else{
       this.router.navigate(['/allcars']);
@@ -115,6 +120,7 @@ export class UserProfileComponent implements OnInit {
  
   }
   show(prop:string){
+    console.log(prop);
     this[prop] = !this[prop];
   }
   removeInclude(inc:string){
@@ -207,22 +213,6 @@ export class UserProfileComponent implements OnInit {
 
   changePage(p){
     this.curUserPage=p;
-  }
-  
-  addSale(){
-    this.saleSubmitted = true;
-    for(let i =0; i<Object.keys(this.newSale).length;i++){
-      if(this.newSale[Object.keys(this.newSale)[i]]==null){
-        return;
-      }
-    }
-    if(this.newSale.DaysNumber>0){
-      this.newSale.Type=1;
-    }
-    this.userService.AddSale(this.newSale).subscribe(data => {
-      this.newSale = new Sale();
-      this.saleSubmitted = false;
-    })
   }
   addAdmin(user, isAdmin){
     this.userService.SetAdmin(user.Id, isAdmin).subscribe(data => {

@@ -40,15 +40,15 @@ if(isset($_GET['Key']))
             break;
         case 'change-info':
             $b = json_decode(file_get_contents('php://input'), true);
-            echo json_encode($ctxt->changeInfo($b['Type'], $b['Value'], $b['UserId']));
+            echo json_encode($ctxt->changeInfo($_GET['Token'], $b['Type'], $b['Value'], $b['UserId']));
             break;
         case 'set-admin':
             $b = json_decode(file_get_contents('php://input'), true);
-            echo json_encode($ctxt->setAdmin($_GET['Id'], $_GET['IsAdmin']));
+            echo json_encode($ctxt->setAdmin($_GET['Token'], $_GET['Id'], $_GET['IsAdmin']));
             break;
         case 'delete-user':
             $b = json_decode(file_get_contents('php://input'), true);
-            echo json_encode($ctxt->deleteUser($_GET['Id']));
+            echo json_encode($ctxt->deleteUser($_GET['Token'], $_GET['Id']));
             break;
         default:
             echo "Введенный ключ несуществует";

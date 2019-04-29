@@ -40,18 +40,18 @@ if(isset($_GET['Key']))
             echo json_encode($ctxt->getCar($_GET['Id'],true));
             break;
         case 'get-book':
-            echo json_encode($ctxt->getBook($_GET['Id']));
+            echo json_encode($ctxt->getBook($_GET['Token'], $_GET['Id']));
             break;
         case 'get-books':
-            echo json_encode($ctxt->getBooks());
+            echo json_encode($ctxt->getBooks($_GET['Token']));
             break;
         case 'add-car':
             $b = json_decode(file_get_contents('php://input'), true);  
-            echo json_encode($ctxt->addCar($b));
+            echo json_encode($ctxt->addCar($_GET['Token'], $b));
             break;
         case 'add-price':
             $b = json_decode(file_get_contents('php://input'), true);  
-            echo json_encode($ctxt->addPrices($_GET['Id'],$b));
+            echo json_encode($ctxt->addPrices($_GET['Token'], $_GET['Id'],$b));
             break;
         case 'add-booking':
             $b = json_decode(file_get_contents('php://input'), true); 
@@ -59,18 +59,18 @@ if(isset($_GET['Key']))
             break;
         case 'update-car':
             $b = json_decode(file_get_contents('php://input'), true); 
-            echo json_encode($ctxt->updateCar($b, $_GET['Id']));
+            echo json_encode($ctxt->updateCar($_GET['Token'], $b, $_GET['Id']));
             break;
         case 'update-book':
             $b = json_decode(file_get_contents('php://input'), true); 
-            echo json_encode($ctxt->updateBook($b, $_GET['Id']));
+            echo json_encode($ctxt->updateBook($_GET['Token'], $b, $_GET['Id']));
             break;
         case 'update-prices':
             $b = json_decode(file_get_contents('php://input'), true); 
-            echo json_encode($ctxt->updatePrices($b, $_GET['Id']));
+            echo json_encode($ctxt->updatePrices($_GET['Token'], $b, $_GET['Id']));
             break;
         case 'delete-book':
-            echo json_encode($ctxt->deleteBook($_GET['Id']));
+            echo json_encode($ctxt->deleteBook($_GET['Token'], $_GET['Id']));
             break;
         default:
             echo "Введенный ключ несуществует";

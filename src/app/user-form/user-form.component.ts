@@ -33,6 +33,8 @@ export class UserFormComponent implements OnInit {
     }
     if(this.service.type==1){
       this.service.AddUser(this.userForm.value).subscribe(data=>{
+        this.service.Token = data[1];
+        data = data[0];
         this.service.currentUser=data;
 
         localStorage.setItem('currentUser',JSON.stringify(data));
@@ -48,13 +50,15 @@ export class UserFormComponent implements OnInit {
 
     if(this.service.type==0){
       this.service.GetUser(this.userForm.value).subscribe(data=>{
-        if(!data.Id){
+        console.log(data);
+        if(!data[0].Id){
           this.alert.showA({type:'wrong',message:'Пользователь не найден',show:true});
           this.submitted=false;
           this.userForm.reset();
         }else{
+          this.service.Token = data[1];
+          data = data[0];
           this.service.currentUser=data;
-          console.log(data);
           if(data.Books){
             this.service.currentUser.Books.forEach(x =>{
               x.DateFinish=new Date(x.DateFinish);
