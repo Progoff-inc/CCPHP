@@ -276,7 +276,7 @@ class DataBase {
         
     }
     public function updateBook($token, $c, $id){
-        if($this->checkToken($token, $this->getBookUserId())){
+        if($this->checkToken($token, $this->getBookUserId($id))){
             $a = $this->genUpdateQuery($c['Keys'], $c['Values'], "books", $id);
             $s = $this->db->prepare($a[0]);
             $s->execute($a[1]);
@@ -286,7 +286,7 @@ class DataBase {
         }
         
     }
-    public function updatePrices($c, $id){
+    public function updatePrices($token, $c, $id){
         if($this->checkToken($token, 0, true)){
             $a = array();
             for ($i = 0; $i < count($c['Keys']); $i++) {
@@ -371,7 +371,7 @@ class DataBase {
         return $reports;
     }
     public function changeLike($token, $id, $il){
-        if($this->checkToken($token, $this->getLikeUserId())){
+        if($this->checkToken($token, $this->getLikeUserId($id))){
             $s = $this->db->prepare("UPDATE likes SET IsLike=? WHERE Id=?");
             $s->execute(array($il, $id));
             return $this->db->lastInsertId();
@@ -391,8 +391,8 @@ class DataBase {
         }
         
     }
-    public function deleteLike($id){
-        if($this->checkToken($token, $this->getLikeUserId())){
+    public function deleteLike($token, $id){
+        if($this->checkToken($token, $this->getLikeUserId($id))){
             $s = $this->db->prepare("DELETE FROM likes WHERE Id=?");
             $s->execute(array($id));
             return $this->db->lastInsertId();
@@ -400,6 +400,26 @@ class DataBase {
             return null;
         }
         
+    }
+    
+    public function addComment($token, $uid, $fid, $t){
+        if($this->checkToken($token, $uid)){
+            $s = $this->db->prepare("INSERT INTO comments (UserId, FeedBackId, Text, CreateDate) VALUES (?,?,?,now())");
+            $s->execute(array($uid, $fid, $t));
+            return $this->getCommentById($this->db->lastInsertId());
+        }else{
+            return null;
+        }
+    }
+    
+    public function getCommentById($id){
+        $s = $this->db->prepare("SELECT Id, FeedBackId, UserId, Text, CreateDate FROM comments WHERE Id=?");
+        $s->execute(array($id));
+        $s->setFetchMode(PDO::FETCH_CLASS, 'Comment');
+        $u=$s->fetch();
+        $u->User = $this->getUserById($u->UserId)[0];
+        $u->Likes = $this->getLikes($u->Id,2);
+        return $u;
     }
     
     
