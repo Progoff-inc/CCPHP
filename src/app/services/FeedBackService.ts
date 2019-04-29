@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, Injectable } from '@angular/core';
-import {User, ReportComment, FeedBack, Like} from '../services/UserService';
+import {User, ReportComment, FeedBack, Like, UserService} from '../services/UserService';
 import {CarsService, Car, Book} from '../services/CarsService';
 import { LoadService } from './load.service';
 
@@ -12,10 +12,10 @@ export class FeedBackService{
   curReports:FeedBack[];
   buttons:any = [];
   number:number=0;
-  baseUrl:string='http://client.nomokoiw.beget.tech/back/';
+  baseUrl:string='http://client.nomokoiw.beget.tech/back1/';
   //baseUrl:string='http://localhost:80/CCPHP/';
 
-  constructor(private http: HttpClient, private ls:LoadService) {
+  constructor(private http: HttpClient, private ls:LoadService, private us:UserService) {
     
     
   }
@@ -40,19 +40,19 @@ export class FeedBackService{
   }
   saveReport(report:ShortFeedBack){
     
-    return this.http.post<FeedBack>(this.baseUrl + 'FBController.php?Key=add-report', { "UserId": report.UserId, "CarId": report.CarId, "Look":report.Look, "Comfort": report.Comfort, "Drive": report.Drive,  "Mark":((report.Look+report.Comfort+report.Drive)/3), "Text":report.Text });
+    return this.http.post<FeedBack>(this.baseUrl + 'FBController.php?Key=add-report&Token='+this.us.Token, { "UserId": report.UserId, "CarId": report.CarId, "Look":report.Look, "Comfort": report.Comfort, "Drive": report.Drive,  "Mark":((report.Look+report.Comfort+report.Drive)/3), "Text":report.Text });
   }
   changeLike(LikeId:number, IsLike){
-    return this.http.post<FeedBack>(this.baseUrl + 'FBController.php?Key=change-like', { "IsLike": IsLike, "LikeId": LikeId});
+    return this.http.post<FeedBack>(this.baseUrl + 'FBController.php?Key=change-like&Token='+this.us.Token, { "IsLike": IsLike, "LikeId": LikeId});
   }
   deleteLike(LikeId:number){
-    return this.http.delete(this.baseUrl + 'FBController.php?Key=delete-like&Id='+LikeId);
+    return this.http.delete(this.baseUrl + 'FBController.php?Key=delete-like&Id='+LikeId+'&Token='+this.us.Token);
   }
   addLikeOrDislike(like){
-    return this.http.post<number>(this.baseUrl + 'FBController.php?Key=add-likes', { "IsLike": like.IsLike, "OwnerId": like.OwnerId, "Type":like.Type, "UserId":like.UserId});
+    return this.http.post<number>(this.baseUrl + 'FBController.php?Key=add-likes&Token='+this.us.Token, { "IsLike": like.IsLike, "OwnerId": like.OwnerId, "Type":like.Type, "UserId":like.UserId});
   }
   addComment(text:string, UserId:number, FeedBackId:number ){
-    return this.http.post<ReportComment>(this.baseUrl + 'FBController.php?Key=add-comment',{"Text":text, "UserId":UserId, "FeedBackId":FeedBackId});
+    return this.http.post<ReportComment>(this.baseUrl + 'FBController.php?Key=add-comment&Token='+this.us.Token,{"Text":text, "UserId":UserId, "FeedBackId":FeedBackId});
   }
   changePage(floor:number, top:number){
     this.curReports = [];

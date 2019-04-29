@@ -3,6 +3,7 @@ import {MyTranslateService} from '../services/MyTranslateService';
 import {UserService} from '../services/UserService';
 import { AlertService } from '../services/AlertService';
 import { Router, NavigationEnd } from '@angular/router';
+import { LoadService } from '../services/load.service';
 
 
 @Component({
@@ -33,7 +34,7 @@ export class NavMenuComponent implements OnInit {
                 }
                 
             }
-  constructor(public userService:UserService, private router:Router){
+  constructor(public userService:UserService, private router:Router, private ls:LoadService){
     
   }
 
@@ -55,13 +56,19 @@ export class NavMenuComponent implements OnInit {
   }
   ngOnInit(){
     if(localStorage.getItem("currentUser")){
-      this.userService.currentUser=JSON.parse(localStorage.getItem("currentUser"));
-      if(this.userService.currentUser.Lang){
+      this.userService.GetUserById(JSON.parse(localStorage.getItem("currentUser")).Id).subscribe(user => {
+        this.userService.Token=user[1];
+        this.userService.currentUser=user[0];
+        if(this.userService.currentUser.Lang){
 
-        this.service.changeLang(this.userService.currentUser.Lang=="RU"?'ru':'en');
-        
-
-      }
+          this.service.changeLang(this.userService.currentUser.Lang=="RU"?'ru':'en');
+          
+  
+        }
+        this.ls.showLoad = false;
+      })
+      
+      
     }
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {

@@ -1,7 +1,8 @@
 import { Inject, Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import {FeedBack, Sale, User} from './UserService';
+import {FeedBack, Sale, User, UserService} from './UserService';
 import { PickerComponent } from '../picker/picker.component';
+import { userInfo } from 'os';
 
 @Injectable()
 export class CarsService implements OnInit {
@@ -14,9 +15,9 @@ export class CarsService implements OnInit {
     EndPoint:string = undefined;
     CurFilters = [];
     public car: Car = null;
-    baseUrl:string='http://client.nomokoiw.beget.tech/back/';
+    baseUrl:string='http://client.nomokoiw.beget.tech/back1/';
     //baseUrl = 'http://localhost:80/CCPHP/';
-    constructor(private http: HttpClient ) {
+    constructor(private http: HttpClient, private us:UserService ) {
 
 
     }
@@ -34,10 +35,10 @@ export class CarsService implements OnInit {
         return this.http.get<Car>(this.baseUrl + 'CarsController.php?Key=get-car&Id=' + id);
     }
     GetBook(id: string) {
-        return this.http.get<Book>(this.baseUrl + 'CarsController.php?Key=get-book&Id=' + id);
+        return this.http.get<Book>(this.baseUrl + 'CarsController.php?Key=get-book&Id=' + id+'&Token='+this.us.Token);
     }
     GetBooks() {
-        return this.http.get<Book[]>(this.baseUrl + 'CarsController.php?Key=get-books');
+        return this.http.get<Book[]>(this.baseUrl + 'CarsController.php?Key=get-books&Token='+this.us.Token);
     }
     GetCarPhotos(id: number) {
         return this.http.get<string[]>(this.baseUrl + 'CarsController.php?Key=get-photos&Id=' + id);
@@ -47,27 +48,27 @@ export class CarsService implements OnInit {
     }
     AddCar(car) {
 
-        return this.http.post<number>(this.baseUrl + 'CarsController.php?Key=add-car', car);
+        return this.http.post<number>(this.baseUrl + 'CarsController.php?Key=add-car&Token='+this.us.Token, car);
     }
     DeleteCar(id){
-        return this.http.delete(this.baseUrl + 'CarsController.php?Key=delete-car&Id=' + id)
+        return this.http.delete(this.baseUrl + 'CarsController.php?Key=delete-car&Id=' + id+'&Token='+this.us.Token)
     }
     DeleteBook(id){
-        return this.http.delete(this.baseUrl + 'CarsController.php?Key=delete-book&Id=' + id)
+        return this.http.delete(this.baseUrl + 'CarsController.php?Key=delete-book&Id=' + id+'&Token='+this.us.Token)
     }
     AddPrices(CarId,Price) {
-        return this.http.post(this.baseUrl + 'CarsController.php?Key=add-price&Id=' + CarId, Price);
+        return this.http.post(this.baseUrl + 'CarsController.php?Key=add-price&Id=' + CarId+'&Token='+this.us.Token, Price);
     }
     UpdateCar(car, id) {
 
-        return this.http.post<Car>(this.baseUrl + 'CarsController.php?Key=update-car&Id=' + id, car);
+        return this.http.post<Car>(this.baseUrl + 'CarsController.php?Key=update-car&Id=' + id+'&Token='+this.us.Token, car);
     }
     UpdateBook(book, id) {
 
-        return this.http.post<Car>(this.baseUrl + 'CarsController.php?Key=update-book&Id=' + id, book);
+        return this.http.post<Car>(this.baseUrl + 'CarsController.php?Key=update-book&Id=' + id+'&Token='+this.us.Token, book);
     }
     UpdatePrices(Price, id) {
-        return this.http.post<Prices>(this.baseUrl + 'CarsController.php?Key=update-prices&Id=' + id, Price);
+        return this.http.post<Prices>(this.baseUrl + 'CarsController.php?Key=update-prices&Id=' + id+'&Token='+this.us.Token, Price);
     }
     BookCar(book: any) {
         // tslint:disable-next-line:max-line-length
@@ -77,9 +78,6 @@ export class CarsService implements OnInit {
     BookCarNew(book: NewBook) {
         // tslint:disable-next-line:max-line-length
         return this.http.post<Book>(this.baseUrl + 'CarsController.php?Key=add-booking-new', book);
-    }
-    GetSales() {
-        return this.http.get<Sale[]>(this.baseUrl + 'CarsController.php?Key=get-sales');
     }
 
     ngOnInit() {

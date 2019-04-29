@@ -155,6 +155,7 @@ export class FeedbackComponent implements OnInit, OnChanges {
         return;
     }
     this.feedBackService.addComment(text, this.userService.currentUser.Id, report.Id).subscribe(data =>{
+      console.log(data);
       report.ShowForm=!report.ShowForm;
       this.commentForm.reset();
       report.Comments.push(data);

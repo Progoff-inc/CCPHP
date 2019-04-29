@@ -91,7 +91,7 @@
   </div>
   <div  class="statistics">
     
-    <p *ngIf="userService.currentUser?(userService.currentUser.IsAdmin?books.length>0:userService.currentUser.Books.length>0):false" class="line" ><span (click)="show('showBooks')">{{userService.currentUser.IsAdmin?('BOOKS' | translate): ('MY_BOOKS' | translate)}} <i class="fa" [ngClass] = "{'fa-angle-down':!showBooks, ' fa-angle-up':showBooks}"></i></span></p>
+    <p *ngIf="books.length>0" class="line" ><span (click)="show('showBooks')">{{userService.currentUser.IsAdmin?('BOOKS' | translate): ('MY_BOOKS' | translate)}} <i class="fa" [ngClass] = "{'fa-angle-down':!showBooks, ' fa-angle-up':showBooks}"></i></span></p>
     <div *ngIf="showBooks">
       <div class="book-item" [ngClass]="{'active-item':getStatus(book)=='Активно' }" *ngFor="let book of userService.currentUser.IsAdmin?books:userService.currentUser.Books">
         <div class="btns">

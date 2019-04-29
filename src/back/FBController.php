@@ -15,23 +15,23 @@ if(isset($_GET['Key']))
             break;
         case 'change-like':
             $b = json_decode(file_get_contents('php://input'), true);
-            $book = $ctxt->changeLike($b['LikeId'], $b['IsLike']);  
+            $book = $ctxt->changeLike($_GET['Token'], $b['LikeId'], $b['IsLike']);  
             echo json_encode($book);
             break;
         case 'delete-like':
-            echo json_encode($ctxt->deleteLike($_GET['Id']));
+            echo json_encode($ctxt->deleteLike($_GET['Token'], $_GET['Id']));
             break;
         case 'add-likes':
             $b = json_decode(file_get_contents('php://input'), true);
-            echo json_encode($ctxt->addLike($b['OwnerId'], $b['UserId'], $b['IsLike'], $b['Type']));
+            echo json_encode($ctxt->addLike($_GET['Token'], $b['OwnerId'], $b['UserId'], $b['IsLike'], $b['Type']));
             break;
         case 'add-comment':
             $b = json_decode(file_get_contents('php://input'), true);
-            echo json_encode($ctxt->addComment($b['UserId'], $b['FeedBackId'], $b['Text']));
+            echo json_encode($ctxt->addComment($_GET['Token'], $b['UserId'], $b['FeedBackId'], $b['Text']));
             break;
         case 'add-report':
             $b = json_decode(file_get_contents('php://input'), true);
-            echo json_encode($ctxt->addReport($b));
+            echo json_encode($ctxt->addReport($_GET['Token'], $b));
         
     }
     
