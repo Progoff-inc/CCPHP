@@ -83,6 +83,7 @@
     }
     .search-form{
         width: 90%;
+        margin-bottom: 15px;
     }
 }
 @media(min-width:769px){

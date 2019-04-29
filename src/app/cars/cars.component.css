@@ -6,6 +6,11 @@
     i.fa-picture-o{
         display: none;
     }
+
+    h1 span{
+        display: block;
+        margin-left: 0 !important;
+    }
     /* .filters .col-sm-3:not(:last-child){
         border-bottom: 1px solid gray;
     
