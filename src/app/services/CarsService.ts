@@ -125,6 +125,7 @@ export class CarsService implements OnInit {
                     price+=car.SPrice;
                 }
             }
+            console.log(price);
             return price;
         }
         else{
@@ -139,6 +140,7 @@ export class CarsService implements OnInit {
                     price+=car.WPrice;
                 }
             }
+            console.log(price);
             return price;
         }
     }

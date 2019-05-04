@@ -120,10 +120,13 @@ export class BookingFormComponent implements OnInit, OnChanges {
       else{
         
         this.us.AddUser({Name:this.bookingForm.value.Name, Email:this.bookingForm.value.Email, Tel:this.bookingForm.value.Tel, Password:this.us.GenPassword()}).subscribe(data => {
+          this.us.currentUser = data[0];
+          this.us.Token = data[1];
+          this.us.Save();
           this.book = {
             CarId:this.service.car.Id,
             UserId:data[0].Id,
-            Sum:Math.ceil(this.book.Sum),
+            Sum:Math.ceil(this.service.getCarPrice(this.service.car, this.book.DateStart, this.book.DateFinish)),
             DateStart:this.getExtraTime(this.book.DateStart, this.bookingForm.value.Time),
             DateFinish:this.getExtraTime(this.book.DateFinish, this.bookingForm.value.TimeOff),
             Price:0,
@@ -132,9 +135,11 @@ export class BookingFormComponent implements OnInit, OnChanges {
             Tel:this.bookingForm.value.Tel,
             Coment:this.bookingForm.value.Coment
           }
+          console.log(this.book);
           this.service.BookCar(this.book).subscribe(data => {
+            
             this.ngOnInit();
-           
+            
           });
         })
         
