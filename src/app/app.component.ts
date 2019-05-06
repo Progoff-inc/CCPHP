@@ -3,6 +3,8 @@ import {TranslateService} from '@ngx-translate/core';
 import { Router, NavigationEnd } from '@angular/router';
 import {MyTranslateService} from './services/MyTranslateService';
 import {CarsService, Book} from './services/CarsService'
+import { UserService } from './services/UserService';
+import { LoadService } from './services/load.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,7 +19,7 @@ export class AppComponent implements OnInit {
   showButtonUp:boolean = false;
   showSameCars:boolean = false;
   user = null;
-  constructor(private router:Router, private translate: TranslateService, private s:CarsService){
+  constructor(private router:Router, private translate: TranslateService, private ls:LoadService, private us:UserService, private s:CarsService){
     this.service = new MyTranslateService(translate);
     
   }
@@ -33,8 +35,21 @@ export class AppComponent implements OnInit {
 
   ngOnInit(){
     if(localStorage.getItem("currentUser")){
-      this.user = JSON.parse(localStorage.getItem("currentUser"));
-      this.user.IsAdmin = Boolean(Number(this.user.IsAdmin));
+      if(localStorage.getItem("currentUser")){
+        this.us.GetUserById(JSON.parse(localStorage.getItem("currentUser")).Id).subscribe(user => {
+          this.us.Token=user[1];
+          this.us.currentUser=user[0];
+          if(this.us.currentUser.Lang){
+  
+            this.service.changeLang(this.us.currentUser.Lang=="RU"?'ru':'en');
+            
+    
+          }
+          this.ls.showLoad = false;
+        })
+        
+        
+      }
       
     }
     window.scrollTo(0, 0);

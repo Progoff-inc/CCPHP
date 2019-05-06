@@ -54,21 +54,7 @@ export class NavMenuComponent implements OnInit {
     
   }
   ngOnInit(){
-    if(localStorage.getItem("currentUser")){
-      this.userService.GetUserById(JSON.parse(localStorage.getItem("currentUser")).Id).subscribe(user => {
-        this.userService.Token=user[1];
-        this.userService.currentUser=user[0];
-        if(this.userService.currentUser.Lang){
-
-          this.service.changeLang(this.userService.currentUser.Lang=="RU"?'ru':'en');
-          
-  
-        }
-        this.ls.showLoad = false;
-      })
-      
-      
-    }
+    
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
           return;

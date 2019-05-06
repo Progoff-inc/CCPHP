@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChange, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChange, SimpleChanges, OnChanges, EventEmitter, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -15,6 +15,7 @@ export class DatePickerComponent implements OnInit, OnChanges {
   @Input() Intervals:any = [];
   @Input() DateStart:Date;
   @Input() DateFinish:Date;
+  @Output() change = new EventEmitter<Date>();
   showPicker:boolean = false;
 
   firstDate:Date; 
@@ -178,6 +179,7 @@ export class DatePickerComponent implements OnInit, OnChanges {
       if(this.DateStart && this.Out.DateFinish){
         if(date.getTime()!=this.DateStart.getTime() && date.getTime()!=this.Out.DateFinish.getTime()){
           this.Out[this.Prop]=date;
+          this.change.emit(date);
           
           if(this.Errors){
             this.Errors[this.Prop]=false;
@@ -187,6 +189,7 @@ export class DatePickerComponent implements OnInit, OnChanges {
       }
       else{
         this.Out[this.Prop]=date;
+        this.change.emit(date);
           if(this.Errors){
             this.Errors[this.Prop]=false;
           }

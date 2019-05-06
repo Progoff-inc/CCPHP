@@ -157,10 +157,11 @@ export class ChangeBookComponent implements OnInit {
 
   onSubmit(){
     this.submitted = true;
-    this.ls.showLoad=true;
+    
     if(this.bookingForm.invalid){
       return;
     }
+    this.ls.showLoad=true;
     if(this.change.Keys.length>0){
       this.service.UpdateBook(this.change, this.book.Id).subscribe((data)=>{
         for(let i = 0;i<this.change.Keys.length;i++){
