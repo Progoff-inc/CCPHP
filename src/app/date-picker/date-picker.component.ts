@@ -263,8 +263,10 @@ export class DatePickerComponent implements OnInit, OnChanges {
   }
 
   checkChoosed(date:Date){
-
-    return date.getTime()==new Date(this.DateStart.toDateString()).getTime() || date.getTime()==new Date(this.DateFinish.toDateString()).getTime();
+    if(this.DateStart && this.DateFinish){
+      return date.getTime()==new Date(this.DateStart.toDateString()).getTime() || date.getTime()==new Date(this.DateFinish.toDateString()).getTime();
+    }
+    
   }
 }
 
