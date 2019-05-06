@@ -88,16 +88,22 @@ export class DatePickerComponent implements OnInit, OnChanges {
   shooseProgress(day:Date, leave:boolean){
     if(this.DateStart){
       if(this.Prop=='DateFinish'){
-        if(leave && this.checkDate(day) && day.getTime()>this.MinDate.getTime()){
+        console.log(this.checkDate(day));
+        console.log(day.getTime()>this.MinDate.getTime())
+        console.log(day.getTime()>this.MaxDate.getTime())
+        console.log(this.MaxDate);
+        if(leave && this.checkDate(day) && day.getTime()>this.MinDate.getTime() && day.getTime()>this.MaxDate.getTime()){
           this.DateFinish=day;
         }
         if(!leave){
+          
           this.DateFinish=this.Out[this.Prop];
         }
       }
     }
   }
   ngOnInit() {
+    console.log(this.Intervals);
     let date = new Date();
     if(this.DateStart){
       date = this.DateStart;
@@ -216,7 +222,7 @@ export class DatePickerComponent implements OnInit, OnChanges {
   checkDate(date:Date){
     let res = true;
     this.Intervals.forEach(e => {
-      if(e.DateStart.getTime()<=date.getTime() && e.DateFinish.getTime()>=date.getTime()){
+      if(new Date(e.DateStart.toDateString())<=new Date(date.toDateString()) && new Date(e.DateFinish.toDateString())>=new Date(date.toDateString())){
         res =false;
       }
     });
