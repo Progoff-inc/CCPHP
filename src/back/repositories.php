@@ -369,6 +369,17 @@ class DataBase {
         }
         
     }
+
+    public function deleteCar($token, $id) {
+        if($this->checkToken($token, 0, true)){
+            $s = $this->db->prepare("DELETE FROM cars WHERE Id=?");
+            $s->execute(array($id));
+            return array($id);
+        }else{
+            return null;
+        }
+        
+    }
     
     //####################Cars Controller#########################
     

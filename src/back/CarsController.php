@@ -72,6 +72,9 @@ if(isset($_GET['Key']))
         case 'delete-book':
             echo json_encode($ctxt->deleteBook($_GET['Token'], $_GET['Id']));
             break;
+        case 'delete-car':
+            echo json_encode($ctxt->deleteCar($_GET['Token'], $_GET['Id']));
+            break;
         default:
             echo "Введенный ключ несуществует";
         
