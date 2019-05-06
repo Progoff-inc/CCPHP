@@ -369,7 +369,7 @@ class DataBase {
         }
         
     }
-
+    
     public function deleteCar($token, $id) {
         if($this->checkToken($token, 0, true)){
             $s = $this->db->prepare("DELETE FROM cars WHERE Id=?");
@@ -520,19 +520,24 @@ class DataBase {
     }
     
     public function addUser($n, $e, $p, $ph, $l){
-        $s = $this->db->prepare("INSERT INTO users (Name, Email, Password, Phone, Lang, Photo, CreatedDate, ModifiedDate) Values (?,?,?,?,?,?,now(),now())");
-        $s->execute(array($n, $e, md5(md5($p)), $ph, $l,'../../assets/images/default_user_photo.jpg'));
-        $subject = "Регистрация на портале"; 
+        if($this->checkEmail($e)){
+            $s = $this->db->prepare("INSERT INTO users (Name, Email, Password, Phone, Lang, Photo, CreatedDate, ModifiedDate) Values (?,?,?,?,?,?,now(),now())");
+            $s->execute(array($n, $e, md5(md5($p)), $ph, $l,'../../assets/images/default_user_photo.jpg'));
+            $subject = "Регистрация на портале"; 
+                
+            $message = "<h2>Вы зарегистрированы на портале CarsCrete!</h2>
+            </br> <p><b>Ваш логин: </b>$e<b></br>Ваш пароль: </b>$p</br></p></br>
+            <p>В личном кабинете вы можете просмотреть, изменить и отменить текущие заявки на бронирование автомобилей.</p> </br>";
             
-        $message = "<h2>Вы зарегистрированы на портале CarsCrete!</h2>
-        </br> <p><b>Ваш логин: </b>$e<b></br>Ваш пароль: </b>$p</br></p></br>
-        <p>В личном кабинете вы можете просмотреть, изменить и отменить текущие заявки на бронирование автомобилей.</p> </br>";
+            $headers  = "Content-type: text/html; charset=utf-8 \r\n";
+            
+            mail($e, $subject, $message, $headers);
+            
+            return $this->getUserById($this->db->lastInsertId(), false, true);
+        }else{
+            return null;
+        }
         
-        $headers  = "Content-type: text/html; charset=utf-8 \r\n";
-        
-        mail($e, $subject, $message, $headers);
-        
-        return $this->getUserById($this->db->lastInsertId(), false, true);
     }
     
     public function changeInfo($token, $t, $v, $uid){
@@ -555,6 +560,12 @@ class DataBase {
         }else{
             return null;
         }
+    }
+    
+    public function checkEmail($e){
+        $s = $this->db->prepare("SELECT * FROM users WHERE Email=?");
+        $s->execute(array($e));
+        return count($s->fetchAll())==0;
     }
     
     //####################User Controller###########################

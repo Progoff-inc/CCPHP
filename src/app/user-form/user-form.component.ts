@@ -14,6 +14,7 @@ export class UserFormComponent implements OnInit {
 
   userForm: FormGroup;
   submitted = false;
+  showError = false;
   
   constructor(private formBuilder: FormBuilder) {
     
@@ -33,14 +34,19 @@ export class UserFormComponent implements OnInit {
     }
     if(this.service.type==1){
       this.service.AddUser(this.userForm.value).subscribe(data=>{
-        this.service.Token = data[1];
-        data = data[0];
-        this.service.currentUser=data;
+        if(data){
+          this.service.Token = data[1];
+          data = data[0];
+          this.service.currentUser=data;
 
-        localStorage.setItem('currentUser',JSON.stringify(data));
-     
-        this.alert.showA({type:'success',message:'Пользователь успешно зарегистрирован',show:true});
-        this.service.ShowForm();
+          localStorage.setItem('currentUser',JSON.stringify(data));
+      
+          this.alert.showA({type:'success',message:'Пользователь успешно зарегистрирован',show:true});
+          this.service.ShowForm();
+        }else{
+          this.showError=true;
+        }
+        
       },error => {
         this.alert.showA({type:'wrong',message:'Пользователь уже зарегистрирован',show:true});
         this.submitted=false;

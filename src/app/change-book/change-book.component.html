@@ -1,4 +1,4 @@
-<div class="container">
+<div *ngIf="us.Token" class="container">
     <div class="form-container-in" *ngIf="book">
         <h3>{{'CHANGE_BOOKING_FORM' | translate}}</h3>
         <form [formGroup]="bookingForm"  >
