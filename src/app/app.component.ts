@@ -40,8 +40,14 @@ export class AppComponent implements OnInit {
           this.us.Token=user[1];
           this.us.currentUser=user[0];
           if(this.us.currentUser.Lang){
-  
-            this.service.changeLang(this.us.currentUser.Lang=="RU"?'ru':'en');
+            if(!sessionStorage.getItem('curLang')){
+              sessionStorage.setItem('curLang', this.us.currentUser.Lang=="RU"?'ru':'en');
+              this.service.changeLang(this.us.currentUser.Lang=="RU"?'ru':'en');
+            }else{
+              this.service.changeLang(sessionStorage.getItem('curLang'));
+
+            }
+            
             
     
           }

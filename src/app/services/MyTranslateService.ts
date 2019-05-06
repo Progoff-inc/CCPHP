@@ -10,7 +10,8 @@ export class MyTranslateService {
         }
         else{
             this.translate.setDefaultLang('ru');
-            this.changeLang('ru');
+            this.lang='ru';
+            this.translate.use('ru');
         }
         
       }

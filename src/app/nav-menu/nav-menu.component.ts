@@ -44,7 +44,6 @@ export class NavMenuComponent implements OnInit {
   Exit(){
     this.userService.currentUser=null;
     localStorage.removeItem("currentUser");
-    sessionStorage.removeItem('curLang')
     location.reload();
   }
   toggle() {
