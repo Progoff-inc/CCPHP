@@ -25,7 +25,6 @@ export class FeedBackService{
     this.http.get<FeedBack[]>(this.baseUrl + 'CarsController.php?Key=get-reports').subscribe(data => {
       
       this.reports=data;
-      
       this.reports.forEach(r => {
           r.CreatedDate = new Date(r.CreatedDate);
           r.ButtonText = "SHOW_COMMENTS";

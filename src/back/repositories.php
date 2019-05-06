@@ -41,12 +41,13 @@ class DataBase {
     
     private function checkToken($token, $uid=0, $admin=false){
         $u = $this->getUserByToken($token);
-        if($uid>0 && $uid != $u->Id){
-            return false;
-        }
         if($u->IsAdmin){
             return true;
         }
+        if($uid>0 && $uid != $u->Id){
+            return false;
+        }
+        
         if($admin){
             return false;
         }
@@ -106,10 +107,26 @@ class DataBase {
         
     }
     public function addBooking($book){
+        
         $res = $this->genInsertQuery($book,"books");
+        $car = $this->getCar($book['CarId'], false);
+        $user = $this->getUserById($book['UserId'], false);
         $s = $this->db->prepare($res[0]);
         $s->execute($res[1]); 
-        return $res;
+        $subject = "Бронирование автомобиля"; 
+            
+        $message = "<h2>Вы успешно забронировали автомобиль на портале CarsCrete!</h2>
+        </br> <p>Бронь вы можете просмотреть в личном кабинете на портале. Там же есть возможность изменить бронь за неделю до начала аренды или отменить её за три дня до начала аренды.</p></br>
+        <p></br></br><h3>Детали бронирования:</h3></p> </br>
+        <p>Автомобиль: ".$car->Model."</p></br>
+        <p>Дата начала аренды: ".date("d.m.Y H:i",strtotime($book['DateStart']))."</p></br>
+        <p>Дата конца аренды: ".date("d.m.Y H:i",strtotime($book['DateFinish']))."</p></br>
+        <p></br>Сумма заказа: ".$book['Sum']."€</p></br>";
+        
+        $headers  = "Content-type: text/html; charset=utf-8 \r\n";
+        
+        mail($user->Email, $subject, $message, $headers);
+        return array($user->Email, $subject, $message, $headers);
     }
     public function addPrices($token, $id,$p){
         if($this->checkToken($token, 0, true)){
@@ -417,7 +434,7 @@ class DataBase {
         $s->execute(array($id));
         $s->setFetchMode(PDO::FETCH_CLASS, 'Comment');
         $u=$s->fetch();
-        $u->User = $this->getUserById($u->UserId)[0];
+        $u->User = $this->getUserById($u->UserId);
         $u->Likes = $this->getLikes($u->Id,2);
         return $u;
     }
@@ -453,19 +470,25 @@ class DataBase {
         $s->execute(array($isa === 'true',$id));
         return array($isa, $id);
     }
-    public function getUserById($id, $full = true){
+    public function getUserById($id, $full = true, $token = false){
         $s = $this->db->prepare("SELECT Id, Name, Email, CreatedDate, ModifiedDate, Phone, Photo, Lang, IsAdmin FROM users WHERE Id=?");
         $s->execute(array($id));
         $s->setFetchMode(PDO::FETCH_CLASS, 'User');
         $u=$s->fetch();
+        if($token){
+            $token = md5($u->ModifiedDate.rand(1000,9999));
+            $this->setToken($u->Id, $token);
+        }
         
-        $token = md5($u->ModifiedDate.rand(1000,9999));
-        $this->setToken($u->Id, $token);
         if($full){
             $u->Books = $this->getUserBooks($u->Id);        
         }
+        if($token){
+            return array($u,$token);
+        }else{
+            return $u;
+        }
         
-        return array($u,$token);
     }
     
     private function getUserBooks($id) {
@@ -482,11 +505,19 @@ class DataBase {
     }
     
     public function addUser($n, $e, $p, $ph, $l){
-        $p = md5(md5($p));
         $s = $this->db->prepare("INSERT INTO users (Name, Email, Password, Phone, Lang, Photo, CreatedDate, ModifiedDate) Values (?,?,?,?,?,?,now(),now())");
-        $s->execute(array($n, $e, $p, $ph, $l,'../../assets/images/default_user_photo.jpg'));
+        $s->execute(array($n, $e, md5(md5($p)), $ph, $l,'../../assets/images/default_user_photo.jpg'));
+        $subject = "Регистрация на портале"; 
+            
+        $message = "<h2>Вы зарегистрированы на портале CarsCrete!</h2>
+        </br> <p><b>Ваш логин: </b>$e<b></br>Ваш пароль: </b>$p</br></p></br>
+        <p>В личном кабинете вы можете просмотреть, изменить и отменить текущие заявки на бронирование автомобилей.</p> </br>";
         
-        return $this->getUserById($this->db->lastInsertId());
+        $headers  = "Content-type: text/html; charset=utf-8 \r\n";
+        
+        mail($e, $subject, $message, $headers);
+        
+        return $this->getUserById($this->db->lastInsertId(), false, true);
     }
     
     public function changeInfo($token, $t, $v, $uid){
