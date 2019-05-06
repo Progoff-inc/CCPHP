@@ -155,6 +155,8 @@
     "INCLUDE":"Includes",
     "PICK_UP_LOCATION":"Pick up location",
     "DROP_OFF_LOCATION":"Drop off location",
+    "PICK_UP_VALIDATION":"Choose pick up location",
+    "DROP_OFF_VALIDATION":"Choose drop off location",
     "PICK_UP_TIME":"Pick up time",
     "DROP_OFF_TIME":"Drop off time",
     "SUM":"Sum",

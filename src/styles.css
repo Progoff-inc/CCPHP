@@ -222,5 +222,6 @@ input{
 
 .invalid-feedback{
     display: block !important;
+    font-size: 13px !important;
 }
 

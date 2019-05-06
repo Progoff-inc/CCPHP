@@ -226,7 +226,7 @@
                       <select formControlName="Place" class="input" [ngClass]="{ 'is-invalid': submitted && f.Place.errors }" required>
                         <option *ngFor="let t of locations" value="{{t}}">{{t | translate}}</option>
                       </select>
-                      <div *ngIf="submitted && f.Place.errors">
+                      <div *ngIf="submitted && f.Place.errors" class="invalid-feedback">
                         <span class="d-block is-invalid" *ngIf="f.Place.errors.required">{{'PICK_UP_VALIDATION'|translate}}</span>
                 
                       </div>
@@ -237,7 +237,7 @@
                       <select formControlName="PlaceOff" class="input" [ngClass]="{ 'is-invalid': submitted && f.PlaceOff.errors }" required>
                         <option *ngFor="let t of locations" value="{{t}}">{{t | translate}}</option>
                       </select>
-                      <div *ngIf="submitted && f.PlaceOff.errors">
+                      <div *ngIf="submitted && f.PlaceOff.errors" class="invalid-feedback">
                         <span class="d-block is-invalid" *ngIf="f.PlaceOff.errors.required">{{'DROP_OFF_VALIDATION'|translate}}</span>
                 
                       </div>
@@ -245,21 +245,6 @@
                     </div>
                       
                     
-                  </div>
-                </div>
-                <div class="item">
-                  <div class="sales">
-                    <div (click) = "chooseSale(sale)" [ngStyle]="{'box-shadow':sale.Checked?'0 0 20px green':''}" class="sale" *ngFor="let sale of sales">
-                      <img src="{{service.car?service.car.Photo:''}}" alt="">
-                      <span>{{sale.Discount}}%</span>
-                      <i class="fa fa-check-square-o" [ngClass]="{'checked-sale':sale.Checked}" aria-hidden="true"></i>
-                      <span *ngIf="sale.DaysNumber!=0" class="info">>{{sale.DaysNumber}} {{'DAYS'|translate}}</span>
-                      <span>{{sale.NewPrice}}€/{{'DAY'|translate}}</span>
-                    </div>
-                  </div>
-                  <div *ngIf="submitted && !checkSale()">
-                    <span class="d-block is-invalid" >{{'SALES_DAYS_VALIDATION'|translate}}</span>
-            
                   </div>
                 </div>
                 <div class="item ">
