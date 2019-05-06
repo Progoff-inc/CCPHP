@@ -20,13 +20,13 @@
                 </div>
                 <div *ngIf="changes[0]" class="change-panel">
                     <div class="form">
-                      <span>{{'EMAIL' | translate}}: </span>
-                      <input [ngClass]="{ 'is-invalid': submittes[0] && (Email.value=='' || carsService.checkEmail(Email.value) )}" class="input" [(ngModel)]="changeValues[0]" type="email" required #Email>
-                      <div *ngIf="submittes[0] && (Email.value=='' || carsService.checkEmail(Email.value) )" class="invalid-feedback">
-                        <span class="d-block is-invalid" *ngIf="Email.value==''">{{'EMAIL_VALIDATION'|translate}}</span>
-                        <span class="d-block is-invalid" *ngIf="Email.value==''?false:carsService.checkEmail(Email.value)">{{'WRONG_EMAIL_VALIDATION'|translate}}</span>
+                      <span [ngClass]="{ 'is-invalid': (changeValues[0]=='')}">{{'EMAIL' | translate}}: </span>
+                      <input [ngClass]="{ 'is-invalid': (changeValues[0]=='')}" class="input" [(ngModel)]="changeValues[0]" type="email" required #Email>
+                      <div *ngIf="(changeValues[0]=='')" class="invalid-feedback mb-3">
+                        <span class="d-block is-invalid" *ngIf="changeValues[0]==''">{{'EMAIL_VALIDATION'|translate}}</span>
+                        <span class="d-block is-invalid" *ngIf="changeValues[0]==''?false:carsService.checkEmail(Email.value)">{{'WRONG_EMAIL_VALIDATION'|translate}}</span>
                       </div>
-                      <button class="btn btn-success" (click)="changeInfo(0,'Email', Email.value)">Изменить</button>
+                      <button class="btn btn-success" (click)="changeInfo(0,'Email', changeValues[0], Email)">Изменить</button>
                     </div>
                 </div>
                 <div *ngIf="changes[0]"  class="background-blur" (click)="showChangeInfo(0,false)"></div>
@@ -34,7 +34,7 @@
               <div class="item">
                 <div class="row">
                   <div class="col-md-4">
-                    <span>{{'PHONE' | translate}}: </span>
+                    <span >{{'PHONE' | translate}}: </span>
                 </div>
                 <div class="col-md-6">
                     <p>{{userService.currentUser?(userService.currentUser.Phone?userService.currentUser.Phone:('NO_DATA' | translate)):''}}</p>
@@ -42,7 +42,12 @@
                 </div>
                 <div *ngIf="changes[1]" class="change-panel">
                   <div class="form">
-                    <input [ngClass]="{ 'is-invalid': submittes[1] && !carsService.checkStr(Tel.value,'phone-check') }" [(ngModel)]="changeValues[1]" type="tel" class="input"  required #Tel>
+                    <span [ngClass]="{ 'is-invalid': (changeValues[1]=='')}">{{'PHONE' | translate}}</span>
+                    <input [ngClass]="{ 'is-invalid': changeValues[1]=='' }" [(ngModel)]="changeValues[1]" type="tel" class="input"  required #Tel>
+                    <div *ngIf="(changeValues[1]=='')" class="invalid-feedback mb-3">
+                      <span class="d-block is-invalid" *ngIf="changeValues[1]==''">{{'PHONE_VALIDATION'|translate}}</span>
+                      <!-- <span class="d-block is-invalid" *ngIf="changeValues[0]==''?false:carsService.checkEmail(Email.value)">{{'WRONG_EMAIL_VALIDATION'|translate}}</span> -->
+                    </div>
                     <button class="btn btn-success" (click)="changeInfo(1,'Phone', Tel.value, Tel)">Изменить</button>
                   </div>
                 </div>

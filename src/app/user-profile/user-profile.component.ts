@@ -80,6 +80,8 @@ export class UserProfileComponent implements OnInit {
               return a.DateStart<b.DateStart?1:-1
             })
           })
+        }else{
+          this.ls.showLoad=false;
         }
         
       })
@@ -157,12 +159,12 @@ export class UserProfileComponent implements OnInit {
     }
   }
   changeInfo(item:number,type:string, value:string, t?:HTMLInputElement){
+    console.log(t);
     this.submittes[item]=true;
-    if(type == 'Phone' && !this.carsService.checkStr(value,'phone-check')){
-
+    if(value == ''){
       return;
     }
-    if(value != ''){
+    else{
       this.userService.ChangeInfo(type, type == 'Phone'?this.carsService.checkStr(value,'phone'):value, this.userService.currentUser.Id).subscribe(data => {
         if(data){
           this.userService.currentUser[type]= type == 'Phone'?this.carsService.checkStr(value,'phone'):value;
@@ -193,7 +195,7 @@ export class UserProfileComponent implements OnInit {
       
   }
   showChangeInfo(item:number, show:boolean){
-
+    this.changeValues = [this.userService.currentUser.Email, this.userService.currentUser.Phone];
     for(let i =0; i<this.changes.length;i++){
       if(i==item){
         this.changes[i]=show;
