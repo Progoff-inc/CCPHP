@@ -465,10 +465,14 @@ class DataBase {
         
         return array($u,$token);
     } 
-    public function setAdmin($id, $isa){
-        $s = $this->db->prepare("UPDATE users SET IsAdmin=? WHERE Id=?");
-        $s->execute(array($isa === 'true',$id));
-        return array($isa, $id);
+    public function setAdmin($token, $id, $isa){
+        if($this->checkToken($token, 0, true)){
+            $s = $this->db->prepare("UPDATE users SET IsAdmin=? WHERE Id=?");
+            $s->execute(array($isa === 'true',$id));
+            return array($isa, $id);
+        }else{
+            return null;
+        }
     }
     public function getUserById($id, $full = true, $token = false){
         $s = $this->db->prepare("SELECT Id, Name, Email, CreatedDate, ModifiedDate, Phone, Photo, Lang, IsAdmin FROM users WHERE Id=?");

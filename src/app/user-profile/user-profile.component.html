@@ -180,8 +180,8 @@
               <div *ngIf="user.IsAdmin" class="col-sm-2 m-sm-0 p-0 px-sm-3">{{'IS_ADMIN' | translate}}</div>
               <div *ngIf="!user.IsAdmin" class="col-sm-2 m-sm-0 p-0 px-sm-3">{{'USER' | translate}}</div>
               <div>
-                <button *ngIf="!user.IsAdmin" class="btn border-success mx-2" (click)="addAdmin(user, true)">{{'ADD' | translate}}</button>
-                <button *ngIf="user.IsAdmin" class="btn border-danger mx-2" (click)="addAdmin(user, false)">{{'DELETE' | translate}}</button>
+                <button *ngIf="!user.IsAdmin" style="width: 88px;" class="btn border-success mx-2" (click)="addAdmin(user, true)">{{'ADD' | translate}}</button>
+                <button *ngIf="user.IsAdmin"  style="width: 88px;" class="btn border-danger mx-2" (click)="addAdmin(user, false)">{{'DELETE' | translate}}</button>
               </div>
             </div>
           </div>
