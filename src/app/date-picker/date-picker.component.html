@@ -19,7 +19,7 @@
             <div class="cols" *ngFor="let day of week; let i = index">
               
               <div (mouseover)="shooseProgress(day, true)" (mouseleave)="shooseProgress(day, false)" class="item" 
-              [ngClass]="{'not-current':!getClass(day),'opposite-choose':checkOppositeChoose(day) , 'choosed-date':(DateStart?DateStart.getTime()==day.getTime():false) || (DateFinish?DateFinish.getTime()==day.getTime():false) || (Out[Prop]?Out[Prop].getTime()==day.getTime():false), 'invalid-date':(day.getTime()<MinDate.getTime() || (MaxDate?day.getTime()>MaxDate.getTime():false) || !checkDate(day)), 'choosed-start':getChoosed(day,true), 'choosed-finish':getChoosed(day,false)}" (click)="pick(day)">
+              [ngClass]="{'not-current':!getClass(day),'opposite-choose':checkOppositeChoose(day) , 'choosed-date':checkChoosed(day), 'invalid-date':(day.getTime()<MinDate.getTime() || (MaxDate?day.getTime()>MaxDate.getTime():false) || !checkDate(day)), 'choosed-start':getChoosed(day,true), 'choosed-finish':getChoosed(day,false)}" (click)="pick(day)">
                 {{day | date: 'dd'}}
               </div>
             </div>

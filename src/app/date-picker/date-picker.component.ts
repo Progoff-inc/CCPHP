@@ -231,7 +231,7 @@ export class DatePickerComponent implements OnInit, OnChanges {
   }
   checkOppositeChoose(day:Date){
     if(this.DateStart && this.DateFinish){
-      if(day.getTime()>this.DateStart.getTime() && day.getTime()<this.DateFinish.getTime()){
+      if(new Date(day.toDateString())>new Date(this.DateStart.toDateString()) && new Date(day.toDateString())<new Date(this.DateFinish.toDateString())){
         return true;
       }
       else{
@@ -260,6 +260,11 @@ export class DatePickerComponent implements OnInit, OnChanges {
       }
     }
     return res;
+  }
+
+  checkChoosed(date:Date){
+
+    return date.getTime()==new Date(this.DateStart.toDateString()).getTime() || date.getTime()==new Date(this.DateFinish.toDateString()).getTime();
   }
 }
 
