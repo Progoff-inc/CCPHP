@@ -25,6 +25,7 @@ export class ChangeBookComponent implements OnInit {
   df:Date;
   invalidIntarvals:any;
   submitted:any;
+  minTime = 0;
   locations:string[] = ['AIR_HER','AN_PAPAN','HERSONISOS'];
   constructor(public us:UserService, private formBuilder:FormBuilder, private service:CarsService, private route:ActivatedRoute, private ls:LoadService) { }
 
@@ -107,11 +108,22 @@ export class ChangeBookComponent implements OnInit {
       return 0
     }
   }
-  getTimes(){
+
+  setMinTime(e){
+    if(this.book.DateStart.toDateString() == this.book.DateFinish.toDateString()){
+      this.minTime = this.getTimes(0).map(x => x.getHours()).indexOf(new Date(e.target.value).getHours());
+    }
+    else{
+      this.minTime = 0;
+    }
+    
+  }
+  getTimes(n = 0){
+    this.times = [];
     let t  = new Date(1,1,1,0);
-    for(let i = 0; i<12; i++){
+    for(let i = n; i<18; i++){
       
-      this.times.push(new Date(t.getTime()+i*3600000+12*3600000))
+      this.times.push(new Date(t.getTime()+i*3600000+6*3600000))
     }
     return this.times;
   }

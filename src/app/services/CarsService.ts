@@ -132,7 +132,6 @@ export class CarsService implements OnInit {
                     price+=car.SPrice;
                 }
             }
-            console.log(price);
             return price;
         }
         else{

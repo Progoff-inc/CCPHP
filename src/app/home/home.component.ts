@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
 
   times:Date[] = [];
+  minTime = 0;
   locations:string[] = ['AIR_HER','AN_PAPAN','HERSONISOS'];
   // tslint:disable-next-line:whitespace
   search:Search = new Search();
@@ -114,7 +115,7 @@ export class HomeComponent implements OnInit {
     this.service.CurFilters = [];
   }
   ngOnInit() {
-    
+    this.DStart.setDate(this.DStart.getDate()+1);
     this.getTimes();
     this.search.PickTime = this.times[0];
     this.search.DropTime = this.times[0];
@@ -139,11 +140,21 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/allcars']);
   }
 
-  getTimes(){
+  setMinTime(e){
+    if(this.search.DateStart.toDateString() == this.search.DateFinish.toDateString()){
+      this.minTime = this.getTimes(0).map(x => x.getHours()).indexOf(new Date(e.target.value).getHours());
+    }
+    else{
+      this.minTime = 0;
+    }
+    
+  }
+  getTimes(n = 0){
+    this.times = [];
     let t  = new Date(1,1,1,0);
-    for(let i = 0; i<12; i++){
+    for(let i = n; i<18; i++){
       
-      this.times.push(new Date(t.getTime()+i*3600000+12*3600000))
+      this.times.push(new Date(t.getTime()+i*3600000+6*3600000))
     }
     return this.times;
   }
@@ -152,6 +163,12 @@ export class HomeComponent implements OnInit {
       let e = new Date(time);
       return new Date(t.getFullYear(), t.getMonth(), t.getDate(), e.getHours())
    
+  }
+
+  checkDates(){
+    if(this.search.DateStart.getTime()>this.search.DateFinish.getTime()){
+      this.search.DateFinish = null;
+    }
   }
 }
 

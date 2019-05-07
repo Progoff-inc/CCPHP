@@ -20,6 +20,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
   showBook:boolean = false;
   minDate:Date = new Date();
   invalidIntarvals:any = [];
+  minTime = 0;
   showPickers:ShowPickers = new ShowPickers();
   bookingForm: FormGroup;
   wrongEmail:boolean = false;
@@ -145,13 +146,23 @@ export class BookingFormComponent implements OnInit, OnChanges {
         
       }
     }
-    getTimes(){
+    getTimes(n=0){
+      this.times = [];
       let t  = new Date(1,1,1,0);
-      for(let i = 0; i<12; i++){
+      for(let i = n; i<18; i++){
         
-        this.times.push(new Date(t.getTime()+i*3600000+12*3600000))
+        this.times.push(new Date(t.getTime()+i*3600000+6*3600000))
       }
       return this.times;
+    }
+    setMinTime(e){
+      if(this.book.DateStart.toDateString() == this.book.DateFinish.toDateString()){
+        this.minTime = this.getTimes(0).map(x => x.getHours()).indexOf(new Date(e.target.value).getHours());
+      }
+      else{
+        this.minTime = 0;
+      }
+      
     }
     getExtraTime(t, time){
       
@@ -322,6 +333,12 @@ export class BookingFormComponent implements OnInit, OnChanges {
   }
   clearSales(){
     this.sales.forEach(x => {x.Checked = false});
+  }
+
+  checkDates(){
+    if(this.book.DateStart && this.book.DateFinish && this.book.DateStart.getTime()>this.book.DateFinish.getTime()){
+      this.book.DateFinish = null;
+    }
   }
 
 }

@@ -19,9 +19,11 @@
                     <div class="item">
                         <span [ngClass]="{ 'is-invalid': submitted  }">{{"DATE_START" | translate}}</span>
                         <date-picker  
-                          [Out]="search" 
-                          [Prop]="'DateStart'" 
-                          [MinDate]="DStart"
+                            [DateStart]="search.DateStart"
+                            [DateFinish]="search.DateFinish"
+                            [MinDate]="DStart"
+                            [ChoosedDate]="search.DateStart"
+                            (change)="(search.DateStart = $event) && checkDates()"
                         ></date-picker>
                         <!-- <div *ngIf="submitted && errors.DateStart" class="invalid-feedback">
                         
@@ -30,8 +32,8 @@
                     </div>
                     <div class="item">
                         <span [ngClass]="{ 'is-invalid': submitted  }">{{"PICK_UP_TIME" | translate}}</span>
-                        <select [(ngModel)]="search.PickTime" [ngModelOptions]="{standalone: true}" class="input"  [ngClass]="{ 'is-invalid': submitted  }" >
-                            <option *ngFor="let time of times" value="{{time}}">{{time | date:'HH:mm'}}</option>
+                        <select [(ngModel)]="search.PickTime" [ngModelOptions]="{standalone: true}" class="input" (change)="setMinTime($event)" [ngClass]="{ 'is-invalid': submitted  }" >
+                            <option *ngFor="let time of getTimes()" value="{{time}}">{{time | date:'HH:mm'}}</option>
                         </select>
                         <!-- <div *ngIf="submitted && f.PickTime.errors" class="invalid-feedback">
                             <span class="d-block is-invalid" *ngIf="f.PickTime.errors.required">{{"PICK_UP_TIME_VALIDATION" | translate}}</span>
@@ -53,11 +55,12 @@
                     </div>
                     <div class="item">
                         <span [ngClass]="{ 'is-invalid': submitted  }">{{"DATE_END" | translate}}</span>
-                        <date-picker  
-                          [Out]="search" 
-                          [Prop]="'DateFinish'" 
+                        <date-picker 
+                        [MinDate]="search.DateStart"  
                           [DateStart]="search.DateStart"
                           [DateFinish]="search.DateFinish"
+                          [ChoosedDate]="search.DateFinish"
+                          (change)="search.DateFinish = $event"
                         ></date-picker>
                         <!-- <div *ngIf="submitted && errors.DateFinish" class="invalid-feedback">
                             <span class="d-block is-invalid" *ngIf="errors.DateFinish">{{"ENTER_DATE" | translate}}</span>
@@ -67,7 +70,7 @@
                     <div class="item">
                         <span [ngClass]="{ 'is-invalid': submitted}">{{"DROP_OFF_TIME" | translate}}</span>
                         <select [(ngModel)]="search.DropTime" [ngModelOptions]="{standalone: true}" class="input"  [ngClass]="{ 'is-invalid': submitted }"  >
-                            <option *ngFor="let time of times" value="{{time}}">{{time | date:'HH:mm'}}</option>
+                            <option *ngFor="let time of getTimes(minTime)" value="{{time}}">{{time | date:'HH:mm'}}</option>
                         </select>
                         <!-- <div *ngIf="submitted && f.DropTime.errors" class="invalid-feedback">
                             <span class="d-block is-invalid" *ngIf="f.DropTime.errors.required">{{"DROP_OFF_TIME_VALIDATION" | translate}}</span>

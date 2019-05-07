@@ -1,6 +1,6 @@
 <div class="container11">
-    <div class="current-date input" tabindex="3" (click)="hide()">
-        <span>{{Out[Prop] | date:'dd.MM.yyyy'}}</span>
+    <div class="current-date input" tabindex="3" (click)="show()">
+        <span>{{ChoosedDate | date:'dd.MM.yyyy'}}</span>
         <i class="fa fa-calendar"></i>
     </div>
     <div [ngClass]="{'show-picker':showPicker}" class="container">
@@ -18,8 +18,8 @@
           <div class="rows" *ngFor="let week of calendar">
             <div class="cols" *ngFor="let day of week; let i = index">
               
-              <div (mouseover)="shooseProgress(day, true)" (mouseleave)="shooseProgress(day, false)" class="item" 
-              [ngClass]="{'not-current':!getClass(day),'opposite-choose':checkOppositeChoose(day) , 'choosed-date':checkChoosed(day), 'invalid-date':(day.getTime()<MinDate.getTime() || (MaxDate?day.getTime()>MaxDate.getTime():false) || !checkDate(day)), 'choosed-start':getChoosed(day,true), 'choosed-finish':getChoosed(day,false)}" (click)="pick(day)">
+              <div  class="item {{getClass(day)}}" 
+               (click)="pick(day)">
                 {{day | date: 'dd'}}
               </div>
             </div>
@@ -31,6 +31,6 @@
 </div>
 
 
-<div *ngIf="showPicker" style="background: transparent; z-index: 600" class="background-blur" (click)="hide()"></div>
+<div *ngIf="showPicker" style="background: transparent; z-index: 600" class="background-blur" (click)="show()"></div>
 
 

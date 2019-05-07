@@ -43,8 +43,10 @@
                         <span class="d-block is-invalid" *ngIf="f.DateStart.errors.required">{{'ENTER_DATE'|translate}}</span>
                         
                     </div> -->
-                    <date-picker  [Out]="book" [Prop]="'DateStart'" [Errors]="errors" [MinDate]="minDate" [Intervals]="invalidIntarvals" [DateStart]="book.DateStart"
-                    [DateFinish]="book.DateFinish" (change)="checkUpdate()"></date-picker>
+                    
+                    <date-picker  [MinDate]="minDate" [Intervals]="invalidIntarvals" [DateStart]="book.DateStart"
+                        [DateFinish]="book.DateFinish"  [ChoosedDate]="book.DateStart"
+                        (change)="(book.DateStart = $event) && checkDates() && checkUpdate()"></date-picker>
                     <div *ngIf="submitted && errors.DateStart" class="invalid-feedback">
                         <span class="d-block is-invalid" >{{'ENTER_DATE'|translate}}</span>
                         
@@ -61,16 +63,14 @@
                         <span class="d-block is-invalid" *ngIf="f.DateFinish.errors.required">{{'ENTER_DATE'|translate}}</span>
                         
                     </div> -->
-                    <date-picker  
-                      [Out]="book" 
-                      [Prop]="'DateFinish'" 
-                      [Errors]="errors" 
-                      [MinDate]="minDate" 
-                      [Intervals]="invalidIntarvals"
-                      [DateStart]="book.DateStart"
-                      [DateFinish]="book.DateFinish"
-                      (change)="checkUpdate()"
-                    ></date-picker>
+                    <date-picker
+                          [MinDate]="book.DateStart" 
+                          [Intervals]="invalidIntarvals"
+                          [DateStart]="book.DateStart"
+                          [DateFinish]="book.DateFinish"
+                          [ChoosedDate]="book.DateFinish"
+                          (change)="(book.DateFinish = $event) && checkUpdate()"
+                        ></date-picker>
                     <div *ngIf="submitted && errors.DateFinish" class="invalid-feedback">
                         <span class="d-block is-invalid" >{{'ENTER_DATE'|translate}}</span>
                         
@@ -80,8 +80,8 @@
                   <div class="col-sm-6">
                     <div *ngIf="book.DateStart" class="item">
                       <span >{{'PICK_UP_TIME'|translate}}</span>
-                      <select formControlName="Time" class="input time" >
-                        <option *ngFor="let time of times" value="{{time}}">{{time | date:'HH:mm'}}</option>
+                      <select formControlName="Time" class="input time" (change)="setMinTime($event)">
+                        <option *ngFor="let time of getTimes()" value="{{time}}">{{time | date:'HH:mm'}}</option>
                       </select>
                       
                   
@@ -91,7 +91,7 @@
                     <div *ngIf="book.DateFinish" class="item">
                       <span >{{'DROP_OFF_TIME'|translate}}</span>
                       <select formControlName="TimeOff" class="input time" >
-                        <option *ngFor="let time of times" value="{{time}}">{{time | date:'HH:mm'}}</option>
+                        <option *ngFor="let time of getTimes(minTime)" value="{{time}}">{{time | date:'HH:mm'}}</option>
                       </select>
                       
                   

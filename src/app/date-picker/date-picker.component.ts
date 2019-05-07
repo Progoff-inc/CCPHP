@@ -4,20 +4,17 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'date-picker',
   templateUrl: './date-picker.component.html',
-  styleUrls: ['./date-picker.component.css']
+  styleUrls: ['./date-picker.component.less']
 })
 export class DatePickerComponent implements OnInit, OnChanges {
-  @Input() Out:any = new Ex();
-  @Input() Errors:any;
-  @Input() Prop:string = "DateStart";
   @Input() MinDate:Date = new Date(0);
-  @Input() MaxDate:Date = null;
+  @Input() MaxDate:Date = new Date(3000, 0);
   @Input() Intervals:any = [];
   @Input() DateStart:Date;
   @Input() DateFinish:Date;
+  @Input() ChoosedDate:Date;
   @Output() change = new EventEmitter<Date>();
   showPicker:boolean = false;
-
   firstDate:Date; 
   currentMonth:string;
   currentMonthNum:number;
@@ -25,132 +22,25 @@ export class DatePickerComponent implements OnInit, OnChanges {
   weekStart:number;
   calendar:Date[][]=[];
   week:string[] = ["MON","TUE","WED","THU","FRI","SUT","SUN"];
-  constructor( public translate:TranslateService) { }
+  weekEng:string[] = ["SUN","MON","TUE","WED","THU","FRI","SUT"];
+  constructor( public translate:TranslateService) { 
+   
+  }
+
   ngOnChanges(ch:SimpleChanges){
-    if(ch.DateStart || ch.DateFinish){
-      let date = new Date();
-      if(ch.DateFinish && this.Prop=='DateFinish'){
-        date = ch.DateFinish.currentValue;
-        if(date){
-          
-          
-          this.currentMonth=date.toLocaleString("en-us", {month:"short"});
-          this.currentMonthNum = date.getMonth();
-          this.currentYear = date.getFullYear();
-          
-          this.setMonth(0);
-        }
-      }
-      if(ch.DateStart){
-        this.MaxDate = undefined;
-        date = ch.DateStart.currentValue;
-        if(date){
-          if(this.Prop=="DateFinish"){
-            this.MinDate=ch.DateStart.currentValue;
-            let minP = Number.MAX_VALUE;
-            for(let i =0; i<this.Intervals.length;i++){
-              
-              if(this.Intervals[i].DateStart.getTime()>date.getTime()){
-                if(this.Intervals[i].DateStart.getTime()-date.getTime()<minP){
-                  minP = this.Intervals[i].DateStart.getTime()-date.getTime();
-                  this.MaxDate=this.Intervals[i].DateStart;
-                }
-              }
-            }
-          }
-          if(this.DateFinish && date.getTime()>this.DateFinish.getTime()){
-            this.Out.DateFinish=undefined;
-            this.DateFinish=undefined;
-          }
-          if(this.DateFinish && this.MaxDate){
-            if(this.DateFinish.getTime()>this.MaxDate.getTime()){
-              this.Out.DateFinish=undefined;
-              this.DateFinish=undefined;
-            }
-          }
-          
-          
-          
-          this.currentMonth=date.toLocaleString("en-us", {month:"short"});
-          this.currentMonthNum = date.getMonth();
-          this.currentYear = date.getFullYear();
-          
-          this.setMonth(0);
-        }
-      }
-      
-      
-      
+    if(ch.DateStart && ch.DateStart.currentValue){
+      this.setMax();
     }
-    
+  }
+
+  getDate(d:Date){
+    if(d){
+      return new Date(d.toDateString());
+    }else{
+      return null;
+    }
   }
  
-  shooseProgress(day:Date, leave:boolean){
-    if(this.DateStart){
-      if(this.Prop=='DateFinish'){
-        console.log(this.checkDate(day));
-        console.log(day.getTime()>this.MinDate.getTime())
-        console.log(day.getTime()>this.MaxDate.getTime())
-        console.log(this.MaxDate);
-        if(leave && this.checkDate(day) && day.getTime()>this.MinDate.getTime() && day.getTime()>this.MaxDate.getTime()){
-          this.DateFinish=day;
-        }
-        if(!leave){
-          
-          this.DateFinish=this.Out[this.Prop];
-        }
-      }
-    }
-  }
-  ngOnInit() {
-    console.log(this.Intervals);
-    let date = new Date();
-    if(this.DateStart){
-      date = this.DateStart;
-    }
-    if(this.DateFinish){
-      date = this.DateFinish
-    } 
-    if(this.Out[this.Prop] && this.Errors){
-      this.Errors[this.Prop]=false;
-    }
-    if(this.translate.currentLang=="ru"){
-      this.weekStart=1;
-      this.week = ["MON","TUE","WED","THU","FRI","SUT","SUN"];
-    }
-    else{
-      this.week = ["SUN","MON","TUE","WED","THU","FRI","SUT"]
-      this.weekStart=0;
-    }
-    date = new Date(date.getFullYear(),date.getMonth());
-    this.currentMonth=date.toLocaleString("en-us", {month:"short"});
-    this.currentMonthNum = date.getMonth();
-    this.currentYear = date.getFullYear();
-    
-    if(date.getDay()!=this.weekStart){
-      
-      date = new Date(date.getTime()-(date.getDay()-this.weekStart)*86400000);
-    }
-    this.firstDate = date;
-    this.fillCalendar();
-    this.translate.onLangChange.subscribe(d => {
-      if(d.lang=="ru"){
-        this.weekStart=1;
-        this.week = ["MON","TUE","WED","THU","FRI","SUT","SUN"];
-      }
-      else{
-        this.week = ["SUN","MON","TUE","WED","THU","FRI","SUT"]
-        this.weekStart=0;
-      }
-      this.setMonth(0);
-      
-    })
-    
-
-  }
-  getClass(day:Date){
-    return day.getMonth()==this.currentMonthNum;
-  }
   next(){
     this.setMonth(1);
   }
@@ -180,94 +70,122 @@ export class DatePickerComponent implements OnInit, OnChanges {
     this.firstDate = date;
     this.fillCalendar();
   }
-  pick(date:Date){
-    if(date.getTime()>this.MinDate.getTime() && this.checkDate(date)){
-      if(this.DateStart && this.Out.DateFinish){
-        if(date.getTime()!=this.DateStart.getTime() && date.getTime()!=this.Out.DateFinish.getTime()){
-          this.Out[this.Prop]=date;
-          this.change.emit(date);
-          
-          if(this.Errors){
-            this.Errors[this.Prop]=false;
-          }
-          this.hide();
-        }
+  
+  ngOnInit() {
+    let date = new Date();
+    this.DateStart = this.getDate(this.DateStart);
+    this.DateFinish = this.getDate(this.DateFinish);
+    this.ChoosedDate = this.getDate(this.ChoosedDate);
+    this.MinDate = this.getDate(this.MinDate);
+    this.MaxDate = this.getDate(this.MaxDate);
+    if(this.ChoosedDate){
+      date = this.ChoosedDate;
+    } 
+    if(this.translate.currentLang=="ru"){
+      this.weekStart=1;
+    }
+    else{
+      this.weekStart=0;
+    }
+    date = new Date(date.getFullYear(),date.getMonth());
+    this.currentMonth=date.toLocaleString("en-us", {month:"short"});
+    this.currentMonthNum = date.getMonth();
+    this.currentYear = date.getFullYear();
+    
+    if(date.getDay()!=this.weekStart){
+      
+      date = new Date(date.getTime()-(date.getDay()-this.weekStart)*86400000);
+    }
+    this.firstDate = date;
+    this.fillCalendar();
+    this.translate.onLangChange.subscribe(d => {
+      if(d.lang=="ru"){
+        this.weekStart=1;
+        this.week = ["MON","TUE","WED","THU","FRI","SUT","SUN"];
       }
       else{
-        this.Out[this.Prop]=date;
-        this.change.emit(date);
-          if(this.Errors){
-            this.Errors[this.Prop]=false;
-          }
-         
-          this.hide();
+        this.week = ["SUN","MON","TUE","WED","THU","FRI","SUT"]
+        this.weekStart=0;
       }
+      this.setMonth(0);
       
-    }
+    })
     
+
   }
 
-  hide(){
+  show(){
     this.showPicker = !this.showPicker;
   }
-  checkChoose(d:Date){
-    if(this.Out[this.Prop]){
-      return this.Out[this.Prop].getTime()==d.getTime();
+
+  pick(date:Date){
+    this.ChoosedDate=date;
+    this.change.emit(date);
+    if(this.DateStart){
+      this.setMax();
     }
-    else{
-      return false;
-    }
-    
-  }
-  checkDate(date:Date){
-    let res = true;
-    this.Intervals.forEach(e => {
-      if(new Date(e.DateStart.toDateString())<=new Date(date.toDateString()) && new Date(e.DateFinish.toDateString())>=new Date(date.toDateString())){
-        res =false;
-      }
-    });
-    
-    return res;
-  }
-  checkOppositeChoose(day:Date){
-    if(this.DateStart && this.DateFinish){
-      if(new Date(day.toDateString())>new Date(this.DateStart.toDateString()) && new Date(day.toDateString())<new Date(this.DateFinish.toDateString())){
-        return true;
-      }
-      else{
-        return false;
-      }
-    }
-    else{
-      return false;
-    }
-  }
-  getChoosed(day:Date, IsStart:boolean){
-    let res = false;
-    if(IsStart){
-      if(this.DateStart && this.DateFinish){
-        if(day.toDateString() == this.DateStart.toDateString()){
-          res = true;
-        }
-      }
-    }
-    else{
-      if(this.DateStart && this.DateFinish){
-        if(day.toDateString() == this.DateFinish.toDateString()){
-          res = true;
-        }
-        
-      }
-    }
-    return res;
+    this.show();
   }
 
-  checkChoosed(date:Date){
-    if(this.DateStart && this.DateFinish){
-      return date.getTime()==new Date(this.DateStart.toDateString()).getTime() || date.getTime()==new Date(this.DateFinish.toDateString()).getTime();
+  setMax(){
+    let minP = Number.MAX_VALUE;
+    for(let i =0; i<this.Intervals.length;i++){
+      
+      if(this.Intervals[i].DateStart.getTime()>this.DateStart.getTime()){
+        if(this.Intervals[i].DateStart.getTime()-this.DateStart.getTime()<minP){
+          minP = this.Intervals[i].DateStart.getTime()-this.DateStart.getTime();
+          this.MaxDate=this.Intervals[i].DateStart;
+        }
+      }
+    }
+  }
+
+  getClass(date:Date){
+    let res = {};
+    if(this.ChoosedDate && date.getTime() == this.ChoosedDate.getTime()){
+      res['choosed-date']=1;
     }
     
+    if(this.MinDate && date.getTime()<this.MinDate.getTime() || this.MaxDate && date.getTime()>this.MaxDate.getTime()){
+      res['invalid-date'] = 1;
+      
+    }
+    if(this.Intervals.length>0){
+      for(let i =0; i<this.Intervals.length; i++){
+        let ds = new Date(this.Intervals[i].DateStart.toDateString());
+        let df = new Date(this.Intervals[i].DateFinish.toDateString());
+        if(ds.getTime()<=date.getTime() && df.getTime()>=date.getTime()){
+          res['invalid-date']=1;
+          break;
+        }
+      }
+    }
+    if(this.DateStart && date.getTime() == this.DateStart.getTime()){
+      res['choosed-date']=1;
+    }
+    if(this.DateFinish && date.getTime() == this.DateFinish.getTime()){
+      res['choosed-date']=1;
+    }
+    if(this.DateStart && this.DateFinish){
+      if(date.getTime()>=this.DateStart.getTime() && date.getTime() <= this.DateFinish.getTime()){
+        res['choosed-date']=1;
+        res['opposite-choose']=1;
+      }
+      if(date.getTime()==this.DateStart.getTime()){
+        res['choosed-start']=1;
+      }
+      if(date.getTime()==this.DateFinish.getTime()){
+        res['choosed-finish']=1;
+      }
+    }
+    
+    return Object.keys(res).join(' ');
   }
+
+  checkStr(str:string, s:string){
+    return str.indexOf(s)>-1
+  }
+  
 }
 
  export class Ex{
