@@ -33,24 +33,24 @@ export class AddComponent implements OnInit {
             this.carsService.GetCar(this.car.Id.toString()).subscribe(data => {
               this.car = data;
               this.carForm = this.fb.group({
-                Model:[this.car.Model],
-                SPrice:[this.car.SPrice],
-                WPrice:[this.car.WPrice],
-                BodyType:[this.car.BodyType],
-                Passengers:[this.car.Passengers],
-                Doors:[this.car.Doors],
-                Groupe:[this.car.Groupe],
-                MinAge:[this.car.MinAge],
-                Power:[this.car.Power],
-                Consumption:[this.car.Consumption],
-                Transmission:[this.car.Transmission],
-                Fuel:[this.car.Fuel],
+                Model:[this.car.Model, Validators.required],
+                SPrice:[this.car.SPrice, Validators.required],
+                WPrice:[this.car.WPrice, Validators.required],
+                BodyType:[this.car.BodyType, Validators.required],
+                Passengers:[this.car.Passengers, Validators.required],
+                Doors:[this.car.Doors, Validators.required],
+                Groupe:[this.car.Groupe, Validators.required],
+                MinAge:[this.car.MinAge, Validators.required],
+                Power:[this.car.Power, Validators.required],
+                Consumption:[this.car.Consumption, Validators.required],
+                Transmission:[this.car.Transmission, Validators.required],
+                Fuel:[this.car.Fuel, Validators.required],
                 AC:[Boolean(Number(this.car.AC))],
                 ABS:[Boolean(Number(this.car.ABS))],
                 AirBags:[Boolean(Number(this.car.AirBags))],
                 Radio:[Boolean(Number(this.car.Radio))],
-                Description:[this.car.Description],
-                Description_Eng:[this.car.Description_Eng]
+                Description:[this.car.Description, Validators.required],
+                Description_Eng:[this.car.Description_Eng, Validators.required]
               });
               this.Prices = JSON.parse(JSON.stringify(this.car.Prices));
               this.carForm.valueChanges.subscribe(data => {
@@ -103,6 +103,7 @@ export class AddComponent implements OnInit {
     if(this.car.Model){
       
     }
+    console.log(this.car);
     this.carForm = this.fb.group({
       Model:['', Validators.required],
       SPrice:['', Validators.required],
@@ -191,10 +192,8 @@ export class AddComponent implements OnInit {
     if(!this.image && !this.car.Photo){
       return;
     }
-    for(let i = 0; i<this.change.Values.length; i++){
-      if(this.change.Values[i]=='' || this.change.Values[i]==0){
-        return;
-      }
+    if(this.carForm.invalid){
+      return;
     }
     for(let i = 0; i<this.changeP.Values.length; i++){
       if(this.changeP.Values[i]=='' || this.changeP.Values[i]==0){

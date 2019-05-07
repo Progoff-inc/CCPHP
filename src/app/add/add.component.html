@@ -6,7 +6,7 @@
         <div class="form-group">
           <label for="MI">{{"MODEL" | translate}}</label>
           <input formControlName="Model" type="text" class="form-control" id="MI" [placeholder]="'MODEL_INPUT' | translate">
-          <small *ngIf="carSubmitted && f.Model.errors" class="form-text text-danger">{{"MODEL_INPUT" | translate}}</small>
+          <small *ngIf="(carSubmitted || car.Model) && f.Model.errors" class="form-text text-danger">{{"MODEL_INPUT" | translate}}</small>
         </div>
         
         <div class="form-group">
@@ -17,7 +17,7 @@
           <p class="img-text" *ngIf="image"><span>{{image.name}}</span> <i class="fa fa-times" aria-hidden="true" (click)="unload()"></i> </p>
           <input type="file" (change)="putFile($event)"  style="display:none" #fileload>
           <button *ngIf="!image && !car.Photo" class="btn btn-link border-primary" (click)="fileload.click()">Загрузить картинку</button>
-          <small  class="form-text text-danger" *ngIf="submitted && !image">Добавьте изображение</small>
+          <small  class="form-text text-danger" *ngIf="(carSubmitted || car.Model) && !image && !car.Photo">Добавьте изображение</small>
           <small  class="form-text text-danger" *ngIf="invalidImage">Загрузите изображение .jpg</small>
         </div>
         
@@ -25,7 +25,7 @@
           <div class="form-group">
             <label for="SP">{{"S_PRICE" | translate}}</label>
             <input formControlName="SPrice" type="number" class="form-control" id="SP" [placeholder]="'S_PRICE_INPUT' | translate">
-            <small *ngIf="carSubmitted && f.SPrice.errors" class="form-text text-danger">{{"S_PRICE_INPUT" | translate}}</small>
+            <small *ngIf="(carSubmitted || car.Model) && f.SPrice.errors" class="form-text text-danger">{{"S_PRICE_INPUT" | translate}}</small>
           </div>
         </div>
         
@@ -33,7 +33,7 @@
           <div class="form-group">
             <label for="WP">{{"W_PRICE" | translate}}</label>
             <input formControlName="WPrice" type="number" class="form-control" id="WP" [placeholder]="'W_PRICE_INPUT' | translate">
-            <small *ngIf="carSubmitted && f.WPrice.errors" class="form-text text-danger">{{"W_PRICE_INPUT" | translate}}</small>
+            <small *ngIf="(carSubmitted || car.Model) && f.WPrice.errors" class="form-text text-danger">{{"W_PRICE_INPUT" | translate}}</small>
           </div>
         </div>
       </div>
@@ -55,7 +55,7 @@
             <option value="SUV">{{"SUV" | translate}}</option>
             <option value="Pickup">{{"PICKUP" | translate}}</option>
           </select>
-          <small *ngIf="carSubmitted && f.BodyType.errors" class="form-text text-danger">{{"BODYTYPE_INPUT" | translate}}</small>
+          <small *ngIf="(carSubmitted || car.Model) && f.BodyType.errors" class="form-text text-danger">{{"BODYTYPE_INPUT" | translate}}</small>
         </div>
         
         <div class="d-flex flex-wrap justify-content-between">
@@ -63,7 +63,7 @@
             <div class="form-group">
               <label for="PI">{{"PASSENGERS_S" | translate}}</label>
               <input formControlName="Passengers" type="number" class="form-control" id="PI" [placeholder]="'PASSENGERS_INPUT' | translate">
-              <small *ngIf="carSubmitted && f.Passengers.errors" class="form-text text-danger">{{"PASSENGERS_INPUT" | translate}}</small>
+              <small *ngIf="(carSubmitted || car.Model) && f.Passengers.errors" class="form-text text-danger">{{"PASSENGERS_INPUT" | translate}}</small>
             </div>
           </div>
           
@@ -71,7 +71,7 @@
             <div class="form-group">
               <label for="DI">{{"DOORS" | translate}}</label>
               <input formControlName="Doors" type="number" class="form-control" id="DI" [placeholder]="'DOORS_INPUT' | translate">
-              <small *ngIf="carSubmitted && f.Doors.errors" class="form-text text-danger">{{"DOORS_INPUT" | translate}}</small>
+              <small *ngIf="(carSubmitted || car.Model) && f.Doors.errors" class="form-text text-danger">{{"DOORS_INPUT" | translate}}</small>
             </div>
           </div>
           
@@ -79,7 +79,7 @@
             <div class="form-group">
               <label for="GI">{{"GROUPE" | translate}}</label>
               <input formControlName="Groupe" type="text" class="form-control" id="GI" [placeholder]="'GROUPE_INPUT' | translate">
-              <small *ngIf="carSubmitted && f.Groupe.errors" class="form-text text-danger">{{"GROUPE_INPUT" | translate}}</small>
+              <small *ngIf="(carSubmitted || car.Model) && f.Groupe.errors" class="form-text text-danger">{{"GROUPE_INPUT" | translate}}</small>
             </div>
           </div>
           
@@ -87,7 +87,7 @@
             <div class="form-group">
               <label for="AI">{{"MINAGE_S" | translate}}</label>
               <input formControlName="MinAge" type="number" class="form-control" id="AI" [placeholder]="'AGE_INPUT' | translate">
-              <small *ngIf="carSubmitted && f.MinAge.errors" class="form-text text-danger">{{"AGE_INPUT" | translate}}</small>
+              <small *ngIf="(carSubmitted || car.Model) && f.MinAge.errors" class="form-text text-danger">{{"AGE_INPUT" | translate}}</small>
             </div>
           </div>
         </div>
@@ -98,7 +98,7 @@
             <div class="form-group">
                 <label for="PowI">{{"POWER" | translate}}</label>
                 <input formControlName="Power" type="number" class="form-control" id="PowI" [placeholder]="'POWER_INPUT' | translate">
-                <small *ngIf="carSubmitted && f.Power.errors" class="form-text text-danger">{{"POWER_INPUT" | translate}}</small>
+                <small *ngIf="(carSubmitted || car.Model) && f.Power.errors" class="form-text text-danger">{{"POWER_INPUT" | translate}}</small>
             </div>
           </div>
           
@@ -106,7 +106,7 @@
             <div class="form-group">
                 <label for="CI">{{"CONSUMPTION" | translate}}</label>
                 <input formControlName="Consumption" type="number" class="form-control" id="CI" [placeholder]="'CONSUMPTION_INPUT' | translate">
-                <small *ngIf="carSubmitted && f.Consumption.errors" class="form-text text-danger">{{"CONSUMPTION_INPUT" | translate}}</small>
+                <small *ngIf="(carSubmitted || car.Model) && f.Consumption.errors" class="form-text text-danger">{{"CONSUMPTION_INPUT" | translate}}</small>
             </div>
           </div>
           
@@ -118,7 +118,7 @@
                   <option value="AT">{{"AUTOMATIC" | translate}}</option>
                   <option value="MT">{{"MANUAL" | translate}}</option>
                 </select>
-                <small *ngIf="carSubmitted && f.Transmission.errors" class="form-text text-danger">{{"TRANSMISSION_INPUT" | translate}}</small>
+                <small *ngIf="(carSubmitted || car.Model) && f.Transmission.errors" class="form-text text-danger">{{"TRANSMISSION_INPUT" | translate}}</small>
             </div>
           </div>
           
@@ -130,7 +130,7 @@
                   <option value="Petrol">{{"PETROL" | translate}}</option>
                   <option value="Deisel">{{"DEISEL" | translate}}</option>
                 </select>
-                <small *ngIf="carSubmitted && f.Fuel.errors" class="form-text text-danger">{{"FUEL_INPUT" | translate}}</small>
+                <small *ngIf="(carSubmitted || car.Model) && f.Fuel.errors" class="form-text text-danger">{{"FUEL_INPUT" | translate}}</small>
             </div>
           </div>
         </div>
@@ -165,12 +165,12 @@
       <div class="form-group">
           <label for="DES">{{"DESCRIPTION" | translate}}</label>
           <textarea formControlName="Description" class="form-control" rows="5" id="DES" [placeholder]="'DESCRIPTION_INPUT' | translate"></textarea>
-          <small *ngIf="carSubmitted && f.Description.errors" class="form-text text-danger">{{"DESCRIPTION_INPUT" | translate}}</small>
+          <small *ngIf="(carSubmitted || car.Model) && f.Description.errors" class="form-text text-danger">{{"DESCRIPTION_INPUT" | translate}}</small>
       </div>
       <div class="form-group">
           <label for="DESENG">{{"DESCRIPTION_ENG" | translate}}</label>
           <textarea formControlName="Description_Eng" class="form-control" rows="5" id="DESENG" [placeholder]="'DESCRIPTION_ENG_INPUT' | translate"></textarea>
-          <small *ngIf="carSubmitted && f.Description_Eng.errors" class="form-text text-danger">{{"DESCRIPTION_ENG_INPUT" | translate}}</small>
+          <small *ngIf="(carSubmitted || car.Model) && f.Description_Eng.errors" class="form-text text-danger">{{"DESCRIPTION_ENG_INPUT" | translate}}</small>
       </div>
       <hr>
       <div class="row">
@@ -181,7 +181,7 @@
           <div class="form-group">
             <label for="SPT">{{day.HEADER | translate}}</label>
             <input (keyup)="checkUpdateP()" (change)="checkUpdateP()" type="number" class="form-control" id="SPT" [(ngModel)]="Prices.SummerPrices[g[i]]" [ngModelOptions]="{standalone: true}" [placeholder]="'PRICE_INPUT' | translate">
-            <small *ngIf="carSubmitted && !Prices.SummerPrices[g[i]]" class="form-text text-danger">{{"PRICE_INPUT" | translate}}</small>
+            <small *ngIf="(carSubmitted || car.Model) && !Prices.SummerPrices[g[i]]" class="form-text text-danger">{{"PRICE_INPUT" | translate}}</small>
           </div>
         </div>
       </div>
@@ -193,7 +193,7 @@
           <div class="form-group">
             <label for="WPT">{{day.HEADER | translate}}</label>
             <input (keyup)="checkUpdateP()" (change)="checkUpdateP()" type="number" class="form-control" [(ngModel)]="Prices.WinterPrices[g[i]]" [ngModelOptions]="{standalone: true}" id="WPT" [placeholder]="'PRICE_INPUT' | translate">
-            <small *ngIf="carSubmitted && !Prices.WinterPrices[g[i]]" class="form-text text-danger">{{"PRICE_INPUT" | translate}}</small>
+            <small *ngIf="(carSubmitted || car.Model) && !Prices.WinterPrices[g[i]]" class="form-text text-danger">{{"PRICE_INPUT" | translate}}</small>
           </div>
         </div>
       </div>
