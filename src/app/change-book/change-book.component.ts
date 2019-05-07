@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { User } from '../services/UserService';
+import { User, UserService } from '../services/UserService';
 import { CarsService, Book } from '../services/CarsService';
 import { ActivatedRoute } from '@angular/router';
 import { LoadService } from '../services/load.service';
@@ -26,7 +26,7 @@ export class ChangeBookComponent implements OnInit {
   invalidIntarvals:any;
   submitted:any;
   locations:string[] = ['AIR_HER','AN_PAPAN','HERSONISOS'];
-  constructor(private formBuilder:FormBuilder, private service:CarsService, private route:ActivatedRoute, private ls:LoadService) { }
+  constructor(public us:UserService, private formBuilder:FormBuilder, private service:CarsService, private route:ActivatedRoute, private ls:LoadService) { }
 
   ngOnInit() {
     this.ls.showLoad = true;

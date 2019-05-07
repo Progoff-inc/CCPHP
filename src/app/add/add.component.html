@@ -10,7 +10,7 @@
         </div>
         
         <div class="form-group">
-          <label for="exampleInputEmail13" class="w-100" [ngClass]="{'text-danger':(submitted && !image)}">Изображение</label>
+          <label for="exampleInputEmail13" class="w-100" [ngClass]="{'text-danger':(carSubmitted || car.Model) && !image && !car.Photo}">Изображение</label>
           <div class="d-flex align-items-start my-2">
             <img *ngIf="car && !!car.Photo" class="w-25" src="{{car.Photo}}"><i *ngIf="!!car.Photo" class="fa fa-times" aria-hidden="true" (click)="unloadLink(car)"></i>
           </div>
