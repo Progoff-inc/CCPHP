@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { NewCar, CarsService, Contains, Car, CarPrices } from '../services/CarsService';
+import { NewCar, CarsService, Contains, Car, CarPrices, UploadTypes } from '../services/CarsService';
 import { TranslateService } from '@ngx-translate/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { LoadService } from '../services/load.service';
+import { HttpEventType } from '@angular/common/http';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-add',
@@ -13,6 +15,8 @@ import { LoadService } from '../services/load.service';
 export class AddComponent implements OnInit {
   carSubmitted = false;
   showBtn= true;
+  image = null;
+  invalidImage = false;
   carForm:FormGroup;
   Prices:CarPrices=new CarPrices();
   car:Car = new Car();
@@ -30,7 +34,6 @@ export class AddComponent implements OnInit {
               this.car = data;
               this.carForm = this.fb.group({
                 Model:[this.car.Model],
-                Photo:[this.car.Photo],
                 SPrice:[this.car.SPrice],
                 WPrice:[this.car.WPrice],
                 BodyType:[this.car.BodyType],
@@ -70,7 +73,12 @@ export class AddComponent implements OnInit {
           this.change.add(c, this.carForm.value[c]);
         }
       })
+      console.log(!this.car.Photo);
+      
       this.showBtn = this.change.Keys.length>0;
+      if(!this.car.Photo){
+        this.showBtn = true;
+      }
     }
     return this.showBtn;
     
@@ -97,7 +105,6 @@ export class AddComponent implements OnInit {
     }
     this.carForm = this.fb.group({
       Model:['', Validators.required],
-      Photo:['', Validators.required],
       SPrice:['', Validators.required],
       WPrice:['', Validators.required],
       BodyType:['', Validators.required],
@@ -120,7 +127,9 @@ export class AddComponent implements OnInit {
   addCar(){
     this.carSubmitted=true;
 
-    
+    if(!this.image){
+      return;
+    }
     if(this.checkPrices()){
       return;
     }
@@ -129,14 +138,44 @@ export class AddComponent implements OnInit {
     }
     
     this.ls.showLoad=true;
+    const formData = new FormData();
+    formData.append('Data', this.image);
+    console.log(this.carForm.value);
     this.carsService.AddCar(this.carForm.value).subscribe((CarId)=>{
-      
-      this.carsService.AddPrices(CarId, this.Prices).subscribe((data)=>{
-        this.Prices = new CarPrices();
-        this.carForm.reset();
-        this.ls.showLoad=false;
-        this.carSubmitted=false;
-      })
+      console.log(CarId);
+      forkJoin(
+        this.carsService.UploadFile(CarId, UploadTypes.Car, formData),
+        this.carsService.AddPrices(CarId, this.Prices),
+      )
+      .subscribe(([event, res2]) => {
+        if(event.type == HttpEventType.Response){
+          this.image=null;
+          this.ls.showLoad=false;
+          this.Prices = new CarPrices();
+          this.carForm.reset();
+          this.carSubmitted=false;
+        }
+      });
+      // this.carsService.UploadFile(CarId, UploadTypes.Car, formData).subscribe(event=>{
+      //   if(event.type == HttpEventType.UploadProgress){
+      //     //this.ls.load = Math.round(event.loaded/event.total * 100);
+          
+      //   }
+      //   else if(event.type == HttpEventType.Response){
+      //     this.image=null;
+      //     // this.ls.load = -1;
+      //     this.ls.showLoad=false;
+      //     this.carForm.reset();
+      //     this.carSubmitted=false;
+      //   }
+        
+      // })
+      // this.carsService.AddPrices(CarId, this.Prices).subscribe((data)=>{
+      //   this.Prices = new CarPrices();
+      //   this.carForm.reset();
+      //   this.ls.showLoad=false;
+      //   this.carSubmitted=false;
+      // })
     })
   }
   checkPrices(){
@@ -149,6 +188,19 @@ export class AddComponent implements OnInit {
     return false;
   }
   updateCar(){
+    if(!this.image && !this.car.Photo){
+      return;
+    }
+    for(let i = 0; i<this.change.Values.length; i++){
+      if(this.change.Values[i]=='' || this.change.Values[i]==0){
+        return;
+      }
+    }
+    for(let i = 0; i<this.changeP.Values.length; i++){
+      if(this.changeP.Values[i]=='' || this.changeP.Values[i]==0){
+        return;
+      }
+    }
     this.ls.showLoad=true;
     if(this.change.Keys.length>0){
       this.carsService.UpdateCar(this.change, this.car.Id).subscribe((data)=>{
@@ -160,6 +212,20 @@ export class AddComponent implements OnInit {
         this.ls.showLoad=false;
       })
     }
+    if(this.image){
+      const formData = new FormData();
+      formData.append('Data', this.image);
+      this.carsService.UploadFile(this.car.Id, UploadTypes.Car, formData).subscribe(event=> {
+        if(event.type == HttpEventType.Response){
+          this.image=null;
+          // this.ls.load = -1;
+          this.car.Photo = event.body;
+          this.change=new Change();
+          this.showBtn = false;
+          this.ls.showLoad=false;
+        }
+      })
+    }
     if(this.changeP.Keys.length>0){
       this.carsService.UpdatePrices(this.changeP, this.car.Id).subscribe((data)=>{
         this.car.Prices = JSON.parse(JSON.stringify(this.Prices));
@@ -167,6 +233,26 @@ export class AddComponent implements OnInit {
       })
     }
     
+  }
+
+  putFile(event){
+    if(event.target.files[0].type=='image/jpeg'){
+      this.image = <File>event.target.files[0];
+      this.invalidImage = false;
+    }else{
+      this.invalidImage = true;
+    }
+
+    
+  }
+  unload(){
+    this.image = null;
+  }
+
+  unloadLink(s){
+
+    s.Photo = null;
+    this.checkUpdate();
   }
   get g() { return Object.keys(this.Prices.SummerPrices); }
   get f() { return this.carForm.controls; }

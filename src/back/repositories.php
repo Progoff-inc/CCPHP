@@ -63,6 +63,64 @@ class DataBase {
         return $u;
     }
     
+    public function uploadFile($token, $pid, $files, $t){
+        if($this->checkToken($token, 0, true)){
+            $img=$this->getImage($pid, $t);
+            if($img){
+                $this->removeFile($img);
+            }
+            $url = "http://client.nomokoiw.beget.tech/back/";
+            $n = basename($t."_".$pid."_".$files['Data']['name']);
+            $tid="Id";
+            $t .="s";
+            $d = "Files/$n";
+            if(file_exists("Files")){
+                
+                if(move_uploaded_file($files['Data']['tmp_name'], $d)){
+                    $s = $this->db->prepare("UPDATE $t SET Photo=? WHERE $tid=?");
+                    $s->execute(array($url.$d, $pid));
+                    return($url.$d);
+                }else{
+                    return($_FILES['Data']['tmp_name']);
+                }
+            }else{
+                mkdir("Files");
+                if(move_uploaded_file($files['Data']['tmp_name'], $d)){
+                    $s = $this->db->prepare("UPDATE $t SET Photo=? WHERE $tid=?");
+                    $s->execute(array($url.$d, $pid));
+                    return($url.$d);
+                }else{
+                    return($_FILES['Data']['tmp_name']);
+                }
+            }
+            
+            return false;
+        }else{
+            return false;
+        }
+        
+    }
+    
+    public function getImage($id, $t){
+        //$tid=ucfirst($t)."Id";
+        $t .="s";
+        $s = $this->db->prepare("SELECT Photo FROM $t WHERE Id=?");
+        $s->execute(array($id));
+        return $s->fetch()['Photo'];
+    }
+    
+    private function removeFile($filelink){
+        $path = explode('back/',$filelink);
+        if($path[1]){
+            unlink($path[1]);
+        }else{
+            $path[0] = ltrim($path[0],'../');
+            unlink($path[0]);
+        }
+        
+        
+    }
+    
     //####################Cars Controller#########################
     public function getCars() {
         $sth = $this->db->query("SELECT * FROM cars");
@@ -96,8 +154,10 @@ class DataBase {
     public function addCar($token, $car){
         if($this->checkToken($token, 0, true)){
             $res = $this->genInsertQuery($car,"cars");
-            $s = $this->db->prepare("INSERT INTO cars (Model,Photo,SPrice,WPrice,BodyType,Passengers,Doors,Groupe,MinAge,Power,Consumption,Transmission,Fuel,AC,ABS,AirBags,Radio,Description,Description_Eng) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
-            $s->execute($res[1]);
+            $s = $this->db->prepare($res[0]);
+            if($res[1][0]!=null){
+                $s->execute($res[1]);
+            }
             
             return $this->db->lastInsertId();
         }else{
@@ -372,6 +432,10 @@ class DataBase {
     
     public function deleteCar($token, $id) {
         if($this->checkToken($token, 0, true)){
+            $img=$this->getImage($id, 'car');
+            if($img){
+                $this->removeFile($img);
+            }
             $s = $this->db->prepare("DELETE FROM cars WHERE Id=?");
             $s->execute(array($id));
             return array($id);

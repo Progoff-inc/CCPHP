@@ -80,6 +80,13 @@ export class CarsService implements OnInit {
         return this.http.post<Book>(this.baseUrl + 'CarsController.php?Key=add-booking-new', book);
     }
 
+    UploadFile(id, type:UploadTypes, data) {
+        return this.http.post<string>(this.baseUrl + 'CarsController.php?Key=upload-file&Id='+id+'&Type='+type+'&Token='+this.us.Token, data, {
+          reportProgress:true,
+          observe:'events'
+        });
+    }
+
     ngOnInit() {
 
     }
@@ -285,3 +292,7 @@ export class Contains {
     'Delivery to Heraklion airport',
     'Rent a car in Crete with no excess'];
 }
+
+export enum UploadTypes{
+    Car = "car"
+  }

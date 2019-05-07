@@ -75,6 +75,10 @@ if(isset($_GET['Key']))
         case 'delete-car':
             echo json_encode($ctxt->deleteCar($_GET['Token'], $_GET['Id']));
             break;
+        case 'upload-file':
+            $inp = json_decode(file_get_contents('php://input'), true);
+            echo json_encode(array($ctxt->uploadFile($_GET['Token'], $_GET['Id'], $_FILES, $_GET['Type'])));
+            break;
         default:
             echo "Введенный ключ несуществует";
         

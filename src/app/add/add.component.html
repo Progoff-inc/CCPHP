@@ -10,9 +10,15 @@
         </div>
         
         <div class="form-group">
-          <label for="LI">{{"PHOTO" | translate}}</label>
-          <input formControlName="Photo" type="text" class="form-control" id="LI" [placeholder]="'PHOTO_INPUT' | translate">
-          <small *ngIf="carSubmitted && f.Photo.errors" class="form-text text-danger">{{"PHOTO_INPUT" | translate}}</small>
+          <label for="exampleInputEmail13" class="w-100" [ngClass]="{'text-danger':(submitted && !image)}">Изображение</label>
+          <div class="d-flex align-items-start my-2">
+            <img *ngIf="car && !!car.Photo" class="w-25" src="{{car.Photo}}"><i *ngIf="!!car.Photo" class="fa fa-times" aria-hidden="true" (click)="unloadLink(car)"></i>
+          </div>
+          <p class="img-text" *ngIf="image"><span>{{image.name}}</span> <i class="fa fa-times" aria-hidden="true" (click)="unload()"></i> </p>
+          <input type="file" (change)="putFile($event)"  style="display:none" #fileload>
+          <button *ngIf="!image && !car.Photo" class="btn btn-link border-primary" (click)="fileload.click()">Загрузить картинку</button>
+          <small  class="form-text text-danger" *ngIf="submitted && !image">Добавьте изображение</small>
+          <small  class="form-text text-danger" *ngIf="invalidImage">Загрузите изображение .jpg</small>
         </div>
         
         <div class="col-sm-6 pl-0" style="min-width: 165px">

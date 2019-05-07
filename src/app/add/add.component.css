@@ -56,3 +56,18 @@
     min-width: 110px;
     margin-right: 2px;
 }
+
+.img-text span{
+    margin-right: 10px;
+}
+.img-text i:hover{
+    color:rgb(36, 54, 216);
+}
+
+.form-group i{
+        margin-left: 10px;
+}
+.form-group i:hover{
+        
+        color:rgb(36, 54, 216);
+}
