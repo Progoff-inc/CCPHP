@@ -40,6 +40,18 @@ export class CarsComponent {
         this.cars=data;
       }
       if(this.service.DateStart && this.service.DateFinish){
+        this.cars = this.cars.filter(x => {
+          for(let i = 0; i<x.Books.length; i++){
+            if(new Date(x.Books[i].DateStart).getTime()<=this.service.DateStart.getTime() && new Date(x.Books[i].DateFinish).getTime()>=this.service.DateStart.getTime()){
+              return false;
+            }else if(new Date(x.Books[i].DateStart).getTime()<=this.service.DateFinish.getTime() && new Date(x.Books[i].DateFinish).getTime()>=this.service.DateFinish.getTime()){
+              return false;
+            }else{
+              return true;
+            }
+          }
+          return true;
+        })
         this.showPrices = true;
       }
       

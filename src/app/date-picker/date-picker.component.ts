@@ -10,7 +10,7 @@ export class DatePickerComponent implements OnInit, OnChanges {
   @Input() MinDate:Date = new Date(0);
   @Input() MaxDate:Date = new Date(3000, 0);
   @Input() Intervals:any = [];
-  @Input() Limited = false;
+  @Input() Limitted = false;
   @Input() DateStart:Date;
   @Input() DateFinish:Date;
   @Input() ChoosedDate:Date;
@@ -29,9 +29,18 @@ export class DatePickerComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(ch:SimpleChanges){
+    this.DateStart = this.getDate(this.DateStart);
+    this.DateFinish = this.getDate(this.DateFinish);
+    this.ChoosedDate = this.getDate(this.ChoosedDate);
+    this.MinDate = this.getDate(this.MinDate);
+    this.MaxDate = this.getDate(this.MaxDate);
     if(ch.DateStart && ch.DateStart.currentValue){
-      this.setMax();
+      if(this.Limitted){
+        this.setMax();
+      }
+      
     }
+    
   }
 
   getDate(d:Date){
@@ -123,7 +132,7 @@ export class DatePickerComponent implements OnInit, OnChanges {
     if(this.getClass(date).indexOf('invalid-date')==-1){
       this.ChoosedDate=date;
       this.change.emit(date);
-      if(this.Limited && this.DateStart){
+      if(this.Limitted && this.DateStart){
         this.setMax();
       }
       this.show();

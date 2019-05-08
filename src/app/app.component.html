@@ -1,5 +1,5 @@
 <app-nav-menu [service]='service'></app-nav-menu> 
-<div  style="min-height:80vh;" class="my-4">
+<div *ngIf="!curUser || us.Token" style="min-height:80vh;" class="my-4">
     <router-outlet></router-outlet>
 </div>
 

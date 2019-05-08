@@ -33,6 +33,7 @@ export class ChangeBookComponent implements OnInit {
     this.ls.showLoad = true;
       this.errors={DateStrart:true, DateFinish:true};
       this.minDate = new Date();
+      this.minDate.setDate(this.minDate.getDate()+1);
       
       this.invalidIntarvals = [];
       //this.sales;
@@ -55,7 +56,7 @@ export class ChangeBookComponent implements OnInit {
       this.user=JSON.parse(localStorage.getItem("currentUser"));
       this.getTimes();
       this.service.GetBook(this.route.snapshot.paramMap.get("id")).subscribe(data => {
-        if(data.UserId==this.user.Id || this.user.IsAdmin){
+        if(data && (data.UserId==this.user.Id || this.user.IsAdmin)){
           data.DateStart = new Date(data.DateStart.replace('-','/','g'));
           data.DateFinish = new Date(data.DateFinish);
           data.DateFinish.setHours(data.DateFinish.getHours()+3);
@@ -65,6 +66,11 @@ export class ChangeBookComponent implements OnInit {
           this.ds = data.DateStart;
           this.df = data.DateFinish;
           this.book = data;
+          this.book.Car.Books.forEach(b => {
+            b.DateStart = new Date(b.DateStart);
+            b.DateFinish = new Date(b.DateFinish);
+            this.invalidIntarvals.push({DateStart:b.DateStart, DateFinish:b.DateFinish});
+          })
           this.bookingForm = this.formBuilder.group({
             Name: [data.User.Name, Validators.required],
             Email: [data.User.Email, [Validators.required, Validators.email]],
@@ -118,6 +124,10 @@ export class ChangeBookComponent implements OnInit {
     }
     
   }
+  getMinDate(){
+    
+    return this.minDate.getTime()>new Date(this.book.DateStart).getTime()?this.minDate:new Date(this.book.DateStart)
+  }
   getTimes(n = 0){
     this.times = [];
     let t  = new Date(1,1,1,0);
@@ -143,6 +153,11 @@ export class ChangeBookComponent implements OnInit {
     let res = Math.round(k*100)/100;
     
     return res.toFixed(2)
+  }
+  checkDates(){
+    if(this.book.DateStart && this.book.DateFinish && this.book.DateStart.getTime()>this.book.DateFinish.getTime()){
+      this.book.DateFinish = null;
+    }
   }
   checkUpdate(){
     if(!!this.book){

@@ -159,7 +159,6 @@ export class UserProfileComponent implements OnInit {
     }
   }
   changeInfo(item:number,type:string, value:string, t?:HTMLInputElement){
-    console.log(t);
     this.submittes[item]=true;
     if(value == ''){
       return;

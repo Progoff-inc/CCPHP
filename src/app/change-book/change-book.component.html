@@ -43,11 +43,10 @@
                         <span class="d-block is-invalid" *ngIf="f.DateStart.errors.required">{{'ENTER_DATE'|translate}}</span>
                         
                     </div> -->
-                    
                     <date-picker  [MinDate]="minDate" [Intervals]="invalidIntarvals" [DateStart]="book.DateStart"
                         [DateFinish]="book.DateFinish"  [ChoosedDate]="book.DateStart"
                         (change)="(book.DateStart = $event) && checkDates() && checkUpdate()"></date-picker>
-                    <div *ngIf="submitted && errors.DateStart" class="invalid-feedback">
+                    <div *ngIf="submitted && !book.DateStart" class="invalid-feedback">
                         <span class="d-block is-invalid" >{{'ENTER_DATE'|translate}}</span>
                         
                     </div>
@@ -64,7 +63,7 @@
                         
                     </div> -->
                     <date-picker
-                          [MinDate]="book.DateStart" 
+                          [MinDate]="getMinDate()" 
                           [Intervals]="invalidIntarvals"
                           [DateStart]="book.DateStart"
                           [DateFinish]="book.DateFinish"
@@ -72,7 +71,7 @@
                           [Limitted]="true"
                           (change)="(book.DateFinish = $event) && checkUpdate()"
                         ></date-picker>
-                    <div *ngIf="submitted && errors.DateFinish" class="invalid-feedback">
+                    <div *ngIf="submitted && !book.DateFinish" class="invalid-feedback">
                         <span class="d-block is-invalid" >{{'ENTER_DATE'|translate}}</span>
                         
                     </div>

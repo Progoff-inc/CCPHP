@@ -73,7 +73,6 @@ export class AddComponent implements OnInit {
           this.change.add(c, this.carForm.value[c]);
         }
       })
-      console.log(!this.car.Photo);
       
       this.showBtn = this.change.Keys.length>0;
       if(!this.car.Photo){
@@ -103,7 +102,6 @@ export class AddComponent implements OnInit {
     if(this.car.Model){
       
     }
-    console.log(this.car);
     this.carForm = this.fb.group({
       Model:['', Validators.required],
       SPrice:['', Validators.required],
@@ -141,9 +139,7 @@ export class AddComponent implements OnInit {
     this.ls.showLoad=true;
     const formData = new FormData();
     formData.append('Data', this.image);
-    console.log(this.carForm.value);
     this.carsService.AddCar(this.carForm.value).subscribe((CarId)=>{
-      console.log(CarId);
       forkJoin(
         this.carsService.UploadFile(CarId, UploadTypes.Car, formData),
         this.carsService.AddPrices(CarId, this.Prices),

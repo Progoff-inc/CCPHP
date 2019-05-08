@@ -95,6 +95,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
           Coment:this.service.checkStr(this.bookingForm.value.Coment)
         }
         this.service.BookCar(this.book).subscribe(data => {
+          this.service.clearDates();
           this.ngOnInit();
          
         },error => {
@@ -136,9 +137,8 @@ export class BookingFormComponent implements OnInit, OnChanges {
             Tel:this.bookingForm.value.Tel,
             Coment:this.bookingForm.value.Coment
           }
-          console.log(this.book);
           this.service.BookCar(this.book).subscribe(data => {
-            
+            this.service.clearDates();
             this.ngOnInit();
             
           });
@@ -201,6 +201,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
       this.errors={DateStrart:true, DateFinish:true};
       this.showBook = false;
       this.minDate = new Date();
+      this.minDate.setDate(this.minDate.getDate()+1);
       this.invalidIntarvals = [];
       this.showPickers = new ShowPickers();
       this.wrongEmail= false;

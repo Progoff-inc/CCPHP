@@ -86,4 +86,6 @@ export class AppComponent implements OnInit {
     this.s.BookCar({Id:23, Date: new Date(), Place:'Iraklion'}).subscribe(d => {
     });
   }
+
+  get curUser() {return localStorage.getItem('currentUser')};
 }

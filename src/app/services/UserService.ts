@@ -15,7 +15,7 @@ export class UserService {
     }
 
     get Token(){return this.token};
-    set Token(token){this.token = token};
+    set Token(token){this.token = token; };
   
     ShowForm(type?:number){
         this.openForm=!this.openForm;

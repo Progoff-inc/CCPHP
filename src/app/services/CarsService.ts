@@ -21,6 +21,13 @@ export class CarsService implements OnInit {
 
 
     }
+
+    clearDates(){
+        this.DateStart = undefined;
+        this.DateFinish = undefined;
+        this.StartPoint = undefined;
+        this.EndPoint = undefined;
+    }
     
     GetCars() {
         return this.http.get<Car[]>(this.baseUrl + 'CarsController.php?Key=get-cars');
@@ -146,7 +153,6 @@ export class CarsService implements OnInit {
                     price+=car.WPrice;
                 }
             }
-            console.log(price);
             return price;
         }
     }
