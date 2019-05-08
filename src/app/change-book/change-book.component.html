@@ -69,6 +69,7 @@
                           [DateStart]="book.DateStart"
                           [DateFinish]="book.DateFinish"
                           [ChoosedDate]="book.DateFinish"
+                          [Limitted]="true"
                           (change)="(book.DateFinish = $event) && checkUpdate()"
                         ></date-picker>
                     <div *ngIf="submitted && errors.DateFinish" class="invalid-feedback">

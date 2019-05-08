@@ -60,6 +60,7 @@
                           [DateStart]="search.DateStart"
                           [DateFinish]="search.DateFinish"
                           [ChoosedDate]="search.DateFinish"
+                          
                           (change)="search.DateFinish = $event"
                         ></date-picker>
                         <!-- <div *ngIf="submitted && errors.DateFinish" class="invalid-feedback">

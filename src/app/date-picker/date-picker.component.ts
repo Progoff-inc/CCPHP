@@ -10,6 +10,7 @@ export class DatePickerComponent implements OnInit, OnChanges {
   @Input() MinDate:Date = new Date(0);
   @Input() MaxDate:Date = new Date(3000, 0);
   @Input() Intervals:any = [];
+  @Input() Limited = false;
   @Input() DateStart:Date;
   @Input() DateFinish:Date;
   @Input() ChoosedDate:Date;
@@ -119,12 +120,15 @@ export class DatePickerComponent implements OnInit, OnChanges {
   }
 
   pick(date:Date){
-    this.ChoosedDate=date;
-    this.change.emit(date);
-    if(this.DateStart){
-      this.setMax();
+    if(this.getClass(date).indexOf('invalid-date')==-1){
+      this.ChoosedDate=date;
+      this.change.emit(date);
+      if(this.Limited && this.DateStart){
+        this.setMax();
+      }
+      this.show();
     }
-    this.show();
+    
   }
 
   setMax(){
