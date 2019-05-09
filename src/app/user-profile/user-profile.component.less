@@ -168,13 +168,16 @@
     justify-content: center;
 }
 .btns{
-    position: absolute;
-    top: 5px;
-    right: 5px;
     display: flex;
     *:first-child{
         padding-right: 0;
     }
+}
+.head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 5px;
 }
 .status{
     width: 90px;
@@ -360,6 +363,12 @@ i{
     }
     .inner-item{
         width: 100%;
+    }
+    .head{
+        flex-wrap: wrap;  
+    }
+    .dates{
+        height: 50px;
     }
     .main-info .info{
         width: 100%;

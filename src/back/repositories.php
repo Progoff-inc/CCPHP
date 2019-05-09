@@ -54,13 +54,13 @@ class DataBase {
         return true;
     }
     
-    public function getUserByToken($token){
+    private function getUserByToken($token){
         $s = $this->db->prepare("SELECT * FROM users WHERE Token=?");
         $s->execute(array($token));
         $s->setFetchMode(PDO::FETCH_CLASS, 'User');
         $u=$s->fetch();
         
-        return $u;
+        return $this->getUserById($u->Id);
     }
     
     public function uploadFile($token, $pid, $files, $t){
@@ -143,6 +143,9 @@ class DataBase {
             while($book = $sth->fetch()){
                 $book->User = $this->getUserById($book->UserId, false);
                 $book->Car = $this->getCar($book->CarId, false);
+                $book->DateStart= date("Y/m/d H:00:00",strtotime($book->DateStart));
+                $book->DateFinish= date("Y/m/d H:00:00",strtotime($book->DateFinish));
+                $book->CreateDate= date("Y/m/d H:00:00",strtotime($book->CreateDate));
                 $books[] = $book;
             }
             return $books;
@@ -555,14 +558,9 @@ class DataBase {
         $s->setFetchMode(PDO::FETCH_CLASS, 'User');
         $u=$s->fetch();
         
-        $token = md5($u->ModifiedDate.rand(1000,9999));
-        
-        $this->setToken($u->Id, $token);
         
         
-        $u->Books = $this->getUserBooks($u->Id);
-        
-        return array($u,$token);
+        return $this->getUserById($u->Id, true, true);
     } 
     public function setAdmin($token, $id, $isa){
         if($this->checkToken($token, 0, true)){
@@ -573,11 +571,12 @@ class DataBase {
             return null;
         }
     }
-    public function getUserById($id, $full = true, $token = false){
+    private function getUserById($id, $full = true, $token = false){
         $s = $this->db->prepare("SELECT Id, Name, Email, CreatedDate, ModifiedDate, Phone, Photo, Lang, IsAdmin FROM users WHERE Id=?");
         $s->execute(array($id));
         $s->setFetchMode(PDO::FETCH_CLASS, 'User');
         $u=$s->fetch();
+        $u->CreatedDate = date("Y/m/d",strtotime($u->CreatedDate));
         if($token){
             $token = md5($u->ModifiedDate.rand(1000,9999));
             $this->setToken($u->Id, $token);
@@ -602,6 +601,9 @@ class DataBase {
         while($b = $s->fetch()){
             $b->Car = $this->getReportCar($b->CarId);
             $b->User = $this->getReportUser($b->UserId);
+            $b->DateStart= date("Y/m/d H:00:00",strtotime($b->DateStart));
+            $b->DateFinish= date("Y/m/d H:00:00",strtotime($b->DateFinish));
+            $b->CreateDate= date("Y/m/d H:00:00",strtotime($b->CreateDate));
             $books[] = $b;
         }
         return $books;

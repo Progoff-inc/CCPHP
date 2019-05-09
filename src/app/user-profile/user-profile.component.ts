@@ -54,11 +54,17 @@ export class UserProfileComponent implements OnInit {
         
         if(!data.IsAdmin){
           data.Books.sort((a,b)=>{
+            a.DateStart = new Date(a.DateStart);
+            b.DateStart = new Date(b.DateStart);
+            a.DateFinish = new Date(a.DateFinish);
+            b.DateFinish = new Date(b.DateFinish);
+            a.CreateDate = new Date(a.CreateDate);
+            b.CreateDate = new Date(b.CreateDate);
             return a.DateStart<b.DateStart?1:-1
           })
           this.books = data.Books;
         }
-        
+        data.CreatedDate = new Date(data.CreatedDate);
         this.userService.currentUser=data;
         this.changeValues[0]=data.Email;
         this.changeValues[1]=data.Phone;
@@ -76,13 +82,22 @@ export class UserProfileComponent implements OnInit {
           })
           this.carsService.GetBooks().subscribe(books => {
             this.books = books;
+            console.log(this.books);
             this.books.sort((a,b)=>{
+              a.DateStart = new Date(a.DateStart);
+              b.DateStart = new Date(b.DateStart);
+              a.DateFinish = new Date(a.DateFinish);
+              b.DateFinish = new Date(b.DateFinish);
+              a.CreateDate = new Date(a.CreateDate);
+              b.CreateDate = new Date(b.CreateDate);
               return a.DateStart<b.DateStart?1:-1
             })
+            console.log(this.books);
           })
         }else{
           this.ls.showLoad=false;
         }
+        
         
       })
       

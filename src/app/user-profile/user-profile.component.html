@@ -102,13 +102,17 @@
     <p *ngIf="books.length>0" class="line" ><span (click)="show('showBooks')">{{userService.currentUser.IsAdmin?('BOOKS' | translate): ('MY_BOOKS' | translate)}} <i class="fa" [ngClass] = "{'fa-angle-down':!showBooks, ' fa-angle-up':showBooks}"></i></span></p>
     <div *ngIf="showBooks">
       <div class="book-item" [ngClass]="{'active-item':getStatus(book)=='Активно' }" *ngFor="let book of userService.currentUser.IsAdmin?books:userService.currentUser.Books">
-        <div class="btns">
-          <span *ngIf="checkDelete(book)" class="btn btn-link text-danger" (click)="cancel(book)">{{'CANCEL' | translate}}</span>
-          <button *ngIf="checkChange(book)" class="btn btn-link" routerLink="/change-book/{{book.Id}}">{{'CHANGE' | translate}}</button>
-          <span class="status" [ngClass]="{'active':getStatus(book)=='Активно'}">{{getStatus(book)}}</span>
-        </div>
         
-        <h4 style="margin-left: 5px">{{'ORDER' | translate}} №{{book.Id}}</h4>
+        <div class="head">
+          <h4 style="margin-left: 5px">{{'ORDER' | translate}} №{{book.Id}}</h4>
+          <div class="btns">
+            <span *ngIf="checkDelete(book)" class="btn btn-link text-danger" (click)="cancel(book)">{{'CANCEL' | translate}}</span>
+            <button *ngIf="checkChange(book)" class="btn btn-link" routerLink="/change-book/{{book.Id}}">{{'CHANGE' | translate}}</button>
+            <span class="status" [ngClass]="{'active':getStatus(book)=='Активно'}">{{getStatus(book)}}</span>
+          </div>
+          
+          
+        </div>
         <div class="row">
           
           <div class="col-sm-4">
