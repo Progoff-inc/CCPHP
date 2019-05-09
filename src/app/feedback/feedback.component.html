@@ -59,6 +59,9 @@
     
         <div class="comments" *ngIf="feedBackService.curReports">
             <div *ngFor="let com of feedBackService.curReports"  class="comment" [ngClass]='{"comment-good":com.Mark>3, "comment-bad":com.Mark<=3}' >
+                <span *ngIf="autorized && userService.currentUser && userService.currentUser.IsAdmin" class="remove">
+                    <i class="fa fa-times" (click)="deleteReport(com.Id)"></i>
+                </span>
                 <div class="row">
                     <div class="col-sm-9" style="height: 42px;">
                         <p>
@@ -79,6 +82,9 @@
                         <p class="line" *ngIf="com.Comments.length>0"><span (click)="showComments(com)">{{com.ButtonText | translate}} <i class="fa" [ngClass] = "{'fa-angle-down':!com.ShowComments, ' fa-angle-up':com.ShowComments}"></i></span></p>
                         <div *ngIf="com.ShowComments" class="report-comments">
                             <div *ngFor="let comment of com.Comments" class="comment">
+                                <span *ngIf="autorized && userService.currentUser && userService.currentUser.IsAdmin" class="remove">
+                                    <i class="fa fa-times" (click)="deleteComment(com, comment.Id)"></i>
+                                </span>
                                 <div class="row">
                                     <div class="col-sm-9">
                                         <p>

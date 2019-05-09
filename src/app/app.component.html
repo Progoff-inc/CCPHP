@@ -1,6 +1,6 @@
 <app-nav-menu [service]='service'></app-nav-menu> 
-<div *ngIf="!curUser || us.Token" style="min-height:80vh;" class="my-4">
-    <router-outlet></router-outlet>
+<div  style="min-height:80vh;" class="my-4">
+    <router-outlet *ngIf="!curUser || !!us.Token"></router-outlet>
 </div>
 
 <same-cars *ngIf="showSameCars" [CarId]="CarId"></same-cars>

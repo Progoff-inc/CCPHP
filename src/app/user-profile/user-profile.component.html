@@ -20,13 +20,15 @@
                 </div>
                 <div *ngIf="changes[0]" class="change-panel">
                     <div class="form">
-                      <span [ngClass]="{ 'is-invalid': (changeValues[0]=='')}">{{'EMAIL' | translate}}: </span>
-                      <input [ngClass]="{ 'is-invalid': (changeValues[0]=='')}" class="input" [(ngModel)]="changeValues[0]" type="email" required #Email>
-                      <div *ngIf="(changeValues[0]=='')" class="invalid-feedback mb-3">
-                        <span class="d-block is-invalid" *ngIf="changeValues[0]==''">{{'EMAIL_VALIDATION'|translate}}</span>
-                        <span class="d-block is-invalid" *ngIf="changeValues[0]==''?false:carsService.checkEmail(Email.value)">{{'WRONG_EMAIL_VALIDATION'|translate}}</span>
+                      <span class="mb-2">{{'EMAIL' | translate}}: </span>
+                      <!-- <input [ngClass]="{ 'is-invalid': (changeValues[0]=='')}" class="input" [(ngModel)]="changeValues[0]" type="email" required #Email> -->
+                      <input  class="form-control input" type="email" name="email" [(ngModel)]="changeValues[0]" #email="ngModel" 
+                            required pattern="[a-zA-Z_.]+@[a-zA-Z]+\.[a-zA-Z]{1,3}" />
+                        
+                      <div *ngIf="email.invalid" class="invalid-feedback mb-3">
+                        <span class="d-block is-invalid" >{{'EMAIL_VALIDATION'|translate}}</span>
                       </div>
-                      <button class="btn btn-success" (click)="changeInfo(0,'Email', changeValues[0], Email)">Изменить</button>
+                      <button [disabled]="email.invalid" class="btn btn-success" (click)="changeInfo(0,'Email', changeValues[0], email)">Изменить</button>
                     </div>
                 </div>
                 <div *ngIf="changes[0]"  class="background-blur" (click)="showChangeInfo(0,false)"></div>
@@ -42,13 +44,14 @@
                 </div>
                 <div *ngIf="changes[1]" class="change-panel">
                   <div class="form">
-                    <span [ngClass]="{ 'is-invalid': (changeValues[1]=='')}">{{'PHONE' | translate}}</span>
-                    <input [ngClass]="{ 'is-invalid': changeValues[1]=='' }" [(ngModel)]="changeValues[1]" type="tel" class="input"  required #Tel>
-                    <div *ngIf="(changeValues[1]=='')" class="invalid-feedback mb-3">
-                      <span class="d-block is-invalid" *ngIf="changeValues[1]==''">{{'PHONE_VALIDATION'|translate}}</span>
+                    <span class="mb-2">{{'PHONE' | translate}}</span>
+                    <input class="form-control input" name="phone" [(ngModel)]="changeValues[1]" #phone="ngModel" 
+                            required pattern="(^\+?\d{1,3}?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$|^((\+?7|8)[ \-] ?)?((\(\d{3}\))|(\d{3}))?([ \-])?(\d{3}[\- ]?\d{2}[\- ]?\d{2})$)" />
+                    <div *ngIf="phone.invalid" class="invalid-feedback mb-3">
+                      <span class="d-block is-invalid" >{{'PHONE_VALIDATION'|translate}}</span>
                       <!-- <span class="d-block is-invalid" *ngIf="changeValues[0]==''?false:carsService.checkEmail(Email.value)">{{'WRONG_EMAIL_VALIDATION'|translate}}</span> -->
                     </div>
-                    <button class="btn btn-success" (click)="changeInfo(1,'Phone', Tel.value, Tel)">Изменить</button>
+                    <button [disabled]="phone.invalid" class="btn btn-success" (click)="changeInfo(1,'Phone', phone.value, phone)">Изменить</button>
                   </div>
                 </div>
                 <div *ngIf="changes[1]"  class="background-blur" (click)="showChangeInfo(1,false)"></div>

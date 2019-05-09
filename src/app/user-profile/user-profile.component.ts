@@ -158,12 +158,17 @@ export class UserProfileComponent implements OnInit {
       
     }
   }
-  changeInfo(item:number,type:string, value:string, t?:HTMLInputElement){
+  changeInfo(item:number,type:string, value:string, t?){
+    console.log(t);
+    if(t.invalid){
+      return;
+    }
     this.submittes[item]=true;
     if(value == ''){
       return;
     }
     else{
+      console.log(value);
       this.userService.ChangeInfo(type, type == 'Phone'?this.carsService.checkStr(value,'phone'):value, this.userService.currentUser.Id).subscribe(data => {
         if(data){
           this.userService.currentUser[type]= type == 'Phone'?this.carsService.checkStr(value,'phone'):value;

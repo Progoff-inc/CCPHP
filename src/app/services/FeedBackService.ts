@@ -47,6 +47,12 @@ export class FeedBackService{
   deleteLike(LikeId:number){
     return this.http.delete(this.baseUrl + 'FBController.php?Key=delete-like&Id='+LikeId+'&Token='+this.us.Token);
   }
+  deleteReport(ReportId:number){
+    return this.http.delete(this.baseUrl + 'FBController.php?Key=delete-report&Id='+ReportId+'&Token='+this.us.Token);
+  }
+  deleteComment(CommentId:number){
+    return this.http.delete(this.baseUrl + 'FBController.php?Key=delete-comment&Id='+CommentId+'&Token='+this.us.Token);
+  }
   addLikeOrDislike(like){
     return this.http.post<number>(this.baseUrl + 'FBController.php?Key=add-likes&Token='+this.us.Token, { "IsLike": like.IsLike, "OwnerId": like.OwnerId, "Type":like.Type, "UserId":like.UserId});
   }

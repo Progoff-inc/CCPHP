@@ -129,6 +129,7 @@ class DataBase {
         while($car = $sth->fetch()){
             $car->Prices = $this->getCarPrices($car->Id);
             $car->Reports = $this->getCarReports($car->Id);
+            $car->Books = $this->getCarBooks($car->Id);
             $cars[] = $car;
         }
         return $cars;
@@ -230,6 +231,7 @@ class DataBase {
         if($this->checkToken($token, $book->UserId)){
             $book->User = $this->getUserById($book->UserId, false);
             $book->Car = $this->getCar($book->CarId, false);
+            $book->Car->Books = $this->getCarBooks($book->CarId);
             return $book;
         }
         else{
@@ -486,6 +488,28 @@ class DataBase {
     public function deleteLike($token, $id){
         if($this->checkToken($token, $this->getLikeUserId($id))){
             $s = $this->db->prepare("DELETE FROM likes WHERE Id=?");
+            $s->execute(array($id));
+            return $this->db->lastInsertId();
+        }else{
+            return null;
+        }
+        
+    }
+    
+    public function deleteReport($token, $id){
+        if($this->checkToken($token, 0, true)){
+            $s = $this->db->prepare("DELETE FROM feedbacks WHERE Id=?");
+            $s->execute(array($id));
+            return $this->db->lastInsertId();
+        }else{
+            return null;
+        }
+        
+    }
+    
+    public function deleteComment($token, $id){
+        if($this->checkToken($token, 0, true)){
+            $s = $this->db->prepare("DELETE FROM comments WHERE Id=?");
             $s->execute(array($id));
             return $this->db->lastInsertId();
         }else{

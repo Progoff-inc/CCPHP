@@ -21,6 +21,12 @@ if(isset($_GET['Key']))
         case 'delete-like':
             echo json_encode($ctxt->deleteLike($_GET['Token'], $_GET['Id']));
             break;
+        case 'delete-report':
+            echo json_encode($ctxt->deleteReport($_GET['Token'], $_GET['Id']));
+            break;
+        case 'delete-comment':
+            echo json_encode($ctxt->deleteComment($_GET['Token'], $_GET['Id']));
+            break;
         case 'add-likes':
             $b = json_decode(file_get_contents('php://input'), true);
             echo json_encode($ctxt->addLike($_GET['Token'], $b['OwnerId'], $b['UserId'], $b['IsLike'], $b['Type']));
