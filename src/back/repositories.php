@@ -235,6 +235,9 @@ class DataBase {
             $book->User = $this->getUserById($book->UserId, false);
             $book->Car = $this->getCar($book->CarId, false);
             $book->Car->Books = $this->getCarBooks($book->CarId);
+            $book->DateStart= date("Y/m/d H:00:00",strtotime($book->DateStart));
+            $book->DateFinish= date("Y/m/d H:00:00",strtotime($book->DateFinish));
+            $book->CreateDate= date("Y/m/d H:00:00",strtotime($book->CreateDate));
             return $book;
         }
         else{
