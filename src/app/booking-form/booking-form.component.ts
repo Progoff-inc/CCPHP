@@ -120,8 +120,9 @@ export class BookingFormComponent implements OnInit, OnChanges {
           }})
       }
       else{
-        
-        this.us.AddUser({Name:this.bookingForm.value.Name, Email:this.bookingForm.value.Email, Tel:this.bookingForm.value.Tel, Password:this.us.GenPassword()}).subscribe(data => {
+        let p = this.us.GenPassword();
+        this.us.AddUser({Name:this.bookingForm.value.Name, Email:this.bookingForm.value.Email, Tel:this.bookingForm.value.Tel, Password:p}).subscribe(data => {
+          data['Password']=p;
           this.us.currentUser = data[0];
           this.us.Token = data[1];
           this.us.Save();

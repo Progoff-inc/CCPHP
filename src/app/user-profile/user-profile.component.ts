@@ -45,11 +45,11 @@ export class UserProfileComponent implements OnInit {
       this.ls.showLoad = true;
       this.changeDate.setDate(this.changeDate.getDate()+5);
       this.deleteDate.setDate(this.deleteDate.getDate()+3);
-      this.userService.currentUser=JSON.parse(localStorage.getItem("currentUser"));
       
-      this.userService.GetUserById(this.userService.currentUser.Id).subscribe(data => {
+      this.userService.GetUser({Email:JSON.parse(localStorage.getItem("currentUser")).Email, Password:JSON.parse(localStorage.getItem("currentUser")).Password}).subscribe(data => {
         this.userService.Token = data[1];
         data = data[0];
+        data['Password']=JSON.parse(localStorage.getItem("currentUser")).Password;
         data.IsAdmin = Boolean(Number(data.IsAdmin));
         
         if(!data.IsAdmin){

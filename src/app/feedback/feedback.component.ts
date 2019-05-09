@@ -42,16 +42,20 @@ export class FeedbackComponent implements OnInit, OnChanges {
   }
 
   deleteReport(id){
-    this.feedBackService.deleteReport(id).subscribe(data => {
-      this.feedBackService.curReports.splice(this.feedBackService.curReports.findIndex(x => x.Id == id),1);
-    })
+    if(confirm("Удалить отзыв?")){
+      this.feedBackService.deleteReport(id).subscribe(data => {
+        this.feedBackService.curReports.splice(this.feedBackService.curReports.findIndex(x => x.Id == id),1);
+      })
+    }
   }
 
   deleteComment(report, id){
-    console.log(report.Comments)
-    this.feedBackService.deleteComment(id).subscribe(data => {
-      report.Comments.splice(report.Comments.findIndex(x => x.Id == id),1);
-    })
+    if(confirm("Удалить комментарий?")){
+      this.feedBackService.deleteComment(id).subscribe(data => {
+        report.Comments.splice(report.Comments.findIndex(x => x.Id == id),1);
+      })
+    }
+    
   }
 
   ngOnInit() {

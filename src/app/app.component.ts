@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   showButtonUp:boolean = false;
   showSameCars:boolean = false;
   user = null;
-  constructor(private router:Router, private translate: TranslateService, private ls:LoadService, private us:UserService, private s:CarsService){
+  constructor(private router:Router, private translate: TranslateService, private ls:LoadService, public us:UserService, private s:CarsService){
     this.service = new MyTranslateService(translate);
     
   }
@@ -35,27 +35,24 @@ export class AppComponent implements OnInit {
 
   ngOnInit(){
     if(localStorage.getItem("currentUser")){
-      if(localStorage.getItem("currentUser")){
-        this.us.GetUserById(JSON.parse(localStorage.getItem("currentUser")).Id).subscribe(user => {
-          this.us.Token=user[1];
-          this.us.currentUser=user[0];
-          if(this.us.currentUser.Lang){
-            if(!sessionStorage.getItem('curLang')){
-              sessionStorage.setItem('curLang', this.us.currentUser.Lang=="RU"?'ru':'en');
-              this.service.changeLang(this.us.currentUser.Lang=="RU"?'ru':'en');
-            }else{
-              this.service.changeLang(sessionStorage.getItem('curLang'));
+      this.us.GetUser({Email:JSON.parse(localStorage.getItem("currentUser")).Email, Password:JSON.parse(localStorage.getItem("currentUser")).Password}).subscribe(user => {
+        this.us.Token=user[1];
+        this.us.currentUser=user[0];
+        if(this.us.currentUser.Lang){
+          if(!sessionStorage.getItem('curLang')){
+            sessionStorage.setItem('curLang', this.us.currentUser.Lang=="RU"?'ru':'en');
+            this.service.changeLang(this.us.currentUser.Lang=="RU"?'ru':'en');
+          }else{
+            this.service.changeLang(sessionStorage.getItem('curLang'));
 
-            }
-            
-            
-    
           }
-          this.ls.showLoad = false;
-        })
-        
-        
-      }
+          
+          
+  
+        }
+        this.ls.showLoad = false;
+      })
+      
       
     }
     window.scrollTo(0, 0);

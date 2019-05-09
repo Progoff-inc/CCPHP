@@ -37,7 +37,9 @@ export class UserFormComponent implements OnInit {
         if(data){
           this.service.Token = data[1];
           data = data[0];
+          data['Password']=this.userForm.value.Password;
           this.service.currentUser=data;
+          
 
           localStorage.setItem('currentUser',JSON.stringify(data));
       
@@ -61,8 +63,10 @@ export class UserFormComponent implements OnInit {
           this.submitted=false;
           this.userForm.reset();
         }else{
+          
           this.service.Token = data[1];
           data = data[0];
+          data['Password']=this.userForm.value.Password;
           this.service.currentUser=data;
           if(data.Books){
             this.service.currentUser.Books.forEach(x =>{
@@ -80,7 +84,7 @@ export class UserFormComponent implements OnInit {
           }
           
           localStorage.setItem('currentUser',JSON.stringify(data));
-          //location.reload();
+          console.log(localStorage.getItem('currentUser'));
           this.alert.showA({type:'success',message:'Вы успешно вошли',show:true});
           this.service.ShowForm();
         }
