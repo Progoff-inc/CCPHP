@@ -141,6 +141,7 @@ export class DatePickerComponent implements OnInit, OnChanges {
   }
 
   setMax(){
+    this.MaxDate =  new Date(3000, 0);
     let minP = Number.MAX_VALUE;
     for(let i =0; i<this.Intervals.length;i++){
       
