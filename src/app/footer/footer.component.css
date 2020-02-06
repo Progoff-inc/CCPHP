@@ -17,3 +17,15 @@ img{
 .row *{
     color:white;
 }
+
+.icons img{
+    background-color: transparent;
+    width: 3rem;
+    cursor: pointer;
+}
+
+.item i{
+    font-size: 16px;
+    margin-left: 0.5rem;
+    margin-right: 1rem;
+}

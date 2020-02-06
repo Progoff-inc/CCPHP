@@ -89,19 +89,4 @@ else
 {  
     echo "Введенные данные некорректны";
 }
-// if(isset($_GET['Key']))
-// {
-    
-//     $q = $db->query('SELECT * FROM exam_marks');
-//     $res = [];
-//     while ($row = $q->fetch()) {
-//         $res[] = new Entree($row['MARK']*1, $row['EXAM_DATE']);
-        
-//     }
-//     echo json_encode($res,true);
-// }
-// else
-// {  
-//     echo "Введенные данные некорректны";
-// }
 ?>

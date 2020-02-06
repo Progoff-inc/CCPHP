@@ -31,9 +31,6 @@ if(isset($_GET['Key']))
         case 'get-user':
             echo json_encode($ctxt->getUser($_GET['Email'], $_GET['Password']));
             break;
-        case 'get-user-by-id':
-            echo json_encode($ctxt->getUserById($_GET['Id']));
-            break;
         case 'add-user':
             $b = json_decode(file_get_contents('php://input'), true);
             echo json_encode($ctxt->addUser($b['Name'], $b['Email'], $b['Password'], $b['Phone'], $b['Lang']));
