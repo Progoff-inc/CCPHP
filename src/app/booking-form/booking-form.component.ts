@@ -125,6 +125,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
       };
       this.service.BookCar(this.book).subscribe(
         data => {
+          console.log(data);
           this.service.clearDates();
           this.ngOnInit();
         },

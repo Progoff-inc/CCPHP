@@ -55,7 +55,7 @@ if(isset($_GET['Key']))
             break;
         case 'add-booking':
             $b = json_decode(file_get_contents('php://input'), true); 
-            echo json_encode($ctxt->addBooking($b));
+            echo json_encode($ctxt->addBooking($b, $_GET['Lang']));
             break;
         case 'update-car':
             $b = json_decode(file_get_contents('php://input'), true); 

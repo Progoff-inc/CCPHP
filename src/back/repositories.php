@@ -170,27 +170,37 @@ class DataBase {
             
         
     }
-    public function addBooking($book){
-        
+    public function addBooking($book, $lang){
         $res = $this->genInsertQuery($book,"books");
         $car = $this->getCar($book['CarId'], false);
         $user = $this->getUserById($book['UserId'], false);
         $s = $this->db->prepare($res[0]);
         $s->execute($res[1]); 
         $subject = "Бронирование автомобиля"; 
-            
-        $message = "<h2>Вы успешно забронировали автомобиль на сайте <a href='http://car4crete.com/'>www.car4crete.com</a>!</h2>
-        </br> <p>Наш менеджер свяжется с вами для подтверждения наличия автомобиля. Бронь вы можете просмотреть в личном кабинете на сайте. Там же есть возможность изменить бронь за неделю до начала аренды или отменить её за три дня до начала аренды.</p></br>
-        <p></br></br><h3>Детали бронирования:</h3></p> </br>
-        <p>Автомобиль: ".$car->Model."</p></br>
-        <p>Дата начала аренды: ".date("d.m.Y H:i",strtotime($book['DateStart']))."</p></br>
-        <p>Дата конца аренды: ".date("d.m.Y H:i",strtotime($book['DateFinish']))."</p></br>
-        <p></br>Сумма заказа: ".$book['Sum']."€</p></br>";
+        $message = '';
+        if($lang == 'ru'){
+            $message = "<h2>Вы успешно забронировали автомобиль на сайте <a href='http://car4crete.com/'>www.car4crete.com</a>!</h2>
+            </br> <p>Наш менеджер свяжется с вами для подтверждения наличия автомобиля. Бронь вы можете просмотреть в личном кабинете на сайте. Там же есть возможность изменить бронь за неделю до начала аренды или отменить её за три дня до начала аренды.</p></br>
+            <p></br></br><h3>Детали бронирования:</h3></p> </br>
+            <p>Автомобиль: ".$car->Model."</p></br>
+            <p>Дата начала аренды: ".date("d.m.Y H:i",strtotime($book['DateStart']))."</p></br>
+            <p>Дата конца аренды: ".date("d.m.Y H:i",strtotime($book['DateFinish']))."</p></br>
+            <p></br>Сумма заказа: ".$book['Sum']."€</p></br>";
+        } else {
+            $message = "<h2>You have successfully booked a car on <a href='http://car4crete.com/'>www.car4crete.com</a>!</h2>
+            </br> <p>Our manager will contact you to confirm the presence of the car. You can view the reservation in your personal office on the site. There is also an opportunity to change the reservation a week before the start of the lease or to cancel it three days before the start of the lease.</p></br>
+            <p></br></br><h3>Booking details:</h3></p> </br>
+            <p>Car: ".$car->Model."</p></br>
+            <p>Lease start date: ".date("d.m.Y H:i",strtotime($book['DateStart']))."</p></br>
+            <p>Lease end date: ".date("d.m.Y H:i",strtotime($book['DateFinish']))."</p></br>
+            <p></br>Order value: ".$book['Sum']."€</p></br>";
+        }   
+        
         
         $headers  = "Content-type: text/html; charset=utf-8 \r\n";
         
         mail($user->Email, $subject, $message, $headers);
-        return array($user->Email, $subject, $message, $headers);
+        return true;
     }
     public function addPrices($token, $id,$p){
         if($this->checkToken($token, 0, true)){
