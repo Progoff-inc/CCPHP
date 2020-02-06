@@ -1,3 +1,6 @@
+.logo{
+    text-decoration: none;
+}
 .topmenu{
     z-index: 1;
     position: relative;
@@ -115,7 +118,7 @@ li.link-active a:focus {
 }
 .nav{
   display:flex;
-  justify-content:space-around;
+  justify-content:space-between;
   
 }
 .in{

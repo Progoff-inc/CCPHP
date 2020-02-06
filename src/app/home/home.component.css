@@ -29,6 +29,7 @@
     border-radius: 20px;
     background-color: white;
     box-shadow: 0 0 3px  black inset;
+    min-width: 45vw;
 }
 
 .best-cars{
@@ -103,7 +104,7 @@
         font-size: 30px;
     }
     .show-advs{
-        margin-top:680px !important;
+        margin-top:480px !important;
     }
     .car-slide{
         max-height: 70vh;
@@ -111,7 +112,7 @@
     }
     .advs{
         
-        top: -850px;
+        top: -650px;
         min-height: 500px;
         width: 100%;
         position: absolute;

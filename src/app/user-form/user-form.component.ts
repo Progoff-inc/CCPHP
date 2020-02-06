@@ -1,122 +1,136 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {UserService} from '../services/UserService';
-import { AlertService } from '../services/AlertService';
+import { Component, OnInit, Input } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { UserService } from "../services/UserService";
+import { AlertService } from "../services/AlertService";
 
 @Component({
-  selector: 'user-form',
-  templateUrl: './user-form.component.html',
-  styleUrls: ['./user-form.component.css']
+  selector: "user-form",
+  templateUrl: "./user-form.component.html",
+  styleUrls: ["./user-form.component.css"]
 })
 export class UserFormComponent implements OnInit {
   @Input() service: UserService;
-  @Input() alert:AlertService;
+  @Input() alert: AlertService;
 
   userForm: FormGroup;
   submitted = false;
   showError = false;
-  
-  constructor(private formBuilder: FormBuilder) {
-    
+
+  constructor(private formBuilder: FormBuilder) {}
+  get f() {
+    return this.userForm.controls;
   }
-  get f() { return this.userForm.controls; }
-  
+
   onSubmit() {
-    this.submitted=true;
+    this.submitted = true;
     if (this.userForm.invalid) {
-      if(this.service.type==1){
+      if (this.service.type == 1) {
         return;
       }
-      if(this.f.Password.errors || this.f.Email.errors ){
+      if (this.f.Password.errors || this.f.Email.errors) {
         return;
       }
-      
     }
-    if(this.service.type==1){
-      this.service.AddUser(this.userForm.value).subscribe(data=>{
-        if(data){
-          this.service.Token = data[1];
-          data = data[0];
-          data['Password']=this.userForm.value.Password;
-          this.service.currentUser=data;
-          
+    if (this.service.type == 1) {
+      this.service.AddUser(this.userForm.value).subscribe(
+        data => {
+          if (data) {
+            this.service.Token = data[1];
+            data = data[0];
+            data["Password"] = this.userForm.value.Password;
+            this.service.currentUser = data;
 
-          localStorage.setItem('currentUser',JSON.stringify(data));
-      
-          this.alert.showA({type:'success',message:'Пользователь успешно зарегистрирован',show:true});
-          this.service.ShowForm();
-        }else{
-          this.showError=true;
-        }
-        
-      },error => {
-        this.alert.showA({type:'wrong',message:'Пользователь уже зарегистрирован',show:true});
-        this.submitted=false;
-        this.userForm.reset();
-      })
-    }
+            localStorage.setItem("currentUser", JSON.stringify(data));
 
-    if(this.service.type==0){
-      this.service.GetUser(this.userForm.value).subscribe(data=>{
-        if(!data[0].Id){
-          this.alert.showA({type:'wrong',message:'Пользователь не найден',show:true});
-          this.submitted=false;
-          this.userForm.reset();
-        }else{
-          
-          this.service.Token = data[1];
-          data = data[0];
-          data['Password']=this.userForm.value.Password;
-          this.service.currentUser=data;
-          if(data.Books){
-            this.service.currentUser.Books.forEach(x =>{
-              x.DateFinish=new Date(x.DateFinish);
-              x.CreateDate=new Date(x.CreateDate);
-              x.DateStart=new Date(x.DateStart);
-            })
+            this.alert.showA({
+              type: "success",
+              message: "Пользователь успешно зарегистрирован",
+              show: true
+            });
+            this.service.ShowForm();
+          } else {
+            this.showError = true;
           }
-          if(data.Reports){
-            this.service.currentUser.Reports.forEach(x =>{
-            
-              x.CreatedDate=new Date(x.CreatedDate);
-              
-            })
-          }
-          
-          localStorage.setItem('currentUser',JSON.stringify(data));
-          console.log(localStorage.getItem('currentUser'));
-          this.alert.showA({type:'success',message:'Вы успешно вошли',show:true});
-          this.service.ShowForm();
-        }
-        
-      },error => {
-        
-        if(error.status==500){
-          this.alert.showA({type:'wrong',message:'Пользователь не найден',show:true});
-          this.submitted=false;
+        },
+        error => {
+          this.alert.showA({
+            type: "wrong",
+            message: "Пользователь уже зарегистрирован",
+            show: true
+          });
+          this.submitted = false;
           this.userForm.reset();
         }
-        // else{
-        //   this.alert.showA({type:'wrong',message:'Неверный пароль',show:true});
-        //   this.submitted=false;
-        // }
-      })
+      );
     }
-    
+
+    if (this.service.type == 0) {
+      this.service.GetUser(this.userForm.value).subscribe(
+        data => {
+          if (!data[0].Id) {
+            this.alert.showA({
+              type: "wrong",
+              message: "Пользователь не найден",
+              show: true
+            });
+            this.submitted = false;
+            this.userForm.reset();
+          } else {
+            this.service.Token = data[1];
+            data = data[0];
+            data["Password"] = this.userForm.value.Password;
+            this.service.currentUser = data;
+            if (data.Books) {
+              this.service.currentUser.Books.forEach(x => {
+                x.DateFinish = new Date(x.DateFinish);
+                x.CreateDate = new Date(x.CreateDate);
+                x.DateStart = new Date(x.DateStart);
+              });
+            }
+            if (data.Reports) {
+              this.service.currentUser.Reports.forEach(x => {
+                x.CreatedDate = new Date(x.CreatedDate);
+              });
+            }
+
+            localStorage.setItem("currentUser", JSON.stringify(data));
+            this.alert.showA({
+              type: "success",
+              message: "Вы успешно вошли",
+              show: true
+            });
+            this.service.ShowForm();
+          }
+        },
+        error => {
+          if (error.status == 500) {
+            this.alert.showA({
+              type: "wrong",
+              message: "Пользователь не найден",
+              show: true
+            });
+            this.submitted = false;
+            this.userForm.reset();
+          }
+          // else{
+          //   this.alert.showA({type:'wrong',message:'Неверный пароль',show:true});
+          //   this.submitted=false;
+          // }
+        }
+      );
+    }
   }
-  changeType(type:number){
-    this.service.type=type;
-    this.submitted=false;
-  } 
+  changeType(type: number) {
+    this.service.type = type;
+    this.submitted = false;
+  }
   ngOnInit() {
     this.userForm = this.formBuilder.group({
-      Name: ['', Validators.required],
-      Email: ['', Validators.required],
-      Password: ['', Validators.required],
-      Tel:[''],
-      Lang:['']      
+      Name: [null, Validators.required],
+      Email: [null, [Validators.required, Validators.email]],
+      Password: [null, Validators.required],
+      Tel: [null, Validators.pattern('[0-9]{11}')],
+      Lang: [null],
     });
-
   }
-
 }

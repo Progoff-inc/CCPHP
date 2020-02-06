@@ -25,7 +25,7 @@
         <div class="col-sm-10">
           <div class="item" *ngIf="this.service.type==1">
             <span [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }">Телефон</span>
-            <input class="input" formControlName="Tel" [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }" value="{{user?(user.Tel?user.Tel:''):''}}" name="name" type="tel" pattern="[0-9]{11}" required>
+            <input class="input" formControlName="Tel" [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }" type="tel">
             <div *ngIf="submitted && f.Tel.errors" class="invalid-feedback">
               
               <span class="d-block is-invalid" *ngIf="f.Tel.errors.pattern">Формат: 89161782323</span>

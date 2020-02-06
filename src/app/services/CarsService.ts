@@ -14,6 +14,36 @@ export class CarsService implements OnInit {
     StartPoint:string = undefined;
     EndPoint:string = undefined;
     CurFilters = [];
+    public locations: string[] = [
+        "AIR_HER",
+        "PORT_HER",
+        "HERAKLION_DOWNTOWN",
+        "AMOUDARA",
+        "LIGIRIA",
+        "AGIA_PELAGIA",
+        "FODELE",
+        "KOKKINI_HANI",
+        "GOURNES",
+        "GOUVES",
+        "ANALIPSI",
+        "ANISSARAS",
+        "CHERSONISSOS",
+        "KOUTOULOUFARI",
+        "PISKOPIANO",
+        "STALIS",
+        "MALIA",
+        "SISSI",
+        "MILATOS",
+        "AGIOS_NIKOLAS",
+        "ELOUNDA",
+        "IERAPETRA",
+        "RETHIMNO",
+        "SKALETA",
+        "PANORMO",
+        "GEORGIOUPOLIS",
+        "BALI",
+        "CHANIA"
+      ];
     public car: Car = null;
     baseUrl:string='http://client.nomokoiw.beget.tech/back/';
     //baseUrl = 'http://localhost:80/CCPHP/';

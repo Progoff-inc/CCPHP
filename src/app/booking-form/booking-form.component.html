@@ -71,10 +71,6 @@
                       <i class="fa fa-tachometer"></i>
                       <span>{{"CONSUMPTION" | translate}}: {{service.car?service.car.Consumption:''}}{{"L"|translate}}/100{{"KM"|translate}}</span>
                     </div>
-                    <!-- <div *ngIf="service.car?service.car.AC:false" class="detail-item">
-                      <i class="fa fa-snowflake-o"></i>
-                      <span>A/C</span>
-                    </div> -->
                     <div class="detail-item">
                       <i class="fa fa-user"></i>
                       <span>{{'MINAGE'| translate}}: {{service.car?service.car.MinAge:''}}</span>
@@ -110,12 +106,6 @@
                     </div>
                   </div>
               </div>
-              <!-- <div *ngIf="service.car"  class="col-sm-5">
-                  <h4>{{'INCLUDE'|translate}}</h4>
-                  <div class="include" *ngFor="let include of translate.currentLang=='ru'?service.car.Includes:service.car.IncludesEng">
-                    <p><i class="fa fa-check" aria-hidden="true"></i> {{include}}</p>
-                  </div>
-              </div> -->
             </div>
             
           </div>
@@ -159,11 +149,6 @@
                   <div class="col-sm-6">
                     <div class="item">
                         <span [ngClass]="{ 'is-invalid': submitted && !book.DateStart }">{{'DATE_START'|translate}}</span>
-                        <!--<input formControlName="DateStart" [ngClass]="{ 'is-invalid': submitted && f.DateStart.errors }" type="date" value="{{book.DateStart?book.DateStart:''}}" #DateStart required>
-                        <div *ngIf="submitted && f.DateStart.errors" class="invalid-feedback">
-                            <span class="d-block is-invalid" *ngIf="f.DateStart.errors.required">{{'ENTER_DATE'|translate}}</span>
-                            
-                        </div> -->
                         <date-picker  [MinDate]="minDate" [Intervals]="invalidIntarvals" [DateStart]="book.DateStart"
                         [DateFinish]="book.DateFinish"  [ChoosedDate]="book.DateStart"
                         (change)="(book.DateStart = $event) && checkDates()"></date-picker>
@@ -178,11 +163,6 @@
                     
                     <div class="item">
                         <span [ngClass]="{ 'is-invalid': submitted && !book.DateFinish }">{{'DATE_END'|translate}}</span>
-                        <!--<input formControlName="DateFinish" [ngClass]="{ 'is-invalid': submitted && f.DateFinish.errors }" type="date" #DateFinish required>
-                        <div *ngIf="submitted && f.DateFinish.errors" class="invalid-feedback">
-                            <span class="d-block is-invalid" *ngIf="f.DateFinish.errors.required">{{'ENTER_DATE'|translate}}</span>
-                            
-                        </div> -->
                         <date-picker
                           [MinDate]="book.DateStart?book.DateStart:minDate" 
                           [Intervals]="invalidIntarvals"
@@ -225,7 +205,7 @@
                     <div class="item">
                       <span [ngClass]="{ 'is-invalid': submitted && f.Place.errors }">{{'PICK_UP_LOCATION'|translate}}</span>
                       <select formControlName="Place" class="input" [ngClass]="{ 'is-invalid': submitted && f.Place.errors }" required>
-                        <option *ngFor="let t of locations" value="{{t}}">{{t | translate}}</option>
+                        <option *ngFor="let t of service.locations" value="{{t}}">{{t | translate}}</option>
                       </select>
                       <div *ngIf="submitted && f.Place.errors" class="invalid-feedback">
                         <span class="d-block is-invalid" *ngIf="f.Place.errors.required">{{'PICK_UP_VALIDATION'|translate}}</span>
@@ -236,7 +216,7 @@
                     <div class="item">
                       <span [ngClass]="{ 'is-invalid': submitted && f.PlaceOff.errors }">{{'DROP_OFF_LOCATION'|translate}}</span>
                       <select formControlName="PlaceOff" class="input" [ngClass]="{ 'is-invalid': submitted && f.PlaceOff.errors }" required>
-                        <option *ngFor="let t of locations" value="{{t}}">{{t | translate}}</option>
+                        <option *ngFor="let t of service.locations" value="{{t}}">{{t | translate}}</option>
                       </select>
                       <div *ngIf="submitted && f.PlaceOff.errors" class="invalid-feedback">
                         <span class="d-block is-invalid" *ngIf="f.PlaceOff.errors.required">{{'DROP_OFF_VALIDATION'|translate}}</span>

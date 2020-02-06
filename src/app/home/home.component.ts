@@ -13,7 +13,6 @@ export class HomeComponent implements OnInit {
 
   times:Date[] = [];
   minTime = 0;
-  locations:string[] = ['AIR_HER','AN_PAPAN','HERSONISOS'];
   // tslint:disable-next-line:whitespace
   search:Search = new Search();
   DStart:Date= new Date();
