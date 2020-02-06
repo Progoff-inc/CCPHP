@@ -29,7 +29,8 @@
     border-radius: 20px;
     background-color: white;
     box-shadow: 0 0 3px  black inset;
-    min-width: 45vw;
+    width: 45vw;
+    max-width: 500px;
 }
 
 .best-cars{

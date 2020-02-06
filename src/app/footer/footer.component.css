@@ -29,3 +29,14 @@ img{
     margin-left: 0.5rem;
     margin-right: 1rem;
 }
+
+.ARR{
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem;
+}
+
+.ARR a{
+    color: rgb(182, 22, 32);
+}
