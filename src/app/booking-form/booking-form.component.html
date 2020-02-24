@@ -1,261 +1,465 @@
-
 <div *ngIf="service.car" class="container-fluid">
   <div *ngIf="!showBook" class="booking-container">
-      <div class="form-container">
-          <div class="car-info">
-            <h1>{{service.car?service.car.Model:''}}</h1>
-            <div class="row">
-              <div class="col-sm-4">
-                <div class="car-img">
-                  <img src="{{service.car?service.car.Photo:''}}" alt="">
-                  <div class="blur"></div>
-                  <!-- <i (click)="showCarPhotos()" class="fa fa-picture-o" aria-hidden="true"></i> -->
-                </div>
-                
-              </div>
-              <div class="col-sm-7">
-                <div class="bars">
-                  <div class="pros">
-                    <span>{{'CAR_LOOK' | translate}}</span>
-                    <div class="progress-container">
-                      
-                        <div style="background-color: rgb(34, 174, 255)" class="progress" [ngStyle]="{'width':getProgress('Look', service.car)}" ></div>
-                        <span class="bars-label"> {{Round(rating.Look/200*5)}}</span>
-                    </div>
-                  
-                  </div>
-                  <div class="pros">
-                    <span>{{'CAR_COMFORT' | translate}}</span>
-                    <div class="progress-container">
-                        
-                        <div style="background-color: rgb(34, 174, 255)" class="progress" [ngStyle]="{'width':getProgress('Comfort', service.car)}" ></div>
-                        <span class="bars-label"> {{Round(rating.Comfort/200*5)}}</span>
-                    </div>
-                   
-                  </div>
-                  <div class="pros">
-                    <span>{{'CAR_DRIVE' | translate}}</span>
-                    <div class="progress-container">
-                        <div style="background-color: rgb(34, 174, 255)" class="progress" [ngStyle]="{'width':getProgress('Drive', service.car)}" ></div>
-                        <span class="bars-label"> {{Round(rating.Drive/200*5)}}</span>
-                    </div>
-                    
-                  </div>
-                  
-                  
-                  
-                </div>
-                
-                <p>{{translate.currentLang=='ru'?(service.car?service.car.Description:''):service.car.Description_ENG}}</p>
-                
-                <span *ngIf="book.DateStart && book.DateFinish">{{"PRICE" | translate}}: {{service.car?service.getCarPrice(service.car, book.DateStart, book.DateFinish):''}}€</span> 
-              </div>
+    <div class="form-container">
+      <div class="car-info">
+        <h1>{{ service.car ? service.car.Model : "" }}</h1>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="car-img">
+              <img src="{{ service.car ? service.car.Photo : '' }}" alt="" />
+              <div class="blur"></div>
+              <!-- <i (click)="showCarPhotos()" class="fa fa-picture-o" aria-hidden="true"></i> -->
             </div>
-            <div class="row car-info-area" style="margin-top: 20px; padding-top: 10px; border-top:1px solid lightgray; ">
-              <div class="col-sm-4">
-                <h4>{{'CAR_FEATURES'|translate}}</h4>
-                  <div class="details">
-                    <div class="detail-item">
-                      <i class="fa fa-male"></i>
-                      <span>{{"PASSENGERS" | translate}}: {{service.car?service.car.Passengers:''}}</span>
-                    </div>
-                    <div class="detail-item">
-                      <i class="fa fa-car"></i>
-                      <span>{{"DOORS" | translate}}: {{service.car?service.car.Doors:''}}</span>
-                    </div>
-                    <div class="detail-item">
-                      <i class="fa fa-cogs"></i>
-                      <span>{{"TRANSMISSION" | translate}}: {{service.car?(service.car.Transmission.toUpperCase() | translate):'' }}</span>
-                    </div>
-                    <div class="detail-item">
-                      <i class="fa fa-tachometer"></i>
-                      <span>{{"CONSUMPTION" | translate}}: {{service.car?service.car.Consumption:''}}{{"L"|translate}}/100{{"KM"|translate}}</span>
-                    </div>
-                    <div class="detail-item">
-                      <i class="fa fa-user"></i>
-                      <span>{{'MINAGE'| translate}}: {{service.car?service.car.MinAge:''}}</span>
-                    </div>
-                    <div class="detail-item">
-                      <i class="fa fa-truck"></i>
-                      <span>{{'BODY'| translate}}: {{service.car?(service.car.BodyType.toUpperCase() | translate):''}}</span>
-                    </div>
-                    <div class="detail-item">
-                      <i class="fa fa-tint"></i>
-                      <span>{{"FUEL" | translate}}: {{service.car?(service.car.Fuel.toUpperCase() | translate):'' }}</span>
-                    </div>
-                  </div>
-              </div>
-              <div class="col-sm-3">
-                <h4>{{'DEFAULT_EQUIPMENT'|translate}}</h4>
-                  <div class="details">
-                    <div *ngIf="service.car?service.car.ABS:false" class="detail-item">
-                        <i class="fa fa-road" aria-hidden="true"></i>
-                      <span>ABS</span>
-                    </div>
-                    <div *ngIf="service.car?service.car.AC:false" class="detail-item">
-                      <i class="fa fa-snowflake-o"></i>
-                      <span>A/C</span>
-                    </div>
-                    <div *ngIf="service.car?service.car.AirBags:false" class="detail-item">
-                      <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                      <span>{{'AIRBAGS'|translate}}</span>
-                    </div>
-                    <div *ngIf="service.car?service.car.Radio:false" class="detail-item">
-                      <i class="fa fa-volume-up" aria-hidden="true"></i>
-                      <span>{{'RADIO' | translate}}</span>
-                    </div>
-                  </div>
-              </div>
-            </div>
-            
           </div>
-          <!-- <div class="sep"></div> -->
-          <div class="form-container-in">
-            <h3>{{'BOOKING_FORM' | translate}}</h3>
-            <form [formGroup]="bookingForm"  (ngSubmit)="onSubmit(DateStart, DateFinish)">
-    
-                <div class="row">
-                  <div class="col-sm-6">
-                      <div class="item">
-                        <span [ngClass]="{ 'is-invalid': submitted && f.Name.errors }">{{'NAME'|translate}}</span>
-                        <input formControlName="Name" [ngClass]="{ 'is-invalid': submitted && f.Name.errors }" class="input" name="name" type="text" value="{{user?user.Name:''}}" required>
-                        <div *ngIf="submitted && f.Name.errors" class="invalid-feedback">
-                          <span class="d-block is-invalid" *ngIf="f.Name.errors.required">{{'NAME_VALIDATION'|translate}}</span>
-                  
-                        </div>
-                      </div>
-                      <div class="item">
-                        <span [ngClass]="{ 'is-invalid': submitted && f.Email.errors }">{{'EMAIL'|translate}}</span>
-                        <input formControlName="Email" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" class="input" value="{{user?user.Email:''}}" name="name" type="Email" >
-                        
-                        <div *ngIf="submitted && !!f.Email.errors" class="invalid-feedback">
-                            <span class="d-block is-invalid" *ngIf="f.Email.errors.required">{{'EMAIL_VALIDATION'|translate}}</span>
-                            <span class="d-block is-invalid" *ngIf="f.Email.errors.email">{{'EMAIL_VALIDATION'|translate}}</span>
-                        </div>
-                      </div>
-                      <div class="item">
-                          <span [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }">{{'PHONE'|translate}}</span>
-                          <input formControlName="Tel" [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }" class="input"  name="name" type="tel" pattern="(^\+?\d{1,3}?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$|^((\+?7|8)[ \-] ?)?((\(\d{3}\))|(\d{3}))?([ \-])?(\d{3}[\- ]?\d{2}[\- ]?\d{2})$)" required>
-                          <div *ngIf="submitted && f.Tel.errors" class="invalid-feedback">
-                            <span class="d-block is-invalid" *ngIf="f.Tel.errors.required">{{'PHONE_VALIDATION'|translate}}</span>
-                            <span class="d-block is-invalid" *ngIf="f.Tel.errors.pattern">{{'FORMAT'|translate}}: 89161782323</span>
-                          </div>
-                      </div>
-                      <div class="item">
-                        <span>{{'MODEL'|translate}}</span>
-                        <input value="{{service.car?service.car.Model:''}}" readonly type="text">
-                      </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="item">
-                        <span [ngClass]="{ 'is-invalid': submitted && !book.DateStart }">{{'DATE_START'|translate}}</span>
-                        <date-picker  [MinDate]="minDate" [Intervals]="invalidIntarvals" [DateStart]="book.DateStart"
-                        [DateFinish]="book.DateFinish"  [ChoosedDate]="book.DateStart"
-                        (change)="(book.DateStart = $event) && checkDates()"></date-picker>
-                        <div *ngIf="submitted && !book.DateStart" class="invalid-feedback">
-                            <span class="d-block is-invalid" >{{'ENTER_DATE'|translate}}</span>
-                            
-                        </div>
-                        
-                    
-                        
-                    </div>
-                    
-                    <div class="item">
-                        <span [ngClass]="{ 'is-invalid': submitted && !book.DateFinish }">{{'DATE_END'|translate}}</span>
-                        <date-picker
-                          [MinDate]="book.DateStart?book.DateStart:minDate" 
-                          [Intervals]="invalidIntarvals"
-                          [DateStart]="book.DateStart"
-                          [DateFinish]="book.DateFinish"
-                          [ChoosedDate]="book.DateFinish"
-                          [Limitted]="true"
-                          (change)="book.DateFinish = $event"
-                        ></date-picker>
-                        <div *ngIf="submitted && !book.DateFinish" class="invalid-feedback">
-                            <span class="d-block is-invalid" >{{'ENTER_DATE'|translate}}</span>
-                            
-                        </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <div *ngIf="book.DateStart" class="item">
-                          <span >{{'PICK_UP_TIME'|translate}}</span>
-                          <select formControlName="Time" class="input time" (change)="setMinTime($event)">
-                            <option *ngFor="let time of getTimes(0)" value="{{time}}">{{time | date:'HH:mm'}}</option>
-                          </select>
-                          
-                      
-                        </div>
-                      </div>
-                      <div class="col-sm-6">
-                        <div *ngIf="book.DateFinish" class="item">
-                          <span >{{'DROP_OFF_TIME'|translate}}</span>
-                          <select formControlName="TimeOff" class="input time" >
-                            <option *ngFor="let time of getTimes(minTime)" value="{{time}}">{{time | date:'HH:mm'}}</option>
-                          </select>
-                          
-                      
-                        </div>
-                      </div>
-                    </div>
-                    
-                    
-                    
-                    <div class="item">
-                      <span [ngClass]="{ 'is-invalid': submitted && f.Place.errors }">{{'PICK_UP_LOCATION'|translate}}</span>
-                      <select formControlName="Place" class="input" [ngClass]="{ 'is-invalid': submitted && f.Place.errors }" required>
-                        <option *ngFor="let t of service.locations" value="{{t}}">{{t | translate}}</option>
-                      </select>
-                      <div *ngIf="submitted && f.Place.errors" class="invalid-feedback">
-                        <span class="d-block is-invalid" *ngIf="f.Place.errors.required">{{'PICK_UP_VALIDATION'|translate}}</span>
-                
-                      </div>
-                  
-                    </div>
-                    <div class="item">
-                      <span [ngClass]="{ 'is-invalid': submitted && f.PlaceOff.errors }">{{'DROP_OFF_LOCATION'|translate}}</span>
-                      <select formControlName="PlaceOff" class="input" [ngClass]="{ 'is-invalid': submitted && f.PlaceOff.errors }" required>
-                        <option *ngFor="let t of service.locations" value="{{t}}">{{t | translate}}</option>
-                      </select>
-                      <div *ngIf="submitted && f.PlaceOff.errors" class="invalid-feedback">
-                        <span class="d-block is-invalid" *ngIf="f.PlaceOff.errors.required">{{'DROP_OFF_VALIDATION'|translate}}</span>
-                
-                      </div>
-                  
-                    </div>
-                      
-                    
-                  </div>
+          <div class="col-sm-7">
+            <div class="bars">
+              <div class="pros">
+                <span>{{ "CAR_LOOK" | translate }}</span>
+                <div class="progress-container">
+                  <div
+                    style="background-color: rgb(34, 174, 255)"
+                    class="progress"
+                    [ngStyle]="{ width: getProgress('Look', service.car) }"
+                  ></div>
+                  <span class="bars-label">
+                    {{ Round((rating.Look / 200) * 5) }}</span
+                  >
                 </div>
-                <div class="item ">
-                    <span>{{'COMMENT'|translate}}</span>
-                    <textarea class="input" formControlName="Coment"  cols="10" rows="5" #report></textarea>
-                    
+              </div>
+              <div class="pros">
+                <span>{{ "CAR_COMFORT" | translate }}</span>
+                <div class="progress-container">
+                  <div
+                    style="background-color: rgb(34, 174, 255)"
+                    class="progress"
+                    [ngStyle]="{ width: getProgress('Comfort', service.car) }"
+                  ></div>
+                  <span class="bars-label">
+                    {{ Round((rating.Comfort / 200) * 5) }}</span
+                  >
                 </div>
-                <div  *ngIf="book.DateStart && book.DateFinish" class="item sum">
-                  <span>{{'SUM'|translate}}: {{service.getCarPrice(service.car, book.DateStart, book.DateFinish)}}€</span>
-                  
-                  
+              </div>
+              <div class="pros">
+                <span>{{ "CAR_DRIVE" | translate }}</span>
+                <div class="progress-container">
+                  <div
+                    style="background-color: rgb(34, 174, 255)"
+                    class="progress"
+                    [ngStyle]="{ width: getProgress('Drive', service.car) }"
+                  ></div>
+                  <span class="bars-label">
+                    {{ Round((rating.Drive / 200) * 5) }}</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <p>
+              {{
+                translate.currentLang == "ru"
+                  ? service.car
+                    ? service.car.Description
+                    : ""
+                  : service.car.Description_Eng
+              }}
+            </p>
+
+            <span *ngIf="book.DateStart && book.DateFinish"
+              >{{ "PRICE" | translate }}:
+              {{
+                service.car
+                  ? service.getCarPrice(
+                      service.car,
+                      book.DateStart,
+                      book.DateFinish
+                    )
+                  : ""
+              }}€</span
+            >
+          </div>
+        </div>
+        <div
+          class="row car-info-area"
+          style="margin-top: 20px; padding-top: 10px; border-top:1px solid lightgray; "
+        >
+          <div class="col-sm-4">
+            <h4>{{ "CAR_FEATURES" | translate }}</h4>
+            <div class="details">
+              <div class="detail-item">
+                <i class="fa fa-male"></i>
+                <span
+                  >{{ "PASSENGERS" | translate }}:
+                  {{ service.car ? service.car.Passengers : "" }}</span
+                >
+              </div>
+              <div class="detail-item">
+                <i class="fa fa-car"></i>
+                <span
+                  >{{ "DOORS" | translate }}:
+                  {{ service.car ? service.car.Doors : "" }}</span
+                >
+              </div>
+              <div class="detail-item">
+                <i class="fa fa-cogs"></i>
+                <span
+                  >{{ "TRANSMISSION" | translate }}:
+                  {{
+                    service.car
+                      ? (service.car.Transmission.toUpperCase() | translate)
+                      : ""
+                  }}</span
+                >
+              </div>
+              <div class="detail-item">
+                <i class="fa fa-tachometer"></i>
+                <span
+                  >{{ "CONSUMPTION" | translate }}:
+                  {{ service.car ? service.car.Consumption : ""
+                  }}{{ "L" | translate }}/100{{ "KM" | translate }}</span
+                >
+              </div>
+              <div class="detail-item">
+                <i class="fa fa-user"></i>
+                <span
+                  >{{ "MINAGE" | translate }}:
+                  {{ service.car ? service.car.MinAge : "" }}</span
+                >
+              </div>
+              <div class="detail-item">
+                <i class="fa fa-truck"></i>
+                <span
+                  >{{ "BODY" | translate }}:
+                  {{
+                    service.car
+                      ? (service.car.BodyType.toUpperCase() | translate)
+                      : ""
+                  }}</span
+                >
+              </div>
+              <div class="detail-item">
+                <i class="fa fa-tint"></i>
+                <span
+                  >{{ "FUEL" | translate }}:
+                  {{
+                    service.car
+                      ? (service.car.Fuel.toUpperCase() | translate)
+                      : ""
+                  }}</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <h4>{{ "DEFAULT_EQUIPMENT" | translate }}</h4>
+            <div class="details">
+              <div
+                *ngIf="service.car ? service.car.ABS : false"
+                class="detail-item"
+              >
+                <i class="fa fa-road" aria-hidden="true"></i>
+                <span>ABS</span>
+              </div>
+              <div
+                *ngIf="service.car ? service.car.AC : false"
+                class="detail-item"
+              >
+                <i class="fa fa-snowflake-o"></i>
+                <span>A/C</span>
+              </div>
+              <div
+                *ngIf="service.car ? service.car.AirBags : false"
+                class="detail-item"
+              >
+                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                <span>{{ "AIRBAGS" | translate }}</span>
+              </div>
+              <div
+                *ngIf="service.car ? service.car.Radio : false"
+                class="detail-item"
+              >
+                <i class="fa fa-volume-up" aria-hidden="true"></i>
+                <span>{{ "RADIO" | translate }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="sep"></div> -->
+      <div class="form-container-in">
+        <h3>{{ "BOOKING_FORM" | translate }}</h3>
+        <form
+          [formGroup]="bookingForm"
+          (ngSubmit)="onSubmit()"
+        >
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="item">
+                <span
+                  [ngClass]="{ 'is-invalid': submitted && f.Name.errors }"
+                  >{{ "NAME" | translate }}</span
+                >
+                <input
+                  formControlName="Name"
+                  [ngClass]="{ 'is-invalid': submitted && f.Name.errors }"
+                  class="input"
+                  name="name"
+                  type="text"
+                  value="{{ user ? user.Name : '' }}"
+                  required
+                />
+                <div
+                  *ngIf="submitted && f.Name.errors"
+                  class="invalid-feedback"
+                >
+                  <span
+                    class="d-block is-invalid"
+                    *ngIf="f.Name.errors.required"
+                    >{{ "NAME_VALIDATION" | translate }}</span
+                  >
+                </div>
+              </div>
+              <div class="item">
+                <span
+                  [ngClass]="{ 'is-invalid': submitted && f.Email.errors }"
+                  >{{ "EMAIL" | translate }}</span
+                >
+                <input
+                  formControlName="Email"
+                  [ngClass]="{ 'is-invalid': submitted && f.Email.errors }"
+                  class="input"
+                  value="{{ user ? user.Email : '' }}"
+                  name="name"
+                  type="Email"
+                />
+
+                <div
+                  *ngIf="submitted && !!f.Email.errors"
+                  class="invalid-feedback"
+                >
+                  <span
+                    class="d-block is-invalid"
+                    *ngIf="f.Email.errors.required"
+                    >{{ "EMAIL_VALIDATION" | translate }}</span
+                  >
+                  <span
+                    class="d-block is-invalid"
+                    *ngIf="f.Email.errors.email"
+                    >{{ "EMAIL_VALIDATION" | translate }}</span
+                  >
+                </div>
+              </div>
+              <div class="item">
+                <span [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }">{{
+                  "PHONE" | translate
+                }}</span>
+                <input
+                  formControlName="Tel"
+                  [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }"
+                  class="input"
+                  name="name"
+                  type="tel"
+                  pattern="(^\+?\d{1,3}?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$|^((\+?7|8)[ \-] ?)?((\(\d{3}\))|(\d{3}))?([ \-])?(\d{3}[\- ]?\d{2}[\- ]?\d{2})$)"
+                  required
+                />
+                <div *ngIf="submitted && f.Tel.errors" class="invalid-feedback">
+                  <span
+                    class="d-block is-invalid"
+                    *ngIf="f.Tel.errors.required"
+                    >{{ "PHONE_VALIDATION" | translate }}</span
+                  >
+                  <span class="d-block is-invalid" *ngIf="f.Tel.errors.pattern"
+                    >{{ "FORMAT" | translate }}: 89161782323</span
+                  >
+                </div>
+              </div>
+              <div class="item">
+                <span>{{ "MODEL" | translate }}</span>
+                <input
+                  value="{{ service.car ? service.car.Model : '' }}"
+                  readonly
+                  type="text"
+                />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="item">
+                <span
+                  [ngClass]="{ 'is-invalid': submitted && !book.DateStart }"
+                  >{{ "DATE_START" | translate }}</span
+                >
+                <date-picker
+                  [MinDate]="minDate"
+                  [Intervals]="invalidIntarvals"
+                  [DateStart]="book.DateStart"
+                  [DateFinish]="book.DateFinish"
+                  [ChoosedDate]="book.DateStart"
+                  (change)="(book.DateStart = $event) && checkDates()"
+                ></date-picker>
+                <div
+                  *ngIf="submitted && !book.DateStart"
+                  class="invalid-feedback"
+                >
+                  <span class="d-block is-invalid">{{
+                    "ENTER_DATE" | translate
+                  }}</span>
+                </div>
               </div>
 
-                <button class="btn btn-primary">{{'BOOK'|translate}}</button>
-                
-              </form>
+              <div class="item">
+                <span
+                  [ngClass]="{ 'is-invalid': submitted && !book.DateFinish }"
+                  >{{ "DATE_END" | translate }}</span
+                >
+                <date-picker
+                  [MinDate]="book.DateStart ? book.DateStart : minDate"
+                  [Intervals]="invalidIntarvals"
+                  [DateStart]="book.DateStart"
+                  [DateFinish]="book.DateFinish"
+                  [ChoosedDate]="book.DateFinish"
+                  [Limitted]="true"
+                  (change)="book.DateFinish = $event"
+                ></date-picker>
+                <div
+                  *ngIf="submitted && !book.DateFinish"
+                  class="invalid-feedback"
+                >
+                  <span class="d-block is-invalid">{{
+                    "ENTER_DATE" | translate
+                  }}</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div *ngIf="book.DateStart" class="item">
+                    <span>{{ "PICK_UP_TIME" | translate }}</span>
+                    <select
+                      formControlName="Time"
+                      class="input time"
+                      (change)="setMinTime($event)"
+                    >
+                      <option
+                        *ngFor="let time of getTimes(0)"
+                        value="{{ time }}"
+                        >{{ time | date: "HH:mm" }}</option
+                      >
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div *ngIf="book.DateFinish" class="item">
+                    <span>{{ "DROP_OFF_TIME" | translate }}</span>
+                    <select formControlName="TimeOff" class="input time">
+                      <option
+                        *ngFor="let time of getTimes(minTime)"
+                        value="{{ time }}"
+                        >{{ time | date: "HH:mm" }}</option
+                      >
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="item">
+                <span
+                  [ngClass]="{ 'is-invalid': submitted && f.Place.errors }"
+                  >{{ "PICK_UP_LOCATION" | translate }}</span
+                >
+                <select
+                  formControlName="Place"
+                  class="input"
+                  [ngClass]="{ 'is-invalid': submitted && f.Place.errors }"
+                  required
+                >
+                  <option *ngFor="let t of service.locations" value="{{ t }}">{{
+                    t | translate
+                  }}</option>
+                </select>
+                <div
+                  *ngIf="submitted && f.Place.errors"
+                  class="invalid-feedback"
+                >
+                  <span
+                    class="d-block is-invalid"
+                    *ngIf="f.Place.errors.required"
+                    >{{ "PICK_UP_VALIDATION" | translate }}</span
+                  >
+                </div>
+              </div>
+              <div class="item">
+                <span
+                  [ngClass]="{ 'is-invalid': submitted && f.PlaceOff.errors }"
+                  >{{ "DROP_OFF_LOCATION" | translate }}</span
+                >
+                <select
+                  formControlName="PlaceOff"
+                  class="input"
+                  [ngClass]="{ 'is-invalid': submitted && f.PlaceOff.errors }"
+                  required
+                >
+                  <option *ngFor="let t of service.locations" value="{{ t }}">{{
+                    t | translate
+                  }}</option>
+                </select>
+                <div
+                  *ngIf="submitted && f.PlaceOff.errors"
+                  class="invalid-feedback"
+                >
+                  <span
+                    class="d-block is-invalid"
+                    *ngIf="f.PlaceOff.errors.required"
+                    >{{ "DROP_OFF_VALIDATION" | translate }}</span
+                  >
+                </div>
+              </div>
             </div>
+          </div>
+          <div class="item ">
+            <span>{{ "COMMENT" | translate }}</span>
+            <textarea
+              class="input"
+              formControlName="Coment"
+              cols="10"
+              rows="5"
+              #report
+            ></textarea>
+          </div>
+          <div *ngIf="book.DateStart && book.DateFinish" class="item sum">
+            <span
+              >{{ "SUM" | translate }}:
+              {{
+                service.getCarPrice(
+                  service.car,
+                  book.DateStart,
+                  book.DateFinish
+                )
+              }}€</span
+            >
+          </div>
+
+          <button class="btn btn-primary">{{ "BOOK" | translate }}</button>
+        </form>
       </div>
     </div>
-    <div *ngIf="showBook" class="result">
-      <p>Ваш заказ сформирован, изменить и отменить его вы можете в <span class="ref">личном кабинете</span>.</p>
-    </div>
+  </div>
+  <div *ngIf="showBook" class="result">
+    <p>
+      Ваш заказ сформирован, изменить и отменить его вы можете в
+      <span class="ref">личном кабинете</span>.
+    </p>
+  </div>
 </div>
 <div class="reports-container">
-  <feedback *ngIf="service.car?!!service.car.Reports:false" [reports]="service.car.Reports" [type]="'car'"></feedback>
+  <feedback
+    *ngIf="service.car ? !!service.car.Reports : false"
+    [reports]="service.car.Reports"
+    [type]="'car'"
+  ></feedback>
 </div>
 
 <car-card *ngIf="service.showCarInfo" [service]="service"></car-card>
-<alert  [alert] ="alert"></alert>
-<photo-viewer *ngIf="showPhotos.show" [items]="photos" [show]="showPhotos"></photo-viewer>
-  
-  
-  
+<alert [alert]="alert"></alert>
+<photo-viewer
+  *ngIf="showPhotos.show"
+  [items]="photos"
+  [show]="showPhotos"
+></photo-viewer>

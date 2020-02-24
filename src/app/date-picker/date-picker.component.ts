@@ -159,7 +159,9 @@ export class DatePickerComponent implements OnInit, OnChanges {
     if(this.ChoosedDate && date.getTime() == this.ChoosedDate.getTime()){
       res['choosed-date']=1;
     }
-    
+    if(date.getMonth() !== this.currentMonthNum){
+      res['bg-light'] = 1;
+    }
     if(this.MinDate && date.getTime()<this.MinDate.getTime() || this.MaxDate && date.getTime()>this.MaxDate.getTime()){
       res['invalid-date'] = 1;
       

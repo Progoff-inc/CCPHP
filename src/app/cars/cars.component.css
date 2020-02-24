@@ -286,14 +286,13 @@
 }
 .filters-container{
     min-height: 0;
-    overflow: hidden;
+    /* overflow: hidden; */
     transition: 0.5s;
     min-width: 165px;
     background-color: white;
     box-shadow: 0 0 10px black inset;
     border-radius: 10px;
     padding-left: 10px !important;
-    padding-right: 0;
     margin-top: 20px;
     justify-items: flex-start;
 }

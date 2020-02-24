@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -32,13 +32,15 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { AboutCreteComponent } from './about-crete/about-crete.component';
 import { FooterComponent } from './footer/footer.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { SameCarsComponent } from './same-cars/same-cars.component';
 import { PhotoViewerComponent } from './photo-viewer/photo-viewer.component';
 import { AddComponent } from './add/add.component';
 import { LoadComponent } from './load/load.component';
 import { LoadService } from './services/load.service';
 import { ChangeBookComponent } from './change-book/change-book.component';
+import { InputDatepickerRangeComponent } from './input-datepicker-range/input-datepicker-range.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
@@ -59,7 +61,6 @@ export function HttpLoaderFactory1(http: HttpClient) {
     BookingFormComponent,
     FeedbackComponent,
     PagesComponent,
-    
     RatingComponent,
     PickerComponent,
     UserProfileComponent,
@@ -72,38 +73,52 @@ export function HttpLoaderFactory1(http: HttpClient) {
     PhotoViewerComponent,
     AddComponent,
     LoadComponent,
-    ChangeBookComponent
+    ChangeBookComponent,
+    InputDatepickerRangeComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     ReactiveFormsModule,
     AngularFontAwesomeModule,
+    NgbModule,
     TranslateModule.forRoot({
-      loader:{
+      loader: {
         provide: TranslateLoader,
         // можно указать свой путь к папке i18n где находятся файлы с переводом
-        useFactory: (HttpLoaderFactory),
+        useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    }), 
-    
+    }),
+
     FormsModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'allcars', component: CarsComponent },
-      { path: 'booking/:id', component: BookingFormComponent },
-      { path: 'change-book/:id', component: ChangeBookComponent },
-      { path: 'feedback', component:FeedbackComponent},
-      { path: 'user', component: UserProfileComponent},
-      { path: 'policy', component: RentalPolicyComponent},
-      { path: 'contacts', component: ContactsComponent},
-      { path: 'about', component: AboutCreteComponent},
-      { path: 'add', component: AddComponent},
-    ],{ useHash: true})
+    RouterModule.forRoot(
+      [
+        { path: '', component: HomeComponent, pathMatch: 'full' },
+        { path: 'counter', component: CounterComponent },
+        { path: 'allcars', component: CarsComponent },
+        { path: 'booking/:id', component: BookingFormComponent },
+        { path: 'change-book/:id', component: ChangeBookComponent },
+        { path: 'feedback', component: FeedbackComponent },
+        { path: 'user', component: UserProfileComponent },
+        { path: 'policy', component: RentalPolicyComponent },
+        { path: 'contacts', component: ContactsComponent },
+        { path: 'about', component: AboutCreteComponent },
+        { path: 'add', component: AddComponent }
+      ],
+      { useHash: true }
+    )
   ],
-  providers: [TranslateService, UserService, CarsService, AlertService, FeedBackService, MessagerService, HttpClient, LoadService],
+  providers: [
+    TranslateService,
+    UserService,
+    CarsService,
+    AlertService,
+    FeedBackService,
+    MessagerService,
+    HttpClient,
+    LoadService
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
