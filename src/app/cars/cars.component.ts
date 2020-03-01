@@ -5,6 +5,7 @@ import { User } from "../services/UserService";
 import { CarsService, Car, Filter, Book } from "../services/CarsService";
 import { LoadService } from "../services/load.service";
 import { FormControl, FormBuilder } from "@angular/forms";
+import { NgbDate } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: "cars",
@@ -45,6 +46,10 @@ export class CarsComponent {
         this.cars = data;
       }
       if (this.service.DateStart && this.service.DateFinish) {
+        this.dateRangeFilterControl.setValue({
+          fromDate: NgbDate.from({year: this.service.DateStart.getFullYear(), month: this.service.DateStart.getMonth(), day: this.service.DateStart.getDate()}),
+          toDate: NgbDate.from({year: this.service.DateFinish.getFullYear(), month: this.service.DateFinish.getMonth(), day: this.service.DateFinish.getDate()})
+        })
         this.cars = this.cars.filter(x => {
           for (let i = 0; i < x.Books.length; i++) {
             if (

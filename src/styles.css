@@ -45,6 +45,9 @@ select{
     padding-left: 10px;
     outline: none !important;
 }
+.hidden{
+    display: block !important; 
+}
 textarea.input{
     height: 80px;
 }
