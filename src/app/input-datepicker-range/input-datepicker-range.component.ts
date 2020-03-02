@@ -2,12 +2,25 @@ import { Component, forwardRef, Injectable } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { NgbDate, NgbInputDatepicker } from "@ng-bootstrap/ng-bootstrap";
 
-import {NgbDatepickerI18n, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerI18n, NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 
 const I18N_VALUES = {
-  'fr': {
-    weekdays: ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'],
-    months: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aou', 'Sep', 'Oct', 'Nov', 'Déc'],
+  fr: {
+    weekdays: ["Lu", "Ma", "Me", "Je", "Ve", "Sa", "Di"],
+    months: [
+      "Jan",
+      "Fév",
+      "Mar",
+      "Avr",
+      "Mai",
+      "Juin",
+      "Juil",
+      "Aou",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Déc"
+    ]
   }
   // other languages you would support
 };
@@ -16,13 +29,12 @@ const I18N_VALUES = {
 // use the Angular LOCALE_ID value
 @Injectable()
 export class I18n {
-  language = 'fr';
+  language = "fr";
 }
 
 // Define custom service providing the months and weekdays translations
 @Injectable()
 export class CustomDatepickerI18n extends NgbDatepickerI18n {
-
   constructor(private _i18n: I18n) {
     super();
   }
@@ -138,15 +150,19 @@ export class InputDatepickerRangeComponent implements ControlValueAccessor {
 
   /** установить период/дату в зависимости от выбранной даты */
   private setRange(date: NgbDate): void {
-
     if (!this.value.fromDate && !this.value.toDate) {
       this.value.fromDate = date;
-    } else if (this.value.fromDate && !this.value.toDate && date.after(this.value.fromDate)) {
+    } else if (
+      this.value.fromDate &&
+      !this.value.toDate &&
+      date.after(this.value.fromDate)
+    ) {
       this.value.toDate = date;
     } else {
       this.value.toDate = null;
       this.value.fromDate = date;
     }
+    console.log(this.value);
   }
 
   public getDate(date: NgbDate) {

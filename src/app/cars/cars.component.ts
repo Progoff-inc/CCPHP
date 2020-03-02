@@ -6,6 +6,7 @@ import { CarsService, Car, Filter, Book } from "../services/CarsService";
 import { LoadService } from "../services/load.service";
 import { FormControl, FormBuilder } from "@angular/forms";
 import { NgbDate } from "@ng-bootstrap/ng-bootstrap";
+import { DateRangeSelection } from "../input-datepicker-range/input-datepicker-range.component";
 
 @Component({
   selector: "cars",
@@ -34,47 +35,38 @@ export class CarsComponent {
   showPhotos: any = { show: false };
   filteredCars: Car[];
 
-  constructor(public service: CarsService, private ls: LoadService, private fb: FormBuilder) {
+  constructor(
+    public service: CarsService,
+    private ls: LoadService,
+    private fb: FormBuilder
+  ) {
     this.dateRangeFilterControl = this.fb.control(null);
-    this.dateRangeFilterControl.valueChanges.subscribe(v => {
-      console.log(v)
-    })
+    this.dateRangeFilterControl.valueChanges.subscribe(
+      (v: DateRangeSelection) => {
+        console.log(111);
+        if (v.fromDate) {
+          this.service.DateStart = new Date(
+            v.fromDate.year,
+            v.fromDate.month,
+            v.fromDate.day
+          );
+        }
+        if (v.toDate) {
+          this.service.DateFinish = new Date(
+            v.toDate.year,
+            v.toDate.month,
+            v.toDate.day
+          );
+        }
+        this.setDateRangeFilter();
+      }
+    );
     service.ngOnInit();
     this.ls.showLoad = true;
     this.service.GetCars().subscribe(data => {
       if (data.length !== 0) {
         this.cars = data;
       }
-      if (this.service.DateStart && this.service.DateFinish) {
-        this.dateRangeFilterControl.setValue({
-          fromDate: NgbDate.from({year: this.service.DateStart.getFullYear(), month: this.service.DateStart.getMonth(), day: this.service.DateStart.getDate()}),
-          toDate: NgbDate.from({year: this.service.DateFinish.getFullYear(), month: this.service.DateFinish.getMonth(), day: this.service.DateFinish.getDate()})
-        })
-        this.cars = this.cars.filter(x => {
-          for (let i = 0; i < x.Books.length; i++) {
-            if (
-              new Date(x.Books[i].DateStart).getTime() <=
-                this.service.DateStart.getTime() &&
-              new Date(x.Books[i].DateFinish).getTime() >=
-                this.service.DateStart.getTime()
-            ) {
-              return false;
-            } else if (
-              new Date(x.Books[i].DateStart).getTime() <=
-                this.service.DateFinish.getTime() &&
-              new Date(x.Books[i].DateFinish).getTime() >=
-                this.service.DateFinish.getTime()
-            ) {
-              return false;
-            } else {
-              return true;
-            }
-          }
-          return true;
-        });
-        this.showPrices = true;
-      }
-
       this.getFilters();
       if (this.service.CurFilters.length == 0) {
         this.filteredCars = this.cars;
@@ -82,8 +74,61 @@ export class CarsComponent {
         this.CurFilters = this.service.CurFilters;
         this.Filter();
       }
+      if (this.service.DateStart && this.service.DateFinish) {
+        this.setDateRangeFilter();
+        this.showPrices = true;
+      }
       this.ls.showLoad = false;
     });
+  }
+  setDateRangeFilter(cars: Car[] = this.filteredCars) {
+    if (this.service.DateStart && this.service.DateFinish) {
+      this.dateRangeFilterControl.setValue(
+        {
+          fromDate: NgbDate.from({
+            year: this.service.DateStart.getFullYear(),
+            month: this.service.DateStart.getMonth(),
+            day: this.service.DateStart.getDate()
+          }),
+          toDate: NgbDate.from({
+            year: this.service.DateFinish.getFullYear(),
+            month: this.service.DateFinish.getMonth(),
+            day: this.service.DateFinish.getDate()
+          })
+        },
+        { emitEvent: false }
+      );
+      this.filteredCars = cars.filter(x => {
+        for (let i = 0; i < x.Books.length; i++) {
+          if (
+            new Date(x.Books[i].DateStart).getTime() <=
+              this.service.DateStart.getTime() &&
+            new Date(x.Books[i].DateFinish).getTime() >=
+              this.service.DateStart.getTime()
+          ) {
+            return false;
+          }
+          if (
+            new Date(x.Books[i].DateStart).getTime() <=
+              this.service.DateFinish.getTime() &&
+            new Date(x.Books[i].DateFinish).getTime() >=
+              this.service.DateFinish.getTime()
+          ) {
+            return false;
+          }
+          if (
+            new Date(x.Books[i].DateStart).getTime() >=
+              this.service.DateFinish.getTime() &&
+            new Date(x.Books[i].DateFinish).getTime() <=
+              this.service.DateFinish.getTime()
+          ){
+            return false;
+          }
+        }
+        return true;
+      });
+      console.log(this.filteredCars);
+    }
   }
   getFilters() {
     this.cars.forEach(car => {
@@ -213,5 +258,6 @@ export class CarsComponent {
         return x;
       }
     });
+    this.setDateRangeFilter(this.filteredCars);
   }
 }
