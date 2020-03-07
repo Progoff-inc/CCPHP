@@ -9,7 +9,7 @@
 body{
     min-width: 300px;
     /* background-color: rgb(98, 175, 235); */
-    background-image: url('./assets/images/bg.jpg')
+    background-image: url('./assets/images/icons/36.png')
 }
 h1{
     text-shadow: 1px 1px 2px black;

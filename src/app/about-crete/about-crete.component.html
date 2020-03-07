@@ -1,4 +1,21 @@
 <div *ngFor="let i of items"  class="item">
+    <img src="{{items[0].Img}}" alt="">
+    <div class="row">
+        <div class="col-sm-10">
+            <h1>О Крите</h1>
+            <div>
+
+              <p><i class="fa fa-book fa-3x pull-left"></i>Crete is perfect for touring by car. Its beauty, luscious nature, the omnipresent warm sea and sun 365 days a year will instantly captivate you! Having visited Crete once, you will fall in love with the Island of the Gods, and will come back time and time again.</p>
+            </div>
+            
+            <p >Crete’s endless pristine beaches rival those of the Bahamas: the pink sand Elafonissi beach, the famous palm beach of Vai, the beautiful Preveli beach… Should you tire of swimming and relaxing, you can drive to the towns of Crete: Heraklion, Rethymno, Chania, Agios Nikolaos and Ierapetra are all historical and archeological monuments, and real gems of the island. Park your car and immerse yourself in the plethora of narrow streets, parks, old and new buildings. We created the section “About Crete” to help you draft your itinerary.</p>
+            
+        </div>
+    </div>
+    <div class="background-blur"></div>
+    <hr>
+</div>
+<div *ngFor="let i of items"  class="item">
     <img src="{{i.Img}}" alt="">
     <div class="row">
         <div class="col-sm-10">
@@ -15,6 +32,6 @@
             <rating [mark]="i.Rating"></rating>
         </div>
     </div>
-    <div class="background-blur" (click)="service.ShowForm()"></div>
+    <div class="background-blur"></div>
     <hr>
 </div>
